@@ -1,0 +1,360 @@
+@use '../helpers' as *;
+
+.header {
+  /* ===== Core ===== */
+  position: sticky;
+  z-index: 100;
+  top: 0;
+  animation-name: scrolling;
+  animation-fill-mode: both;
+  animation-timeline: scroll();
+  animation-range: rem(100) rem(20);
+  @include tablet {
+    font-size: rem(18);
+  }
+
+  @keyframes scrolling { to { box-shadow: 0 0 1rem 0; } }
+
+  /* ===== Body ===== */
+  &__body {
+    padding-block: rem(5);
+    background-color: var(--color-white);
+
+    &-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      column-gap: rem(1);
+    }
+  }
+
+  /* ===== Overlay (mobile panel) ===== */
+  &__overlay {
+    @include mobile-above { display: contents; }
+
+    @include mobile {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      row-gap: rem(3);
+      padding: 1rem;
+      background-color: var(--color-white);
+      transition-duration: var(--transition-duration);
+
+      &:not(.is-active) { @include hide; translate: 100%; }
+    }
+  }
+
+  /* ===== Main menu ===== */
+  &__menu {
+    &-list {
+      display: flex;
+      align-items: center;
+      column-gap: rem(32);
+
+      @include laptop { column-gap: rem(8); }
+
+      @include mobile {
+        @include fluid-text(25,23);
+        flex-direction: column;
+        row-gap: 1rem;
+        align-items: stretch;    // пункты тянутся на всю ширину
+        text-align: left;
+        column-gap: rem(50);
+      }
+      @include tablet {
+        gap: rem(3);
+      }
+    }
+
+    &-link {
+      position: relative;
+      display: inline-block;
+      padding: rem(6) rem(4);
+      font-family: var(--font-family-base), sans-serif;
+      font-weight: 500;
+      color: var(--color-dark);
+
+      &::after {
+        content: "";
+        position: absolute;
+        left: 0; right: 0; bottom: 0;
+        height: rem(2);
+        background-color: var(--color-accent);
+        transform: scaleX(0);
+        transform-origin: center;
+        transition: transform var(--transition-duration, .3s) ease;
+        will-change: transform;
+      }
+
+      @include mobile-above {
+        @media (hover: hover) and (pointer: fine) {
+          &:hover::after,
+          &:focus-visible::after { transform: scaleX(1); }
+        }
+      }
+
+      @include mobile {
+        @media (hover: none) and (pointer: coarse) {
+          &:active::after { transform: scaleX(1); }
+        }
+      }
+
+      @include laptop { padding: rem(8); }
+    }
+
+    @include mobile {
+      font-size: rem(18);
+      padding: rem(8) 0;
+    }
+
+  }
+
+  /* ===== Submenu trigger / caret ===== */
+
+  /* глушим глобальные псевдоэлементы только для нашей кнопки */
+  .header__submenu-toggle[aria-label]::before,
+  .header__submenu-toggle[aria-label]::after { content: none; }
+
+  &__submenu-toggle {
+    @include mobile {
+      position: relative;
+      inline-size: rem(44);              // комфортный таргет
+      block-size: rem(44);
+      margin-left: rem(4);
+      border: none;
+      background: transparent;
+      display: grid;
+      place-items: center;
+      padding: 0;
+      flex: 0 0 auto;
+
+      &:focus-visible {
+        outline: 2px dashed var(--color-accent);
+        outline-offset: rem(2);
+      }
+    }
+  }
+
+  &__submenu-icon {
+    position: relative;
+    inline-size: rem(16);
+    block-size: rem(16);
+    display: inline-block;
+
+    &::before,
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0; right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 100%;
+      height: rem(2);
+      background-color: var(--color-dark);
+      transition: transform var(--transition-duration);
+    }
+
+    &::before { transform: translateY(-50%) rotate(90deg); } // «+»
+    &::after  { transform: translateY(-50%) rotate(0deg);    }
+  }
+
+  &__submenu-caret {
+    margin-left: rem(6);
+    font-size: .75em;
+    line-height: 1;
+    vertical-align: middle;
+    @include mobile { display: none; }
+  }
+
+  /* ===== Submenu (desktop + mobile) ===== */
+
+  /* <li> с подменю */
+  &__menu-item--has-submenu {
+    position: relative;
+
+    /* desktop: показать по hover/focus-within */
+    @include mobile-above {
+      &:hover,
+      &:focus-within {
+        .header__submenu {
+          opacity: 1;
+          visibility: visible;
+          transform: translateY(0);
+          pointer-events: auto;
+        }
+      }
+    }
+  }
+
+  /* контейнер подменю */
+  &__submenu {
+    list-style: none;
+    margin: 0;
+    padding: rem(18) rem(10) rem(10);  // весь «воздух» внутри (нет щели)
+    background: var(--color-white);
+    border-radius: rem(8);
+    box-shadow: 0 rem(4) rem(20) rgba(0,0,0,.12);
+    min-inline-size: rem(280);
+    display: grid;
+    row-gap: rem(6);
+    pointer-events: none;
+
+    /* desktop dropdown */
+    @include mobile-above {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(rem(6));
+      transition:
+              opacity var(--transition-duration),
+              transform var(--transition-duration),
+              visibility var(--transition-duration);
+      z-index: 10;
+    }
+
+    /* mobile accordion (плавно) */
+    @include mobile {
+      position: static;
+      display: block;               // вместо none — анимируем высоту
+      width: 100%;
+      margin-top: rem(8);
+      border-radius: rem(12);
+      box-shadow: none;
+      background: var(--color-white);
+      border: 1px solid var(--color-gray-300, rgba(0,0,0,.08));
+      overflow: hidden;
+      /* закрыто: */
+      max-height: 0;
+      padding-block: 0;
+      border-width: 0;
+      pointer-events: auto;
+      transition:
+              max-height var(--transition-duration) ease,
+              padding var(--transition-duration) ease,
+              border-color var(--transition-duration) ease,
+              border-width var(--transition-duration) ease;
+    }
+  }
+
+  &__submenu-item { margin: 0; }
+
+  &__submenu-link {
+    display: block;
+    padding: rem(10) rem(12);
+    border-radius: rem(8);
+    color: var(--color-dark);
+    font-weight: 500;
+    white-space: nowrap;
+
+    @include mobile { white-space: normal; }
+
+    @include mobile-above {
+      @media (hover: hover) and (pointer: fine) {
+        &:hover { background-color: var(--color-white-secondary); }
+      }
+    }
+
+    &:focus-visible {
+      outline: 2px dashed var(--color-accent);
+      outline-offset: rem(2);
+    }
+  }
+
+  /* ===== States ===== */
+
+  /* mobile: открыт аккордеон */
+  &__menu-item--has-submenu.is-open > .header__submenu {
+    @include mobile {
+      max-height: rem(800);         // достаточно для контента
+      padding: rem(8);
+      border-width: 1px;
+      border-color: var(--color-gray-300, rgba(0,0,0,.08));
+    }
+  }
+
+  /* плюс -> крест */
+  &__menu-item--has-submenu.is-open .header__submenu-icon {
+    &::before { transform: translateY(-50%) rotate(45deg); }
+    &::after  { transform: translateY(-50%) rotate(-45deg); }
+  }
+
+  /* для a11y */
+  &__menu-item--has-submenu.is-open > .header__menu-link[aria-expanded] { aria-expanded: true; }
+
+  /* mobile row: «Услуги + кнопка» */
+  @include mobile {
+    &__menu-item--has-submenu {
+      display: flex;
+      align-items: center;
+      gap: rem(8);
+      inline-size: 100%;
+
+      > .header__menu-link {
+        flex: 1 1 auto;
+        display: inline-flex;
+        align-items: center;
+        min-height: rem(44);
+      }
+    }
+  }
+  &__language-select {
+    display: inline-flex;
+    align-items: center;
+    gap: rem(2);
+    padding: rem(4);
+    background-color: var(--color-white-secondary);
+    border: 1px solid var(--color-gray-300, rgba(0,0,0,.08));
+    border-radius: rem(999);
+    font-size: rem(14);
+    line-height: 1;
+
+    /* На мобильной панели — чуть больше воздуха и тянем влево */
+    @include mobile {
+      margin-top: rem(12);
+      align-self: flex-start;
+    }
+  }
+
+  /* Кнопки RU / EN */
+  &__language-select a {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-inline-size: rem(44);            /* комфортный хит-таргет */
+    padding: rem(8) rem(12);
+    border-radius: rem(999);
+    font-weight: 600;
+    text-decoration: none;
+    color: var(--color-white);
+    transition:
+            background-color var(--transition-duration),
+            color var(--transition-duration);
+
+    ///* hover только на десктопе */
+    //@include mobile-above {
+    //  @media (hover: hover) and (pointer: fine) {
+    //    &:hover { background-color: var(--color-gray-300, rgba(0,0,0,.08)); }
+    //  }
+    //}
+
+    &:focus-visible {
+      outline: 2px dashed var(--color-accent);
+      outline-offset: rem(2);
+    }
+  }
+
+  /* Активный язык — берём из aria-current */
+  &__language-select a[aria-current="true"],
+  &__language-select a[aria-current="page"] {
+    //background-color: var(--color-accent);
+    color: var(--color-white);
+    box-shadow: 0 0 0 1px var(--color-accent) inset;
+    cursor: default;
+  }
+}

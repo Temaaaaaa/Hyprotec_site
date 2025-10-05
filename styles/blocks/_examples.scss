@@ -1,0 +1,144 @@
+@use '../helpers' as *;
+
+/* =========================
+   EXAMPLES — карусель изображений
+   ========================= */
+
+
+/* Базовые параметры для image-версии */
+.carousel.carousel--images {
+  /* Тюнинг под вкус через CSS-переменные */
+  --slide-max: #{rem(880)};          /* макс. ширина одного слайда (картинка не будет огромной) */
+  --slide-gap: #{rem(14)};           /* расстояние между слайдами */
+  --btn-offset: #{rem(4)};           /* сдвиг кнопок от края "поля" */
+  --img-radius: #{rem(12)};          /* скругление у картинок */
+  --img-border-w: #{rem(1)};         /* толщина рамки */
+  --img-pad: #{rem(0)};              /* внутр. отступ. сделай rem(8), если нужна «рамка-подложка» */
+  --img-aspect: 16 / 9;              /* соотношение сторон; можно заменить на 4/3 или auto */
+}
+
+/* Вьюпорт: поля = половина свободного места,
+   чтобы одиночная картинка была по центру */
+.carousel--images .carousel__viewport {
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+
+  --viewport-pad: max((100% - var(--slide-max)) / 2, 0px);
+  padding-inline: var(--viewport-pad);
+  padding-block: rem(8);
+  scroll-padding-inline: var(--viewport-pad);
+
+  &::-webkit-scrollbar { display: none; }
+}
+
+/* Трек: по одной колонке шириной min(100%, --slide-max) */
+.carousel--images .carousel__track {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: min(100%, var(--slide-max));
+  gap: var(--slide-gap);
+  padding-inline: 0;
+
+  align-items: stretch;
+  grid-auto-rows: 1fr;
+}
+
+/* Слайды прилипают к центру */
+.carousel--images .carousel__slide {
+  list-style: none;
+  scroll-snap-align: center;
+  display: grid;
+}
+
+/* Картинка внутри слайда */
+.carousel__img {
+  display: block;
+  width: 100%;
+  height: auto;
+
+  /* Контролируемая высота/пропорции, чтобы не «лопатило» */
+  aspect-ratio: var(--img-aspect);
+  object-fit: contain;
+
+  /* Рамка/фон/скругление */
+  background: var(--color-white);
+  border: var(--img-border-w) solid var(--color-dark-15);
+  border-radius: var(--img-radius);
+  padding: var(--img-pad);
+
+  /* Нежная тень */
+  box-shadow: 0 rem(2) rem(10) rgba(0,0,0,.06);
+}
+
+/* Навигация (кнопки) — как в values */
+.carousel--images .carousel__btn {
+  @include flex-center(true);
+  position: absolute;
+  top: 50%;
+  translate: 0 -50%;
+  z-index: 2;
+
+  width: rem(40);
+  height: rem(40);
+  border-radius: 50%;
+  border: rem(1) solid var(--color-dark-15);
+  background: var(--color-dark);
+  color: var(--color-white);
+  font-size: rem(20);
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 rem(2) rem(10) rgba(0,0,0,.06);
+
+  &:disabled { opacity: .35; cursor: default; }
+}
+
+/* Кнопки на границах «полей» */
+.carousel--images .carousel__btn--prev { left: calc(var(--viewport-pad) - var(--btn-offset)); }
+.carousel--images .carousel__btn--next { right: calc(var(--viewport-pad) - var(--btn-offset)); }
+
+/* Dots */
+.carousel--images .carousel__dots {
+  display: flex;
+  justify-content: center;
+  gap: rem(8);
+  margin-top: rem(12);
+}
+
+.carousel--images .carousel__dot {
+  width: rem(8); height: rem(8);
+  border-radius: 50%;
+  background: var(--color-dark-15);
+  border: 1px solid black; padding: 0;
+  cursor: pointer;
+  transition: transform var(--transition-duration);
+}
+
+.carousel--images .carousel__dot[aria-current="true"] {
+  background: var(--color-accent);
+  transform: scale(1.1);
+}
+
+/* --------- Респонсив и бережно к motion --------- */
+
+/* На планшете/мобилке уменьшаем целевую ширину слайда */
+@include tablet {
+  .carousel.carousel--images { --slide-max: #{rem(720)}; }
+}
+
+@include mobile {
+  .carousel.carousel--images { --slide-max: #{rem(560)}; }
+  .carousel--images .carousel__btn { display: none; } /* на мобилке жесты/свайп */
+}
+
+/* Если хочешь ещё компактнее на маленьких экранах */
+@include mobile-s {
+  .carousel.carousel--images { --slide-max: #{rem(440)}; }
+}
+
+/* Уважаем prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  .carousel--images .carousel__viewport { scroll-behavior: auto; }
+}

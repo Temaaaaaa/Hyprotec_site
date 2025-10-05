@@ -1,0 +1,176 @@
+@use '../helpers' as *;
+
+/* =========================
+   TRAINING — v2 (чисто и «дорого»)
+   ========================= */
+
+.training__body { margin-top: clamp(1.25rem, 3vw, 2rem); }
+
+/* 1) Сетка: равная высота колонок */
+.training__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.04fr) minmax(0, .96fr);
+  gap: clamp(16px, 3vw, 24px);
+  align-items: stretch;                 /* тянем обе колонки */
+
+  @include tablet { grid-template-columns: 1fr; }
+  @include tablet-above { --row-min: #{rem(380)}; } /* подгони 340–460 */
+}
+
+/* Общие правила для колонок */
+.training__content,
+.training__media {
+  height: 100%;
+  min-height: var(--row-min, auto);
+  border-radius: rem(16);
+
+  @include mobile {
+    min-height: auto;
+    border-radius: rem(14);
+  }
+}
+
+/* 2) Левая колонка — аккуратная «панель» (без before) */
+.training__content {
+  display: flex;
+  flex-direction: column;
+  gap: rem(16);
+  padding: clamp(16px, 2.4vw, 24px) clamp(16px, 2.6vw, 28px);
+
+  background: var(--color-white);
+  border: rem(1) solid var(--color-dark-15, rgba(0,0,0,.15));
+  box-shadow: 0 rem(18) rem(54) rgba(0,0,0,.06);
+}
+
+.training__lead {
+  @include fluid-text(20, 16);
+  line-height: 1.72;
+  color: var(--color-dark);
+  margin: 0;
+  text-wrap: pretty;
+}
+
+.training__text { margin: 0; line-height: 1.7; color: var(--color-dark); }
+
+/* Подзаголовок — спокойная линия снизу */
+.training__subtitle {
+  @include fluid-text(18, 16);
+  margin: rem(2) 0 rem(6);
+  font-weight: 700;
+  color: var(--color-dark-900, #222);
+  padding-bottom: rem(6);
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    left: 0; bottom: 0;
+    width: rem(56); height: rem(2);
+    background: var(--color-accent);
+    border-radius: rem(2);
+  }
+}
+
+/* 3) Список — чек-маркеры как просил */
+.training__list {
+  display: grid;
+  gap: rem(10);
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.training__item {
+  position: relative;
+  padding-left: rem(28);
+
+  &::before {
+    content: "✔";
+    position: absolute;
+    left: 0;
+    top: 0.15em;
+    font-weight: 700;
+    font-size: 1em;
+    color: var(--color-accent);
+    line-height: 1;
+  }
+}
+
+/* 4) Правая колонка — фотокарточка с оверлеем и подписью-чипом */
+.training__media {
+  --pad: #{rem(10)};
+  position: relative;
+  padding: var(--pad);
+  background: var(--color-white);
+  border: rem(1) solid var(--color-dark-15, rgba(0,0,0,.15));
+  box-shadow: 0 rem(22) rem(60) rgba(0,0,0,.07);
+
+  @include mobile { --pad: #{rem(8)}; }
+}
+
+.training__img {
+  display: block;
+  width: 100%;
+  height: 100%;                  /* растягиваем под высоту колонки */
+  object-fit: cover;
+  object-position: center;
+  border-radius: calc(rem(16) - var(--pad));
+
+  @include mobile {
+    height: auto;
+    aspect-ratio: 5 / 3;        /* на мобилке спокойная пропорция */
+    border-radius: calc(rem(14) - var(--pad));
+  }
+}
+
+/* затемняющий градиент у нижнего края для читабельной подписи */
+.training__media::after {
+  content: '';
+  position: absolute;
+  inset-inline: var(--pad);
+  bottom: var(--pad);
+  height: 26%;
+  border-bottom-left-radius: calc(rem(16) - var(--pad));
+  border-bottom-right-radius: calc(rem(16) - var(--pad));
+  background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,.35) 90%);
+  pointer-events: none;
+
+  @include mobile {
+    border-bottom-left-radius: calc(rem(14) - var(--pad));
+    border-bottom-right-radius: calc(rem(14) - var(--pad));
+  }
+}
+
+/* подпись-чип поверх фото */
+.training__caption {
+  position: absolute;
+  left: calc(var(--pad) + rem(10));
+  bottom: calc(var(--pad) + rem(10));
+  margin: 0;
+  padding: rem(6) rem(10);
+  font-size: rem(13);
+  line-height: 1;
+  color: var(--color-white);
+  background: rgba(0,0,0,.55);
+  backdrop-filter: blur(6px);
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+/* Кнопки */
+.training__actions {
+  margin-top: rem(4);
+  display: flex;
+  gap: rem(10);
+  flex-wrap: wrap;
+
+  .button { padding-inline: rem(18); padding-block: rem(11); }
+  .button--ghost {
+    background: transparent;
+    color: var(--color-dark);
+    border: rem(1) solid var(--color-dark-15, rgba(0,0,0,.15));
+  }
+}
+
+/* Заголовок секции компактнее на переносах */
+#training-title { line-height: 1.16; letter-spacing: -0.01em; }

@@ -1,0 +1,60 @@
+@use '../helpers' as *;
+
+.video-tour {
+  /* отступы можно регулировать глобально для .section;
+     тут лишь тонкая подстройка */
+
+  &__inner {
+    /* ограничим ширину плеера, но оставим адаптивный рост */
+    max-width: rem(1200);
+    margin-inline: auto;
+  }
+
+  /* ===== плеер ===== */
+  &__player {
+    margin: 0;
+    border-radius: rem(16);
+    overflow: hidden;
+    background: var(--color-dark-900, #0f0f0f);
+    /* лёгкая рамка, если у тебя есть переменная --border */
+    border: var(--border, 1px solid rgba(255,255,255,.08));
+    box-shadow: 0 10px 30px rgba(0,0,0,.25);
+  }
+
+  /* держим соотношение сторон 16:9 */
+  &__video {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    height: auto;
+    object-fit: cover;
+    background: #000;
+  }
+
+  &__caption {
+    @include fluid-text(16, 14);
+    color: var(--color-white-secondary, rgba(255,255,255,.8));
+    padding: rem(12) clamp(rem(12), 2vw, rem(20));
+    background: linear-gradient(180deg, rgba(0,0,0,.05), rgba(0,0,0,.12));
+  }
+
+  /* мобильные мелочи */
+  @include mobile {
+    &__player { border-radius: rem(12); }
+    &__caption { padding: rem(10) rem(12); }
+  }
+
+  /* уважение reduce motion: автоплея нет, но подсветим */
+  @media (prefers-reduced-motion: reduce) {
+    &__video { object-fit: contain; }
+  }
+}
+
+/* Вариант с iframe (YouTube/Vimeo), если пригодится:
+.video-tour__iframe {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: 0;
+  display: block;
+}
+*/

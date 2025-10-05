@@ -1,0 +1,78 @@
+@use '../helpers' as *;
+
+/* ===== Base hero (общая основа) ===== */
+.hero {
+  position: relative;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  min-height: 100dvh;
+  color: var(--color-white);
+
+  &__bg {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+  }
+
+  &__inner {
+    position: relative;
+    display: grid;
+    row-gap: rem(20);
+
+    &--center { text-align: center; justify-items: center; }
+    &--left   { text-align: left;   justify-items: start;  }
+  }
+
+  &__title {
+    @include fluid-text(72, 20);
+    font-weight: 800;
+    letter-spacing: .02em;
+    text-transform: uppercase;
+  }
+
+  &__subtitle {
+    @include fluid-text(28, 18);
+    opacity: .95;
+    max-width: 28ch;
+  }
+
+  @include mobile {
+    min-height: 68vh;
+    &__subtitle { max-width: none; }
+  }
+}
+
+/* ===== Модификаторы страницы ===== */
+
+/* фон-картинка через CSS-переменную --hero-bg */
+.hero--image {
+  .hero__bg {
+    background-image: var(--hero-bg);
+    background-size: cover;
+    background-position: 50% 50%;
+    filter: saturate(.8) brightness(.75);
+  }
+}
+
+/* бордовая вуаль как на референсе */
+.hero--secondary {
+  .hero__bg {
+    /* верх/низ — мягкая виньетка, тёплый бордовый */
+    &::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      mix-blend-mode: multiply;
+      pointer-events: none;
+    }
+  }
+}
+
+/* вариант тёмнее (если надо ещё контраста под шапкой) */
+
+
+/* уважение prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  .hero--image .hero__bg { filter: none; }
+}

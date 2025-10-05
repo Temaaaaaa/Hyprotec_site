@@ -1,0 +1,16 @@
+@use '../helpers' as *;
+
+.list-dot {
+  display: grid; row-gap: rem(8);
+  padding-left: 0; list-style: none;
+
+  > li {
+    position: relative; padding-left: rem(16);
+    &::before {
+      content: '';
+      position: absolute; inset-inline-start: 0; inset-block-start: calc(0.9em - rem(3));
+      width: rem(6); height: rem(6); border-radius: 50%;
+      background: var(--color-accent, #e53935);
+    }
+  }
+}

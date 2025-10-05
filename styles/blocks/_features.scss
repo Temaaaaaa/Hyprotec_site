@@ -1,0 +1,76 @@
+@use '../helpers' as *;
+
+/* Лёгкий контраст секции */
+
+.features__body {
+  margin-top: clamp(1rem, 3vw, 2rem);
+}
+
+
+/* Сетка карточек */
+.features__list {
+  display: grid;
+  gap: rem(20);
+
+  @include tablet-above {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @include laptop-above {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Карточка-фича поверх .card */
+.feature {
+  /* оставляем белую карточку на светлом фоне секции */
+  display: flex;
+  flex-direction: column;
+  gap: rem(10);
+
+  text-align: center;
+  padding: clamp(1.25rem, 2.5vw, 1.75rem); /* чуть просторнее */
+
+  .feature__icon {
+    --size: #{rem(72)};
+
+    width: var(--size);
+    height: var(--size);
+    margin-inline: auto;
+    border: rem(2) solid var(--color-accent);
+    border-radius: 50%;
+    @include flex-center;
+    margin-bottom: rem(14);
+
+    img {
+      display: block;
+      width: 55%;
+      height: auto;
+    }
+  }
+
+  .feature__title {
+    color: var(--color-accent); /* акцент как на макете */
+    margin-top: rem(4);
+
+    /* подчёркивание от card--underlined уже есть; выровняем по центру */
+    &::after {
+      left: 50%;
+      transform: translateX(-50%);
+      width: rem(48);
+    }
+  }
+
+  .feature__text {
+    margin-top: rem(10);
+  }
+}
+
+/* Компакт на очень узких экранах */
+@include mobile {
+  .feature {
+    padding: rem(14);
+    .feature__icon { --size: #{rem(60)}; }
+    .feature__title::after { width: rem(44); }
+  }
+}

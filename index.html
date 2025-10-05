@@ -1,0 +1,815 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Hyprotec | Home</title>
+    <link rel="stylesheet" href="./styles/main.css">
+    <script type="module" src="./scripts/main.js" defer></script>
+</head>
+<body>
+<header class="header" data-js-header>
+    <div class="header__body">
+        <div class="header__body-inner container">
+            <a class="header__logo logo" href="/" aria-label="Home" title="Home">
+                <img class="logo__image" src="./images/logo-main.svg" alt="" width="300" height="50" />
+            </a>
+
+            <div class="header__overlay" id="header-panel" data-js-header-overlay>
+                <nav class="header__menu" aria-label="Главное меню">
+                    <ul class="header__menu-list">
+                        <li class="header__menu-item"><a class="header__menu-link" href="#about" aria-current="page">О компании</a></li>
+                        <li class="header__menu-item header__menu-item--has-submenu">
+                            <a class="header__menu-link"
+                               href="/services"
+                               aria-haspopup="true"
+                               aria-expanded="false">
+                                Услуги <span class="header__submenu-caret" aria-hidden="true">▾</span>
+                            </a>
+
+                            <button class="header__submenu-toggle visible-mobile"
+                                    type="button"
+                                    aria-label="Показать подменю «Услуги»"
+                                    aria-controls="submenu-services"
+                                    aria-expanded="false"
+                                    data-js-submenu-toggle>
+                                <span class="header__submenu-icon" aria-hidden="true"></span>
+                            </button>
+
+                            <ul class="header__submenu" id="submenu-services" role="menu" aria-label="Услуги">
+                                <li class="header__submenu-item"><a class="header__submenu-link" href="ntc/">Научно-технологический центр</a></li>
+                                <li class="header__submenu-item"><a class="header__submenu-link" href="supervising/">Супервайзинг и полевой аудит</a></li>
+                                <li class="header__submenu-item"><a class="header__submenu-link" href="consulting/">Технологический консалтинг</a></li>
+                                <li class="header__submenu-item"><a class="header__submenu-link" href="calibration/">Калибровка и ТО</a></li>
+                                <li class="header__submenu-item"><a class="header__submenu-link" href="education/">Центр проф. обучения</a></li>
+                                <li class="header__submenu-item"><a class="header__submenu-link" href="/">Система непрерывного анализа</a></li>
+                            </ul>
+                        </li>
+                        <li class="header__menu-item"><a class="header__menu-link" href="#equipment">Оборудование</a></li>
+                        <li class="header__menu-item"><a class="header__menu-link" href="#contacts">Контакты</a></li>
+                    </ul>
+                </nav>
+                <nav class="header__language-select" aria-label="Выбор языка">
+                    <a class="header__language-ru" href="?lang=ru" lang="ru" hreflang="ru" aria-current="true">RU</a>
+                    <a class="header__language-en" href="?lang=en" lang="en" hreflang="en">EN</a>
+                </nav>
+            </div>
+
+            <button
+                    class="header__burger-button burger-button  visible-mobile"
+                    type="button"
+                    aria-label="Открыть меню"
+                    aria-controls="header-panel"
+                    aria-expanded="false"
+                    data-js-header-burger-button
+            >
+                <span class="burger-button__line"></span>
+                <span class="burger-button__line"></span>
+                <span class="burger-button__line"></span>
+            </button>
+        </div>
+    </div>
+</header>
+
+<main>
+    <section class="hero" id="home">
+        <div class="hero__bg">
+            <video class="hero__video"
+                   autoplay
+                   muted
+                   loop
+                   playsinline
+                   preload="metadata"
+                   poster="./images/hero-poster.jpg">
+                <source src="./video/hero-video.mp4" type="video/mp4">
+            </video>
+        </div>
+
+        <div class="hero__inner container">
+            <h1 class="hero__title">HYPROTEC</h1>
+            <p class="hero__subtitle hero__subtitle--type" data-chars="24">нефтесервисная компания</p>
+            <div class="hero__actions">
+                <a class="hero__button button" href="#services-section">Наши услуги</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="about section full-vw-line full-vw-line--bottom full-vw-line--left" id="about" aria-labelledby="about-title">
+        <header class="section__header">
+            <div class="section__header-inner container">
+                <div class="section__header-info">
+                    <h2 class="section__title section-title" id="about-title">О компании</h2>
+                </div>
+                <div class="section__rule" aria-hidden="true"></div>
+            </div>
+        </header>
+
+        <div class="about__body">
+            <div class="about__inner container">
+                <ul class="about__list about__list--stacked">
+                    <li class="about-card">
+                        <h3 class="about-card__title">Центр Инноваций</h3>
+                        <p class="about-card__text">
+                            Оказание сервисных услуг с применением автоматической системы онлайн-мониторинга параметров бурового раствора, размещаемой на буровой установке.
+                        </p>
+                    </li>
+
+                    <li class="about-card">
+                        <h3 class="about-card__title">Научно-Технологический Центр</h3>
+                        <p class="about-card__text">
+                            Независимые лабораторные испытания цементных и буровых растворов, а также жидкостей для гидроразрыва пласта (аккредитация ФСА ГОСТ ISO/IEC 17025-2019).
+                            Супервайзинг и аудит подрядчиков, процессов и лабораторий по буровым растворам и цементированию скважин. Экспертные заключения и подбор рецептур технических жидкостей.
+                        </p>
+                    </li>
+
+                    <li class="about-card">
+                        <h3 class="about-card__title">Центр Профессионального Образования</h3>
+                        <p class="about-card__text">
+                            Тренинги и обучение по буровым и цементным растворам для специалистов отрасли.
+                        </p>
+                    </li>
+
+                    <li class="about-card">
+                        <h3 class="about-card__title">Торговый Дом</h3>
+                        <p class="about-card__text">
+                            Поставка лабораторного оборудования с гарантийным и пост-гарантийным сервисом в России и за рубежом.
+                        </p>
+                    </li>
+
+                    <li class="about-card">
+                        <h3 class="about-card__title">Сервисный Центр</h3>
+                        <p class="about-card__text">
+                            Пуско-наладочные работы, ремонт, техническое обслуживание и калибровка лабораторного оборудования.
+                        </p>
+                    </li>
+
+                    <li class="about-card">
+                        <h3 class="about-card__title">Аккредитация НТЦ</h3>
+                        <p class="about-card__text">
+                            Лаборатория в Новом Уренгое аккредитована ФСА по ГОСТ ISO/IEC 17025-2019 — уверенность в точности и независимости всех испытаний.
+                        </p>
+                    </li>
+
+                    <li class="about-card">
+                        <h3 class="about-card__title">Корпоративная культура</h3>
+                        <p class="about-card__text">
+                            Мы применяем лучшие мировые и национальные инженерные практики, чтобы каждый проект выполнялся на высшем уровне.
+                        </p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="features section" id="features" aria-labelledby="features-title">
+        <header class="section__header">
+            <div class="section__header-inner container">
+                <div class="section__header-info">
+                    <h2 class="section__title section-title" id="features-title">Почему нас выбирают</h2>
+                </div>
+                <div class="section__rule" aria-hidden="true"></div>
+            </div>
+        </header>
+
+        <div class="features__body">
+            <div class="features__inner container">
+                <ul class="features__list">
+                    <li class="feature card card--underlined card--accent-red">
+                        <div class="feature__icon" aria-hidden="true">
+                            <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd" d="M16 9C16 7.61929 17.1193 6.5 18.5 6.5H29.5C30.8807 6.5 32 7.61929 32 9V13H43C44.6569 13 46 14.3431 46 16V43C46 44.6569 44.6569 46 43 46H5C3.34315 46 2 44.6569 2 43V16C2 14.3431 3.34315 13 5 13H16V9ZM5 16L5 43H43V16H5ZM29 9.5V13H19V9.5H29Z" fill="#E73439"/>
+                                <path d="M40 24H8V27H40V24Z" fill="#E73439"/>
+                            </svg>
+                        </div>
+                        <h3 class="feature__title card__title">Профессиональный подход</h3>
+                        <p class="feature__text card__text">
+                            Команда с многолетним опытом работы в крупнейших российских и иностранных компаниях нефтегазового сектора.
+                        </p>
+                    </li>
+
+                    <li class="feature card card--underlined card--accent-red">
+                        <div class="feature__icon" aria-hidden="true">
+                            <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd" d="M46 24C46 36.1503 36.1503 46 24 46C11.8497 46 2 36.1503 2 24C2 11.8497 11.8497 2 24 2C36.1503 2 46 11.8497 46 24ZM43 24C43 34.4934 34.4934 43 24 43C13.5066 43 5 34.4934 5 24C5 13.5066 13.5066 5 24 5C34.4934 5 43 13.5066 43 24Z" fill="black"/>
+                                <path fill-rule="evenodd" clip-rule="evenodd" d="M46 24C46 36.1503 36.1503 46 24 46C11.8497 46 2 36.1503 2 24C2 11.8497 11.8497 2 24 2C36.1503 2 46 11.8497 46 24ZM43 24C43 34.4934 34.4934 43 24 43C13.5066 43 5 34.4934 5 24C5 13.5066 13.5066 5 24 5C34.4934 5 43 13.5066 43 24Z" fill="black"/>
+                                <path d="M24.7652 9.64844L15.8464 22.5807C14.7027 24.2392 15.8898 26.5 17.9045 26.5H29.6819L20.874 36.5091L23.1261 38.491L32.6648 27.6516C34.0859 26.0366 32.9392 23.5 30.788 23.5H18.8567L27.2349 11.3516L24.7652 9.64844Z" fill="black"/>
+                            </svg>
+                        </div>
+                        <h3 class="feature__title card__title">Современные технологии</h3>
+                        <p class="feature__text card__text">
+                            Используем только передовое оборудование и технологии для повышения эффективности строительства скважин и контроля процессов.
+                        </p>
+                    </li>
+
+                    <li class="feature card card--underlined card--accent-red">
+                        <div class="feature__icon" aria-hidden="true">
+                            <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M23.5 2C29.299 2 34 6.70101 34 12.5C34 18.299 29.299 23 23.5 23C17.701 23 13 18.299 13 12.5C13 6.70101 17.701 2 23.5 2ZM23.5 5C19.3579 5 16 8.35786 16 12.5C16 16.6421 19.3579 20 23.5 20C27.6421 20 31 16.6421 31 12.5C31 8.35786 27.6421 5 23.5 5Z" fill="black"/>
+                                <path d="M18.5 27.5C10.4919 27.5 4 33.9919 4 42V46H7V42C7 35.6487 12.1487 30.5 18.5 30.5H29.5C35.8513 30.5 41 35.6487 41 42V46H44V42C44 33.9919 37.5081 27.5 29.5 27.5H18.5Z" fill="black"/>
+                                <path d="M23.5 35.5C17.701 35.5 13 40.201 13 46H16C16 41.8579 19.3579 38.5 23.5 38.5H24.5C28.6421 38.5 32 41.8579 32 46H35C35 40.201 30.299 35.5 24.5 35.5H23.5Z" fill="black"/>
+                            </svg>
+
+                        </div>
+                        <h3 class="feature__title card__title">Собственные разработки</h3>
+                        <p class="feature__text card__text">
+                            Разрабатываем уникальные технологии для мониторинга параметров технологических жидкостей.
+                        </p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="stats section" id="lab-stats" aria-labelledby="lab-stats-title">
+        <header class="section__header">
+            <div class="section__header-inner container">
+                <div class="section__header-info">
+                    <h2 class="section__title section-title" id="lab-stats-title">Лаборатория в цифрах</h2>
+                </div>
+                <div class="section__rule" aria-hidden="true"></div>
+            </div>
+        </header>
+
+        <div class="stats__body">
+            <div class="stats__inner container">
+                <ul class="stats__list">
+                    <li class="stat card card--underlined">
+                        <div class="stat__value">1&nbsp;723</div>
+                        <div class="stat__label">тестирований цементных растворов</div>
+                        <span class="stat__meta">30%</span>
+                    </li>
+
+                    <li class="stat card card--underlined">
+                        <div class="stat__value">3&nbsp;747</div>
+                        <div class="stat__label">тестирований буровых растворов</div>
+                        <span class="stat__meta">70%</span>
+                    </li>
+
+                    <li class="stat card card--underlined">
+                        <div class="stat__value">437</div>
+                        <div class="stat__label">скважин</div>
+                    </li>
+
+                    <li class="stat card card--underlined">
+                        <div class="stat__value">5&nbsp;470</div>
+                        <div class="stat__label">испытаний</div>
+                    </li>
+
+                    <li class="stat card card--underlined">
+                        <div class="stat__value">4&nbsp;254</div>
+                        <div class="stat__label">проб с отклонениями</div>
+                        <span class="stat__meta">78%</span>
+                    </li>
+
+                    <li class="stat card card--underlined">
+                        <div class="stat__value">343</div>
+                        <div class="stat__label">отклонений по ЦР</div>
+                        <span class="stat__meta">20%</span>
+                    </li>
+
+                    <li class="stat card card--underlined">
+                        <div class="stat__value">2&nbsp;988</div>
+                        <div class="stat__label">отклонений по БР</div>
+                        <span class="stat__meta">80%</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="values section" id="values" aria-labelledby="values-title">
+        <header class="section__header">
+            <div class="section__header-inner container">
+                <div class="section__header-info">
+                    <h2 class="section__title section-title" id="values-title">Ценности компании</h2>
+                </div>
+                <div class="section__rule" aria-hidden="true"></div>
+            </div>
+        </header>
+
+        <div class="values__body">
+            <div class="values__inner container">
+
+                <div class="carousel" data-js-carousel data-autoplay="true" data-interval="5000">
+                    <!-- controls -->
+                    <button class="carousel__btn carousel__btn--prev" data-js-carousel-prev aria-label="Назад" disabled>‹</button>
+                    <button class="carousel__btn carousel__btn--next" data-js-carousel-next aria-label="Вперёд">›</button>
+
+                    <!-- viewport -->
+                    <div class="carousel__viewport" tabindex="0" role="region" aria-roledescription="carousel" aria-label="Ценности компании" data-js-carousel-viewport>
+                        <ul class="carousel__track" data-js-carousel-track>
+                            <!-- Slide 1 -->
+                            <li class="carousel__slide">
+                                <article class="value card card--underlined card--accent-red">
+                                    <div class="value__icon feature__icon" aria-hidden="true">
+                                        <!-- shield / safety icon -->
+                                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                            <path d="M24 4L8 10V22C8 32.493 14.667 41.92 24 44C33.333 41.92 40 32.493 40 22V10L24 4Z" stroke="#E73439" stroke-width="2" fill="none"/>
+                                            <path d="M17 24l5 5 9-11" stroke="#E73439" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                    </div>
+                                    <h3 class="value__title card__title">Безопасность и здоровье</h3>
+                                    <p class="value__text card__text">
+                                        Компания обеспечивает безопасные условия труда и охрану здоровья, применяет международные практики HSE, проводит регулярные аудиты и обучение, предупреждает риски, чтобы каждый сотрудник работал уверенно и возвращался домой здоровым.
+                                    </p>
+                                </article>
+                            </li>
+
+                            <!-- Slide 2 -->
+                            <li class="carousel__slide">
+                                <article class="value card card--underlined card--accent-red">
+                                    <div class="value__icon feature__icon" aria-hidden="true">
+                                        <!-- quality / badge -->
+                                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                            <circle cx="24" cy="20" r="12" stroke="#E73439" stroke-width="2"/>
+                                            <path d="M18 36l-2 8 8-4 8 4-2-8" stroke="#E73439" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                                            <path d="M20 20l3 3 7-7" stroke="#E73439" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                    </div>
+                                    <h3 class="value__title card__title">Технологии</h3>
+                                    <p class="value__text card__text">
+
+                                        Компания получает конкурентное преимущество за счёт непрерывного внедрения технологий: онлайн-мониторинг параметров, автоматизация процессов, аналитика данных и верифицированные методики, повышающие точность, скорость принятия решений и надёжность.
+
+                                    </p>
+                                </article>
+                            </li>
+
+                            <!-- Slide 3 -->
+                            <li class="carousel__slide">
+                                <article class="value card card--underlined card--accent-red">
+                                    <div class="value__icon feature__icon" aria-hidden="true">
+                                        <!-- innovation / atom -->
+                                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                            <circle cx="24" cy="24" r="3" fill="#E73439"/>
+                                            <ellipse cx="24" cy="24" rx="16" ry="8" stroke="#E73439" stroke-width="2"/>
+                                            <ellipse cx="24" cy="24" rx="8" ry="16" stroke="#E73439" stroke-width="2" transform="rotate(60 24 24)"/>
+                                            <ellipse cx="24" cy="24" rx="8" ry="16" stroke="#E73439" stroke-width="2" transform="rotate(-60 24 24)"/>
+                                        </svg>
+                                    </div>
+                                    <h3 class="value__title card__title">Результат</h3>
+                                    <p class="value__text card__text">
+                                        Мы ориентируемся на измеримый результат: решаем технологические задачи любой сложности, соблюдаем сроки и требования, подтверждаем качество документально и превращаем успех проектов в долгосрочное, взаимовыгодное партнёрство.
+                                    </p>
+                                </article>
+                            </li>
+
+                            <!-- Slide 4 -->
+                            <li class="carousel__slide">
+                                <article class="value card card--underlined card--accent-red">
+                                    <div class="value__icon feature__icon" aria-hidden="true">
+                                        <!-- handshake / partnership -->
+                                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                            <path d="M6 26l8-8 8 8 6-6 14 14" stroke="#E73439" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                            <path d="M34 36l6-6" stroke="#E73439" stroke-width="2" stroke-linecap="round"/>
+                                        </svg>
+                                    </div>
+                                    <h3 class="value__title card__title">Клиентоориентированность</h3>
+                                    <p class="value__text card__text">
+                                        Мы держим фокус на ожиданиях клиента: выстраиваем прозрачные процессы, ведём проактивную коммуникацию, берём персональную ответственность и предлагаем индивидуальные решения, укрепляя доверие и статус надёжного партнёра.
+                                    </p>
+                                </article>
+                            </li>
+
+                            <!-- Slide 5 -->
+                            <li class="carousel__slide">
+                                <article class="value card card--underlined card--accent-red">
+                                    <div class="value__icon feature__icon" aria-hidden="true">
+                                        <!-- growth / people -->
+                                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                            <path d="M12 34c0-4.418 4.03-8 9-8h6c4.97 0 9 3.582 9 8" stroke="#E73439" stroke-width="2"/>
+                                            <circle cx="24" cy="18" r="5" stroke="#E73439" stroke-width="2"/>
+                                        </svg>
+                                    </div>
+                                    <h3 class="value__title card__title">Команда</h3>
+                                    <p class="value__text card__text">
+                                        Сильная команда — наша основа: развиваем экспертизу, проводим обучение и наставничество, делимся практиками, поощряем инициативу и лидерство, чтобы расти быстрее рынка и удерживать высокий стандарт.
+                                    </p>
+                                </article>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- dots -->
+                    <div class="carousel__dots" data-js-carousel-dots aria-label="Навигация по слайдам"></div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+    <section class="section services" id="services-section" aria-labelledby="services-title">
+        <header class="section__header">
+            <div class="section__header-inner container">
+                <div class="section__header-info">
+                    <h2 class="section__title section-title" id="services-title">Услуги</h2>
+                </div>
+                <div class="section__rule full-vw-line full-vw-line--bottom full-vw-line--left full-vw-line--right"></div>
+            </div>
+        </header>
+
+        <div class="services__grid container" role="list">
+            <!-- 1 -->
+            <article class="service-card" role="listitem">
+                <figure class="service-card__media">
+                    <img src="./images/cards/card1.jpeg" alt="Научно-технологический центр">
+                </figure>
+                <div class="service-card__body">
+                    <h3 class="service-card__title">Научно-технологический центр</h3>
+                </div>
+                <div class="service-card__action">
+                    <a class="button" href="/services/ntc">Подробнее</a>
+                </div>
+            </article>
+
+            <!-- 2 -->
+            <article class="service-card" role="listitem">
+                <figure class="service-card__media">
+                    <img src="./images/cards/card2.jpg" alt="Супервайзинг и полевой аудит">
+                </figure>
+                <div class="service-card__body">
+                    <h3 class="service-card__title">Супервайзинг и полевой аудит</h3>
+                </div>
+                <div class="service-card__action">
+                    <a class="button" href="/services/supervising">Подробнее</a>
+                </div>
+            </article>
+
+            <!-- 3 -->
+            <article class="service-card" role="listitem">
+                <figure class="service-card__media">
+                    <img src="./images/cards/card3.jpeg" alt="Технологический консалтинг">
+                </figure>
+                <div class="service-card__body">
+                    <h3 class="service-card__title">Технологический консалтинг</h3>
+                </div>
+                <div class="service-card__action">
+                    <a class="button" href="/services/consulting">Подробнее</a>
+                </div>
+            </article>
+
+
+            <article class="service-card" role="listitem">
+                <figure class="service-card__media">
+                    <img src="./images/cards/card4.jpg" alt="Калибровка и ТО">
+                </figure>
+                <div class="service-card__body">
+                    <h3 class="service-card__title">Калибровка и ТО</h3>
+                </div>
+                <div class="service-card__action">
+                    <a class="button" href="/services/consulting">Подробнее</a>
+                </div>
+            </article>
+            <article class="service-card" role="listitem">
+                <figure class="service-card__media">
+                    <img src="./images/cards/card5.jpg" alt="Непрерывный анализ раствора">
+                </figure>
+                <div class="service-card__body">
+                    <h3 class="service-card__title">Непрерывный анализ раствора</h3>
+                </div>
+                <div class="service-card__action">
+                    <a class="button" href="/services/consulting">Подробнее</a>
+                </div>
+            </article>
+            <article class="service-card" role="listitem">
+                <figure class="service-card__media">
+                    <img src="./images/cards/card5.jpg" alt="Обучение персонала">
+                </figure>
+                <div class="service-card__body">
+                    <h3 class="service-card__title">Обучение персонала</h3>
+                </div>
+                <div class="service-card__action">
+                    <a class="button" href="/services/consulting">Подробнее</a>
+                </div>
+            </article>
+            <!-- добавь остальные 3 карточки по аналогии -->
+        </div>
+    </section>
+
+    <section class="equipment section" id="equipment" aria-labelledby="equipment-title">
+        <header class="section__header">
+            <div class="section__header-inner container">
+                <div class="section__header-info">
+                    <h2 class="section__title section-title" id="equipment-title">Лабораторное оборудование</h2>
+                </div>
+                <div class="section__rule" aria-hidden="true"></div>
+            </div>
+        </header>
+
+        <div class="equipment__body">
+            <div class="equipment__inner container">
+                <div class="equipment__lead">
+                    <p>ООО «Хайпротек» регулярно поставляет американское, российское и китайское лабораторное оборудование и запасные части к нему для сторонних компаний, а также для собственных нужд. В научно-технологическом центре нашей организации в Новом Уренгое располагается большая стационарная испытательная лаборатория, в которой ежедневно, начиная с 2020 года, производятся тестирования буровых, тампонажных растворов и жидкостей гидравлического разрыва пласта.</p>
+                    <p>В ходе масштабирования собственного научно-технологического центра «Хайпротек» возникла необходимость в поиске надёжных производителей профессионального лабораторного оборудования. При реализации этой задачи мы столкнулись с рядом вызовов, а именно:</p>
+                </div>
+
+                <ul class="equipment__chips">
+                    <li class="chip">
+                        <p class="chip__text">Изменения в конъюнктуре рынка и доступности западного оборудования</p>
+                    </li>
+                    <li class="chip">
+                        <p class="chip__text">Поиск решений как на местном рынке, так и в дружественных странах</p>
+                    </li>
+                    <li class="chip">
+                        <p class="chip__text">Оценка надёжности и доступности оборудования</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="section tco" id="tco" aria-labelledby="tco-title">
+        <header class="section__header">
+            <div class="section__header-inner container">
+                <div class="section__header-info">
+                    <h2 class="section__title section-title" id="tco-title">
+                        Стоимость владения за 5000 тестов
+                        <span class="tco__subtitle">(на период 10 лет)</span>
+                    </h2>
+                </div>
+                <div class="section__rule" aria-hidden="true"></div>
+            </div>
+        </header>
+
+        <div class="section__body">
+            <div class="container">
+                <!-- Грид: таблица + изображение -->
+                <div class="tco__grid">
+                    <!-- Таблица -->
+                    <div class="tco__cell tco__cell--table">
+                        <div class="tco__table table">
+                            <div class="table__scroller" role="region" aria-label="Сравнительная таблица стоимости владения" tabindex="0">
+                                <table class="table__grid">
+                                    <caption class="visually-hidden">
+                                        Сравнение совокупной стоимости владения консистометров за 5000 тестов
+                                    </caption>
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">Показатель</th>
+                                        <th scope="col">Консистометр 1 HPHT (США)</th>
+                                        <th scope="col">Консистометр HPHT Greatest</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <th scope="row">Цена</th>
+                                        <td data-label="1 HPHT (США)">1000&nbsp;у.е.</td>
+                                        <td data-label="HPHT Greatest">550&nbsp;у.е.</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Запчасти / Расходные материалы</th>
+                                        <td data-label="1 HPHT (США)">650&nbsp;у.е.</td>
+                                        <td data-label="HPHT Greatest">200&nbsp;у.е.</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Сервис</th>
+                                        <td data-label="1 HPHT (США)">300&nbsp;у.е.</td>
+                                        <td data-label="HPHT Greatest">300&nbsp;у.е.</td>
+                                    </tr>
+                                    </tbody>
+                                    <tfoot>
+                                    <tr>
+                                        <th scope="row">Итого</th>
+                                        <th class="tco-table__total">1950&nbsp;у.е.</th>
+                                        <th class="tco-table__total">1050&nbsp;у.е.</th>
+                                    </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Иллюстрация -->
+                    <div class="tco__cell tco__cell--media">
+                        <figure class="tco__figure">
+                            <img
+                                    src="./images/hpht.png"
+                                    alt="Визуальное сравнение расходов: 1 HPHT (США) и HPHT Greatest"
+                                    loading="lazy"
+                                    width="960" height="540">
+                        </figure>
+                    </div>
+                </div>
+
+                <!-- Список ключевых выводов -->
+                <ul class="tco__notes" aria-label="Ключевые выводы">
+                    <li>Совокупная стоимость владения за 500 циклов (за год) на HPHT Greatest дешевле на 85% аналога из США</li>
+                    <li>Аналогичный межремонтный период</li>
+                    <li>Наличие сервиса, запасных и расходных частей на территории РФ</li>
+                </ul>
+
+                <!-- Нижние карточки -->
+                <div class="tco__cards">
+                    <ul class="tco-cards__list">
+                        <li class="tco-card">
+                            <a class="tco-card__link" href="#">
+                                <img class="tco-card__img" src="./images/mudlab/lab1.jpg" alt="" loading="lazy" width="640" height="360">
+                                <div class="tco-card__overlay"></div>
+                                <div class="tco-card__content">
+                                    <h3 class="tco-card__title">Оборудование для тестирования тампонажных растворов</h3>
+                                    <span class="tco-card__more">Подробнее</span>
+                                </div>
+                            </a>
+                        </li>
+
+                        <li class="tco-card">
+                            <a class="tco-card__link" href="#">
+                                <img class="tco-card__img" src="./images/mudlab/lab2.jpg" alt="" loading="lazy" width="640" height="360">
+                                <div class="tco-card__overlay"></div>
+                                <div class="tco-card__content">
+                                    <h3 class="tco-card__title">Оборудование для тестирования буровых растворов</h3>
+                                    <span class="tco-card__more">Подробнее</span>
+                                </div>
+                            </a>
+                        </li>
+
+                        <li class="tco-card">
+                            <a class="tco-card__link" href="#">
+                                <img class="tco-card__img" src="./images/mudlab/lab3.jpg" alt="" loading="lazy" width="640" height="360">
+                                <div class="tco-card__overlay"></div>
+                                <div class="tco-card__content">
+                                    <h3 class="tco-card__title">MudLabIns<br>Сделано в России</h3>
+                                    <span class="tco-card__more">Подробнее</span>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="tco__summary">
+                    <div class="tco__summary-text">
+                        <p>В течение более чем трёх лет использования лабораторного оборудования <strong>Greatest</strong> и <strong>MudLabIns</strong> мы сами и наши покупатели отметили высокую работоспособность и надёжность данных инструментов.</p>
+                        <p>Качество поставляемого нами оборудования отмечено десятком крупных нефтесервисных компаний.</p>
+                        <p>Положительный опыт использования, наряду с широким спектром гарантийных обязательств и наличием сервиса в России дают заказчикам уверенность в поставляемом нами оборудовании.</p>
+                        <p>Обратитесь к нашим специалистам — мы порекомендуем оптимальное оборудование с гарантией и сервисом исходя из ваших потребностей.</p>
+                    </div>
+
+                    <div class="tco__summary-media">
+                        <!-- если нужна картинка справа — оставь, если нет, просто убери img -->
+                        <img class="tco__summary-img" src="./images/NTC.png" alt="" loading="lazy" width="960" height="540">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="trust section full-vw-line full-vw-line--bottom full-vw-line--left" id="clients" aria-labelledby="trust-title">
+        <header class="section__header">
+            <div class="section__header-inner container">
+                <div class="section__header-info">
+                    <h2 class="section__title section-title" id="trust-title">Нам доверяют</h2>
+                    <p class="section__subtitle trust__subline">Компании, с которыми мы работаем</p>
+                </div>
+                <div class="section__rule" aria-hidden="true"></div>
+            </div>
+        </header>
+
+        <div class="trust__body">
+            <div class="trust__inner container">
+                <div class="trust__marquee" role="region" aria-label="Логотипы клиентов (автопрокрутка)">
+                    <div class="trust__track">
+                        <!-- Копия №1 -->
+                        <ul class="trust__list">
+                            <li class="trust-card"><img src="/images/logos/7a9226b1eea5a45a8d8921135dc25e9c.jpg"  alt="АРКТИКГАЗ" loading="lazy"></li>
+                            <li class="trust-card"><img src="images/logos/Novatek_Logo_cyrillic.svg"              alt="НОВАТЭК" loading="lazy"></li>
+                            <li class="trust-card"><img src="images/logos/ccs-logo-new.jpg"                       alt="Центр цементирования скважин" loading="lazy"></li>
+                            <li class="trust-card"><img src="images/logos/logo_osnovnoy_angliyskiy_chernyy.jpg"   alt="НОВАТЭК (англ.)" loading="lazy"></li>
+                            <li class="trust-card"><img src="images/logos/Burservis_logo_cyr_w%201_layerstyle.png" alt="Бурсервис" loading="lazy"></li>
+                            <li class="trust-card"><img src="images/logos/Elbrus_logo_color_v1.jpg"               alt="Эльбрус Дриллинг" loading="lazy"></li>
+                            <li class="trust-card"><img src="images/logos/zavod_neft_oborud-removebg-preview.png" alt="Завод нефтяного оборудования" loading="lazy"></li>
+                            <li class="trust-card"><img src="images/logos/shlumbergepng.jpg"                      alt="Schlumberger" loading="lazy"></li>
+                            <li class="trust-card"><img src="images/logos/ofs.svg"                                alt="ОФС" loading="lazy"></li>
+                            <li class="trust-card"><img src="images/logos/integra.jpg"                            alt="Интегра" loading="lazy"></li>
+                            <li class="trust-card"><img src="images/logos/eng-logo.jpg"                           alt="ЭНГС" loading="lazy"></li>
+                            <li class="trust-card"><img src="images/logos/petro-removebg-preview.png"             alt="Петроальянс" loading="lazy"></li>
+                            <li class="trust-card"><img src="images/logos/suldukar.svg"                           alt="Сюльдюкар Геологоразведка" loading="lazy"></li>
+                            <li class="trust-card"><img src="images/logos/samgtu-removebg-preview.png"            alt="СамГТУ" loading="lazy"></li>
+                            <li class="trust-card"><img src="images/logos/smnipi-removebg-preview.png"            alt="СамараНИПИнефть" loading="lazy"></li>
+                            <li class="trust-card"><img src="images/logos/rngsnab.jpg"                            alt="РНГ Снабжение" loading="lazy"></li>
+                            <li class="trust-card"><img src="images/logos/PNIPU_russkiyi.png_.png"                alt="ПНИПУ" loading="lazy"></li>
+                            <li class="trust-card"><img src="images/logos/noveks.svg"                             alt="NOVEX" loading="lazy"></li>
+                            <li class="trust-card"><img src="images/logos/sokol-removebg-preview.png"             alt="Сокол ГНБ" loading="lazy"></li>
+                            <li class="trust-card"><img src="images/logos/1227-removebg-preview.png"              alt="ИГС Группа компаний" loading="lazy"></li>
+                            <li class="trust-card"><img src="images/logos/gns.svg"                                alt="ИГС Группа компаний" loading="lazy"></li>
+                        </ul>
+
+                        <!-- Копия №2 (дублируется для бесшовной прокрутки) -->
+                        <ul class="trust__list" aria-hidden="true">
+                            <!-- скопируй тот же набор элементов, что и выше -->
+                            <li class="trust-card"><img src="images/logos/7a9226b1eea5a45a8d8921135dc25e9c.jpg"  alt="" loading="lazy"></li>
+                            <li class="trust-card"><img src="images/logos/Novatek_Logo_cyrillic.svg"              alt="" loading="lazy"></li>
+                            <li class="trust-card"><img src="images/logos/ccs-logo-new.jpg"                       alt="" loading="lazy"></li>
+                            <li class="trust-card"><img src="images/logos/logo_osnovnoy_angliyskiy_chernyy.jpg"   alt="" loading="lazy"></li>
+                            <li class="trust-card"><img src="images/logos/Burservis_logo_cyr_w%201_layerstyle.png" alt="" loading="lazy"></li>
+                            <li class="trust-card"><img src="images/logos/Elbrus_logo_color_v1.jpg"               alt="" loading="lazy"></li>
+                            <li class="trust-card"><img src="images/logos/zavod_neft_oborud-removebg-preview.png" alt="" loading="lazy"></li>
+                            <li class="trust-card"><img src="images/logos/shlumbergepng.jpg"                      alt="" loading="lazy"></li>
+                            <li class="trust-card"><img src="images/logos/ofs.svg"                                alt="" loading="lazy"></li>
+                            <li class="trust-card"><img src="images/logos/integra.jpg"                            alt="" loading="lazy"></li>
+                            <li class="trust-card"><img src="images/logos/eng-logo.jpg"                           alt="" loading="lazy"></li>
+                            <li class="trust-card"><img src="images/logos/petro-removebg-preview.png"             alt="" loading="lazy"></li>
+                            <li class="trust-card"><img src="images/logos/suldukar.svg"                           alt="" loading="lazy"></li>
+                            <li class="trust-card"><img src="images/logos/samgtu-removebg-preview.png"            alt="" loading="lazy"></li>
+                            <li class="trust-card"><img src="images/logos/smnipi-removebg-preview.png"            alt="" loading="lazy"></li>
+                            <li class="trust-card"><img src="images/logos/rngsnab.jpg"                            alt="" loading="lazy"></li>
+                            <li class="trust-card"><img src="images/logos/PNIPU_russkiyi.png_.png"                alt="" loading="lazy"></li>
+                            <li class="trust-card"><img src="images/logos/noveks.svg"                             alt="" loading="lazy"></li>
+                            <li class="trust-card"><img src="images/logos/sokol-removebg-preview.png"             alt="" loading="lazy"></li>
+                            <li class="trust-card"><img src="images/logos/1227-removebg-preview.png"              alt="" loading="lazy"></li>
+                            <li class="trust-card"><img src="images/logos/gns.svg"                                alt="" loading="lazy"></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="contacts section full-vw-line full-vw-line--bottom full-vw-line--left" id="contacts" aria-labelledby="contacts-title">
+        <header class="section__header">
+            <div class="section__header-inner container">
+                <div class="section__header-info">
+                    <h2 class="section__title section-title" id="contacts-title">Контакты</h2>
+                </div>
+                <div class="section__rule" aria-hidden="true"></div>
+            </div>
+        </header>
+
+        <div class="contacts__body">
+            <div class="contacts__inner container" itemscope itemtype="https://schema.org/Organization">
+                <!-- Левая колонка -->
+                <div class="contacts__info">
+                    <a class="contacts__phone" href="tel:+79223180000" itemprop="telephone">8&nbsp;922&nbsp;318&nbsp;00&nbsp;00</a>
+                    <a class="contacts__email" href="mailto:info@hyprotec.ru" itemprop="email">info@hyprotec.ru</a>
+
+                    <p class="contacts__time">пн–пт с 10:00 до 19:00</p>
+
+                    <ul class="contacts__list">
+                        <li><span class="muted">ООО «</span><b itemprop="name">ХАЙПРОТЕК</b><span class="muted">»</span></li>
+                        <li>ИНН: <a href="#" rel="nofollow noopener">7203456345</a></li>
+                        <li>КПП: <a href="#" rel="nofollow noopener">720301001</a></li>
+                        <li>ОГРН: <a href="#" rel="nofollow noopener">1187232020722</a></li>
+                        <li itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
+                            <meta itemprop="postalCode" content="625000">
+                            <span class="muted">625000, Тюменская область, г. Тюмень,</span><br>
+                            <span itemprop="streetAddress">ул. Грибоедова, д. 15, пом. 1</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Правая колонка -->
+                <div class="contacts__map">
+                    <!-- ВСТАВЬ свой src (Яндекс.Карты → Поделиться → Код для сайта).
+                         Ниже — рабочий шаблон, можно оставить и подменить параметры. -->
+                    <iframe
+                            class="contacts__map-frame"
+                            title="Карта: ул. Грибоедова, 15 — ХАЙПРОТЕК"
+                            src="https://yandex.ru/map-widget/v1/?um=constructor%3Af2b12c5ceae10d922c0fee41817b70696ff03f02db3c599ca4628d5f3698f18a&amp;source=constructor"
+                            loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade"
+                            allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer class="footer">
+    <div class="footer__inner container">
+        <div class="footer__body">
+            <div class="footer__brand">
+                <a href="/" class="footer__logo" aria-label="HYPROTEC">
+                    <!-- поставь свой SVG/IMG логотип -->
+                    <img src="./images/logo-main.svg" alt="HYPROTEC">
+                </a>
+                <p class="footer__copyright">
+                    <span aria-hidden="true">©</span> Все права защищены. HYPROTEC.
+                </p>
+            </div>
+            <nav class="footer__menu" aria-label="Меню в подвале">
+                <div class="footer__menu-column">
+                    <span class="footer__menu-title">МЕНЮ</span>
+                    <ul class="footer__menu-list">
+                        <li class="footer__menu-item">
+                            <a href="/" class="footer__menu-link">О нас</a>
+                        </li>
+                        <li class="footer__menu-item">
+                            <a href="/" class="footer__menu-link">Услуги</a>
+                        </li>
+                        <li class="footer__menu-item">
+                            <a href="/" class="footer__menu-link">Проекты</a>
+                        </li>
+                        <li class="footer__menu-item">
+                            <a href="/" class="footer__menu-link">Контакты</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </div>
+</footer>
+</body>
+</html>

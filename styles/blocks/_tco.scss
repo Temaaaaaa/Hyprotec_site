@@ -1,0 +1,324 @@
+@use '../helpers' as *;
+
+/* =========================
+   TCO — Стоимость владения
+   ========================= */
+.tco {
+
+  &__subtitle {
+    @include fluid-text(18, 14);
+    color: var(--color-gray);
+    font-weight: 600;
+    margin-left: .5ch;
+    white-space: nowrap;
+  }
+
+
+  /* ===== GRID: таблица + иллюстрация ===== */
+  &__grid {
+    display: grid;
+    gap: rem(20);
+    @include tablet-above { grid-template-columns: 1fr 1fr; align-items: stretch; }
+  }
+  &__cell { display: flex; min-width: 0; }
+
+  /* универсальная карточная оболочка */
+  %card {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    border-radius: rem(14);
+    background: #fff;
+    border: var(--border);
+    box-shadow: 0 rem(2) rem(12) rgba(0,0,0,.06);
+    overflow: hidden;
+  }
+
+  &__table  { @extend %card; }
+  &__figure { @extend %card; padding: rem(10); }
+
+  /* ===== TABLE ===== */
+  .table__scroller {
+    position: relative;
+    flex: 1 1 auto;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scroll-behavior: smooth;
+
+    --fade: linear-gradient(90deg, rgba(255,255,255,1), rgba(255,255,255,0));
+    &::before, &::after {
+      content: '';
+      position: sticky;
+      inset-block: 0;
+      width: rem(22);
+      pointer-events: none;
+      z-index: 3;
+    }
+    &::before { left: 0;  background: var(--fade); }
+    &::after  { right: 0; background: var(--fade); transform: scaleX(-1); }
+
+    &::-webkit-scrollbar { height: rem(10); }
+    &::-webkit-scrollbar-track { background: #f3f5f4; }
+    &::-webkit-scrollbar-thumb {
+      background: color-mix(in srgb, var(--color-accent) 35%, #bcbcbc);
+      border-radius: rem(999);
+    }
+  }
+
+  .table__grid {
+    width: max(100%, #{rem(800)});
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: rem(16);
+    color: var(--color-dark-900);
+
+    th, td {
+      padding: rem(14) rem(16);
+      border-bottom: rem(1) solid rgba(0,0,0,.08);
+      text-align: left;
+      vertical-align: middle;
+      background: #fff;
+    }
+
+    thead th {
+      position: sticky; top: 0; z-index: 6;
+      background: #eef2f0;
+      color: var(--color-dark);
+      font-weight: 700;
+    }
+
+    :is(th[scope="row"], thead th:first-child, tfoot th:first-child) {
+      position: sticky; left: 0; z-index: 5;
+      background: #fff;
+      box-shadow: 1px 0 0 0 rgba(0,0,0,.06);
+    }
+    thead th:first-child { background: #eef2f0; }
+
+    tbody tr:nth-child(odd) :is(td, th[scope="row"]) { background: #fafbfb; }
+
+    tfoot th {
+      border-top: rem(2) solid rgba(0,0,0,.08);
+      font-weight: 800;
+      color: var(--color-accent);
+      background: #fff;
+    }
+
+    thead th:first-child  { border-top-left-radius: rem(12); }
+    thead th:last-child   { border-top-right-radius: rem(12); }
+    tfoot th:first-child  { border-bottom-left-radius: rem(12); }
+    tfoot th:last-child   { border-bottom-right-radius: rem(12); }
+  }
+
+  @media (width <= #{rem(800)}) {
+    .table__grid { width: max(100%, #{rem(760)}); font-size: rem(15.5); }
+    .table__grid :is(th, td) { padding: rem(12) rem(14); }
+  }
+  @media (width <= #{rem(640)}) {
+    .table__grid :is(th[scope="row"], thead th:first-child, tfoot th:first-child) {
+      position: static; left: auto; box-shadow: none;
+    }
+  }
+  @media (width <= #{rem(480)}) {
+    .table__scroller { overflow: visible; }
+    .table__grid { width: 100%; font-size: rem(15); }
+    .table__grid thead, .table__grid tfoot { display: none; }
+    .table__grid tbody { display: grid; gap: rem(10); padding: rem(10); }
+    .table__grid tr {
+      display: grid; gap: rem(8);
+      background: #fff; border: rem(1) solid rgba(0,0,0,.08);
+      border-radius: rem(12); padding: rem(12);
+      box-shadow: 0 rem(1) rem(8) rgba(0,0,0,.04);
+    }
+    .table__grid th[scope="row"], .table__grid td { padding: 0; border: 0; background: transparent; }
+    .table__grid td::before {
+      content: attr(data-label); display: block;
+      font-size: rem(13); color: var(--color-gray); margin-bottom: rem(2);
+    }
+  }
+
+  /* ===== FIGURE ===== */
+  &__figure img {
+    flex: 1 1 auto;
+    width: 100%; height: 100%;
+    object-fit: contain; /* или cover при желании */
+    border-radius: rem(10);
+    background: #fff;
+  }
+
+  /* ===== NOTES ===== */
+  &__notes {
+    margin-block: clamp(24px, 4vw, 40px);
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: rem(14);
+    @include fluid-text(28, 18);
+    color: var(--color-dark);
+
+    li {
+      position: relative;
+      padding-left: rem(28);
+      line-height: 1.6;
+      &::before {
+        content: '✔';
+        position: absolute;
+        left: 0; top: .15em;
+        font-weight: 700;
+        font-size: 1em;
+        color: var(--color-accent);
+      }
+    }
+    @include mobile { gap: rem(10); li { line-height: 1.5; } }
+  }
+
+  /* ===== CARDS ===== */
+  &__cards { margin-top: clamp(24px, 6vw, 56px); }
+
+  .tco-cards__list {
+    display: grid; gap: rem(20);
+    grid-template-columns: repeat(3, 1fr);
+    @include tablet { grid-template-columns: repeat(2, 1fr); }
+    @include mobile { grid-template-columns: 1fr; }
+  }
+
+  .tco-card {
+    position: relative;
+    border-radius: rem(12);
+    overflow: clip;
+    box-shadow: 0 rem(2) rem(18) rgba(0,0,0,.12);
+    isolation: isolate;
+
+    &__link {
+      display: block; position: relative;
+      color: inherit; text-decoration: none;
+      min-height: rem(260);
+    }
+
+    &__img {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      filter: saturate(.2) brightness(.6);
+      transition: transform var(--transition-duration, .3s) ease;
+      z-index: -2;
+    }
+
+    &__overlay {
+      position: absolute; inset: 0;
+
+      z-index: -1;
+      transition: opacity var(--transition-duration, .3s) ease;
+    }
+
+    &__content {
+      position: relative;
+      display: grid; row-gap: rem(14);
+      padding: rem(24);
+      color: var(--color-white, #fff);
+      text-shadow: 0 1px 0 rgba(0,0,0,.35);
+      min-height: rem(160);
+      align-content: end; /* текст снизу */
+    }
+
+    &__title {
+      @include fluid-text(24, 18);
+      font-weight: 800; line-height: 1.25;
+      max-width: 28ch; text-wrap: balance;
+    }
+
+    &__more {
+      @include fluid-text(16, 14);
+      font-weight: 600;
+      color: var(--color-white, #fff);
+      text-decoration: underline;
+      text-underline-offset: .2em;
+      &::after { content: ' →'; }
+    }
+
+    @include hover {
+      .tco-card__img { transform: scale(1.03); }
+      .tco-card__overlay { opacity: .95; }
+    }
+
+    &__link:focus-visible {
+      outline: none;
+      box-shadow: 0 0 0 4px color-mix(in oklab, var(--color-accent) 35%, transparent);
+      border-radius: inherit;
+    }
+  }
+}
+
+.tco__summary {
+  display: grid;
+  gap: rem(24);
+  padding-top: rem(40);
+
+  @include tablet-above { /* ≥1024px */
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+  }
+}
+
+.tco__summary-text {
+  @include fluid-text(28, 18);
+  color: var(--color-dark);
+  p { margin: 0 0 rem(16); }
+}
+
+.tco__summary-title {
+  @include fluid-text(22, 18);
+  font-weight: 800;
+  margin: rem(10) 0 rem(10);
+  color: var(--color-dark-900);
+}
+
+/* прогресс-пилюли как на скрине */
+.meter {
+  --value: 0%;
+  --h: #{rem(28)};
+  --bg: var(--color-accent); /* твой красный */
+  position: relative;
+  height: var(--h);
+  border-radius: 999px;
+  background: color-mix(in oklab, var(--color-accent) 12%, #e9eceb);
+  overflow: hidden;
+  margin-bottom: rem(12);
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    inline-size: var(--value);
+    background: var(--bg);
+    border-radius: inherit;
+  }
+
+  span {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    padding-inline: rem(12);
+    color: #fff;
+    font-weight: 700;
+    @include fluid-text(16, 14);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &.is-success { --bg: #79dba6; } /* зелёная полоса, как на скрине */
+}
+
+.tco__summary-img {
+  margin-top: rem(16);
+  width: 100%;
+  height: auto;
+  border-radius: rem(10);
+  object-fit: cover; /* поменяй на contain, если нужно */
+}
+
+/* тонкая разделительная линия */
+

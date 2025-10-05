@@ -1,0 +1,109 @@
+@use '../helpers' as *;
+
+.supervising {
+
+
+  /* раскладка */
+  &__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: fluid(40, 20);
+    align-items: center;
+
+    @include tablet { align-items: start; }
+    @include mobile  { grid-template-columns: 1fr; }
+  }
+
+  /* текст */
+  &__content {
+    display: grid;
+    row-gap: fluid(24, 16);
+  }
+
+  &__lead {
+    @include fluid-text(24, 18);
+    line-height: 1.7;
+    color: var(--color-dark);
+    margin: 0;
+    max-width: 60ch;
+    text-wrap: pretty;
+  }
+
+  /* список преимуществ */
+  &__list {
+    list-style: none;
+    padding: 0; margin: 0;
+    display: grid;
+    row-gap: fluid(14, 10);
+  }
+
+  &__item {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    column-gap: fluid(12, 10);
+    align-items: start;
+
+    /* переиспользуем твою .circle-icon как маркер */
+    .circle-icon {
+      --size: #{fluid(18, 14)};
+      --bg: var(--color-accent);
+      --arrow-color: #fff; /* у твоей утилиты стрелка, но тут нам просто кружок — спрячем стрелку */
+      width: var(--size);
+      height: var(--size);
+      border-radius: 50%;
+      background: var(--bg);
+      position: relative;
+      flex: none;
+
+      &::after { display: none; } /* отключаем стрелку из утилиты */
+    }
+
+    /* текст пункта */
+    & {
+      @include fluid-text(18, 16);
+      color: var(--color-dark-900);
+      line-height: 1.6;
+    }
+  }
+
+  /* действия */
+  &__actions { margin-top: fluid(8, 6); }
+  &__button  {
+    padding-inline: fluid(28, 20);
+    padding-block:  fluid(14, 10);
+    border-radius:  rem(10);
+  }
+
+  /* карточка фото с «рамкой» в стиле outfit */
+  &__figure {
+    margin: 0;
+    padding: fluid(10, 8);
+    border-radius: fluid(18, 12);
+    background: #fff;
+    box-shadow:
+            0 0 0 2px var(--color-accent) inset,
+            0 10px 30px rgba(0,0,0,.10);
+  }
+
+  &__image {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    border-radius: calc(#{fluid(18, 12)} - #{fluid(6, 4)});
+    filter: saturate(.85) brightness(.95);
+  }
+
+  &__caption {
+    @include fluid-text(14, 13);
+    color: var(--color-gray, #6c6c6c);
+    padding-top: fluid(10, 8);
+  }
+}
+
+/* опционально: инвертировать порядок колонок на десктопе */
+.supervising--reverse {
+  .supervising__content { order: 2; }
+  .supervising__figure  { order: 1; }
+}

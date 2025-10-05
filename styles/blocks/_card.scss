@@ -1,0 +1,167 @@
+@use '../helpers' as *;
+
+/* =========================
+   Universal Card Component
+   ========================= */
+.card {
+  /* CSS Custom Props (override per context) */
+  --card-bg: var(--color-white);
+  --card-border: var(--border);
+  --card-radius: #{rem(14)};
+  --card-pad-x: #{rem(16)};
+  --card-pad-y: #{rem(16)};
+  --card-shadow-rest: 0 #{rem(2)} #{rem(10)} rgba(0,0,0,.04);
+  --card-shadow-hover: 0 #{rem(6)} #{rem(22)} rgba(0,0,0,.08);
+
+  position: relative;
+  background: var(--card-bg);
+  border: var(--card-border);
+  border-radius: var(--card-radius);
+  padding: var(--card-pad-y) var(--card-pad-x);
+  box-shadow: var(--card-shadow-rest);
+  transition: box-shadow var(--transition-duration), translate var(--transition-duration);
+
+  @include hover {
+    box-shadow: var(--card-shadow-hover);
+    translate: 0 -2px;
+  }
+
+  /* Content helpers (optional) */
+  &__title {
+    @include fluid-text(26, 18);
+    font-weight: 600;
+    line-height: 1.25;
+    color: var(--color-dark);
+    position: relative;
+    padding-bottom: #{rem(8)};
+  }
+
+  &__text {
+    color: var(--color-dark-900);
+    line-height: 1.6;
+  }
+}
+
+/* Underline under title */
+.card--underlined {
+  .card__title::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: #{rem(36)};
+    height: #{rem(2)};
+    background-color: var(--color-accent);
+  }
+}
+
+/* Accent left bar (for timelines) */
+.card--accent-left {
+  padding-left: calc(var(--card-pad-x) + #{rem(6)});
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: #{rem(-6)};
+    top: #{rem(18)};
+    bottom: #{rem(18)};
+    width: #{rem(4)};
+    background: var(--color-accent);
+    border-radius: #{rem(4)};
+  }
+}
+
+/* Marker dot (for timelines) */
+.card--marker {
+  &::after {
+    content: '';
+    position: absolute;
+    left: #{rem(5)};
+    top: #{rem(24)};
+    width: #{rem(12)};
+    height: #{rem(12)};
+    background: var(--color-white);
+    border: #{rem(2)} solid var(--color-accent);
+    border-radius: 50%;
+    box-shadow: 0 0 0 #{rem(3)} color-mix(in srgb, var(--color-accent) 15%, transparent);
+  }
+}
+
+/* Compact paddings on mobile (optional) */
+@include mobile {
+  .card--compact {
+    --card-pad-x: #{rem(14)};
+    --card-pad-y: #{rem(14)};
+
+    .card__title::after {
+      width: #{rem(44)}; // если используется card--underlined
+    }
+  }
+}
+
+/* =========================
+   Glossy Red Accent Variant
+   =========================
+   - Shiny red border + red hover shadow
+   - Use together with .card base
+*/
+.card--accent-red {
+  border: #{rem(2)} solid transparent;
+  border-radius: var(--card-radius);
+
+  /* Layer 1: content background (padding-box)
+     Layer 2: glossy red gradient (border-box) */
+  background:
+          linear-gradient(var(--card-bg), var(--card-bg)) padding-box,
+          linear-gradient(
+                          135deg,
+                          rgba(231, 52, 57, .70) 0%,
+                          rgba(231, 52, 57, .35) 28%,
+                          rgba(255, 255, 255, .06) 50%,
+                          rgba(231, 52, 57, .40) 72%,
+                          rgba(231, 52, 57, .85) 100%
+          ) border-box;
+
+  /* Subtle inner glow for smoothness */
+  box-shadow:
+          0 #{rem(2)} #{rem(10)} rgba(0,0,0,.04),
+          inset 0 0 0 #{rem(1)} rgba(231, 52, 57, .10);
+
+  position: relative;
+  isolation: isolate;
+
+  /* Soft top glare for glossy feel */
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    background: linear-gradient(180deg, rgba(255,255,255,.35), rgba(255,255,255,0) 45%);
+    opacity: .35;
+    mix-blend-mode: screen;
+  }
+
+  /* Strong red hover shadow (as requested) + brighter border gradient */
+  @include hover {
+    box-shadow:
+            0 #{rem(6)} #{rem(22)} rgb(156, 50, 50),
+            inset 0 0 0 #{rem(1)} rgba(231, 52, 57, .12);
+
+    background:
+            linear-gradient(var(--card-bg), var(--card-bg)) padding-box,
+            linear-gradient(
+                            135deg,
+                            rgba(231, 52, 57, .85) 0%,
+                            rgba(231, 52, 57, .45) 30%,
+                            rgba(255, 255, 255, .08) 52%,
+                            rgba(231, 52, 57, .52) 74%,
+                            rgba(231, 52, 57, 1)   100%
+            ) border-box;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: box-shadow var(--transition-duration);
+    &::after { opacity: .25; }
+  }
+}

@@ -1,0 +1,48 @@
+@use '../helpers' as *;
+
+/* =========================
+   RECOMMENDATION — одна картинка
+   ========================= */
+
+.recommendation__body { margin-top: clamp(1rem, 3vw, 2rem); }
+
+/* центрируем карточку и ограничиваем ширину */
+.recommendation__inner {
+  --maxWidth: #{rem(980)};   /* подгони: 820–1120 */
+  display: grid;
+  place-items: center;
+}
+
+.recommendation__media {
+  --pad: #{rem(12)};
+  margin: 0;
+  width: min(100%, var(--maxWidth));
+  padding: var(--pad);
+  background: var(--color-white);
+  border: rem(1) solid var(--color-dark-15, rgba(0,0,0,.15));
+  border-radius: rem(18);
+  box-shadow: 0 rem(18) rem(54) rgba(0,0,0,.06);
+
+  @include mobile {
+    --pad: #{rem(8)};
+    border-radius: rem(14);
+  }
+}
+
+/* изображение — «паспарту», не рвём пропорции */
+.recommendation__img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: min(78vh, #{rem(820)}); /* письмо не станет «бесконечным» */
+  object-fit: contain;
+  border-radius: calc(rem(18) - var(--pad));
+
+  @include mobile {
+    max-height: none;
+    border-radius: calc(rem(14) - var(--pad));
+  }
+}
+
+/* заголовок плотнее при переносе */
+#recommendation-title { line-height: 1.16; letter-spacing: -0.01em; }

@@ -1,0 +1,125 @@
+@use '../helpers' as *;
+
+/* ===== OFFERING (аккуратный аккордеон) ===== */
+.offering {
+  /* дыхание секции */
+  &__body  { padding-block: fluid(36, 20); }
+  &__inner { max-width: fluid(980, 740); margin-inline: auto; }
+
+  /* список аккуратно в «карточном» контейнере */
+  &__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-radius: fluid(14, 10);
+    background: var(--color-white);
+    box-shadow: 0 8px 30px color-mix(in srgb, #000 8%, transparent);
+    overflow: hidden; /* скругления на краях видны */
+  }
+
+  /* элемент списка с деликатным разделителем */
+  &__item {
+    border-bottom: 1px solid color-mix(in srgb, var(--color-dark) 10%, transparent);
+
+    &:last-child { border-bottom: 0; }
+
+    /* состояние :hover всей строки — лёгкая подсветка */
+    @include hover() {
+      background: color-mix(in srgb, var(--color-accent) 3%, #fff);
+    }
+
+    &.is-open {
+      background: color-mix(in srgb, var(--color-accent) 4%, #fff);
+    }
+  }
+
+  /* заголовок-кнопка */
+  &__header {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: fluid(16, 12);
+
+    padding: fluid(22, 16) fluid(24, 16);
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+
+    color: inherit;
+    text-align: left;
+
+    /* фокус — заметный и красивый */
+    outline: none;
+    &:focus-visible {
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-accent) 30%, transparent) inset;
+    }
+  }
+
+  &__title {
+    @include fluid-text(25, 18);
+    font-weight: 700;
+    line-height: 1.28;
+    color: var(--color-dark);
+    margin: 0;
+    text-wrap: balance;
+  }
+
+  /* плюс/минус — ровный, не прыгает */
+  &__icon {
+    --s: #{fluid(20, 16)};
+    position: relative;
+    width: var(--s);
+    height: var(--s);
+    flex: none;
+
+    &::before, &::after {
+      content: "";
+      position: absolute;
+      left: 0; right: 0; top: 0; bottom: 0;
+      margin: auto;
+      width: 100%;
+      height: fluid(2, 2);
+      background: var(--color-dark);
+      border-radius: fluid(2, 2);
+      transition: transform var(--transition-duration);
+    }
+    /* вертикальная палка */
+    &::after { transform: rotate(90deg); }
+
+    /* открыто — «минус» */
+    .offering__item.is-open &::after { transform: rotate(0deg); }
+  }
+
+  /* панель: чистая анимация высоты; по умолчанию закрыта */
+  &__panel {
+    height: 0;
+    overflow: hidden;
+    transition: height var(--transition-duration) ease;
+    will-change: height;
+  }
+
+  /* внутренний контент с нормальными отступами и читабельностью */
+  &__content {
+    padding: 0 fluid(24, 16) fluid(20, 14);
+    p {
+      @include fluid-text(20, 18);
+      margin: 0;
+      line-height: 1.65;
+      color: var(--color-dark-900);
+      text-wrap: pretty;
+    }
+  }
+
+  /* мелкие правки на мобильных */
+  @include mobile {
+    &__inner { max-width: none; }
+    &__title { line-height: 1.3; }
+  }
+
+  /* уважение reduce motion */
+  @media (prefers-reduced-motion: reduce) {
+    &__panel { transition: none; }
+    &__icon::after { transition: none; }
+  }
+}

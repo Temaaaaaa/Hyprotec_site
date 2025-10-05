@@ -1,0 +1,101 @@
+@use '../helpers' as *;
+
+.cementing {
+  &__inner { display: grid; row-gap: fluid(48, 28); }
+
+  /* двухколоночная раскладка */
+  &__grid {
+    display: grid;
+    grid-template-columns: 1.15fr .85fr; /* левую делаем шире под список */
+    gap: fluid(40, 20);
+    align-items: start;
+
+    @include mobile { grid-template-columns: 1fr; }
+  }
+
+  /* список */
+  &__content { max-width: 72ch; }
+
+  &__list {
+    counter-reset: step;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    row-gap: fluid(14, 10);
+    list-style: none;
+  }
+
+  &__item {
+    counter-increment: step;
+    position: relative;
+    padding-left: fluid(44, 28);
+
+    @include fluid-text(18, 16);
+    color: var(--color-dark-900);
+    line-height: 1.65;
+    text-wrap: pretty;
+
+    /* номер слева — аккуратная «пилюля» с акцентом */
+    &::before {
+      content: counter(step, decimal-leading-zero);
+      position: absolute;
+      left: 0; top: .2em;
+      display: inline-grid;
+      place-items: center;
+      width: fluid(32, 22);
+      height: fluid(22, 18);
+      border-radius: 999px;
+      font-weight: 700;
+      @include fluid-text(14, 12);
+      line-height: 1;
+      color: var(--color-accent);
+      background:
+              linear-gradient(0deg, color-mix(in srgb, var(--color-accent) 12%, transparent), transparent);
+      box-shadow: 0 0 0 1px color-mix(in srgb, var(--color-accent) 55%, transparent) inset;
+    }
+
+    /* разделительная тонкая линия между пунктами */
+    &:not(:last-child) {
+      border-bottom: 1px dashed color-mix(in srgb, var(--color-dark) 12%, transparent);
+      padding-bottom: fluid(12, 8);
+    }
+  }
+
+  /* правая колонка: две «карточки» с рамкой как в outfit */
+  &__media {
+    display: grid;
+    row-gap: fluid(18, 12);
+  }
+
+  &__figure {
+    margin: 0;
+    padding: fluid(10, 8);
+    border-radius: fluid(16, 12);
+    background: #fff;
+    box-shadow:
+            0 0 0 2px var(--color-accent) inset,
+            0 10px 28px rgba(0,0,0,.08);
+  }
+
+  &__image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    //aspect-ratio: 16 / 9;
+    //object-fit: cover;
+    border-radius: calc(#{fluid(16, 12)} - #{fluid(6, 4)});
+  }
+
+  &__caption {
+    @include fluid-text(14, 13);
+    color: var(--color-gray, #6b6b6b);
+    padding-top: fluid(8, 6);
+  }
+}
+
+/* модификатор: поменять порядок (картинки слева, список справа) */
+.cementing--reverse {
+  .cementing__grid { grid-template-columns: .9fr 1.1fr; }
+  .cementing__content { order: 2; }
+  .cementing__media   { order: 1; }
+}

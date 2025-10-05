@@ -1,0 +1,77 @@
+@use '../helpers' as *;
+
+/* ======== TRUST ======== */
+.trust {
+  &__subline {
+    color: var(--color-gray);
+    @include fluid-text(16, 14);
+    margin-top: rem(6);
+  }
+
+
+  &__marquee {
+    overflow: hidden;
+    position: relative;
+    /* мягкий градиент по краям вьюпорта */
+    mask-image: linear-gradient(to right, transparent 0, #000 40px calc(100% - 40px), transparent 100%);
+  }
+
+  &__track {
+    display: flex;
+    width: max-content;
+    gap: rem(20);
+    animation: trust-scroll 25s linear infinite;
+
+    @include hover {
+      &:hover { animation-play-state: paused; }
+    }
+  }
+
+  &__list {
+    display: flex;
+    gap: rem(20);
+  }
+}
+
+@keyframes trust-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); } /* при двух копиях контента */
+}
+
+/* карточка логотипа */
+.trust-card {
+  flex: 0 0 auto;
+  inline-size: rem(200);
+  block-size: rem(140);
+  display: grid;
+  place-items: center;
+  padding: rem(20);
+  border-radius: rem(16);
+  background: var(--color-white);
+  border: var(--border);
+  box-shadow: 0 rem(2) rem(8) rgba(0,0,0,.06);
+  transition: transform var(--transition-duration, .3s) ease, box-shadow var(--transition-duration, .3s) ease;
+
+  @include tablet { inline-size: rem(180); block-size: rem(128); }
+  @include mobile { inline-size: rem(160); block-size: rem(112); padding: rem(16); }
+
+  @include hover {
+    &:hover { transform: translateY(-4px); box-shadow: 0 rem(6) rem(12) rgba(0,0,0,.10); }
+  }
+
+  img {
+    max-inline-size: 100%;
+    max-block-size: rem(80);
+    object-fit: contain;
+    opacity: .85;
+    filter: grayscale(.1) contrast(1.05);
+    transition: opacity var(--transition-duration, .3s) ease, filter var(--transition-duration, .3s) ease;
+  }
+
+  @include hover { &:hover img { opacity: 1; filter: none; } }
+}
+
+/* уважение к reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .trust__track { animation: none; }
+}

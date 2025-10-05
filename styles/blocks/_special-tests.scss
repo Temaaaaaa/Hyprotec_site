@@ -1,0 +1,134 @@
+@use '../helpers' as *;
+
+/* ===== SPECIAL TESTS ===== */
+
+.special-tests__body {
+}
+
+/* Карточка (на основе about-card, но с отдельным именем) */
+.special-card {
+  position: relative;
+  background: var(--color-white);
+  border-radius: rem(14);
+  padding: rem(16) rem(16) rem(16) rem(22);
+  display: flex;
+  flex-direction: column;
+  row-gap: rem(10);
+  transition: box-shadow var(--transition-duration), translate var(--transition-duration);
+  /* мягкая акцентная тень; при желании поменяй интенсивность */
+  box-shadow: 0 rem(8) rem(20) color-mix(in srgb, var(--color-accent) 24%, transparent);
+  translate: 0 0;
+
+  &__title {
+    @include fluid-text(26, 18);
+    font-weight: 700;
+    line-height: 1.25;
+    color: var(--color-dark);
+    position: relative;
+    padding-bottom: rem(8);
+    text-wrap: balance;
+    overflow-wrap: anywhere;
+    hyphens: auto;
+
+    &::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: rem(36);
+      height: rem(2);
+      background-color: var(--color-accent);
+    }
+  }
+
+  &__text {
+    @include fluid-text(18, 16);
+    color: var(--color-dark-900);
+    line-height: 1.6;
+  }
+}
+
+/* Вертикальный список-таймлайн (как about__list--stacked) */
+.special-tests__list--stacked {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  gap: rem(20);
+  padding-left: rem(50);
+
+  /* Вертикальная линия слева */
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: rem(4);
+    bottom: rem(4);
+    width: rem(2);
+    background: var(--color-dark-15);
+    border-radius: rem(2);
+  }
+
+  /* Акцентная полоса и маркер у каждой карточки */
+  .special-card {
+    &::before {
+      content: '';
+      position: absolute;
+      left: rem(-6);
+      top: rem(18);
+      bottom: rem(18);
+      width: rem(4);
+      background: var(--color-accent);
+      border-radius: rem(4);
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      left: rem(5);
+      top: rem(24);
+      width: rem(12);
+      height: rem(12);
+      background: var(--color-white);
+      border: rem(2) solid var(--color-accent);
+      border-radius: 50%;
+      box-shadow: 0 0 0 rem(3) color-mix(in srgb, var(--color-accent) 15%, transparent);
+    }
+
+    .special-card__title {
+      margin-left: rem(2);
+
+      &::after {
+        position: static;
+        display: block;
+        margin-top: rem(8);
+        width: rem(44);
+        height: rem(2);
+        background: var(--color-accent);
+        content: '';
+      }
+    }
+  }
+
+  /* Адаптив */
+  @include tablet {
+    padding-left: 0;
+
+    .special-card {
+      &::before { left: rem(-4); }
+      &::after  { left: rem(5); }
+    }
+  }
+
+  @include mobile {
+    padding-left: 0;
+
+    &::before { left: rem(-2); }
+
+    .special-card {
+      padding: rem(14) rem(14) rem(14) rem(16);
+
+      &::before { top: rem(14); bottom: rem(14); }
+      &::after  { top: rem(18); left: rem(2); width: rem(10); height: rem(10); }
+    }
+  }
+}
