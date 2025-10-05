@@ -1,0 +1,147 @@
+@use '../helpers' as *;
+
+.hero {
+  position: relative;
+  min-height: 100dvh;
+  color: var(--color-white, #fff);
+  padding-block: rem(48);
+  isolation: isolate;
+  display: grid;
+  place-items: center;
+
+  /* затемнение для читаемости текста */
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+            linear-gradient(
+                            to bottom,
+                            rgba(0,0,0,.45),
+                            rgba(0,0,0,.55) 30%,
+                            rgba(0,0,0,.55) 70%,
+                            rgba(0,0,0,.45)
+            ),
+            rgba(0,0,0,.25);
+    z-index: 0;
+  }
+
+  /* фоновое видео */
+  &__bg {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    z-index: -1;
+  }
+
+  &__video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;    // заполняет экран, как на скрине
+    object-position: center;
+    /* если видео не успевает загрузиться — покажется poster */
+    background: #000;
+  }
+
+  /* если пользователь отключил анимации — притушим движение */
+  @media (prefers-reduced-motion: reduce) {
+    &__video { animation: none; }
+  }
+
+  /* контент */
+  &__inner {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    display: grid;
+    row-gap: rem(16);
+    justify-items: center;
+    padding-top: var(--header-offset, rem(20));
+  }
+
+  &__title {
+    @include fluid-text(88, 32);
+    font-family: var(--font-family-accent, var(--font-family, sans-serif));
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: .02em;
+    text-transform: uppercase;
+    text-shadow: 0 rem(2) rem(30) rgba(0,0,0,.35);
+  }
+
+  &__subtitle {
+    margin: 0;
+    @include fluid-text(20, 14);
+    font-weight: 500;
+    line-height: 1.5;
+    color: rgba(255,255,255,.9);
+  }
+
+  &__actions { margin-top: rem(12); }
+
+  &__cta {
+    padding-inline: rem(20);
+    padding-block: rem(12);
+    border-radius: rem(999);
+    font-weight: 700;
+  }
+
+  /* адаптив */
+  @include laptop {
+    &__inner { row-gap: rem(14); }
+  }
+
+  @include mobile {
+    padding-block: rem(32);
+
+    &__inner {
+      row-gap: rem(14);
+      padding-top: rem(8);
+    }
+  }
+  &__subtitle--type {
+    --type-speed: 2.2s;              /* скорость печати */
+    --type-caret-w: .1em;            /* ширина курсора */
+    --type-caret-color: var(--color-accent);
+    --type-chars: attr(data-chars number); /* из HTML/JS */
+
+    position: relative;
+    display: inline-block;
+    white-space: nowrap;              /* чтобы печать шла в строку */
+    overflow: hidden;                 /* прячем «не напечатанное» */
+    border-right: var(--type-caret-w) solid var(--type-caret-color);
+
+    /* печать + мигающий курсор */
+    width: 0;
+    animation:
+            hero-typing steps(var(--type-chars)) var(--type-speed) forwards,
+            hero-caret 1s step-end;
+
+    @include mobile {
+      /* чуть медленнее на мобилках — читаемее */
+      --type-speed: 2.6s;
+    }
+  }
+}
+
+/* Печать: ширина от 0 до Nch */
+@keyframes hero-typing {
+  to { width: calc(var(--type-chars) * 1ch); }
+}
+
+/* Моргание курсора */
+//@keyframes hero-caret {
+//  50% { border-right-color: transparent; }
+//}
+
+/* Accessibility: без анимаций — показываем сразу, курсор убираем */
+//@media (prefers-reduced-motion: reduce) {
+//  .hero__subtitle--type {
+//    animation: none;
+//    width: auto;
+//    border-right: 0;
+//  }
+//}
+

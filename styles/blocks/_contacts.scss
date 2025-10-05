@@ -1,0 +1,88 @@
+@use '../helpers' as *;
+
+/* ===== Contacts ===== */
+.contacts {
+  background: var(--color-white-secondary);
+
+  &__body { padding-block: rem(24); }
+
+  &__inner {
+    display: grid;
+    gap: rem(24);
+
+    @include tablet-above {           /* ≥1024px */
+      grid-template-columns: 1fr 1.05fr;
+      align-items: start;
+    }
+  }
+
+  /* Левая колонка */
+  &__info {
+    display: grid;
+    gap: rem(16);
+    color: var(--color-dark);
+  }
+
+  &__phone {
+    @include fluid-text(56, 28);      /* крупный номер как на рефе */
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -.01em;
+    color: var(--color-dark-900);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  &__email {
+    @include fluid-text(28, 18);
+    font-weight: 700;
+    color: var(--color-accent);
+    text-decoration: none;
+
+    @include hover { text-decoration: underline; }
+  }
+
+  &__time {
+    @include fluid-text(18, 15);
+    color: var(--color-gray);
+    font-style: italic;
+    margin-top: rem(8);
+  }
+
+  &__list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: rem(10);
+
+    a { color: inherit; text-decoration: underline; text-underline-offset: 0.15em; }
+    .muted { color: var(--color-gray); font-weight: 500; }
+  }
+
+  /* Правая колонка (карта) */
+  &__map {
+    border-radius: rem(14);
+    background: #fff;
+    border: var(--border);
+    box-shadow: 0 rem(2) rem(12) rgba(0,0,0,.06);
+    overflow: hidden;
+    min-height: rem(320);
+
+    @include tablet-above {
+      min-height: rem(380);
+    }
+  }
+
+  &__map-frame {
+    display: block;
+    inline-size: 100%;
+    block-size: clamp(320px, 45vh, 420px);
+    border: 0;
+  }
+}
+
+/* На узких — одна колонка, карта ниже, отступ побольше */
+@include mobile {
+  .contacts__map { margin-top: rem(8); }
+}

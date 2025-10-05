@@ -1,0 +1,123 @@
+@use '../helpers' as *;
+
+/* Секция: Лаборатория цементирования скважин */
+.cement-lab {
+
+  /* адаптивная сетка карточек: держим приличный минимум ширины */
+  &__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(fluid(380, 300), 1fr));
+    gap: fluid(24, 14);
+  }
+
+  &__item { /* зарезервировано под модификаторы */ }
+}
+
+/* ===== Карточка ===== */
+.lab-card {
+  --radius: #{fluid(18, 12)};
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: fluid(18, 14);
+  padding: fluid(18, 12);
+  border-radius: var(--radius);
+  text-decoration: none;
+  border: var(--border, 1px solid rgba(0,0,0,.06));
+  box-shadow: 0 6px 18px rgba(0,0,0,.04);
+
+  transition:
+          transform var(--transition-duration, .3s) ease,
+          box-shadow var(--transition-duration, .3s) ease,
+          background-color var(--transition-duration, .3s) ease;
+
+  @include hover() {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 28px rgba(0,0,0,.08);
+  }
+
+  /* миниатюра — ДЕЛАЕМ ПО-КРУПНЕЕ, чтобы «не были маленькими» */
+  &__media {
+    flex: none;
+    width:  fluid(150, 72);
+    height: fluid(150 , 72);
+    border-radius: calc(var(--radius) - fluid(6, 4));
+    overflow: hidden;
+    background: #fff;
+    display: grid;
+    place-items: center;
+    box-shadow: inset 0 0 0 1px rgba(0,0,0,.06);
+  }
+
+  &__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    aspect-ratio: 1 / 1;
+  }
+
+  /* текст */
+  &__content {
+    min-width: 0;
+    display: grid;
+    row-gap: fluid(6, 4);
+  }
+
+  &__title {
+    @include fluid-text(24, 16);
+    font-weight: 600;
+    color: var(--color-dark);
+    line-height: 1.35;
+    margin: 0;
+
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    //-webkit-box-orient: vertical;
+    overflow: hidden;
+    overflow-wrap: anywhere;
+  }
+
+  &__meta {
+    @include fluid-text(14, 13);
+    color: var(--color-gray, #6c6c6c);
+    line-height: 1.35;
+    overflow-wrap: anywhere;
+    //overflow: hidden;
+    //text-overflow: ellipsis;
+  }
+
+  /* мобильные поправки: ничего не «ломаем» и сохраняем крупную миниатюру */
+  @include mobile {
+    grid-template-columns: auto 1fr;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
+}
+
+/* ===== Доп. варианты, если понадобится ===== */
+
+/* более плотная раскладка (но всё ещё с крупной картинкой) */
+.cement-lab--compact {
+  .cement-lab__list {
+    grid-template-columns: repeat(auto-fit, minmax(fluid(340, 280), 1fr));
+    gap: fluid(18, 12);
+  }
+}
+
+/* вертикальная карточка (например, для узких колонок) */
+.lab-card--vertical {
+  grid-template-columns: 1fr;
+  text-align: center;
+
+  .lab-card__media {
+    width:  fluid(110, 84);
+    height: fluid(110, 84);
+    margin-inline: auto;
+  }
+}

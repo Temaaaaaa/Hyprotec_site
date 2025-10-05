@@ -1,0 +1,60 @@
+@use "../helpers" as *;
+
+.button {
+  --btn-bg: var(--color-accent);      // красный фон
+  --btn-fg: var(--color-white);       // белый текст
+  --btn-bg-hover: color-mix(in oklab, var(--color-accent) 92%, white 8%);
+  --btn-bg-active: color-mix(in oklab, var(--color-accent) 85%, black 15%);
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: rem(8);
+
+  padding: rem(14) rem(20);
+  font-weight: 700;
+  font-size: rem(18);
+  line-height: 1;
+  white-space: nowrap;
+
+  color: var(--btn-fg);
+  background-color: var(--btn-bg);
+  border: 1px solid color-mix(in oklab, var(--btn-bg) 65%, black 35%);
+  border-radius: rem(999);            // «пилюля»
+  text-decoration: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: background-color var(--transition-duration, .2s) ease,
+  transform var(--transition-duration, .2s) ease,
+  box-shadow var(--transition-duration, .2s) ease,
+  color var(--transition-duration, .2s) ease;
+
+  // при любых состояниях у кнопки сохраняем белый текст
+  &, &:visited, &:hover, &:focus, &:active {
+    color: var(--btn-fg);
+  }
+
+  @include hover {
+    background-color: var(--btn-bg-hover);
+    transform: translateY(rem(-1));
+    box-shadow: 0 rem(8) rem(20) rgba(0,0,0,.2);
+  }
+
+  &:active {
+    transform: translateY(0);
+    background-color: var(--btn-bg-active);
+    box-shadow: 0 rem(4) rem(12) rgba(0,0,0,.18);
+  }
+
+  &:focus-visible {
+    outline: none;
+    box-shadow:
+            0 0 0 rem(3) color-mix(in oklab, var(--btn-bg) 35%, transparent),
+            0 rem(8) rem(20) rgba(0,0,0,.2);
+  }
+
+  @include laptop {
+    font-size: rem(16);
+    padding: rem(12) rem(18);
+  }
+}

@@ -1,0 +1,77 @@
+@use '../helpers' as *;
+
+/* Фон секции чуть светлее для контраста */
+
+
+.equipment__body { margin-top: clamp(1rem, 3vw, 2rem); }
+
+/* Крупный вводный текст */
+.equipment__lead {
+  p + p { margin-top: rem(18); }
+  p {
+    @include fluid-text(28, 18);
+    line-height: 1.7;
+    color: var(--color-dark-900);
+  }
+}
+
+/* Сетка «пилюль» */
+.equipment__chips {
+  margin-top: clamp(1.25rem, 3.5vw, 2.25rem);
+  display: grid;
+  gap: rem(18);
+
+  @include tablet-above { grid-template-columns: repeat(2, 1fr); }
+  @include laptop-above { grid-template-columns: repeat(3, 1fr); }
+}
+
+/* Пилюля-карточка с красной кромкой слева */
+.chip {
+  position: relative;
+  padding: rem(18) rem(22);
+  border-radius: rem(16);
+  background: #fff;
+  box-shadow:
+          0 rem(2) rem(18) rgba(0,0,0,.06),
+          inset 0 0 0 rem(1) rgba(20,20,20,.06);
+  transition: box-shadow var(--transition-duration), transform var(--transition-duration);
+
+  /* красная глянцевая полоса слева */
+  &::before {
+    content: '';
+    position: absolute;
+    left: rem(10);
+    top: rem(12);
+    bottom: rem(12);
+    width: rem(6);
+    border-radius: rem(10);
+    background:
+            linear-gradient(180deg, rgba(255,255,255,.35), rgba(255,255,255,0) 60%) padding-box,
+            linear-gradient(180deg, #E73439 0%, #cc1e24 100%) border-box;
+    box-shadow:
+            0 0 0 rem(1) rgba(231,52,57,.25),
+            0 rem(6) rem(10) rgba(231,52,57,.15);
+  }
+
+  /* небольшой внутренний отступ слева, чтобы текст не слепался с полосой */
+  padding-left: rem(36);
+
+  @include hover {
+    transform: translateY(rem(-2));
+    box-shadow: 0 rem(10) rem(26) rgba(0,0,0,.12),
+    inset 0 0 0 rem(1) rgba(20,20,20,.06);
+  }
+}
+
+.chip__text {
+  @include fluid-text(24, 16);
+  line-height: 1.55;
+  color: var(--color-dark);
+  margin: 0;
+}
+
+/* Компакт на мобилке */
+@include mobile {
+  .chip { padding: rem(16) rem(18); padding-left: rem(34); }
+  .chip::before { left: rem(8); top: rem(10); bottom: rem(10); width: rem(6); }
+}

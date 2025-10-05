@@ -1,0 +1,65 @@
+@use '../helpers' as *;
+
+.section {
+  padding-top: rem(150);
+}
+.section__header {
+  margin-bottom: clamp(1rem, 3.5vw, 2rem);
+}
+
+.section__header-inner {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-areas:
+    "kicker title"
+    "rule   rule";
+  align-items: end;             // выравниваем по базовой линии
+  column-gap: rem(16);
+  row-gap: rem(12);
+}
+
+.section__subtitle.tag {
+  grid-area: kicker;
+  display: inline-block;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-gray);
+  line-height: 1;               // чтобы цифра не «плавала»
+  white-space: nowrap;          // не переносить "01"
+  transform: translateY(rem(2)); // лёгкая оптика, можно убрать
+}
+
+.section-title {
+  grid-area: title;
+  @include fluid-text(58, 28);
+  font-family: var(--font-family-accent), sans-serif;
+  font-weight: 500;
+  line-height: 1.15;
+  color: var(--color-dark);
+  min-width: 0;                 // чтобы корректно усекался при очень длинных заголовках
+}
+
+.section__rule {
+  grid-area: rule;
+  height: rem(4);
+  background-color: var(--color-accent);
+  border-radius: rem(2);
+  margin-top: rem(8);           // вместо translate
+}
+
+/* Мобильная перестройка: номер -> заголовок -> полоса */
+@include mobile {
+  .section__header-inner {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "kicker"
+      "title"
+      "rule";
+    align-items: start;
+    column-gap: 0;
+    row-gap: rem(8);
+  }
+
+  .section__rule { height: rem(3); margin-top: rem(4); }
+}

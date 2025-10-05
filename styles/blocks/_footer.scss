@@ -1,0 +1,148 @@
+@use '../helpers' as *;
+
+.footer {
+  /* фон и базовая типографика */
+  background-color: var(--color-dark-900);
+  color: var(--color-gray-300);
+
+  /* внутренние отступы секции */
+  padding-block: rem(32);
+
+  /* сетка тела футера: слева бренд, справа меню */
+  &__body {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: start;
+    column-gap: rem(48);
+    row-gap: rem(12);
+  }
+
+  /* левая колонка: логотип + копирайт */
+  &__brand {
+    display: grid;
+    align-content: start;
+    row-gap: rem(12);
+    min-width: 0; // на всякий случай для переполнений
+  }
+
+  &__logo {
+    display: inline-flex;
+    align-items: center;
+    column-gap: rem(8);
+    text-decoration: none;
+
+    img, svg {
+      display: block;
+      height: rem(20);
+      width: auto;
+    }
+  }
+
+  &__copyright {
+    margin: 0;
+    font-size: rem(14);
+    line-height: 1.5;
+    color: var(--color-gray-400, #a9b0ba);
+  }
+
+  /* правая колонка: меню */
+  &__menu {
+    /* чтобы навигатор не разъезжался */
+    min-width: rem(160);
+  }
+
+  &__menu-title {
+    display: block;
+    margin-bottom: rem(12);
+    font-weight: 700;
+    font-size: rem(14);
+    letter-spacing: .02em;
+    color: var(--color-white, #fff);
+    text-transform: uppercase;
+  }
+
+  &__menu-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    row-gap: rem(10);
+  }
+
+  &__menu-item {
+    min-width: 0;
+  }
+
+  /* ссылка меню + underline-анимация */
+  &__menu-link {
+    position: relative;
+    display: inline-block;
+    padding-block: rem(2);
+    color: var(--color-white, #fff);
+    text-decoration: none;
+    font-size: rem(16);
+    line-height: 1.4;
+    transition: color var(--transition-duration, .25s) ease;
+
+    /* базовая скрытая линия */
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: rem(2);
+      background-color: var(--color-accent, #e53935);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform var(--transition-duration, .25s) ease;
+      will-change: transform;
+    }
+
+    /* активная страница — линия видна */
+    &[aria-current="page"]::after {
+      transform: scaleX(1);
+    }
+  }
+
+  /* hover/focus — только там, где у девайса есть hover */
+  @include mobile-above {
+    @media (hover: hover) and (pointer: fine) {
+      .footer__menu-link:hover,
+      .footer__menu-link:focus-visible {
+        color: var(--color-accent, #e53935);
+      }
+      .footer__menu-link:hover::after,
+      .footer__menu-link:focus-visible::after {
+        transform: scaleX(1);
+      }
+    }
+  }
+
+  /* адаптив */
+  @include laptop {
+    &__body { column-gap: rem(32); }
+  }
+
+  @include mobile {
+    padding-block: rem(24);
+
+    &__body {
+      grid-template-columns: 1fr;  // в одну колонку
+      row-gap: rem(20);
+    }
+
+    &__menu {
+      min-width: 0;
+    }
+
+    &__menu-link {
+      font-size: rem(18);
+      /* на тач-устройствах hover не держим;
+         можно подсветить на tap по желанию */
+      @media (hover: none) and (pointer: coarse) {
+        &:active::after { transform: scaleX(1); }
+      }
+    }
+  }
+}

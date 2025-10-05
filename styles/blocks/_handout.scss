@@ -1,0 +1,82 @@
+@use '../helpers' as *;
+
+/* =========================
+   HANDOUT — две обложки + подпись
+   ========================= */
+
+.handout__body { margin-top: clamp(1rem, 3vw, 2rem); }
+
+.handout__inner {
+  display: grid;
+  place-items: center;
+}
+
+.handout__media {
+  --pad: #{rem(12)};
+  --maxWidth: #{rem(1160)};
+  margin: 0;
+  width: min(100%, var(--maxWidth));
+  padding: var(--pad);
+  background: var(--color-white);
+  border: rem(1) solid var(--color-dark-15, rgba(0,0,0,.15));
+  border-radius: rem(18);
+  box-shadow: 0 rem(18) rem(54) rgba(0,0,0,.06);
+
+  @include mobile {
+    --pad: #{rem(8)};
+    border-radius: rem(14);
+  }
+}
+
+/* Галерея 2 колонки (равная высота карточек) */
+.handout__gallery {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: rem(16);
+  align-items: stretch;
+
+  @include mobile {
+    grid-template-columns: 1fr;
+    gap: rem(12);
+  }
+}
+
+/* Карточка-обложка */
+.handout-card {
+  --card-r: 3 / 4; /* вертикальная пропорция */
+  padding: rem(10);
+  background: var(--color-white);
+  border: rem(1) solid var(--color-dark-15, rgba(0,0,0,.15));
+  border-radius: rem(16);
+  box-shadow: 0 rem(10) rem(30) rgba(0,0,0,.05);
+  display: flex;
+
+  @include mobile { border-radius: rem(12); padding: rem(8); }
+}
+
+/* Картинка занимает всю карточку и сохраняет единый размер */
+.handout-card__img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: var(--card-r);
+  object-fit: contain;
+  border-radius: calc(rem(16) - rem(10));
+
+  @include mobile {
+    border-radius: calc(rem(12) - rem(8));
+  }
+}
+
+/* Подпись под галереей */
+.handout__caption {
+  margin-top: rem(12);
+  font-size: rem(15);
+  line-height: 1.6;
+  color: var(--color-dark-900, #222);
+  text-align: center;
+  opacity: .9;
+}
+
+/* Заголовок секции плотнее на переносах */
+#handout-title { line-height: 1.16; letter-spacing: -0.01em; }

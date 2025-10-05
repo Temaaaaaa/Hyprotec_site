@@ -1,0 +1,473 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Hyprotec | Home</title>
+    <link rel="stylesheet" href="../styles/main.css">
+    <script type="module" src="../scripts/main.js" defer></script>
+</head>
+<body>
+<header class="header" data-js-header>
+    <div class="header__body">
+        <div class="header__body-inner container">
+            <a class="header__logo logo" href="/" aria-label="Home" title="Home">
+                <img class="logo__image" src="../images/logo-main.svg" alt="" width="300" height="50" />
+            </a>
+
+            <div class="header__overlay" id="header-panel" data-js-header-overlay>
+                <nav class="header__menu" aria-label="Главное меню">
+                    <ul class="header__menu-list">
+                        <li class="header__menu-item"><a class="header__menu-link" href="#about" aria-current="page">О компании</a></li>
+                        <li class="header__menu-item header__menu-item--has-submenu">
+                            <a class="header__menu-link"
+                               href="/services"
+                               aria-haspopup="true"
+                               aria-expanded="false">
+                                Услуги <span class="header__submenu-caret" aria-hidden="true">▾</span>
+                            </a>
+
+                            <button class="header__submenu-toggle visible-mobile"
+                                    type="button"
+                                    aria-label="Показать подменю «Услуги»"
+                                    aria-controls="submenu-services"
+                                    aria-expanded="false"
+                                    data-js-submenu-toggle>
+                                <span class="header__submenu-icon" aria-hidden="true"></span>
+                            </button>
+
+                            <ul class="header__submenu" id="submenu-services" role="menu" aria-label="Услуги">
+                                <li class="header__submenu-item"><a class="header__submenu-link" href="/services/lab">Лабораторное оборудование</a></li>
+                                <li class="header__submenu-item"><a class="header__submenu-link" href="/services/ntc">Научно-технологический центр</a></li>
+                                <li class="header__submenu-item"><a class="header__submenu-link" href="/services/supervising">Супервайзинг и полевой аудит</a></li>
+                                <li class="header__submenu-item"><a class="header__submenu-link" href="/services/consulting">Технологический консалтинг</a></li>
+                                <li class="header__submenu-item"><a class="header__submenu-link" href="/services/calibration">Калибровка и ТО</a></li>
+                                <li class="header__submenu-item"><a class="header__submenu-link" href="/services/cpo">Центр проф. обучения</a></li>
+                            </ul>
+                        </li>
+                        <li class="header__menu-item"><a class="header__menu-link" href="#equipment">Оборудование</a></li>
+                        <li class="header__menu-item"><a class="header__menu-link" href="#contacts">Контакты</a></li>
+                    </ul>
+                </nav>
+                <nav class="header__language-select" aria-label="Выбор языка">
+                    <a class="header__language-ru" href="?lang=ru" lang="ru" hreflang="ru" aria-current="true">RU</a>
+                    <a class="header__language-en" href="?lang=en" lang="en" hreflang="en">EN</a>
+                </nav>
+            </div>
+
+            <button
+                    class="header__burger-button burger-button  visible-mobile"
+                    type="button"
+                    aria-label="Открыть меню"
+                    aria-controls="header-panel"
+                    aria-expanded="false"
+                    data-js-header-burger-button
+            >
+                <span class="burger-button__line"></span>
+                <span class="burger-button__line"></span>
+                <span class="burger-button__line"></span>
+            </button>
+        </div>
+    </div>
+</header>
+<main>
+    <section class="hero hero--secondary hero--image" style="--hero-bg:url('../images/cards/card2.jpg')">
+        <div class="hero__bg" aria-hidden="true"></div>
+        <div class="hero__inner container hero__inner--center">
+            <h1 class="hero__title">Супервайзинг</h1>
+            <p class="hero__subtitle">И полевой аудит</p>
+        </div>
+    </section>
+    <section class="supervising section" id="supervising" aria-labelledby="supervising-title">
+        <header class="section__header">
+            <div class="section__header-inner container">
+                <div class="section__header-info">
+                    <h2 class="section__title section-title" id="supervising-title">Супервайзинг</h2>
+                </div>
+                <div class="section__rule" aria-hidden="true"></div>
+            </div>
+        </header>
+
+        <div class="supervising__body">
+            <div class="supervising__inner container">
+                <div class="supervising__grid">
+                    <div class="supervising__text">
+                        <p>
+                            Наша служба супервайзинга осуществляет контроль проведения работ на объекте Заказчика,
+                            включая все этапы бурения, цементирования и закачивания, представляя прямые интересы Заказчика.
+                        </p>
+                        <p>
+                            Обеспечиваем соблюдение технологий и регламентов, оперативно корректируем рецептуры и параметры,
+                            ведём сменные и итоговые отчёты, координируем подрядчиков и соблюдение HSE-требований.
+                        </p>
+                    </div>
+
+                    <figure class="supervising__figure card">
+                        <img class="supervising__image"
+                             src="../images/supervision.jpg"
+                             alt="Инженер HYPROTEC ведёт супервайзинг на объекте"
+                             loading="lazy">
+                    </figure>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="values section" id="values" aria-labelledby="values-title">
+        <header class="section__header">
+            <div class="section__header-inner container">
+                <div class="section__header-info">
+                    <h2 class="section__title section-title" id="values-title">Почему нас выбирают?</h2>
+                </div>
+                <div class="section__rule" aria-hidden="true"></div>
+            </div>
+        </header>
+
+        <div class="values__body">
+            <div class="values__inner container">
+
+                <div class="carousel" data-js-carousel data-autoplay="true" data-interval="5000">
+                    <!-- controls -->
+                    <button class="carousel__btn carousel__btn--prev" data-js-carousel-prev aria-label="Назад" disabled>‹</button>
+                    <button class="carousel__btn carousel__btn--next" data-js-carousel-next aria-label="Вперёд">›</button>
+
+                    <!-- viewport -->
+                    <div class="carousel__viewport" tabindex="0" role="region" aria-roledescription="carousel" aria-label="Ценности компании" data-js-carousel-viewport>
+                        <ul class="carousel__track" data-js-carousel-track>
+                            <!-- Slide 1 -->
+                            <li class="carousel__slide">
+                                <article class="value card card--underlined card--accent-red">
+                                    <div class="value__icon feature__icon" aria-hidden="true">
+                                        <!-- shield / safety icon -->
+                                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                            <path d="M24 4L8 10V22C8 32.493 14.667 41.92 24 44C33.333 41.92 40 32.493 40 22V10L24 4Z" stroke="#E73439" stroke-width="2" fill="none"/>
+                                            <path d="M17 24l5 5 9-11" stroke="#E73439" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                    </div>
+                                    <h3 class="value__title card__title">Объективная оценка работ подрядчиков</h3>
+                                    <p class="value__text card__text">
+                                        Вы получаете полную и объективную оценку качества работ подрядчиков
+                                    </p>
+                                </article>
+                            </li>
+
+                            <!-- Slide 2 -->
+                            <li class="carousel__slide">
+                                <article class="value card card--underlined card--accent-red">
+                                    <div class="value__icon feature__icon" aria-hidden="true">
+                                        <!-- quality / badge -->
+                                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                            <circle cx="24" cy="20" r="12" stroke="#E73439" stroke-width="2"/>
+                                            <path d="M18 36l-2 8 8-4 8 4-2-8" stroke="#E73439" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                                            <path d="M20 20l3 3 7-7" stroke="#E73439" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                    </div>
+                                    <h3 class="value__title card__title">Оперативность рекомендаций</h3>
+                                    <p class="value__text card__text">
+
+                                        Вы всегда оперативно будите получать эффективные рекомендации по улучшению технологии цементирования
+
+                                    </p>
+                                </article>
+                            </li>
+
+                            <!-- Slide 3 -->
+                            <li class="carousel__slide">
+                                <article class="value card card--underlined card--accent-red">
+                                    <div class="value__icon feature__icon" aria-hidden="true">
+                                        <!-- innovation / atom -->
+                                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                            <circle cx="24" cy="24" r="3" fill="#E73439"/>
+                                            <ellipse cx="24" cy="24" rx="16" ry="8" stroke="#E73439" stroke-width="2"/>
+                                            <ellipse cx="24" cy="24" rx="8" ry="16" stroke="#E73439" stroke-width="2" transform="rotate(60 24 24)"/>
+                                            <ellipse cx="24" cy="24" rx="8" ry="16" stroke="#E73439" stroke-width="2" transform="rotate(-60 24 24)"/>
+                                        </svg>
+                                    </div>
+                                    <h3 class="value__title card__title">Сроки и безопасность</h3>
+                                    <p class="value__text card__text">
+                                        Мы сокращаем непроизводительное время и предотвращаем аварийность
+                                    </p>
+                                </article>
+                            </li>
+
+                            <!-- Slide 4 -->
+                            <li class="carousel__slide">
+                                <article class="value card card--underlined card--accent-red">
+                                    <div class="value__icon feature__icon" aria-hidden="true">
+                                        <!-- handshake / partnership -->
+                                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                            <path d="M6 26l8-8 8 8 6-6 14 14" stroke="#E73439" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                            <path d="M34 36l6-6" stroke="#E73439" stroke-width="2" stroke-linecap="round"/>
+                                        </svg>
+                                    </div>
+                                    <h3 class="value__title card__title">Качество крепления скважин</h3>
+                                    <p class="value__text card__text">
+                                        Мы повышаем качество крепления скважин
+                                    </p>
+                                </article>
+                            </li>
+
+                            <!-- Slide 5 -->
+                            <li class="carousel__slide">
+                                <article class="value card card--underlined card--accent-red">
+                                    <div class="value__icon feature__icon" aria-hidden="true">
+                                        <!-- growth / people -->
+                                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                            <path d="M12 34c0-4.418 4.03-8 9-8h6c4.97 0 9 3.582 9 8" stroke="#E73439" stroke-width="2"/>
+                                            <circle cx="24" cy="18" r="5" stroke="#E73439" stroke-width="2"/>
+                                        </svg>
+                                    </div>
+                                    <h3 class="value__title card__title">Компенсирование затрат</h3>
+                                    <p class="value__text card__text">
+                                        Вы сможете компенсировать затраты связанные с отклонением от плана работ ввиду низкого качества услуг по цементированию скважин
+                                    </p>
+                                </article>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- dots -->
+                    <div class="carousel__dots" data-js-carousel-dots aria-label="Навигация по слайдам"></div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <section class="offering section" id="offering" aria-labelledby="offering-title">
+        <header class="section__header">
+            <div class="section__header-inner container">
+                <div class="section__header-info">
+                    <h2 class="section__title section-title" id="offering-title">Услуги</h2>
+                </div>
+                <div class="section__rule" aria-hidden="true"></div>
+            </div>
+        </header>
+
+        <div class="offering__body">
+            <div class="offering__inner container">
+                <ul class="offering__list" data-js-offering>
+                    <!-- item -->
+                    <li class="offering__item">
+                        <button class="offering__header"
+                                id="off-1-header"
+                                aria-expanded="false"
+                                aria-controls="off-1-panel"
+                                type="button">
+                            <span class="offering__title">Выездные аудиты</span>
+                            <span class="offering__icon" aria-hidden="true"></span>
+                        </button>
+                        <div class="offering__panel" id="off-1-panel" role="region" aria-labelledby="off-1-header">
+                            <div class="offering__content">
+                                <p>Выездные аудиты по цементированию на объектах Заказчика согласно техническом заданию</p>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li class="offering__item">
+                        <button class="offering__header" id="off-2-header" aria-expanded="false"
+                                aria-controls="off-2-panel" type="button">
+                            <span class="offering__title">Контроль оснастки</span>
+                            <span class="offering__icon" aria-hidden="true"></span>
+                        </button>
+                        <div class="offering__panel" id="off-2-panel" role="region" aria-labelledby="off-2-header">
+                            <div class="offering__content">
+                                <p>Контроль оснастки при спуске обсадных колонн, хвостовиков,мостов, РИР</p>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li class="offering__item">
+                        <button class="offering__header" id="off-3-header" aria-expanded="false"
+                                aria-controls="off-3-panel" type="button">
+                            <span class="offering__title">Контроль параметров бурового раствора</span>
+                            <span class="offering__icon" aria-hidden="true"></span>
+                        </button>
+                        <div class="offering__panel" id="off-3-panel" role="region" aria-labelledby="off-3-header">
+                            <div class="offering__content">
+                                <p>Контроль параметров бурового раствора и количества циклов промывки перед цементированием</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="offering__item">
+                        <button class="offering__header" id="off-4-header" aria-expanded="false"
+                                aria-controls="off-3-panel" type="button">
+                            <span class="offering__title">Мониторинг процессов цементирования</span>
+                            <span class="offering__icon" aria-hidden="true"></span>
+                        </button>
+                        <div class="offering__panel" id="off-4-panel" role="region" aria-labelledby="off-3-header">
+                            <div class="offering__content">
+                                <p>Мониторинг выполнения технологических регламентов в процессе цементирования</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="offering__item">
+                        <button class="offering__header" id="off-5-header" aria-expanded="false"
+                                aria-controls="off-3-panel" type="button">
+                            <span class="offering__title">Отбор проб</span>
+                            <span class="offering__icon" aria-hidden="true"></span>
+                        </button>
+                        <div class="offering__panel" id="off-5-panel" role="region" aria-labelledby="off-3-header">
+                            <div class="offering__content">
+                                <p>Отбор проб воды, сухой тампонажной смеси, цементного и бурового раствора и буферных жидкостей</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="offering__item">
+                        <button class="offering__header" id="off-6-header" aria-expanded="false"
+                                aria-controls="off-3-panel" type="button">
+                            <span class="offering__title">Проведение исследований</span>
+                            <span class="offering__icon" aria-hidden="true"></span>
+                        </button>
+                        <div class="offering__panel" id="off-6-panel" role="region" aria-labelledby="off-3-header">
+                            <div class="offering__content">
+                                <p>Проведение физико-химических исследований проб сухой тампонажной смеси, цементного и бурового раствора и буферных жидкостей</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="offering__item">
+                        <button class="offering__header" id="off-7-header" aria-expanded="false"
+                                aria-controls="off-3-panel" type="button">
+                            <span class="offering__title">Входной контроль материалов</span>
+                            <span class="offering__icon" aria-hidden="true"></span>
+                        </button>
+                        <div class="offering__panel" id="off-7-panel" role="region" aria-labelledby="off-3-header">
+                            <div class="offering__content">
+                                <p>Входной контроль материалов для приготовления тампонажных и буровых растворов, буферных жидкостей</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="offering__item">
+                        <button class="offering__header" id="off-8-header" aria-expanded="false"
+                                aria-controls="off-3-panel" type="button">
+                            <span class="offering__title">Внеплановый аудит</span>
+                            <span class="offering__icon" aria-hidden="true"></span>
+                        </button>
+                        <div class="offering__panel" id="off-8-panel" role="region" aria-labelledby="off-3-header">
+                            <div class="offering__content">
+                                <p>Внеплановый аудит склада,лаборатории и цементного завода сервисных компаний</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="offering__item">
+                        <button class="offering__header" id="off-9-header" aria-expanded="false"
+                                aria-controls="off-3-panel" type="button">
+                            <span class="offering__title">Отчетная и рекомендательная документация</span>
+                            <span class="offering__icon" aria-hidden="true"></span>
+                        </button>
+                        <div class="offering__panel" id="off-9-panel" role="region" aria-labelledby="off-3-header">
+                            <div class="offering__content">
+                                <p>Предоставление отчетной документации с планом мероприятий и рекомендаций по повышению качества работ</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="offering__item">
+                        <button class="offering__header" id="off-10-header" aria-expanded="false"
+                                aria-controls="off-3-panel" type="button">
+                            <span class="offering__title">Автоматизация системы очистки</span>
+                            <span class="offering__icon" aria-hidden="true"></span>
+                        </button>
+                        <div class="offering__panel" id="off-10-panel" role="region" aria-labelledby="off-3-header">
+                            <div class="offering__content">
+                                <p>Предоставление услуги по автоматизации работы системы очистки бурового раствора</p>
+                            </div>
+                        </div>
+                    </li>
+                    <!-- добавляй элементы по необходимости -->
+                </ul>
+            </div>
+        </div>
+    </section>
+    <section class="contacts section full-vw-line full-vw-line--bottom full-vw-line--left" id="contacts" aria-labelledby="contacts-title">
+        <header class="section__header">
+            <div class="section__header-inner container">
+                <div class="section__header-info">
+                    <h2 class="section__title section-title" id="contacts-title">Контакты</h2>
+                </div>
+                <div class="section__rule" aria-hidden="true"></div>
+            </div>
+        </header>
+
+        <div class="contacts__body">
+            <div class="contacts__inner container" itemscope itemtype="https://schema.org/Organization">
+                <!-- Левая колонка -->
+                <div class="contacts__info">
+                    <a class="contacts__phone" href="tel:+79223180000" itemprop="telephone">8&nbsp;922&nbsp;318&nbsp;00&nbsp;00</a>
+                    <a class="contacts__email" href="mailto:info@hyprotec.ru" itemprop="email">info@hyprotec.ru</a>
+
+                    <p class="contacts__time">пн–пт с 10:00 до 19:00</p>
+
+                    <ul class="contacts__list">
+                        <li><span class="muted">ООО «</span><b itemprop="name">ХАЙПРОТЕК</b><span class="muted">»</span></li>
+                        <li>ИНН: <a href="#" rel="nofollow noopener">7203456345</a></li>
+                        <li>КПП: <a href="#" rel="nofollow noopener">720301001</a></li>
+                        <li>ОГРН: <a href="#" rel="nofollow noopener">1187232020722</a></li>
+                        <li itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
+                            <meta itemprop="postalCode" content="625000">
+                            <span class="muted">625000, Тюменская область, г. Тюмень,</span><br>
+                            <span itemprop="streetAddress">ул. Грибоедова, д. 15, пом. 1</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Правая колонка -->
+                <div class="contacts__map">
+                    <iframe
+                            class="contacts__map-frame"
+                            title="Карта: ул. Грибоедова, 15 — ХАЙПРОТЕК"
+                            src="https://yandex.ru/map-widget/v1/?um=constructor%3Af2b12c5ceae10d922c0fee41817b70696ff03f02db3c599ca4628d5f3698f18a&amp;source=constructor"
+                            loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade"
+                            allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+
+</main>
+
+<footer class="footer">
+    <div class="footer__inner container">
+        <div class="footer__body">
+            <div class="footer__brand">
+                <a href="/" class="footer__logo" aria-label="HYPROTEC">
+                    <!-- поставь свой SVG/IMG логотип -->
+                    <img src="../images/logo-main.svg" alt="HYPROTEC">
+                </a>
+                <p class="footer__copyright">
+                    <span aria-hidden="true">©</span> Все права защищены. HYPROTEC.
+                </p>
+            </div>
+            <nav class="footer__menu" aria-label="Меню в подвале">
+                <div class="footer__menu-column">
+                    <span class="footer__menu-title">МЕНЮ</span>
+                    <ul class="footer__menu-list">
+                        <li class="footer__menu-item">
+                            <a href="/" class="footer__menu-link">О нас</a>
+                        </li>
+                        <li class="footer__menu-item">
+                            <a href="/" class="footer__menu-link">Услуги</a>
+                        </li>
+                        <li class="footer__menu-item">
+                            <a href="/" class="footer__menu-link">Проекты</a>
+                        </li>
+                        <li class="footer__menu-item">
+                            <a href="/" class="footer__menu-link">Контакты</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </div>
+</footer>
+
+
+
+
+</body>
+</html>

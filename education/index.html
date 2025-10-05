@@ -1,0 +1,418 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Hyprotec | Home</title>
+    <link rel="stylesheet" href="../styles/main.css">
+    <script type="module" src="../scripts/main.js" defer></script>
+</head>
+<body>
+<header class="header" data-js-header>
+    <div class="header__body">
+        <div class="header__body-inner container">
+            <a class="header__logo logo" href="/" aria-label="Home" title="Home">
+                <img class="logo__image" src="../images/logo-main.svg" alt="" width="300" height="50" />
+            </a>
+
+            <div class="header__overlay" id="header-panel" data-js-header-overlay>
+                <nav class="header__menu" aria-label="Главное меню">
+                    <ul class="header__menu-list">
+                        <li class="header__menu-item"><a class="header__menu-link" href="#about" aria-current="page">О компании</a></li>
+                        <li class="header__menu-item header__menu-item--has-submenu">
+                            <a class="header__menu-link"
+                               href="/services"
+                               aria-haspopup="true"
+                               aria-expanded="false">
+                                Услуги <span class="header__submenu-caret" aria-hidden="true">▾</span>
+                            </a>
+
+                            <button class="header__submenu-toggle visible-mobile"
+                                    type="button"
+                                    aria-label="Показать подменю «Услуги»"
+                                    aria-controls="submenu-services"
+                                    aria-expanded="false"
+                                    data-js-submenu-toggle>
+                                <span class="header__submenu-icon" aria-hidden="true"></span>
+                            </button>
+
+                            <ul class="header__submenu" id="submenu-services" role="menu" aria-label="Услуги">
+                                <li class="header__submenu-item"><a class="header__submenu-link" href="/services/lab">Лабораторное оборудование</a></li>
+                                <li class="header__submenu-item"><a class="header__submenu-link" href="/services/ntc">Научно-технологический центр</a></li>
+                                <li class="header__submenu-item"><a class="header__submenu-link" href="/services/supervising">Супервайзинг и полевой аудит</a></li>
+                                <li class="header__submenu-item"><a class="header__submenu-link" href="/services/consulting">Технологический консалтинг</a></li>
+                                <li class="header__submenu-item"><a class="header__submenu-link" href="/services/calibration">Калибровка и ТО</a></li>
+                                <li class="header__submenu-item"><a class="header__submenu-link" href="/services/cpo">Центр проф. обучения</a></li>
+                            </ul>
+                        </li>
+                        <li class="header__menu-item"><a class="header__menu-link" href="#equipment">Оборудование</a></li>
+                        <li class="header__menu-item"><a class="header__menu-link" href="#contacts">Контакты</a></li>
+                    </ul>
+                </nav>
+                <nav class="header__language-select" aria-label="Выбор языка">
+                    <a class="header__language-ru" href="?lang=ru" lang="ru" hreflang="ru" aria-current="true">RU</a>
+                    <a class="header__language-en" href="?lang=en" lang="en" hreflang="en">EN</a>
+                </nav>
+            </div>
+
+            <button
+                    class="header__burger-button burger-button  visible-mobile"
+                    type="button"
+                    aria-label="Открыть меню"
+                    aria-controls="header-panel"
+                    aria-expanded="false"
+                    data-js-header-burger-button
+            >
+                <span class="burger-button__line"></span>
+                <span class="burger-button__line"></span>
+                <span class="burger-button__line"></span>
+            </button>
+        </div>
+    </div>
+</header>
+
+<main>
+    <section class="hero hero--secondary hero--image" style="--hero-bg:url('../images/education-hero.png')">
+        <div class="hero__bg" aria-hidden="true"></div>
+        <div class="hero__inner container hero__inner--center">
+            <h1 class="hero__title">Центр профессионального обучения</h1>
+        </div>
+    </section>
+    <section class="training section full-vw-line full-vw-line--bottom full-vw-line--left"
+             id="training"
+             aria-labelledby="training-title">
+        <header class="section__header">
+            <div class="section__header-inner container">
+                <div class="section__header-info">
+                    <h2 class="section__title section-title" id="training-title">Обучение персонала</h2>
+                </div>
+                <div class="section__rule" aria-hidden="true"></div>
+            </div>
+        </header>
+
+        <div class="training__body">
+            <div class="training__inner container">
+                <div class="training__grid">
+                    <!-- Левая панель с контентом -->
+                    <article class="training__content card">
+                        <p class="training__lead">
+                            Современные вызовы связаны не только с достижением технических целей, но и с регулярной
+                            подготовкой кадров. Наши инструкторы делятся опытом и актуальными практиками, пройдя обучение
+                            в международных школах (HAL, BH, SLB).
+                        </p>
+
+                        <p class="training__text">
+                            Проводим очные тренинги и выездные сессии на площадках заказчика. Формируем программы под задачи,
+                            подтверждаем результаты документально.
+                        </p>
+
+                        <h3 class="training__subtitle">На базе НТЦ в Новом Уренгое и на площадках Заказчика:</h3>
+
+                        <ol class="training__list">
+                            <li class="training__item">Оценка текущих знаний и компетенций.</li>
+                            <li class="training__item">Подготовка лаборантов: от базового до продвинутого уровня.</li>
+                            <li class="training__item">Промежуточные и итоговые тестирования.</li>
+                            <li class="training__item">Подтверждение и сертификация полученных знаний.</li>
+                        </ol>
+                    </article>
+
+                    <!-- Правая медиа-область -->
+                    <figure class="training__media">
+                        <img class="training__img"
+                             src="../images/team.jpg"
+                             alt="Группа сотрудников на учебном курсе" loading="lazy" decoding="async">
+                    </figure>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="course section full-vw-line full-vw-line--bottom full-vw-line--left"
+             id="course-mud"
+             aria-labelledby="course-mud-title">
+        <header class="section__header">
+            <div class="section__header-inner container">
+                <div class="section__header-info">
+                    <h2 class="section__title section-title" id="course-mud-title">Курс по буровым растворам</h2>
+                </div>
+                <div class="section__rule" aria-hidden="true"></div>
+            </div>
+        </header>
+
+        <div class="course__body">
+            <div class="course__inner container">
+                <div class="course__grid">
+                    <!-- контент слева -->
+                    <article class="course__content">
+                        <h3 class="course__subtitle">Содержание</h3>
+
+                        <ul class="course__list">
+                            <li class="course__item">Буровые промывочные жидкости (классификация, функции, компоненты ПВО: полимеры, утяжелители и пр.).</li>
+                            <li class="course__item">Краткие основы химии. Химия глин. Механизмы ингибирования/гидратации глинистых минералов.</li>
+                            <li class="course__item">Инженерные расчёты (матбаланс, утяжеление, разбавление, расчёты при приготовлении растворов).</li>
+                            <li class="course__item">Примеси в буровых растворах на водной основе.</li>
+                            <li class="course__item">Растворы первичного вскрытия.</li>
+                            <li class="course__item">Фильтрация в растворах (процесс, принципы и материалы для контроля фильтрации).</li>
+                            <li class="course__item">Реология и гидродинамика буровых растворов (режимы течения, реологические модели, гидравлические потери, ЭЦП).</li>
+                            <li class="course__item">Очистка ствола скважины от выбуренной породы.</li>
+                            <li class="course__item">Анализ состава твёрдой фазы.</li>
+                            <li class="course__item">Осложнения при бурении (поглощение раствора, прихват колонны, дестабилизация ствола и др.).</li>
+                            <li class="course__item">Инженерные расчёты при ликвидации осложнений.</li>
+                            <li class="course__item">Оборудование приготовления и очистки растворов (классификация частиц, сит, вибросит, песко-/ило-отделители, центрифуги; оценка эффективности системы очистки).</li>
+                        </ul>
+
+                        <p class="course__note">
+                            Наполнение курса меняется по запросу кураторов со стороны компаний-Заказчиков.
+                        </p>
+                    </article>
+
+                    <!-- медиа справа -->
+                    <figure class="course__media">
+                        <img class="course__img"
+                             src="../images/course.png"
+                             alt="Оборудование лаборатории буровых растворов" loading="lazy" decoding="async">
+                        <figcaption class="course__caption">Практика • Расчёты • Безопасность</figcaption>
+                    </figure>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="course section full-vw-line full-vw-line--bottom full-vw-line--left"
+             id="course-cementing"
+             aria-labelledby="course-cementing-title">
+        <header class="section__header">
+            <div class="section__header-inner container">
+                <div class="section__header-info">
+                    <h2 class="section__title section-title" id="course-cementing-title">
+                        Курс по цементированию скважин
+                    </h2>
+                </div>
+                <div class="section__rule" aria-hidden="true"></div>
+            </div>
+        </header>
+
+        <div class="course__body">
+            <div class="course__inner container">
+                <div class="course__grid">
+                    <!-- слева — текст (структура совпадает с предыдущим курсом) -->
+                    <article class="course__content">
+                        <h3 class="course__subtitle">Содержание</h3>
+
+                        <ul class="course__list">
+                            <li class="course__item">Основы цементирования обсадных колонн.</li>
+                            <li class="course__item">Основные типы цементных растворов и области их применения.</li>
+                            <li class="course__item">Типы цементов, основные реагенты и их свойства.</li>
+                            <li class="course__item">Лабораторное тестирование цементных растворов.</li>
+                            <li class="course__item">Анализ тестов цементных растворов.</li>
+                            <li class="course__item">Анализ диаграмм цементирования.</li>
+                            <li class="course__item">Оценка качества цементирования, причины некачественного цементирования и пути их решения.</li>
+                            <li class="course__item">Базовые расчёты в цементировании (в т.ч. расчёт установки цементного моста).</li>
+                            <li class="course__item">Оснастка обсадной колонны (виды центраторов и турбулизаторов, обратные клапаны и башмаки и т.д.), особенности использования, центриование колонны.</li>
+                            <li class="course__item">Оборудование цементирования.</li>
+                            <li class="course__item">Оборудование для приготовления тампонажных материалов.</li>
+                            <li class="course__item">Особенности РИР (в т.ч. восстановление герметичности обсадной колонны, МКП и др.).</li>
+                            <li class="course__item">Обзор отечественных и мировых практик и технологий (в т.ч. пеноцементирование, цементирование с расхаживанием и вращением и т.д.).</li>
+                        </ul>
+
+                        <p class="course__note">
+                            Наполнение курсов варьируется в зависимости от потребности кураторов со стороны компаний-Заказчиков.
+                        </p>
+                    </article>
+
+                    <!-- справа — фото, всё по прежним стилям -->
+                    <figure class="course__media">
+                        <img class="course__img"
+                             src="../images/course2.png"
+                             alt="Оборудование для лабораторных испытаний цементных растворов" loading="lazy" decoding="async">
+                        <figcaption class="course__caption">Практика • Диаграммы • Расчёты</figcaption>
+                    </figure>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="handout section" id="handout" aria-labelledby="handout-title">
+        <header class="section__header">
+            <div class="section__header-inner container">
+                <div class="section__header-info">
+                    <h2 class="section__title section-title" id="handout-title">
+                        Интенсивное обучение = профессиональная работа
+                    </h2>
+                </div>
+                <div class="section__rule" aria-hidden="true"></div>
+            </div>
+        </header>
+
+        <div class="handout__body">
+            <div class="handout__inner container">
+                <figure class="handout__media">
+                    <div class="handout__gallery">
+                        <!-- Card 1 -->
+                        <div class="handout-card">
+                            <img class="handout-card__img"
+                                 src="../images/hw.webp"
+                                 alt="Домашнее задание — «Буровые растворы»" loading="lazy" decoding="async">
+                        </div>
+                        <!-- Card 2 -->
+                        <div class="handout-card">
+                            <img class="handout-card__img"
+                                 src="../images/workbook.png"
+                                 alt="Рабочая тетрадь — «Буровые растворы»" loading="lazy" decoding="async">
+                        </div>
+                    </div>
+
+                    <figcaption class="handout__caption">
+                        Инструкторы «Хайпротек» работают с обучающимися не только в формате лекций, но и через систему
+                        заданий и самостоятельной работы.
+                    </figcaption>
+                </figure>
+            </div>
+        </div>
+    </section>
+    <section class="recommendation section" id="recommendation" aria-labelledby="recommendation-title">
+        <header class="section__header">
+            <div class="section__header-inner container">
+                <div class="section__header-info">
+                    <h2 class="section__title section-title" id="recommendation-title">Нас рекомендуют</h2>
+                </div>
+                <div class="section__rule" aria-hidden="true"></div>
+            </div>
+        </header>
+
+        <div class="recommendation__body">
+            <div class="recommendation__inner container">
+                <figure class="recommendation__media">
+                    <img class="recommendation__img"
+                         src="../images/rec.jpg"
+                         alt="Рекомендательное письмо Elbrus Drilling"
+                         loading="lazy" decoding="async">
+                </figure>
+            </div>
+        </div>
+    </section>
+    <section class="handout section" id="handout" aria-labelledby="handout-title">
+        <header class="section__header">
+            <div class="section__header-inner container">
+                <div class="section__header-info">
+                    <h2 class="section__title section-title" id="handout-title">
+                        Образовательная лицензия
+                    </h2>
+                </div>
+                <div class="section__rule" aria-hidden="true"></div>
+            </div>
+        </header>
+
+        <div class="handout__body">
+            <div class="handout__inner container">
+                <figure class="handout__media">
+                    <div class="handout__gallery">
+                        <!-- Card 1 -->
+                        <div class="handout-card">
+                            <img class="handout-card__img"
+                                 src="../images/liecense-1.jpg"
+                                 alt="Домашнее задание — «Буровые растворы»" loading="lazy" decoding="async">
+                        </div>
+                        <!-- Card 2 -->
+                        <div class="handout-card">
+                            <img class="handout-card__img"
+                                 src="../images/liecense-2.jpg"
+                                 alt="Рабочая тетрадь — «Буровые растворы»" loading="lazy" decoding="async">
+                        </div>
+                    </div>
+
+                    <figcaption class="handout__caption">
+                        Инструкторы «Хайпротек» работают с обучающимися не только в формате лекций, но и через систему
+                        заданий и самостоятельной работы.
+                    </figcaption>
+                </figure>
+            </div>
+        </div>
+    </section>
+
+    <section class="contacts section full-vw-line full-vw-line--bottom full-vw-line--left" id="contacts" aria-labelledby="contacts-title">
+        <header class="section__header">
+            <div class="section__header-inner container">
+                <div class="section__header-info">
+                    <h2 class="section__title section-title" id="contacts-title">Контакты</h2>
+                </div>
+                <div class="section__rule" aria-hidden="true"></div>
+            </div>
+        </header>
+
+        <div class="contacts__body">
+            <div class="contacts__inner container" itemscope itemtype="https://schema.org/Organization">
+                <!-- Левая колонка -->
+                <div class="contacts__info">
+                    <a class="contacts__phone" href="tel:+79223180000" itemprop="telephone">8&nbsp;922&nbsp;318&nbsp;00&nbsp;00</a>
+                    <a class="contacts__email" href="mailto:info@hyprotec.ru" itemprop="email">info@hyprotec.ru</a>
+
+                    <p class="contacts__time">пн–пт с 10:00 до 19:00</p>
+
+                    <ul class="contacts__list">
+                        <li><span class="muted">ООО «</span><b itemprop="name">ХАЙПРОТЕК</b><span class="muted">»</span></li>
+                        <li>ИНН: <a href="#" rel="nofollow noopener">7203456345</a></li>
+                        <li>КПП: <a href="#" rel="nofollow noopener">720301001</a></li>
+                        <li>ОГРН: <a href="#" rel="nofollow noopener">1187232020722</a></li>
+                        <li itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
+                            <meta itemprop="postalCode" content="625000">
+                            <span class="muted">625000, Тюменская область, г. Тюмень,</span><br>
+                            <span itemprop="streetAddress">ул. Грибоедова, д. 15, пом. 1</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Правая колонка -->
+                <div class="contacts__map">
+                    <!-- ВСТАВЬ свой src (Яндекс.Карты → Поделиться → Код для сайта).
+                         Ниже — рабочий шаблон, можно оставить и подменить параметры. -->
+                    <iframe
+                            class="contacts__map-frame"
+                            title="Карта: ул. Грибоедова, 15 — ХАЙПРОТЕК"
+                            src="https://yandex.ru/map-widget/v1/?um=constructor%3Af2b12c5ceae10d922c0fee41817b70696ff03f02db3c599ca4628d5f3698f18a&amp;source=constructor"
+                            loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade"
+                            allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer class="footer">
+    <div class="footer__inner container">
+        <div class="footer__body">
+            <div class="footer__brand">
+                <a href="/" class="footer__logo" aria-label="HYPROTEC">
+                    <!-- поставь свой SVG/IMG логотип -->
+                    <img src="../images/logo-main.svg" alt="HYPROTEC">
+                </a>
+                <p class="footer__copyright">
+                    <span aria-hidden="true">©</span> Все права защищены. HYPROTEC.
+                </p>
+            </div>
+            <nav class="footer__menu" aria-label="Меню в подвале">
+                <div class="footer__menu-column">
+                    <span class="footer__menu-title">МЕНЮ</span>
+                    <ul class="footer__menu-list">
+                        <li class="footer__menu-item">
+                            <a href="/" class="footer__menu-link">О нас</a>
+                        </li>
+                        <li class="footer__menu-item">
+                            <a href="/" class="footer__menu-link">Услуги</a>
+                        </li>
+                        <li class="footer__menu-item">
+                            <a href="/" class="footer__menu-link">Проекты</a>
+                        </li>
+                        <li class="footer__menu-item">
+                            <a href="/" class="footer__menu-link">Контакты</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>

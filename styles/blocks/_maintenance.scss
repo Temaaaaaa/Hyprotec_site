@@ -1,0 +1,133 @@
+@use '../helpers' as *;
+
+/* =========================
+   MAINTENANCE — equal-height columns
+   ========================= */
+
+.maintenance__body { margin-top: clamp(1rem, 3vw, 2.25rem); }
+
+/* 1) Сетка тянет ОБа столбца на одинаковую высоту */
+.maintenance__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.06fr) minmax(0, .94fr);
+  gap: clamp(16px, 3vw, 24px);
+  align-items: stretch;             /* <-- ключевой момент */
+
+  @include tablet {
+    grid-template-columns: 1fr;
+  }
+
+  /* минимальная «геройская» высота строки на ширине ≥ tablet */
+  @include tablet-above {
+    --row-min: #{rem(380)};         /* подгони: 340–460 */
+  }
+}
+
+/* общие токены для обеих колонок */
+.maintenance__content,
+.maintenance__media {
+  /* обе колонки тянутся по высоте строки грида */
+  height: 100%;
+  min-height: var(--row-min, auto);
+  border-radius: rem(16);
+
+  @include mobile {
+    min-height: auto;
+    border-radius: rem(14);
+  }
+}
+
+/* 2) Левая панель — гибкая колонка, чтобы кнопки/списки не ломали высоту */
+.maintenance__content {
+  display: flex;
+  flex-direction: column;
+  gap: rem(16);
+  padding: clamp(16px, 2.4vw, 24px) clamp(16px, 2.6vw, 28px);
+
+  background: var(--color-white);
+  border: rem(1) solid var(--color-dark-15, rgba(0,0,0,.15));
+  box-shadow: 0 rem(22) rem(60) rgba(0,0,0,.06);
+
+  /* аккуратная полоска-акцент слева */
+  position: relative;
+  &::before {
+    content: '';
+    position: absolute;
+    inset-block: rem(16);
+    left: rem(12);
+    width: rem(3);
+    border-radius: rem(3);
+    background: var(--color-accent);
+  }
+
+  @include mobile {
+    padding: rem(16) rem(18);
+    &::before { left: rem(8); }
+  }
+}
+
+.maintenance__lead {
+  @include fluid-text(20, 16);
+  line-height: 1.72;
+  color: var(--color-dark);
+  margin: 0;
+}
+.maintenance__list {
+  display: grid;
+  gap: rem(10);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.maintenance__item {
+  position: relative;
+  padding-left: rem(28);
+
+  /* твой чек-маркер */
+  &::before {
+    content: "✔";
+    position: absolute;
+    left: 0;
+    top: 0.15em;
+    font-weight: 700;
+    font-size: 1em;
+    color: var(--color-accent);
+    line-height: 1;
+  }
+}
+
+/* 3) Правая колонка — картинка всегда заполняет высоту колонки */
+.maintenance__media {
+  /* внутренние отступы и фон-«паспарту» */
+  --pad: #{rem(10)};
+  padding: var(--pad);
+  background: var(--color-white);
+  border: rem(1) solid var(--color-dark-15, rgba(0,0,0,.15));
+  box-shadow: 0 rem(24) rem(70) rgba(0,0,0,.07);
+
+  @include mobile {
+    --pad: #{rem(8)};
+  }
+
+  /* если хочешь, можно убрать фон/тень — будет ультра-чисто */
+}
+
+/* ВАЖНО: убираем фиксированное aspect-ratio и растягиваем по высоте */
+.maintenance__img {
+  display: block;
+  width: 100%;
+  height: 100%;              /* <-- тянется на высоту .maintenance__media */
+  object-fit: cover;         /* заполняет, не «лепит» пропорции */
+  object-position: center;
+  border-radius: calc(rem(16) - var(--pad)); /* ровный радиус внутри подложки */
+
+  @include mobile {
+    /* в один столбец картинке вернём спокойную пропорцию */
+    height: auto;
+    aspect-ratio: 5 / 3;     /* можешь сменить на 16/9 или 4/3 */
+    border-radius: calc(rem(14) - var(--pad));
+  }
+}
+
+/* Заголовок секции — компактный межстрочный */
+#maintenance-title { line-height: 1.16; letter-spacing: -0.01em; }

@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Hyprotec | Home</title>
+    <link rel="stylesheet" href="../styles/main.css">
+    <script type="module" src="../scripts/main.js" defer></script>
+</head>
+<body>
+<header class="header" data-js-header>
+    <div class="header__body">
+        <div class="header__body-inner container">
+            <a class="header__logo logo" href="/" aria-label="Home" title="Home">
+                <img class="logo__image" src="../images/logo-main.svg" alt="" width="300" height="50" />
+            </a>
+
+            <div class="header__overlay" id="header-panel" data-js-header-overlay>
+                <nav class="header__menu" aria-label="Главное меню">
+                    <ul class="header__menu-list">
+                        <li class="header__menu-item"><a class="header__menu-link" href="#about" aria-current="page">О компании</a></li>
+                        <li class="header__menu-item header__menu-item--has-submenu">
+                            <a class="header__menu-link"
+                               href="/services"
+                               aria-haspopup="true"
+                               aria-expanded="false">
+                                Услуги <span class="header__submenu-caret" aria-hidden="true">▾</span>
+                            </a>
+
+                            <button class="header__submenu-toggle visible-mobile"
+                                    type="button"
+                                    aria-label="Показать подменю «Услуги»"
+                                    aria-controls="submenu-services"
+                                    aria-expanded="false"
+                                    data-js-submenu-toggle>
+                                <span class="header__submenu-icon" aria-hidden="true"></span>
+                            </button>
+
+                            <ul class="header__submenu" id="submenu-services" role="menu" aria-label="Услуги">
+                                <li class="header__submenu-item"><a class="header__submenu-link" href="/services/lab">Лабораторное оборудование</a></li>
+                                <li class="header__submenu-item"><a class="header__submenu-link" href="/services/ntc">Научно-технологический центр</a></li>
+                                <li class="header__submenu-item"><a class="header__submenu-link" href="/services/supervising">Супервайзинг и полевой аудит</a></li>
+                                <li class="header__submenu-item"><a class="header__submenu-link" href="/services/consulting">Технологический консалтинг</a></li>
+                                <li class="header__submenu-item"><a class="header__submenu-link" href="/services/calibration">Калибровка и ТО</a></li>
+                                <li class="header__submenu-item"><a class="header__submenu-link" href="/services/cpo">Центр проф. обучения</a></li>
+                            </ul>
+                        </li>
+                        <li class="header__menu-item"><a class="header__menu-link" href="#equipment">Оборудование</a></li>
+                        <li class="header__menu-item"><a class="header__menu-link" href="#contacts">Контакты</a></li>
+                    </ul>
+                </nav>
+                <nav class="header__language-select" aria-label="Выбор языка">
+                    <a class="header__language-ru" href="?lang=ru" lang="ru" hreflang="ru" aria-current="true">RU</a>
+                    <a class="header__language-en" href="?lang=en" lang="en" hreflang="en">EN</a>
+                </nav>
+            </div>
+
+            <button
+                    class="header__burger-button burger-button  visible-mobile"
+                    type="button"
+                    aria-label="Открыть меню"
+                    aria-controls="header-panel"
+                    aria-expanded="false"
+                    data-js-header-burger-button
+            >
+                <span class="burger-button__line"></span>
+                <span class="burger-button__line"></span>
+                <span class="burger-button__line"></span>
+            </button>
+        </div>
+    </div>
+</header>
+
+<main>
+    <section class="hero hero--secondary hero--image" style="--hero-bg:url('../images/cards/card1.jpeg')">
+        <div class="hero__bg" aria-hidden="true"></div>
+        <div class="hero__inner container hero__inner--center">
+            <h1 class="hero__title">Калибровка и Техническое обслуживание</h1>
+        </div>
+    </section>
+
+    <section class="maintenance section full-vw-line full-vw-line--bottom full-vw-line--left"
+             id="maintenance"
+             aria-labelledby="maintenance-title">
+        <header class="section__header">
+            <div class="section__header-inner container">
+                <div class="section__header-info">
+                    <h2 class="section__title section-title" id="maintenance-title">
+                        Калибровка и техническое обслуживание лабораторного оборудования
+                    </h2>
+                </div>
+                <div class="section__rule" aria-hidden="true"></div>
+            </div>
+        </header>
+
+        <div class="maintenance__body">
+            <div class="maintenance__inner container">
+                <div class="maintenance__grid">
+                    <div class="maintenance__content">
+                        <p class="maintenance__lead">
+                            Это важнейшая часть жизненного цикла испытательной лаборатории. Каждое средство измерения,
+                            испытательное и вспомогательное оборудование требуют своевременного должного ухода и проверки.
+                            Наши специалисты помогут поддерживать оборудование в состоянии, отвечающем отраслевым требованиям и стандартам.
+                        </p>
+
+                        <ol class="maintenance__list">
+                            <li class="maintenance__item">
+                                По результатам калибровки выдается сертификат; по ТО — отчёт по диагностике и ремонту.
+                            </li>
+                            <li class="maintenance__item">
+                                Проводим регулярное ТО и ремонт приборов OFITE, FANN, GRACE, CHANDLER, ATRISAU (GREATEST) и др.
+                            </li>
+                            <li class="maintenance__item">
+                                Schlumberger и ЦЦС доверяют нашей компании.
+                            </li>
+                        </ol>
+                    </div>
+
+                    <figure class="maintenance__media">
+                        <img class="maintenance__img"
+                             src="../images/cards/card4.jpg"
+                             alt="Лабораторное оборудование на рабочем столе" loading="lazy" decoding="async">
+                    </figure>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="contacts section full-vw-line full-vw-line--bottom full-vw-line--left" id="contacts" aria-labelledby="contacts-title">
+        <header class="section__header">
+            <div class="section__header-inner container">
+                <div class="section__header-info">
+                    <h2 class="section__title section-title" id="contacts-title">Контакты</h2>
+                </div>
+                <div class="section__rule" aria-hidden="true"></div>
+            </div>
+        </header>
+
+        <div class="contacts__body">
+            <div class="contacts__inner container" itemscope itemtype="https://schema.org/Organization">
+                <!-- Левая колонка -->
+                <div class="contacts__info">
+                    <a class="contacts__phone" href="tel:+79223180000" itemprop="telephone">8&nbsp;922&nbsp;318&nbsp;00&nbsp;00</a>
+                    <a class="contacts__email" href="mailto:info@hyprotec.ru" itemprop="email">info@hyprotec.ru</a>
+
+                    <p class="contacts__time">пн–пт с 10:00 до 19:00</p>
+
+                    <ul class="contacts__list">
+                        <li><span class="muted">ООО «</span><b itemprop="name">ХАЙПРОТЕК</b><span class="muted">»</span></li>
+                        <li>ИНН: <a href="#" rel="nofollow noopener">7203456345</a></li>
+                        <li>КПП: <a href="#" rel="nofollow noopener">720301001</a></li>
+                        <li>ОГРН: <a href="#" rel="nofollow noopener">1187232020722</a></li>
+                        <li itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
+                            <meta itemprop="postalCode" content="625000">
+                            <span class="muted">625000, Тюменская область, г. Тюмень,</span><br>
+                            <span itemprop="streetAddress">ул. Грибоедова, д. 15, пом. 1</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Правая колонка -->
+                <div class="contacts__map">
+                    <iframe
+                            class="contacts__map-frame"
+                            title="Карта: ул. Грибоедова, 15 — ХАЙПРОТЕК"
+                            src="https://yandex.ru/map-widget/v1/?um=constructor%3Af2b12c5ceae10d922c0fee41817b70696ff03f02db3c599ca4628d5f3698f18a&amp;source=constructor"
+                            loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade"
+                            allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+<footer class="footer">
+    <div class="footer__inner container">
+        <div class="footer__body">
+            <div class="footer__brand">
+                <a href="/" class="footer__logo" aria-label="HYPROTEC">
+                    <!-- поставь свой SVG/IMG логотип -->
+                    <img src="../images/logo-main.svg" alt="HYPROTEC">
+                </a>
+                <p class="footer__copyright">
+                    <span aria-hidden="true">©</span> Все права защищены. HYPROTEC.
+                </p>
+            </div>
+            <nav class="footer__menu" aria-label="Меню в подвале">
+                <div class="footer__menu-column">
+                    <span class="footer__menu-title">МЕНЮ</span>
+                    <ul class="footer__menu-list">
+                        <li class="footer__menu-item">
+                            <a href="/" class="footer__menu-link">О нас</a>
+                        </li>
+                        <li class="footer__menu-item">
+                            <a href="/" class="footer__menu-link">Услуги</a>
+                        </li>
+                        <li class="footer__menu-item">
+                            <a href="/" class="footer__menu-link">Проекты</a>
+                        </li>
+                        <li class="footer__menu-item">
+                            <a href="/" class="footer__menu-link">Контакты</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>

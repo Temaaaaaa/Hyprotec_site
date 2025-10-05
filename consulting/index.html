@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Hyprotec | Home</title>
+    <link rel="stylesheet" href="../styles/main.css">
+    <script type="module" src="../scripts/main.js" defer></script>
+</head>
+<body>
+<header class="header" data-js-header>
+    <div class="header__body">
+        <div class="header__body-inner container">
+            <a class="header__logo logo" href="/" aria-label="Home" title="Home">
+                <img class="logo__image" src="../images/logo-main.svg" alt="" width="300" height="50" />
+            </a>
+
+            <div class="header__overlay" id="header-panel" data-js-header-overlay>
+                <nav class="header__menu" aria-label="Главное меню">
+                    <ul class="header__menu-list">
+                        <li class="header__menu-item"><a class="header__menu-link" href="#about" aria-current="page">О компании</a></li>
+                        <li class="header__menu-item header__menu-item--has-submenu">
+                            <a class="header__menu-link"
+                               href="/services"
+                               aria-haspopup="true"
+                               aria-expanded="false">
+                                Услуги <span class="header__submenu-caret" aria-hidden="true">▾</span>
+                            </a>
+
+                            <button class="header__submenu-toggle visible-mobile"
+                                    type="button"
+                                    aria-label="Показать подменю «Услуги»"
+                                    aria-controls="submenu-services"
+                                    aria-expanded="false"
+                                    data-js-submenu-toggle>
+                                <span class="header__submenu-icon" aria-hidden="true"></span>
+                            </button>
+
+                            <ul class="header__submenu" id="submenu-services" role="menu" aria-label="Услуги">
+                                <li class="header__submenu-item"><a class="header__submenu-link" href="/services/lab">Лабораторное оборудование</a></li>
+                                <li class="header__submenu-item"><a class="header__submenu-link" href="/services/ntc">Научно-технологический центр</a></li>
+                                <li class="header__submenu-item"><a class="header__submenu-link" href="/services/supervising">Супервайзинг и полевой аудит</a></li>
+                                <li class="header__submenu-item"><a class="header__submenu-link" href="/services/consulting">Технологический консалтинг</a></li>
+                                <li class="header__submenu-item"><a class="header__submenu-link" href="/services/calibration">Калибровка и ТО</a></li>
+                                <li class="header__submenu-item"><a class="header__submenu-link" href="/services/cpo">Центр проф. обучения</a></li>
+                            </ul>
+                        </li>
+                        <li class="header__menu-item"><a class="header__menu-link" href="#equipment">Оборудование</a></li>
+                        <li class="header__menu-item"><a class="header__menu-link" href="#contacts">Контакты</a></li>
+                    </ul>
+                </nav>
+                <nav class="header__language-select" aria-label="Выбор языка">
+                    <a class="header__language-ru" href="?lang=ru" lang="ru" hreflang="ru" aria-current="true">RU</a>
+                    <a class="header__language-en" href="?lang=en" lang="en" hreflang="en">EN</a>
+                </nav>
+            </div>
+
+            <button
+                    class="header__burger-button burger-button  visible-mobile"
+                    type="button"
+                    aria-label="Открыть меню"
+                    aria-controls="header-panel"
+                    aria-expanded="false"
+                    data-js-header-burger-button
+            >
+                <span class="burger-button__line"></span>
+                <span class="burger-button__line"></span>
+                <span class="burger-button__line"></span>
+            </button>
+        </div>
+    </div>
+</header>
+<main>
+    <section class="hero hero--secondary hero--image" style="--hero-bg:url('../images/cards/card3.jpeg')">
+        <div class="hero__bg" aria-hidden="true"></div>
+        <div class="hero__inner container hero__inner--center">
+            <h1 class="hero__title">Технологический консалтинг</h1>
+        </div>
+    </section>
+    <section class="cementing section" id="cementing" aria-labelledby="cementing-title">
+        <header class="section__header">
+            <div class="section__header-inner container">
+                <div class="section__header-info">
+                    <h2 class="section__title section-title" id="cementing-title">Цементирование скважин</h2>
+                </div>
+                <div class="section__rule" aria-hidden="true"></div>
+            </div>
+        </header>
+
+        <div class="cementing__body">
+            <div class="cementing__inner container">
+                <div class="cementing__grid">
+
+                    <!-- Левая колонка: нумерованный список -->
+                    <div class="cementing__content">
+                        <ol class="cementing__list">
+                            <li class="cementing__item">Цементирование в условиях ММП (расплетение и обратное промерзание)</li>
+                            <li class="cementing__item">Цементирование хвостовиков с МГРП с использованием эластичных тампонажных систем</li>
+                            <li class="cementing__item">Цементирование в несовместимых геологических условиях</li>
+                            <li class="cementing__item">Крепление скважин с большим отходом от вертикали</li>
+                            <li class="cementing__item">Крепление скважин в условиях АВПД (седиментационная устойчивость)</li>
+                            <li class="cementing__item">Предотвращение миграции газа и образования перетоков</li>
+                            <li class="cementing__item">Цементирование в условиях поглощений (пеноцементные системы)</li>
+                            <li class="cementing__item">Самовосстанавливающиеся тампонажные системы</li>
+                            <li class="cementing__item">Цементирование в условиях высокого содержания CO₂ и H₂S</li>
+                            <li class="cementing__item">Крепление в условиях соляной тектоники</li>
+                            <li class="cementing__item">Цементирование паронагнетательных скважин</li>
+                            <li class="cementing__item">Негерметичность МКП и подбор решений для РИР</li>
+                        </ol>
+                    </div>
+
+                    <!-- Правая колонка: изображения -->
+                    <div class="cementing__media">
+                        <figure class="cementing__figure card">
+                            <img class="cementing__image"
+                                 src="../images/consulting-about.png"
+                                 alt="Эффективность вытеснения при 0,5 м³/мин" loading="lazy">
+                        </figure>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="examples section" id="examples" aria-labelledby="examples-title">
+        <header class="section__header">
+            <div class="section__header-inner container">
+                <div class="section__header-info">
+                    <h2 class="section__title section-title" id="examples-title">Примеры</h2>
+                </div>
+                <div class="section__rule" aria-hidden="true"></div>
+            </div>
+        </header>
+
+        <div class="examples__body">
+            <div class="examples__inner container">
+
+                <!-- тот же блок .carousel и те же data-js-* селекторы -->
+                <div class="carousel carousel--images"
+                     data-js-carousel
+                     data-autoplay="true"
+                     data-interval="5000">
+                    <!-- controls -->
+                    <button class="carousel__btn carousel__btn--prev" data-js-carousel-prev aria-label="Назад" disabled>‹</button>
+                    <button class="carousel__btn carousel__btn--next" data-js-carousel-next aria-label="Вперёд">›</button>
+
+                    <!-- viewport -->
+                    <div class="carousel__viewport"
+                         tabindex="0"
+                         role="region"
+                         aria-roledescription="carousel"
+                         aria-label="Примеры работ"
+                         data-js-carousel-viewport>
+                        <ul class="carousel__track" data-js-carousel-track>
+                            <li class="carousel__slide">
+                                <img class="carousel__img" src="../images/consulting-1.png" alt="График 1" loading="lazy" decoding="async">
+                            </li>
+                            <li class="carousel__slide">
+                                <img class="carousel__img" src="../images/consulting-2.png" alt="График 2" loading="lazy" decoding="async">
+                            </li>
+                            <li class="carousel__slide">
+                                <img class="carousel__img" src="../images/consulting-3.png" alt="График 3" loading="lazy" decoding="async">
+                            </li>
+                            <li class="carousel__slide">
+                                <img class="carousel__img" src="../images/consulting-4.png" alt="График 4" loading="lazy" decoding="async">
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- dots (твой JS сюда сам вставит кнопки .carousel__dot) -->
+                    <div class="carousel__dots" data-js-carousel-dots aria-label="Навигация по слайдам"></div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+</main>
+
+</body>
+</html>
