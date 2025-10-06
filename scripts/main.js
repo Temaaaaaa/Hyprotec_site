@@ -1,13 +1,18 @@
+import Intro from './Preloader.js';
 import Header from "./Header.js";
 import Carousel from "./Carousel.js";
 import Stats from "./Stats.js";
+import ContactForm from './ContactForm.js';
+new ContactForm('.feedback-form');
+new Intro();
+
+
 
 document.addEventListener('DOMContentLoaded', () => {
     const stats = new Stats('#lab-stats', { threshold: 0.3, once: true });
     stats.init();
     // при необходимости: stats.destroy();
 });
-
 
 function initOfferingAccordion(){
     const root=document.querySelector('[data-js-offering]'); if(!root) return;

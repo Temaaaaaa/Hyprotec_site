@@ -74,7 +74,36 @@
 </header>
 
 <main>
-    <section class="hero" id="home">
+    <!-- Intro / Cinematic -->
+    <!-- Intro / Preloader -->
+    <div class="intro" data-js-intro aria-hidden="true">
+        <div class="intro__bg" aria-hidden="true"></div>
+
+        <div class="intro__inner container">
+            <div class="intro__brand">
+      <span class="intro__logo" aria-label="HYPROTEC">
+        <span class="intro__logo-part">H</span>
+        <span class="intro__logo-part">Y</span>
+        <span class="intro__logo-part">P</span>
+        <span class="intro__logo-part">R</span>
+        <span class="intro__logo-part">O</span>
+        <span class="intro__logo-part">T</span>
+        <span class="intro__logo-part">E</span>
+        <span class="intro__logo-part">C</span>
+      </span>
+                <span class="intro__tagline">нефтесервисная компания</span>
+            </div>
+
+            <div class="intro__progress" aria-hidden="true">
+                <span class="intro__bar"></span>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <section class="hero" id="home" data-js-first-screen>
         <div class="hero__bg">
             <video class="hero__video"
                    autoplay
@@ -807,6 +836,82 @@
             </div>
         </div>
     </section>
+    <section class="feedback section full-vw-line full-vw-line--bottom full-vw-line--left" id="feedback" aria-labelledby="feedback-title">
+        <header class="section__header">
+            <div class="section__header-inner container">
+                <div class="section__header-info">
+                    <h2 class="section__title section-title" id="feedback-title">Написать нам</h2>
+                </div>
+                <div class="section__rule" aria-hidden="true"></div>
+            </div>
+        </header>
+
+        <div class="feedback__body">
+            <div class="feedback__center container">
+                <form class="feedback-form card" novalidate aria-describedby="feedback-desc">
+                    <p class="visually-hidden" id="feedback-desc">Форма обратной связи HYPROTEC</p>
+
+                    <!-- honeypot для антиспама -->
+                    <input type="text" name="company" class="feedback-form__hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+                    <div class="feedback-form__grid">
+                        <!-- Имя -->
+                        <label class="field field--floating">
+                            <input class="field__control" type="text" name="name" autocomplete="name" placeholder=" " required>
+                            <span class="field__label">Имя*</span>
+                            <span class="field__error" aria-live="polite"></span>
+                        </label>
+
+                        <!-- Контакт: телефон или email (один из) — UX подсказка -->
+                        <label class="field field--floating">
+                            <input class="field__control" type="tel" name="phone" inputmode="tel" autocomplete="tel" placeholder=" "
+                                   pattern="^[\\d\\+\\-\\s\\(\\)]{10,}$">
+                            <span class="field__label">Телефон</span>
+                            <span class="field__hint">Можно указать телефон или email — что удобнее</span>
+                            <span class="field__error" aria-live="polite"></span>
+                        </label>
+
+                        <label class="field field--floating">
+                            <input class="field__control" type="email" name="email" autocomplete="email" placeholder=" ">
+                            <span class="field__label">Email</span>
+                            <span class="field__error" aria-live="polite"></span>
+                        </label>
+
+                        <!-- Тема (необязательно, но помогает маршрутизации) -->
+                        <label class="field field--floating">
+                            <input class="field__control" type="text" name="topic" placeholder=" ">
+                            <span class="field__label">Тема (опционально)</span>
+                            <span class="field__error" aria-live="polite"></span>
+                        </label>
+
+                        <!-- Сообщение -->
+                        <label class="field field--floating field--full">
+                            <textarea class="field__control field__control--area" name="message" rows="6" placeholder=" " required></textarea>
+                            <span class="field__label">Сообщение*</span>
+                            <span class="field__error" aria-live="polite"></span>
+                        </label>
+
+                        <!-- Согласие -->
+                        <label class="check field--full">
+                            <input class="check__input" type="checkbox" name="agree" required>
+                            <span class="check__box" aria-hidden="true"></span>
+                            <span class="check__label">Согласен на обработку персональных данных</span>
+                            <span class="field__error" aria-live="polite"></span>
+                        </label>
+                    </div>
+
+                    <div class="feedback-form__actions">
+                        <button class="button feedback-form__submit" type="submit">Отправить</button>
+                        <span class="feedback-form__status" role="status" aria-live="polite"></span>
+                        <p class="feedback-form__policy">
+                            Нажимая «Отправить», вы соглашаетесь с политикой обработки персональных данных.
+                        </p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
 </main>
 
 <footer class="footer">

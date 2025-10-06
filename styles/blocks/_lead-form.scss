@@ -1,0 +1,211 @@
+@use '../helpers' as *;
+
+/* ===== Feedback section (центрированная форма) ===== */
+.feedback {
+  &__center {
+    display: grid;
+    place-items: center;
+  }
+}
+
+.feedback-form {
+  inline-size: min(100%, rem(720));     /* узкая колонка по центру */
+  margin-inline: auto;
+  padding: rem(24);
+  border: var(--border);
+  border-radius: rem(16);
+  background: var(--color-white, #fff);
+  box-shadow: 0 rem(2) rem(14) rgba(0,0,0,.06);
+
+  @include mobile   { padding: rem(16); }
+  @include laptop   { inline-size: min(100%, rem(680)); }
+
+  &__grid {
+    display: grid;
+    gap: rem(14);
+    grid-template-columns: 1fr 1fr;
+
+    @include mobile { grid-template-columns: 1fr; }
+  }
+
+  &__actions {
+    display: grid;
+    gap: rem(10);
+    margin-block-start: rem(8);
+
+    @include tablet-above {
+      grid-template-columns: auto 1fr;
+      align-items: center;
+      column-gap: rem(16);
+    }
+  }
+
+  &__submit { min-inline-size: rem(180); }
+
+  &__policy {
+    @include fluid-text(12, 12);
+    color: var(--color-gray);
+    margin: 0;
+  }
+
+  /* honeypot */
+  &__hp {
+    position: absolute !important;
+    inline-size: 1px !important;
+    block-size: 1px !important;
+    inset-inline-start: -9999px !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+  }
+}
+
+/* ===== Поля + плавающие лейблы ===== */
+.field {
+  position: relative;
+  display: grid;
+  gap: rem(6);
+
+  &--full { grid-column: 1 / -1; }
+
+  &__label {
+    @include fluid-text(14, 13);
+    color: var(--color-dark-900, #111);
+    font-weight: 600;
+  }
+
+  &__hint {
+    @include fluid-text(12, 12);
+    color: var(--color-gray);
+  }
+
+  &__error {
+    @include fluid-text(12, 12);
+    color: color-mix(in oklab, crimson 70%, black);
+    min-block-size: 1em; /* резерв под текст ошибки, чтобы форма не "скакала" */
+  }
+
+  &__control {
+    inline-size: 100%;
+    border: var(--border);
+    border-radius: rem(12);
+    padding: rem(14) rem(14);
+    background: #fff;
+    color: var(--color-dark);
+    outline: none;
+    transition: border-color var(--transition-duration), box-shadow var(--transition-duration), background var(--transition-duration);
+
+    @include hover { border-color: var(--color-gray-300); }
+
+    &:focus-visible {
+      border-color: var(--color-accent);
+      box-shadow: 0 0 0 rem(3) color-mix(in oklab, var(--color-accent) 20%, transparent);
+    }
+
+    &--area { resize: vertical; min-block-size: rem(150); }
+
+    /* HTML5 ошибки (UX: видимый стейт даже без JS) */
+    &:user-invalid {
+      border-color: color-mix(in oklab, crimson 60%, var(--color-accent));
+      background: color-mix(in oklab, #fff 92%, red 8%);
+    }
+
+    /* Автозаполнение */
+    &:-webkit-autofill {
+      transition: background-color 9999s ease-in-out 0s;
+    }
+  }
+
+  /* Плавающие лейблы */
+  &--floating {
+    .field__label {
+      position: absolute;
+      left: rem(14);
+      top: 50%;
+      transform: translateY(-50%);
+      background: #fff;
+      padding-inline: rem(4);
+      pointer-events: none;
+      transition: transform var(--transition-duration), color var(--transition-duration), top var(--transition-duration), opacity var(--transition-duration);
+      opacity: .8;
+      font-weight: 500;
+    }
+
+    .field__control {
+      padding-block: rem(18);
+    }
+
+    /* активируем "подъём" метки при вводе/фокусе/автозаполнении */
+    .field__control:focus + .field__label,
+    .field__control:not(:placeholder-shown) + .field__label {
+      top: 0;
+      transform: translateY(-50%) scale(.9);
+      color: var(--color-accent);
+      opacity: 1;
+    }
+  }
+}
+
+/* ===== Чекбокс (доступный) ===== */
+.check {
+  display: grid;
+  grid-template-columns: rem(22) 1fr;
+  align-items: start;
+  gap: rem(10);
+
+  &__input {
+    appearance: none;
+    position: absolute;
+    inline-size: 1px; block-size: 1px;
+    margin: -1px; padding: 0; border: 0;
+    clip: rect(0 0 0 0); overflow: hidden;
+  }
+
+  &__box {
+    inline-size: rem(22);
+    block-size: rem(22);
+    border-radius: rem(6);
+    border: var(--border);
+    display: inline-grid; place-items: center;
+    transition: background var(--transition-duration), border-color var(--transition-duration);
+    background: #fff;
+  }
+
+  &__label { @include fluid-text(14, 13); color: var(--color-dark); }
+
+  .check__input:focus-visible + .check__box {
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 rem(3) color-mix(in oklab, var(--color-accent) 20%, transparent);
+  }
+
+  .check__input:checked + .check__box {
+    background: var(--color-accent);
+    border-color: var(--color-accent);
+  }
+
+  .check__input:checked + .check__box::after {
+    content: '✓';
+    @include fluid-text(14, 12);
+    color: #fff;
+    line-height: 1;
+  }
+}
+
+/* ===== Кнопка: ховер/disabled — без JS, но UX-подсказки ===== */
+.feedback-form .button {
+  font-weight: 700;
+  padding: rem(12) rem(18);
+  border-radius: rem(12);
+  transition: transform var(--transition-duration), box-shadow var(--transition-duration);
+
+  @include hover {
+    transform: translateY(-1px);
+    box-shadow: 0 rem(6) rem(18) rgba(0,0,0,.08);
+  }
+
+  &:active { transform: translateY(0); box-shadow: none; }
+}
+
+/* ===== Респонсив мелочи ===== */
+@include mobile-s {
+  .feedback-form { border-radius: rem(12); }
+}
