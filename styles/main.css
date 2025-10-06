@@ -1558,64 +1558,92 @@ button[aria-label]::before {
   }
 }
 
-/* Лёгкая заливка секции, чтобы цифры выделялись */
+/* =========================================
+   STATS
+   Раздел «Лаборатория в цифрах»
+   — мобилка: 1 колонка, естественный DOM-порядок
+   — с планшета: 3 колонки, верхняя строка — одна карточка по центру
+========================================= */
+.stats {
+  /* ===== Сетка ===== */
+  /* Маппинг DOM -> области сетки (порядок в HTML можно не менять) */
+  /* ===== Карточка ===== */
+  /* Можно чуть подчеркнуть верхнюю карточку (без изменения ширины) */
+  /* Модификаторы на будущее (если откажемся от nth-child) */
+}
 .stats__body {
   margin-top: clamp(1rem, 3vw, 2rem);
 }
-
-/* Сетка: 1 → 2 → 3–4 колонок */
 .stats__list {
   display: grid;
   gap: 1rem;
-  /* На очень широких — плотнее выглядят 4 в ряд */
+  grid-auto-rows: 1fr;
 }
 @media (width > 63.99875rem) {
   .stats__list {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    /* первая строка: . wells . — НЕ на всю ширину */
+    grid-template-areas: ".      wells   ." "tests  drilling cement" "samples devbr   devcr";
   }
 }
-@media (width > 90.06125rem) {
-  .stats__list {
-    grid-template-columns: repeat(3, 1fr);
+@media (width > 63.99875rem) {
+  .stats { /* 437 скважин (центр верхней строки) */
+    /* 5470 испытаний */
+    /* 3747 тестов БР */
+    /* 1723 тестов ЦР */
+    /* 4254 проб с отклонениями */
+    /* 2988 откл по БР */
+    /* 343 откл по ЦР */
+  }
+  .stats__list > :nth-child(3) {
+    grid-area: wells;
+  }
+  .stats__list > :nth-child(4) {
+    grid-area: tests;
+  }
+  .stats__list > :nth-child(2) {
+    grid-area: drilling;
+  }
+  .stats__list > :nth-child(1) {
+    grid-area: cement;
+  }
+  .stats__list > :nth-child(5) {
+    grid-area: samples;
+  }
+  .stats__list > :nth-child(7) {
+    grid-area: devbr;
+  }
+  .stats__list > :nth-child(6) {
+    grid-area: devcr;
   }
 }
-@media (width > 90.06125rem) and (width >= 96rem) {
-  .stats__list {
-    grid-template-columns: repeat(4, 1fr);
-  }
-}
-
-/* Карточка-статистика поверх .card */
-.stat {
-  --card-bg: #fff;
+.stats .stat {
   text-align: center;
   padding: clamp(1rem, 2.5vw, 1.5rem);
-  /* Бейдж процента — если есть */
-  /* Ховер — деликатный подъём (унаследует тени из .card) */
+  background: var(--color-white);
 }
-.stat .stat__value {
-  /* крупная цифра с лёгким кернингом */
+.stats .stat .stat__value {
   font-family: var(--font-family-accent);
   font-size: clamp(2.125rem, 1.6818181818rem + 1.8181818182vw, 3.5rem);
   font-weight: 600;
   letter-spacing: -0.02em;
   color: var(--color-accent);
   line-height: 1.05;
-  /* тонкая тень для глубины */
   text-shadow: 0 1px 0 rgba(0, 0, 0, 0.03);
+  transition: transform var(--transition-duration) ease;
 }
-.stat .stat__label {
+.stats .stat .stat__label {
   font-size: clamp(0.875rem, 0.7944214876rem + 0.3305785124vw, 1.125rem);
   color: var(--color-dark-900);
   line-height: 1.5;
   margin-top: 0.5rem;
 }
-.stat .stat__meta {
+.stats .stat .stat__meta {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   margin-top: 0.625rem;
-  padding: 0 0.625rem;
+  padding-inline: 0.625rem;
   height: 1.75rem;
   border-radius: 62.4375rem;
   background: color-mix(in srgb, var(--color-accent) 10%, #fff);
@@ -1625,27 +1653,65 @@ button[aria-label]::before {
   border: 0.0625rem solid color-mix(in srgb, var(--color-accent) 35%, transparent);
 }
 @media (any-hover: hover) {
-  .stat:hover .stat__value {
+  .stats .stat:hover .stat__value {
     transform: translateY(-0.0625rem);
   }
 }
 @media (any-hover: none) {
-  .stat:active .stat__value {
+  .stats .stat:active .stat__value {
     transform: translateY(-0.0625rem);
   }
 }
-
-/* Акценты для ключевых карточек (опционно) */
-/* Компактность на мобилке */
+@media (width > 63.99875rem) {
+  .stats__list > :nth-child(3) .stat__value {
+    font-size: clamp(2.25rem, 1.7665289256rem + 1.9834710744vw, 3.75rem);
+  }
+}
+@media (width > 63.99875rem) {
+  .stats .stat--wells {
+    grid-area: wells;
+  }
+}
+@media (width > 63.99875rem) {
+  .stats .stat--tests {
+    grid-area: tests;
+  }
+}
+@media (width > 63.99875rem) {
+  .stats .stat--drilling {
+    grid-area: drilling;
+  }
+}
+@media (width > 63.99875rem) {
+  .stats .stat--cement {
+    grid-area: cement;
+  }
+}
+@media (width > 63.99875rem) {
+  .stats .stat--samples {
+    grid-area: samples;
+  }
+}
+@media (width > 63.99875rem) {
+  .stats .stat--devbr {
+    grid-area: devbr;
+  }
+}
+@media (width > 63.99875rem) {
+  .stats .stat--devcr {
+    grid-area: devcr;
+  }
+}
 @media (width <= 48.18625rem) {
-  .stat {
+  .stats .stat {
     padding: 0.875rem;
   }
-  .stat .stat__meta {
+  .stats .stat .stat__meta {
     height: 1.625rem;
     padding-inline: 0.5rem;
   }
 }
+
 /* =========================
    VALUES — карусель карточек (как в features)
    ========================= */
@@ -2605,12 +2671,8 @@ button[aria-label]::before {
 }
 /* ===== Contacts ===== */
 .contacts {
-  background: var(--color-white-secondary);
   /* Левая колонка */
   /* Правая колонка (карта) */
-}
-.contacts__body {
-  padding-block: 1.5rem;
 }
 .contacts__inner {
   display: grid;
@@ -4293,6 +4355,408 @@ button[aria-label]::before {
 
 /* заголовок плотнее при переносе */
 #recommendation-title {
+  line-height: 1.16;
+  letter-spacing: -0.01em;
+}
+
+/* =========================
+   OVERVIEW — текст слева, медиа справа (как .course)
+   ========================= */
+.overview__body {
+  margin-top: clamp(1.25rem, 3vw, 2rem);
+}
+
+.overview__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.04fr) minmax(0, 0.96fr);
+  gap: clamp(16px, 3vw, 24px);
+  align-items: stretch;
+  /* подстройка высоты */
+}
+@media (width <= 63.99875rem) {
+  .overview__grid {
+    grid-template-columns: 1fr;
+  }
+}
+@media (width > 63.99875rem) {
+  .overview__grid {
+    --row-min: 26.25rem;
+  }
+}
+
+/* обе колонки тянутся */
+.overview__content,
+.overview__media {
+  height: 100%;
+  min-height: var(--row-min, auto);
+  border-radius: 1rem;
+}
+@media (width <= 48.18625rem) {
+  .overview__content,
+  .overview__media {
+    border-radius: 0.875rem;
+    min-height: auto;
+  }
+}
+
+/* ——— Левая «карта» ——— */
+.overview__content {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: clamp(16px, 2.4vw, 24px) clamp(16px, 2.6vw, 28px);
+  background: var(--color-white);
+  border: 0.0625rem solid var(--color-dark-15, rgba(0, 0, 0, 0.15));
+  box-shadow: 0 1.125rem 3.375rem rgba(0, 0, 0, 0.06);
+}
+
+.overview__subtitle {
+  font-size: clamp(1rem, 0.9597107438rem + 0.1652892562vw, 1.125rem);
+  margin: 0.125rem 0 0.375rem;
+  font-weight: 700;
+  color: var(--color-dark-900, #222);
+  padding-bottom: 0.375rem;
+  position: relative;
+}
+.overview__subtitle::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 3.5rem;
+  height: 0.125rem;
+  background: var(--color-accent);
+  border-radius: 0.125rem;
+}
+
+.overview__text p {
+  line-height: 1.75;
+  letter-spacing: -0.005em;
+}
+
+.overview__lead {
+  font-size: clamp(1rem, 0.9597107438rem + 0.1652892562vw, 1.125rem);
+  font-weight: 700;
+}
+.overview__lead strong {
+  font-weight: 800;
+}
+
+/* список с круглыми маркерами */
+.overview__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.625rem;
+}
+
+.overview__item {
+  position: relative;
+  padding-left: 1.5rem;
+  line-height: 1.7;
+}
+.overview__item::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.72em;
+  width: 0.375rem;
+  height: 0.375rem;
+  border-radius: 50%;
+  background: var(--color-accent);
+  box-shadow: 0 0 0 0.1875rem color-mix(in srgb, var(--color-accent), #fff 85%);
+  transform: translateY(-50%);
+}
+
+.overview__claim {
+  margin-top: 0.375rem;
+  font-size: clamp(1.25rem, 1.0888429752rem + 0.6611570248vw, 1.75rem);
+  font-weight: 800;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+}
+
+/* ——— Правая медиа-карточка ——— */
+.overview__media {
+  --pad: 0.625rem;
+  position: relative;
+  padding: var(--pad);
+  background: var(--color-white);
+  border: 0.0625rem solid var(--color-dark-15, rgba(0, 0, 0, 0.15));
+  box-shadow: 0 1.375rem 3.75rem rgba(0, 0, 0, 0.07);
+}
+@media (width <= 48.18625rem) {
+  .overview__media {
+    --pad: 0.5rem;
+  }
+}
+
+.overview__img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: calc(1rem - var(--pad));
+}
+@media (width <= 48.18625rem) {
+  .overview__img {
+    height: auto;
+    aspect-ratio: 5/3;
+    border-radius: calc(0.875rem - var(--pad));
+  }
+}
+
+/* мягкий градиент снизу под подпись */
+.overview__media::after {
+  content: "";
+  position: absolute;
+  inset-inline: var(--pad);
+  bottom: var(--pad);
+  height: 26%;
+  border-bottom-left-radius: calc(1rem - var(--pad));
+  border-bottom-right-radius: calc(1rem - var(--pad));
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.35) 90%);
+  pointer-events: none;
+}
+@media (width <= 48.18625rem) {
+  .overview__media::after {
+    border-bottom-left-radius: calc(0.875rem - var(--pad));
+    border-bottom-right-radius: calc(0.875rem - var(--pad));
+  }
+}
+
+/* подпись-«чип» */
+.overview__caption {
+  position: absolute;
+  left: calc(var(--pad) + 0.625rem);
+  bottom: calc(var(--pad) + 0.625rem);
+  margin: 0;
+  padding: 0.375rem 0.625rem;
+  font-size: 0.8125rem;
+  line-height: 1;
+  color: var(--color-white);
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(6px);
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+/* заголовок секции плотнее */
+#overview-title {
+  line-height: 1.16;
+  letter-spacing: -0.01em;
+}
+
+/* =========================================
+   ADVANTAGES — текстовая секция на всю ширину container
+========================================= */
+.advantages {
+  /* серый дескриптор под заголовком секции */
+  /* ——— Список ——— */
+  /* ——— Большой тезис ——— */
+}
+.advantages__inner {
+  display: grid;
+  gap: clamp(16px, 3vw, 28px);
+}
+.advantages :where(.section__kicker) {
+  font-size: clamp(0.875rem, 0.8347107438rem + 0.1652892562vw, 1rem);
+  color: var(--color-dark-900, #222);
+  opacity: 0.75;
+  margin-top: 0.25rem;
+}
+.advantages__list {
+  /* тянется на всю ширину контейнера, без карточности */
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.625rem;
+  /* На очень широких можно дать две колонки для компактности */
+}
+@media (width > 90.06125rem) {
+  .advantages__list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: clamp(20px, 3vw, 40px);
+  }
+}
+.advantages__item {
+  position: relative;
+  padding-left: 1.5rem;
+  line-height: 1.7;
+  letter-spacing: -0.005em;
+  /* кастомный маркер, т.к. у нас reset убирает стандартный */
+}
+.advantages__item::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.72em;
+  width: 0.375rem;
+  height: 0.375rem;
+  border-radius: 50%;
+  background: var(--color-accent);
+  box-shadow: 0 0 0 0.1875rem color-mix(in srgb, var(--color-accent), #fff 85%);
+  transform: translateY(-50%);
+}
+.advantages__claim {
+  text-align: center;
+  font-size: clamp(1.125rem, 0.9638429752rem + 0.6611570248vw, 1.625rem);
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+  font-weight: 700;
+  margin-top: 0.375rem;
+}
+
+/* чуть плотнее сам заголовок секции */
+#advantages-title {
+  line-height: 1.16;
+  letter-spacing: -0.01em;
+}
+
+/* ===== VALUE-PROP (как ABOUT: таймлайн + карточки) ===== */
+.value-prop__body {
+  margin-top: clamp(1.25rem, 3.5vw, 2.5rem);
+}
+
+/* вертикальный таймлайн */
+.value-prop__list--stacked {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  padding-left: 4rem;
+  /* общая тонкая линия слева */
+}
+.value-prop__list--stacked::before {
+  content: "";
+  position: absolute;
+  left: 1.125rem;
+  top: 0.25rem;
+  bottom: 0.25rem;
+  width: 0.125rem;
+  background: var(--color-dark-15, rgba(0, 0, 0, 0.12));
+  border-radius: 0.125rem;
+}
+@media (width <= 63.99875rem) {
+  .value-prop__list--stacked {
+    padding-left: 3rem;
+  }
+  .value-prop__list--stacked::before {
+    left: 0.875rem;
+  }
+}
+@media (width <= 48.18625rem) {
+  .value-prop__list--stacked {
+    gap: 1rem;
+    padding-left: 2.75rem;
+  }
+  .value-prop__list--stacked::before {
+    left: 0.75rem;
+  }
+}
+
+/* карточка пункта */
+.value-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.625rem;
+  padding: clamp(16px, 2.4vw, 24px) clamp(16px, 2.6vw, 28px);
+  background: var(--color-white);
+  border: 0.0625rem solid var(--color-dark-15, rgba(0, 0, 0, 0.12));
+  border-radius: 1rem;
+  box-shadow: 0 1.125rem 3.375rem rgba(0, 0, 0, 0.06);
+  transition: transform var(--transition-duration), box-shadow var(--transition-duration);
+  /* акцентная вертикальная полоса у карточки */
+  /* круглый «бейдж» поверх линии — без SVG, текст из data-badge */
+  /* hover на десктопе — лёгкий подъём/тень */
+}
+.value-card::before {
+  content: "";
+  position: absolute;
+  left: -0.875rem;
+  top: 1rem;
+  bottom: 1rem;
+  width: 0.25rem;
+  background: var(--color-accent);
+  border-radius: 0.25rem;
+}
+.value-card::after {
+  --size: 1.75rem;
+  content: attr(data-badge);
+  position: absolute;
+  left: -1.75rem;
+  top: 1.25rem;
+  display: grid;
+  place-items: center;
+  inline-size: var(--size);
+  block-size: var(--size);
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--color-accent) 12%, #fff);
+  border: 0.0625rem solid color-mix(in srgb, var(--color-accent) 35%, transparent);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06), 0 0 0 0.1875rem color-mix(in srgb, var(--color-accent) 10%, #fff) inset;
+  font-weight: 800;
+  font-size: clamp(0.5rem, 0.4597107438rem + 0.1652892562vw, 0.625rem);
+  color: color-mix(in srgb, var(--color-accent) 85%, #000);
+}
+@media (width <= 63.99875rem) {
+  .value-card::before {
+    left: -0.75rem;
+    top: 0.875rem;
+    bottom: 0.875rem;
+  }
+  .value-card::after {
+    left: -1.5rem;
+    top: 1.125rem;
+    --size: 1.625rem;
+  }
+}
+@media (width <= 48.18625rem) {
+  .value-card {
+    border-radius: 0.875rem;
+  }
+  .value-card::before {
+    left: -0.625rem;
+    top: 0.75rem;
+    bottom: 0.75rem;
+  }
+  .value-card::after {
+    left: -1.375rem;
+    top: 1rem;
+    --size: 1.5rem;
+  }
+}
+@media (any-hover: hover) {
+  .value-card:hover {
+    transform: translateY(-0.125rem);
+    box-shadow: 0 1.375rem 3.75rem rgba(0, 0, 0, 0.07);
+  }
+}
+@media (any-hover: none) {
+  .value-card:active {
+    transform: translateY(-0.125rem);
+    box-shadow: 0 1.375rem 3.75rem rgba(0, 0, 0, 0.07);
+  }
+}
+
+.value-card__text {
+  color: var(--color-dark-900, #222);
+  line-height: 1.7;
+  letter-spacing: -0.005em;
+}
+
+/* дескриптор под заголовком секции */
+.section__header .section__kicker {
+  font-size: clamp(0.875rem, 0.8347107438rem + 0.1652892562vw, 1rem);
+  color: var(--color-dark-900, #222);
+  opacity: 0.75;
+  margin-top: 0.25rem;
+}
+
+/* плотнее заголовок */
+#value-prop-title {
   line-height: 1.16;
   letter-spacing: -0.01em;
 }

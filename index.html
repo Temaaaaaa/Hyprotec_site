@@ -23,7 +23,7 @@
                         <li class="header__menu-item"><a class="header__menu-link" href="#about" aria-current="page">О компании</a></li>
                         <li class="header__menu-item header__menu-item--has-submenu">
                             <a class="header__menu-link"
-                               href="/services"
+                               href="#services-section"
                                aria-haspopup="true"
                                aria-expanded="false">
                                 Услуги<span class="header__submenu-caret" aria-hidden="true">▾</span>
@@ -42,9 +42,9 @@
                                 <li class="header__submenu-item"><a class="header__submenu-link" href="ntc/">Научно-технологический центр</a></li>
                                 <li class="header__submenu-item"><a class="header__submenu-link" href="supervising/">Супервайзинг и полевой аудит</a></li>
                                 <li class="header__submenu-item"><a class="header__submenu-link" href="consulting/">Технологический консалтинг</a></li>
-                                <li class="header__submenu-item"><a class="header__submenu-link" href="calibration/">Калибровка и ТО</a></li>
-                                <li class="header__submenu-item"><a class="header__submenu-link" href="education/">Центр проф. обучения</a></li>
-                                <li class="header__submenu-item"><a class="header__submenu-link" href="/">Система непрерывного анализа</a></li>
+                                <li class="header__submenu-item"><a class="header__submenu-link" href="calibration/">Калибровка и Техническое обслуживание</a></li>
+                                <li class="header__submenu-item"><a class="header__submenu-link" href="education/">Центр профессионального обучения</a></li>
+                                <li class="header__submenu-item"><a class="header__submenu-link" href="mudvisionrt/">Cистема мониторинга параметров бурового раствора</a></li>
                             </ul>
                         </li>
                         <li class="header__menu-item"><a class="header__menu-link" href="#equipment">Оборудование</a></li>
@@ -163,6 +163,35 @@
         </div>
     </section>
 
+    <section class="video-tour section" id="tour" aria-labelledby="tour-title">
+        <header class="section__header">
+            <div class="section__header-inner container">
+                <div class="section__header-info">
+                    <h2 class="section__title section-title" id="tour-title">Видео-тур</h2>
+                </div>
+                <div class="section__rule" aria-hidden="true"></div>
+            </div>
+        </header>
+
+        <div class="video-tour__body" id="video-tour">
+            <div class="video-tour__inner container">
+                <figure class="video-tour__player card">
+                    <video class="video-tour__video"
+                           controls
+                           preload="metadata"
+                           poster="./images/tour-poster.jpg">
+                        <source src="./video/tour.webm" type="video/webm">
+                        <source src="./video/hero-video.mp4" type="video/mp4">
+                        Ваш браузер не поддерживает воспроизведение видео.
+                    </video>
+                    <figcaption class="video-tour__caption">
+                        Короткий обзор лаборатории и оборудования
+                    </figcaption>
+                </figure>
+            </div>
+        </div>
+    </section>
+
     <section class="features section" id="features" aria-labelledby="features-title">
         <header class="section__header">
             <div class="section__header-inner container">
@@ -234,50 +263,54 @@
 
         <div class="stats__body">
             <div class="stats__inner container">
-                <ul class="stats__list">
-                    <li class="stat card card--underlined">
-                        <div class="stat__value" data-count="1723">1&nbsp;723</div>
-                        <div class="stat__label">тестирований цементных растворов</div>
-                        <span class="stat__meta" data-count="30">30%</span>
+                <ul class="stats__list" aria-label="Ключевые показатели лаборатории">
+                    <!-- Баннер «скважины» на всю ширину -->
+                    <li class="stat stat--wells card card--underlined">
+                        <div class="stat__value" data-count="437">437</div>
+                        <div class="stat__label">скважин</div>
                     </li>
 
-                    <li class="stat card card--underlined">
+                    <!-- Ряд 1 -->
+                    <li class="stat stat--tests card card--underlined">
+                        <div class="stat__value" data-count="5470">5&nbsp;470</div>
+                        <div class="stat__label">испытаний</div>
+                    </li>
+
+                    <li class="stat stat--drilling card card--underlined">
                         <div class="stat__value" data-count="3747">3&nbsp;747</div>
                         <div class="stat__label">тестирований буровых растворов</div>
                         <span class="stat__meta" data-count="70">70%</span>
                     </li>
 
-                    <li class="stat card card--underlined">
-                        <div class="stat__value" data-count="437">437</div>
-                        <div class="stat__label">скважин</div>
+                    <li class="stat stat--cement card card--underlined">
+                        <div class="stat__value" data-count="1723">1&nbsp;723</div>
+                        <div class="stat__label">тестирований цементных растворов</div>
+                        <span class="stat__meta" data-count="30">30%</span>
                     </li>
 
-                    <li class="stat card card--underlined">
-                        <div class="stat__value" data-count="5470">5&nbsp;470</div>
-                        <div class="stat__label">испытаний</div>
-                    </li>
-
-                    <li class="stat card card--underlined">
+                    <!-- Ряд 2 -->
+                    <li class="stat stat--samples card card--underlined">
                         <div class="stat__value" data-count="4254">4&nbsp;254</div>
                         <div class="stat__label">проб с отклонениями</div>
-                        <span class="stat__meta"data-count="78">78%</span>
+                        <span class="stat__meta" data-count="78">78%</span>
                     </li>
 
-                    <li class="stat card card--underlined">
+                    <li class="stat stat--devbr card card--underlined">
+                        <div class="stat__value" data-count="2988">2&nbsp;988</div>
+                        <div class="stat__label">отклонений по БР</div>
+                        <span class="stat__meta" data-count="80">80%</span>
+                    </li>
+
+                    <li class="stat stat--devcr card card--underlined">
                         <div class="stat__value" data-count="343">343</div>
                         <div class="stat__label">отклонений по ЦР</div>
                         <span class="stat__meta" data-count="20">20%</span>
-                    </li>
-
-                    <li class="stat card card--underlined">
-                        <div class="stat__value" data-count="988">2&nbsp;988</div>
-                        <div class="stat__label">отклонений по БР</div>
-                        <span class="stat__meta" data-count="80">80%</span>
                     </li>
                 </ul>
             </div>
         </div>
     </section>
+
 
     <section class="values section" id="values" aria-labelledby="values-title">
         <header class="section__header">
@@ -428,7 +461,7 @@
             <!-- 2 -->
             <article class="service-card" role="listitem">
                 <figure class="service-card__media">
-                    <img src="./images/cards/card2.jpg" alt="Супервайзинг и полевой аудит">
+                    <img src="./images/supervising.jpg" alt="Супервайзинг и полевой аудит">
                 </figure>
                 <div class="service-card__body">
                     <h3 class="service-card__title">Супервайзинг и полевой аудит</h3>
@@ -465,21 +498,21 @@
             </article>
             <article class="service-card" role="listitem">
                 <figure class="service-card__media">
-                    <img src="./images/cards/card5.jpg" alt="Непрерывный анализ раствора">
+                    <img src="./images/mudlab.jpg" alt="Непрерывный анализ раствора">
                 </figure>
                 <div class="service-card__body">
-                    <h3 class="service-card__title">Непрерывный анализ раствора</h3>
+                    <h3 class="service-card__title">Система мониторинга параметров бурового раствора</h3>
                 </div>
                 <div class="service-card__action">
-                    <a class="button" href="/">Подробнее</a>
+                    <a class="button" href="mudvisionrt/">Подробнее</a>
                 </div>
             </article>
             <article class="service-card" role="listitem">
                 <figure class="service-card__media">
-                    <img src="./images/cards/card5.jpg" alt="Обучение персонала">
+                    <img src="./images/cards/card6.jpg" alt="Обучение персонала">
                 </figure>
                 <div class="service-card__body">
-                    <h3 class="service-card__title">Обучение персонала</h3>
+                    <h3 class="service-card__title">Центр профессионального обучения</h3>
                 </div>
                 <div class="service-card__action">
                     <a class="button" href="education/">Подробнее</a>

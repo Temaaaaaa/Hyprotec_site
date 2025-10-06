@@ -1,0 +1,125 @@
+@use '../helpers' as *;
+
+/* =========================
+   OVERVIEW — текст слева, медиа справа (как .course)
+   ========================= */
+
+.overview__body { margin-top: clamp(1.25rem, 3vw, 2rem); }
+
+.overview__grid{
+  display:grid;
+  grid-template-columns:minmax(0,1.04fr) minmax(0,.96fr);
+  gap:clamp(16px,3vw,24px);
+  align-items:stretch;
+  @include tablet{ grid-template-columns:1fr; }
+  @include tablet-above{ --row-min: #{rem(420)}; } /* подстройка высоты */
+}
+
+/* обе колонки тянутся */
+.overview__content,
+.overview__media{
+  height:100%;
+  min-height:var(--row-min,auto);
+  border-radius:rem(16);
+  @include mobile{ border-radius:rem(14); min-height:auto; }
+}
+
+/* ——— Левая «карта» ——— */
+.overview__content{
+  display:flex;
+  flex-direction:column;
+  gap:rem(16);
+  padding:clamp(16px,2.4vw,24px) clamp(16px,2.6vw,28px);
+
+  background:var(--color-white);
+  border:rem(1) solid var(--color-dark-15, rgba(0,0,0,.15));
+  box-shadow:0 rem(18) rem(54) rgba(0,0,0,.06);
+}
+
+.overview__subtitle{
+  @include fluid-text(18,16);
+  margin:rem(2) 0 rem(6);
+  font-weight:700;
+  color:var(--color-dark-900,#222);
+  padding-bottom:rem(6);
+  position:relative;
+
+  &::after{
+    content:'';
+    position:absolute;
+    left:0; bottom:0;
+    width:rem(56); height:rem(2);
+    background:var(--color-accent);
+    border-radius:rem(2);
+  }
+}
+
+.overview__text p{ line-height:1.75; letter-spacing:-0.005em; }
+.overview__lead{ @include fluid-text(18,16); font-weight:700; strong{font-weight:800;} }
+
+/* список с круглыми маркерами */
+.overview__list{
+  margin:0; padding:0; list-style:none;
+  display:grid; gap:rem(10);
+}
+.overview__item{
+  position:relative; padding-left:rem(24); line-height:1.7;
+  &::before{
+    content:''; position:absolute; left:0; top:0.72em;
+    width:rem(6); height:rem(6); border-radius:50%;
+    background:var(--color-accent);
+    box-shadow:0 0 0 rem(3) color-mix(in srgb, var(--color-accent), #fff 85%);
+    transform:translateY(-50%);
+  }
+}
+
+.overview__claim{
+  margin-top:rem(6);
+  @include fluid-text(28,20);
+  font-weight:800; line-height:1.25; letter-spacing:-0.01em;
+}
+
+/* ——— Правая медиа-карточка ——— */
+.overview__media{
+  --pad: #{rem(10)};
+  position:relative; padding:var(--pad);
+  background:var(--color-white);
+  border:rem(1) solid var(--color-dark-15, rgba(0,0,0,.15));
+  box-shadow:0 rem(22) rem(60) rgba(0,0,0,.07);
+
+  @include mobile{ --pad: #{rem(8)}; }
+}
+
+.overview__img{
+  display:block; width:100%; height:100%; object-fit:cover;
+  border-radius:calc(rem(16) - var(--pad));
+  @include mobile{
+    height:auto; aspect-ratio:5/3;
+    border-radius:calc(rem(14) - var(--pad));
+  }
+}
+
+/* мягкий градиент снизу под подпись */
+.overview__media::after{
+  content:''; position:absolute; inset-inline:var(--pad); bottom:var(--pad);
+  height:26%; border-bottom-left-radius:calc(rem(16) - var(--pad));
+  border-bottom-right-radius:calc(rem(16) - var(--pad));
+  background:linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,.35) 90%);
+  pointer-events:none;
+
+  @include mobile{
+    border-bottom-left-radius:calc(rem(14) - var(--pad));
+    border-bottom-right-radius:calc(rem(14) - var(--pad));
+  }
+}
+
+/* подпись-«чип» */
+.overview__caption{
+  position:absolute; left:calc(var(--pad) + rem(10)); bottom:calc(var(--pad) + rem(10));
+  margin:0; padding:rem(6) rem(10); font-size:rem(13); line-height:1;
+  color:var(--color-white); background:rgba(0,0,0,.55);
+  backdrop-filter:blur(6px); border-radius:999px; white-space:nowrap;
+}
+
+/* заголовок секции плотнее */
+#overview-title{ line-height:1.16; letter-spacing:-0.01em; }

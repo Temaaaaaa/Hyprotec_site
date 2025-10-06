@@ -1,0 +1,120 @@
+@use '../helpers' as *;
+
+/* ===== VALUE-PROP (как ABOUT: таймлайн + карточки) ===== */
+
+.value-prop__body { margin-top: clamp(1.25rem, 3.5vw, 2.5rem); }
+
+/* вертикальный таймлайн */
+.value-prop__list--stacked {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: rem(20);
+  padding-left: rem(64);
+
+  /* общая тонкая линия слева */
+  &::before {
+    content: '';
+    position: absolute;
+    left: rem(18);
+    top: rem(4);
+    bottom: rem(4);
+    width: rem(2);
+    background: var(--color-dark-15, rgba(0,0,0,.12));
+    border-radius: rem(2);
+  }
+
+  @include tablet {
+    padding-left: rem(48);
+    &::before { left: rem(14); }
+  }
+
+  @include mobile {
+    gap: rem(16);
+    padding-left: rem(44);
+    &::before { left: rem(12); }
+  }
+}
+
+/* карточка пункта */
+.value-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  row-gap: rem(10);
+
+  padding: clamp(16px, 2.4vw, 24px) clamp(16px, 2.6vw, 28px);
+  background: var(--color-white);
+  border: rem(1) solid var(--color-dark-15, rgba(0,0,0,.12));
+  border-radius: rem(16);
+  box-shadow: 0 rem(18) rem(54) rgba(0,0,0,.06);
+  transition: transform var(--transition-duration), box-shadow var(--transition-duration);
+
+  /* акцентная вертикальная полоса у карточки */
+  &::before {
+    content: '';
+    position: absolute;
+    left: rem(-14);
+    top: rem(16);
+    bottom: rem(16);
+    width: rem(4);
+    background: var(--color-accent);
+    border-radius: rem(4);
+  }
+
+  /* круглый «бейдж» поверх линии — без SVG, текст из data-badge */
+  &::after {
+    --size: #{rem(28)};
+    content: attr(data-badge);
+    position: absolute;
+    left: rem(-28);
+    top: rem(20);
+    display: grid;
+    place-items: center;
+    inline-size: var(--size);
+    block-size: var(--size);
+    border-radius: 50%;
+    background: color-mix(in srgb, var(--color-accent) 12%, #fff);
+    border: rem(1) solid color-mix(in srgb, var(--color-accent) 35%, transparent);
+    box-shadow:
+            0 1px 4px rgba(0,0,0,.06),
+            0 0 0 rem(3) color-mix(in srgb, var(--color-accent) 10%, #fff) inset;
+    font-weight: 800;
+    @include fluid-text(10, 8);
+    color: color-mix(in srgb, var(--color-accent) 85%, #000);
+  }
+
+  @include tablet {
+    &::before { left: rem(-12); top: rem(14); bottom: rem(14); }
+    &::after  { left: rem(-24); top: rem(18); --size: #{rem(26)}; }
+  }
+
+  @include mobile {
+    border-radius: rem(14);
+    &::before { left: rem(-10); top: rem(12); bottom: rem(12); }
+    &::after  { left: rem(-22); top: rem(16); --size: #{rem(24)}; }
+  }
+
+  /* hover на десктопе — лёгкий подъём/тень */
+  @include hover {
+    transform: translateY(rem(-2));
+    box-shadow: 0 rem(22) rem(60) rgba(0,0,0,.07);
+  }
+}
+
+.value-card__text {
+  color: var(--color-dark-900, #222);
+  line-height: 1.7;
+  letter-spacing: -0.005em;
+}
+
+/* дескриптор под заголовком секции */
+.section__header .section__kicker {
+  @include fluid-text(16, 14);
+  color: var(--color-dark-900, #222);
+  opacity: .75;
+  margin-top: rem(4);
+}
+
+/* плотнее заголовок */
+#value-prop-title { line-height: 1.16; letter-spacing: -0.01em; }
