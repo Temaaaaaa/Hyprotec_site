@@ -1,84 +1,100 @@
 @use '../helpers' as *;
 
-/* Лёгкая заливка секции, чтобы цифры выделялись */
+/* =========================================
+   STATS
+   Раздел «Лаборатория в цифрах»
+   — мобилка: 1 колонка, естественный DOM-порядок
+   — с планшета: 3 колонки, верхняя строка — одна карточка по центру
+========================================= */
 
+.stats {
+  &__body { margin-top: clamp(1rem, 3vw, 2rem); }
 
-.stats__body { margin-top: clamp(1rem, 3vw, 2rem); }
+  /* ===== Сетка ===== */
+  &__list {
+    display: grid;
+    gap: rem(16);
+    grid-auto-rows: 1fr;
 
-/* Сетка: 1 → 2 → 3–4 колонок */
-.stats__list {
-  display: grid;
-  gap: rem(16);
-
-  @include tablet-above {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  @include laptop-above {
-    grid-template-columns: repeat(3, 1fr);
-  }
-
-  /* На очень широких — плотнее выглядят 4 в ряд */
-  @include laptop-above {
-    @media (width >= #{rem(1536)}) {
-      grid-template-columns: repeat(4, 1fr);
+    @include tablet-above {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      /* первая строка: . wells . — НЕ на всю ширину */
+      grid-template-areas:
+        ".      wells   ."
+        "tests  drilling cement"
+        "samples devbr   devcr";
     }
   }
-}
 
-/* Карточка-статистика поверх .card */
-.stat {
-  --card-bg: #fff;
-  text-align: center;
-  padding: clamp(1rem, 2.5vw, 1.5rem);
-
-  .stat__value {
-    /* крупная цифра с лёгким кернингом */
-    font-family: var(--font-family-accent);
-    @include fluid-text(56, 34);
-    font-weight: 600;
-    letter-spacing: -0.02em;
-    color: var(--color-accent);
-    line-height: 1.05;
-
-    /* тонкая тень для глубины */
-    text-shadow: 0 1px 0 rgba(0,0,0,.03);
+  /* Маппинг DOM -> области сетки (порядок в HTML можно не менять) */
+  @include tablet-above {
+    &__list > :nth-child(3) { grid-area: wells; }    /* 437 скважин (центр верхней строки) */
+    &__list > :nth-child(4) { grid-area: tests; }    /* 5470 испытаний */
+    &__list > :nth-child(2) { grid-area: drilling; } /* 3747 тестов БР */
+    &__list > :nth-child(1) { grid-area: cement; }   /* 1723 тестов ЦР */
+    &__list > :nth-child(5) { grid-area: samples; }  /* 4254 проб с отклонениями */
+    &__list > :nth-child(7) { grid-area: devbr; }    /* 2988 откл по БР */
+    &__list > :nth-child(6) { grid-area: devcr; }    /* 343 откл по ЦР */
   }
 
-  .stat__label {
-    @include fluid-text(18, 14);
-    color: var(--color-dark-900);
-    line-height: 1.5;
-    margin-top: rem(8);
+  /* ===== Карточка ===== */
+  .stat {
+    text-align: center;
+    padding: clamp(1rem, 2.5vw, 1.5rem);
+    background: var(--color-white);
+
+    .stat__value {
+      font-family: var(--font-family-accent);
+      @include fluid-text(56, 34);
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      color: var(--color-accent);
+      line-height: 1.05;
+      text-shadow: 0 1px 0 rgba(0, 0, 0, .03);
+      transition: transform var(--transition-duration) ease;
+    }
+
+    .stat__label {
+      @include fluid-text(18, 14);
+      color: var(--color-dark-900);
+      line-height: 1.5;
+      margin-top: rem(8);
+    }
+
+    .stat__meta {
+      display: inline-flex;
+      align-items: center; justify-content: center;
+      margin-top: rem(10);
+      padding-inline: rem(10);
+      height: rem(28);
+      border-radius: rem(999);
+      background: color-mix(in srgb, var(--color-accent) 10%, #fff);
+      color: var(--color-accent);
+      font-weight: 600; letter-spacing: 0.02em;
+      border: rem(1) solid color-mix(in srgb, var(--color-accent) 35%, transparent);
+    }
+
+    @include hover { .stat__value { transform: translateY(rem(-1)); } }
   }
 
-  /* Бейдж процента — если есть */
-  .stat__meta {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: rem(10);
-    padding: 0 rem(10);
-    height: rem(28);
-    border-radius: rem(999);
-    background: color-mix(in srgb, var(--color-accent) 10%, #fff);
-    color: var(--color-accent);
-    font-weight: 600;
-    letter-spacing: 0.02em;
-    border: rem(1) solid color-mix(in srgb, var(--color-accent) 35%, transparent);
+  /* Можно чуть подчеркнуть верхнюю карточку (без изменения ширины) */
+  @include tablet-above {
+    &__list > :nth-child(3) {
+      .stat__value { @include fluid-text(60, 36); }
+    }
   }
 
-  /* Ховер — деликатный подъём (унаследует тени из .card) */
-  @include hover {
-    .stat__value { transform: translateY(rem(-1)); }
+  /* Модификаторы на будущее (если откажемся от nth-child) */
+  .stat--wells    { @include tablet-above { grid-area: wells; } }
+  .stat--tests    { @include tablet-above { grid-area: tests; } }
+  .stat--drilling { @include tablet-above { grid-area: drilling; } }
+  .stat--cement   { @include tablet-above { grid-area: cement; } }
+  .stat--samples  { @include tablet-above { grid-area: samples; } }
+  .stat--devbr    { @include tablet-above { grid-area: devbr; } }
+  .stat--devcr    { @include tablet-above { grid-area: devcr; } }
+
+  @include mobile {
+    .stat { padding: rem(14); }
+    .stat .stat__meta { height: rem(26); padding-inline: rem(8); }
   }
-}
-
-/* Акценты для ключевых карточек (опционно) */
-
-
-/* Компактность на мобилке */
-@include mobile {
-  .stat { padding: rem(14); }
-  .stat .stat__meta { height: rem(26); padding-inline: rem(8); }
 }

@@ -1,0 +1,69 @@
+@use '../helpers' as *;
+
+/* =========================================
+   ADVANTAGES — текстовая секция на всю ширину container
+========================================= */
+
+.advantages {
+
+  &__inner {
+    display: grid;
+    gap: clamp(16px, 3vw, 28px);
+  }
+
+  /* серый дескриптор под заголовком секции */
+  :where(.section__kicker) {
+    @include fluid-text(16, 14);
+    color: var(--color-dark-900, #222);
+    opacity: .75;
+    margin-top: rem(4);
+  }
+
+  /* ——— Список ——— */
+  &__list {
+    /* тянется на всю ширину контейнера, без карточности */
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    display: grid;
+    gap: rem(10);
+    /* На очень широких можно дать две колонки для компактности */
+    @include laptop-above {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      column-gap: clamp(20px, 3vw, 40px);
+    }
+  }
+
+  &__item {
+    position: relative;
+    padding-left: rem(24);
+    line-height: 1.7;
+    letter-spacing: -0.005em;
+
+    /* кастомный маркер, т.к. у нас reset убирает стандартный */
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0.72em;
+      width: rem(6); height: rem(6);
+      border-radius: 50%;
+      background: var(--color-accent);
+      box-shadow: 0 0 0 rem(3) color-mix(in srgb, var(--color-accent), #fff 85%);
+      transform: translateY(-50%);
+    }
+  }
+
+  /* ——— Большой тезис ——— */
+  &__claim {
+    text-align: center;
+    @include fluid-text(26, 18);
+    line-height: 1.35;
+    letter-spacing: -0.01em;
+    font-weight: 700;
+    margin-top: rem(6);
+  }
+}
+
+/* чуть плотнее сам заголовок секции */
+#advantages-title { line-height: 1.16; letter-spacing: -0.01em; }
