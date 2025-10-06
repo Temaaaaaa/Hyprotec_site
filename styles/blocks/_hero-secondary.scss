@@ -2,12 +2,6 @@
 
 /* ===== Base hero (общая основа) ===== */
 .hero {
-  position: relative;
-  display: flex;
-  align-items: center;
-  overflow: hidden;
-  min-height: 100dvh;
-  color: var(--color-white);
 
   &__bg {
     position: absolute;
@@ -35,11 +29,6 @@
     @include fluid-text(28, 18);
     opacity: .95;
     max-width: 28ch;
-  }
-
-  @include mobile {
-    min-height: 68vh;
-    &__subtitle { max-width: none; }
   }
 }
 

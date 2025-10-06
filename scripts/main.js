@@ -1,5 +1,12 @@
 import Header from "./Header.js";
 import Carousel from "./Carousel.js";
+import Stats from "./Stats.js";
+
+document.addEventListener('DOMContentLoaded', () => {
+    const stats = new Stats('#lab-stats', { threshold: 0.3, once: true });
+    stats.init();
+    // при необходимости: stats.destroy();
+});
 
 
 function initOfferingAccordion(){
