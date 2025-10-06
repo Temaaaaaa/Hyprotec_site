@@ -633,7 +633,7 @@ button[aria-label]::before {
 }
 @media (width <= 48.18625rem) {
   .header__menu-list {
-    font-size: clamp(1.4375rem, 1.3972107438rem + 0.1652892562vw, 1.5625rem);
+    font-size: clamp(1rem, 0.6776859504rem + 1.3223140496vw, 2rem);
     flex-direction: column;
     row-gap: 1rem;
     align-items: stretch;
@@ -791,7 +791,6 @@ button[aria-label]::before {
     margin-top: 0.5rem;
     border-radius: 0.75rem;
     box-shadow: none;
-    background: var(--color-white);
     border: 1px solid var(--color-gray-300, rgba(0, 0, 0, 0.08));
     overflow: hidden;
     /* закрыто: */
@@ -831,6 +830,7 @@ button[aria-label]::before {
   .header__menu-item--has-submenu.is-open > .header__submenu {
     max-height: 50rem;
     padding: 0.5rem;
+    font-size: clamp(0.875rem, 0.5123966942rem + 1.4876033058vw, 2rem);
     border-width: 1px;
     border-color: var(--color-gray-300, rgba(0, 0, 0, 0.08));
   }
@@ -2702,14 +2702,6 @@ button[aria-label]::before {
   }
 }
 /* ===== Base hero (общая основа) ===== */
-.hero {
-  position: relative;
-  display: flex;
-  align-items: center;
-  overflow: hidden;
-  min-height: 100dvh;
-  color: var(--color-white);
-}
 .hero__bg {
   position: absolute;
   inset: 0;
@@ -2738,14 +2730,6 @@ button[aria-label]::before {
   font-size: clamp(1.125rem, 0.923553719rem + 0.826446281vw, 1.75rem);
   opacity: 0.95;
   max-width: 28ch;
-}
-@media (width <= 48.18625rem) {
-  .hero {
-    min-height: 68vh;
-  }
-  .hero__subtitle {
-    max-width: none;
-  }
 }
 
 /* ===== Модификаторы страницы ===== */

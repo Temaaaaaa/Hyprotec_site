@@ -57,7 +57,7 @@
       @include laptop { column-gap: rem(8); }
 
       @include mobile {
-        @include fluid-text(25,23);
+        @include fluid-text(32,16);
         flex-direction: column;
         row-gap: 1rem;
         align-items: stretch;    // пункты тянутся на всю ширину
@@ -225,7 +225,6 @@
       margin-top: rem(8);
       border-radius: rem(12);
       box-shadow: none;
-      background: var(--color-white);
       border: 1px solid var(--color-gray-300, rgba(0,0,0,.08));
       overflow: hidden;
       /* закрыто: */
@@ -251,7 +250,7 @@
     font-weight: 500;
     white-space: nowrap;
 
-    @include mobile { white-space: normal; }
+    @include mobile { white-space: normal;}
 
     @include mobile-above {
       @media (hover: hover) and (pointer: fine) {
@@ -272,6 +271,7 @@
     @include mobile {
       max-height: rem(800);         // достаточно для контента
       padding: rem(8);
+      @include fluid-text(32,14);
       border-width: 1px;
       border-color: var(--color-gray-300, rgba(0,0,0,.08));
     }
