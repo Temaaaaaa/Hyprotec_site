@@ -40,11 +40,12 @@
   /* ===== Карточка ===== */
   .stat {
     text-align: center;
+    align-items: center;
     padding: clamp(1rem, 2.5vw, 1.5rem);
     background: var(--color-white);
 
     .stat__value {
-      font-family: var(--font-family-accent);
+      font-family: var(--font-family-accent), sans-serif;
       @include fluid-text(56, 34);
       font-weight: 600;
       letter-spacing: -0.02em;

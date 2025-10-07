@@ -1619,11 +1619,12 @@ button[aria-label]::before {
 }
 .stats .stat {
   text-align: center;
+  align-items: center;
   padding: clamp(1rem, 2.5vw, 1.5rem);
   background: var(--color-white);
 }
 .stats .stat .stat__value {
-  font-family: var(--font-family-accent);
+  font-family: var(--font-family-accent), sans-serif;
   font-size: clamp(2.125rem, 1.6818181818rem + 1.8181818182vw, 3.5rem);
   font-weight: 600;
   letter-spacing: -0.02em;
