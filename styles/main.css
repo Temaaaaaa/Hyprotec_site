@@ -1031,26 +1031,36 @@ button[aria-label]::before {
   }
 }
 
+/* ————————————————————————————————
+   HERO: видео-фон + крупный адаптивный заголовок
+   — мобилка: компактнее, но читабельно
+   — уважает prefers-reduced-motion
+   — без зависимости от недостающих переменных
+   ———————————————————————————————— */
 .hero {
   position: relative;
   min-height: 100dvh;
-  color: var(--color-white, #fff);
   padding-block: 3rem;
-  isolation: isolate;
+  color: var(--color-white, #fff);
   display: grid;
   place-items: center;
+  isolation: isolate;
   /* затемнение для читаемости текста */
-  /* фоновое видео */
-  /* если пользователь отключил анимации — притушим движение */
-  /* контент */
-  /* адаптив */
+  /* — ФОН: видео на заднем плане — */
+  /* — Контент — */
+  /* — Печатная машинка — */
+  /* — Кнопки/действия — */
+  /* — Адаптивы — */
+  /* — Доступность и экономия батареи — */
 }
 .hero::before {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.55) 30%, rgba(0, 0, 0, 0.55) 70%, rgba(0, 0, 0, 0.45)), rgba(0, 0, 0, 0.25);
   z-index: 0;
+  /* лёгкий градиент + прозрачный слой */
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.55) 30%, rgba(0, 0, 0, 0.55) 70%, rgba(0, 0, 0, 0.45)), rgba(0, 0, 0, 0.25);
+  pointer-events: none;
 }
 .hero__bg {
   position: absolute;
@@ -1063,93 +1073,108 @@ button[aria-label]::before {
   inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: cover; /* заполняем без полос */
   object-position: center;
-  /* если видео не успевает загрузиться — покажется poster */
-  background: #000;
-}
-@media (prefers-reduced-motion: reduce) {
-  .hero__video {
-    animation: none;
-  }
+  /* если постер/видео темноваты — можно играться с фильтром */
+  /* filter: brightness(.98) contrast(1.02); */
 }
 .hero__inner {
-  position: relative;
   z-index: 1;
-  text-align: center;
+  width: 100%;
+  /* контейнер у тебя уже есть в .container; тут зададим выравнивание */
   display: grid;
   row-gap: 1rem;
   justify-items: center;
-  padding-top: var(--header-offset, 1.25rem);
+  text-align: center;
 }
 .hero__title {
-  font-size: clamp(2rem, 0.8719008264rem + 4.6280991736vw, 5.5rem);
-  font-family: var(--font-family-accent, var(--font-family, sans-serif));
+  /* крупно на десктопе, уверенно на мобилке */
+  font-size: clamp(2.625rem, -0.1549586777rem + 11.4049586777vw, 11.25rem);
   font-weight: 800;
-  line-height: 1;
-  letter-spacing: 0.02em;
-  text-transform: uppercase;
-  text-shadow: 0 0.125rem 1.875rem rgba(0, 0, 0, 0.35);
+  letter-spacing: -0.02em;
+  line-height: 0.92;
+  margin: 0; /* на всякий */
+  text-wrap: balance; /* аккуратные переносы при узких контейнерах */
 }
 .hero__subtitle {
+  /* базовый сабтайтл (если без печатной машинки) */
+  font-size: clamp(1rem, 0.7582644628rem + 0.9917355372vw, 1.75rem);
+  line-height: 1.25;
+  opacity: 0.95;
   margin: 0;
-  font-size: clamp(0.875rem, 0.7541322314rem + 0.4958677686vw, 1.25rem);
-  font-weight: 500;
-  line-height: 1.5;
-  color: rgba(255, 255, 255, 0.9);
+}
+.hero__subtitle--type {
+  position: relative;
+  font-size: clamp(1rem, 0.7582644628rem + 0.9917355372vw, 1.75rem);
+  line-height: 1.2;
+  margin: 0;
+  /* курсор-мигалка */
+}
+.hero__subtitle--type::after {
+  content: "";
+  display: inline-block;
+  width: 0.08em;
+  height: 1em;
+  margin-left: 0.12em;
+  background: currentColor;
+  opacity: 0.85;
+  vertical-align: -0.1em;
+  animation: heroCaretBlink 1s step-end infinite;
+}
+@keyframes heroCaretBlink {
+  50% {
+    opacity: 0;
+  }
 }
 .hero__actions {
-  margin-top: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 0.5rem; /* чуть воздух после сабтайтла */
 }
-.hero__cta {
-  padding-inline: 1.25rem;
+.hero__button {
+  /* у тебя есть .button — усилим только «геройскую» версию */
+  padding-inline: 1.375rem;
   padding-block: 0.75rem;
-  border-radius: 62.4375rem;
-  font-weight: 700;
+  border-radius: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  text-decoration: none;
+  /* тени/фон подтянет .button из глобалок */
 }
-@media (width <= 90.06125rem) {
+@media (width <= 63.99875rem) {
   .hero__inner {
     row-gap: 0.875rem;
+  }
+  .hero__actions {
+    gap: 0.625rem;
   }
 }
 @media (width <= 48.18625rem) {
   .hero {
-    padding-block: 2rem;
+    padding-block: 2.25rem;
+    /* чуть компактнее на небольших */
   }
   .hero__inner {
-    row-gap: 0.875rem;
-    padding-top: 0.5rem;
+    row-gap: 0.75rem;
+  }
+  .hero__title {
+    font-size: clamp(2.5rem, 0.8884297521rem + 6.6115702479vw, 7.5rem);
+  }
+  .hero__subtitle, .hero__subtitle--type {
+    font-size: clamp(0.9375rem, 0.7561983471rem + 0.7438016529vw, 1.5rem);
+  }
+  .hero__actions {
+    gap: 0.625rem;
   }
 }
-.hero__subtitle--type {
-  --type-speed: 2.2s; /* скорость печати */
-  --type-caret-w: .1em; /* ширина курсора */
-  --type-caret-color: var(--color-accent);
-  --type-chars: attr(data-chars number); /* из HTML/JS */
-  position: relative;
-  display: inline-block;
-  white-space: nowrap; /* чтобы печать шла в строку */
-  overflow: hidden; /* прячем «не напечатанное» */
-  border-right: var(--type-caret-w) solid var(--type-caret-color);
-  /* печать + мигающий курсор */
-  width: 0;
-  animation: hero-typing steps(var(--type-chars)) var(--type-speed) forwards, hero-caret 1s step-end;
-}
-@media (width <= 48.18625rem) {
-  .hero__subtitle--type {
-    /* чуть медленнее на мобилках — читаемее */
-    --type-speed: 2.6s;
+@media (prefers-reduced-motion: reduce) {
+  .hero__subtitle--type::after {
+    animation: none;
+    opacity: 0.6;
   }
 }
 
-/* Печать: ширина от 0 до Nch */
-@keyframes hero-typing {
-  to {
-    width: calc(var(--type-chars) * 1ch);
-  }
-}
-/* Моргание курсора */
-/* Accessibility: без анимаций — показываем сразу, курсор убираем */
 .section {
   padding-top: 9.375rem;
 }
@@ -1430,23 +1455,40 @@ button[aria-label]::before {
     width: 2.75rem;
   }
 }
-/* ===== ABOUT ===== */
+/* ===== ABOUT (roomier) ===== */
 .about__body {
-  margin-top: clamp(1.25rem, 3.5vw, 2.5rem);
+  margin-top: clamp(1.5rem, 4vw, 3rem);
 }
 
-/* Карточка */
+/* Карточка — больше отступы + тонкая граница */
 .about-card {
+  --card-pad-x: 1.6875rem;
+  --card-pad-y: 1.6875rem;
+  --card-radius: 1rem;
+  --card-shadow: 0 0.5rem 1.25rem rgba(0,0,0,.06);
+  --card-border-color: color-mix(in srgb, var(--color-dark) 12%, transparent);
   position: relative;
   background: var(--color-white);
-  border-radius: 0.875rem;
-  padding: 1rem 1rem 1rem 1.375rem;
+  border: 0.0625rem solid var(--card-border-color);
+  border-radius: var(--card-radius);
+  padding: var(--card-pad-y) var(--card-pad-x);
   display: flex;
   flex-direction: column;
-  row-gap: 0.625rem;
-  transition: box-shadow var(--transition-duration), translate var(--transition-duration);
-  box-shadow: 0 0.625rem 1.375rem rgb(156, 50, 50);
-  translate: 0 -2px;
+  row-gap: 0.75rem;
+  transition: box-shadow var(--transition-duration), translate var(--transition-duration), border-color var(--transition-duration);
+  box-shadow: var(--card-shadow);
+}
+@media (any-hover: hover) {
+  .about-card:hover {
+    translate: 0 -1px;
+    box-shadow: 0 0.625rem 1.625rem rgba(0, 0, 0, 0.08);
+  }
+}
+@media (any-hover: none) {
+  .about-card:active {
+    translate: 0 -1px;
+    box-shadow: 0 0.625rem 1.625rem rgba(0, 0, 0, 0.08);
+  }
 }
 .about-card__title {
   font-size: clamp(1.125rem, 0.9638429752rem + 0.6611570248vw, 1.625rem);
@@ -1454,49 +1496,44 @@ button[aria-label]::before {
   line-height: 1.25;
   color: var(--color-dark);
   position: relative;
-  padding-bottom: 0.5rem;
+  padding-bottom: 0.625rem;
 }
 .about-card__title::after {
   content: "";
   position: absolute;
   left: 0;
   bottom: 0;
-  width: 2.25rem;
+  width: 2.75rem;
   height: 0.125rem;
   background-color: var(--color-accent);
 }
 .about-card__text {
   color: var(--color-dark-900);
-  line-height: 1.6;
+  line-height: 1.65;
 }
 
-/* Вертикальный список-таймлайн */
+/* Вертикальный список-таймлайн — больше «отступа дыхания» слева */
 .about__list--stacked {
+  --rail-offset: 3.125rem; /* было ~50 — расширяем, чтобы не жалось */
   display: flex;
   flex-direction: column;
   position: relative;
-  gap: 1.25rem;
-  padding-left: 3.125rem;
+  gap: 1.5rem;
+  padding-left: var(--rail-offset);
   /* Общая вертикальная линия слева */
   /* Акцентная полоса и маркер у каждой карточки */
-  /* Адаптив: сужаем отступы и чуть подвигаем маркеры/полосу */
+  /* Адаптив: компактнее, но с запасом воздуха */
 }
-.about__list--stacked::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0.25rem;
-  bottom: 0.25rem;
-  width: 0.125rem;
-  background: var(--color-dark-15);
-  border-radius: 0.125rem;
+.about__list--stacked .about-card {
+  /* акцентная полоска слева на высоту карточки */
+  /* точка-маркер на «рельсе» */
 }
 .about__list--stacked .about-card::before {
   content: "";
   position: absolute;
-  left: -0.375rem;
-  top: 1.125rem;
-  bottom: 1.125rem;
+  left: -0.625rem;
+  top: 1.25rem;
+  bottom: 1.25rem;
   width: 0.25rem;
   background: var(--color-accent);
   border-radius: 0.25rem;
@@ -1504,14 +1541,14 @@ button[aria-label]::before {
 .about__list--stacked .about-card::after {
   content: "";
   position: absolute;
-  left: 0.3125rem;
-  top: 1.5rem;
+  left: 0.625rem;
+  top: 2.1875rem;
   width: 0.75rem;
   height: 0.75rem;
   background: var(--color-white);
   border: 0.125rem solid var(--color-accent);
   border-radius: 50%;
-  box-shadow: 0 0 0 0.1875rem color-mix(in srgb, var(--color-accent) 15%, transparent);
+  box-shadow: 0 0 0 0.1875rem color-mix(in srgb, var(--color-accent) 18%, transparent);
 }
 .about__list--stacked .about-card .about-card__title {
   margin-left: 0.125rem;
@@ -1519,40 +1556,53 @@ button[aria-label]::before {
 .about__list--stacked .about-card .about-card__title::after {
   position: static;
   display: block;
-  margin-top: 0.5rem;
-  width: 2.75rem;
+  margin-top: 0.625rem;
+  width: 3rem;
   height: 0.125rem;
   background: var(--color-accent);
   content: "";
 }
 @media (width <= 63.99875rem) {
   .about__list--stacked {
-    padding-left: 0;
+    --rail-offset: 3.25rem;
+    gap: 1.25rem;
+  }
+  .about__list--stacked .about-card {
+    --card-pad-x: 1.25rem;
+    --card-pad-y: 1rem;
   }
   .about__list--stacked .about-card::before {
-    left: -0.25rem;
+    left: -0.5rem;
+    top: 1.125rem;
+    bottom: 1.125rem;
   }
   .about__list--stacked .about-card::after {
-    left: 0.3125rem;
+    left: 0rem;
+    top: 1.375rem;
   }
 }
 @media (width <= 48.18625rem) {
   .about__list--stacked {
+    --rail-offset: 2.5rem;
     padding-left: 0;
+    gap: 1rem;
   }
   .about__list--stacked::before {
-    left: -0.125rem;
+    left: 0.25rem;
   }
   .about__list--stacked .about-card {
-    padding: 0.875rem 0.875rem 0.875rem 1rem;
+    --card-pad-x: 1rem;
+    --card-pad-y: 0.875rem;
+    border-radius: 0.875rem;
   }
   .about__list--stacked .about-card::before {
+    left: -0.5rem;
     top: 0.875rem;
     bottom: 0.875rem;
   }
   .about__list--stacked .about-card::after {
+    left: 0.1875rem;
     top: 1.125rem;
-    left: 0.125rem;
     width: 0.625rem;
     height: 0.625rem;
   }
@@ -1618,10 +1668,13 @@ button[aria-label]::before {
   }
 }
 .stats .stat {
-  text-align: center;
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  padding: clamp(1rem, 2.5vw, 1.5rem);
-  background: var(--color-white);
+  justify-content: center;
+  gap: 0; /* вместо ручных margin-top у элементов */
+  min-height: clamp(120px, 22vw, 180px);
+  text-align: center;
 }
 .stats .stat .stat__value {
   font-family: var(--font-family-accent), sans-serif;
@@ -1634,17 +1687,15 @@ button[aria-label]::before {
   transition: transform var(--transition-duration) ease;
 }
 .stats .stat .stat__label {
-  font-size: clamp(0.875rem, 0.7944214876rem + 0.3305785124vw, 1.125rem);
-  color: var(--color-dark-900);
+  font-size: clamp(0.875rem, 0.673553719rem + 0.826446281vw, 1.5rem);
   line-height: 1.5;
-  margin-top: 0.5rem;
 }
 .stats .stat .stat__meta {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  margin-top: 0.625rem;
   padding-inline: 0.625rem;
+  margin-top: 0.625rem;
   height: 1.75rem;
   border-radius: 62.4375rem;
   background: color-mix(in srgb, var(--color-accent) 10%, #fff);
@@ -1661,11 +1712,6 @@ button[aria-label]::before {
 @media (any-hover: none) {
   .stats .stat:active .stat__value {
     transform: translateY(-0.0625rem);
-  }
-}
-@media (width > 63.99875rem) {
-  .stats__list > :nth-child(3) .stat__value {
-    font-size: clamp(2.25rem, 1.7665289256rem + 1.9834710744vw, 3.75rem);
   }
 }
 @media (width > 63.99875rem) {
