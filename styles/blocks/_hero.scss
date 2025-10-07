@@ -1,19 +1,28 @@
 @use '../helpers' as *;
 
+/* ————————————————————————————————
+   HERO: видео-фон + крупный адаптивный заголовок
+   — мобилка: компактнее, но читабельно
+   — уважает prefers-reduced-motion
+   — без зависимости от недостающих переменных
+   ———————————————————————————————— */
+
 .hero {
   position: relative;
   min-height: 100dvh;
-  color: var(--color-white, #fff);
   padding-block: rem(48);
-  isolation: isolate;
+  color: var(--color-white, #fff);
   display: grid;
   place-items: center;
+  isolation: isolate;
 
   /* затемнение для читаемости текста */
   &::before {
     content: '';
     position: absolute;
     inset: 0;
+    z-index: 0;
+    /* лёгкий градиент + прозрачный слой */
     background:
             linear-gradient(
                             to bottom,
@@ -23,10 +32,10 @@
                             rgba(0,0,0,.45)
             ),
             rgba(0,0,0,.25);
-    z-index: 0;
+    pointer-events: none;
   }
 
-  /* фоновое видео */
+  /* — ФОН: видео на заднем плане — */
   &__bg {
     position: absolute;
     inset: 0;
@@ -39,109 +48,101 @@
     inset: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover;    // заполняет экран, как на скрине
+    object-fit: cover; /* заполняем без полос */
     object-position: center;
-    /* если видео не успевает загрузиться — покажется poster */
-    background: #000;
+    /* если постер/видео темноваты — можно играться с фильтром */
+    /* filter: brightness(.98) contrast(1.02); */
   }
 
-  /* если пользователь отключил анимации — притушим движение */
-  @media (prefers-reduced-motion: reduce) {
-    &__video { animation: none; }
-  }
-
-  /* контент */
+  /* — Контент — */
   &__inner {
-    position: relative;
     z-index: 1;
-    text-align: center;
+    width: 100%;
+    /* контейнер у тебя уже есть в .container; тут зададим выравнивание */
     display: grid;
     row-gap: rem(16);
     justify-items: center;
-    padding-top: var(--header-offset, rem(20));
+    text-align: center;
   }
 
   &__title {
-    @include fluid-text(88, 32);
-    font-family: var(--font-family-accent, var(--font-family, sans-serif));
+    /* крупно на десктопе, уверенно на мобилке */
+    @include fluid-text(180, 42);
     font-weight: 800;
-    line-height: 1;
-    letter-spacing: .02em;
-    text-transform: uppercase;
-    text-shadow: 0 rem(2) rem(30) rgba(0,0,0,.35);
+    letter-spacing: -0.02em;
+    line-height: .92;
+    margin: 0; /* на всякий */
+    text-wrap: balance; /* аккуратные переносы при узких контейнерах */
   }
 
   &__subtitle {
+    /* базовый сабтайтл (если без печатной машинки) */
+    @include fluid-text(28, 16);
+    line-height: 1.25;
+    opacity: .95;
     margin: 0;
-    @include fluid-text(20, 14);
-    font-weight: 500;
-    line-height: 1.5;
-    color: rgba(255,255,255,.9);
   }
 
-  &__actions { margin-top: rem(12); }
+  /* — Печатная машинка — */
+  &__subtitle--type {
+    position: relative;
+    @include fluid-text(28, 16);
+    line-height: 1.2;
+    margin: 0;
 
-  &__cta {
-    padding-inline: rem(20);
+    /* курсор-мигалка */
+    &::after {
+      content: '';
+      display: inline-block;
+      width: 0.08em;
+      height: 1em;
+      margin-left: 0.12em;
+      background: currentColor;
+      opacity: .85;
+      vertical-align: -0.1em;
+      animation: heroCaretBlink 1s step-end infinite;
+    }
+  }
+
+  @keyframes heroCaretBlink { 50% { opacity: 0; } }
+
+  /* — Кнопки/действия — */
+  &__actions {
+    display: flex;
+    align-items: center;
+    gap: rem(12);
+    margin-top: rem(8); /* чуть воздух после сабтайтла */
+  }
+
+  &__button {
+    /* у тебя есть .button — усилим только «геройскую» версию */
+    padding-inline: rem(22);
     padding-block: rem(12);
-    border-radius: rem(999);
-    font-weight: 700;
+    border-radius: rem(12);
+    font-weight: 600;
+    letter-spacing: .01em;
+    text-decoration: none;
+    /* тени/фон подтянет .button из глобалок */
   }
 
-  /* адаптив */
-  @include laptop {
+  /* — Адаптивы — */
+  @include tablet {
     &__inner { row-gap: rem(14); }
+    &__actions { gap: rem(10); }
   }
 
   @include mobile {
-    padding-block: rem(32);
+    padding-block: rem(36);
 
-    &__inner {
-      row-gap: rem(14);
-      padding-top: rem(8);
-    }
+    &__inner { row-gap: rem(12); }
+    &__title { @include fluid-text(120, 40); } /* чуть компактнее на небольших */
+    &__subtitle,
+    &__subtitle--type { @include fluid-text(24, 15); }
+    &__actions { gap: rem(10); }
   }
-  &__subtitle--type {
-    --type-speed: 2.2s;              /* скорость печати */
-    --type-caret-w: .1em;            /* ширина курсора */
-    --type-caret-color: var(--color-accent);
-    --type-chars: attr(data-chars number); /* из HTML/JS */
 
-    position: relative;
-    display: inline-block;
-    white-space: nowrap;              /* чтобы печать шла в строку */
-    overflow: hidden;                 /* прячем «не напечатанное» */
-    border-right: var(--type-caret-w) solid var(--type-caret-color);
-
-    /* печать + мигающий курсор */
-    width: 0;
-    animation:
-            hero-typing steps(var(--type-chars)) var(--type-speed) forwards,
-            hero-caret 1s step-end;
-
-    @include mobile {
-      /* чуть медленнее на мобилках — читаемее */
-      --type-speed: 2.6s;
-    }
+  /* — Доступность и экономия батареи — */
+  @media (prefers-reduced-motion: reduce) {
+    &__subtitle--type::after { animation: none; opacity: .6; }
   }
 }
-
-/* Печать: ширина от 0 до Nch */
-@keyframes hero-typing {
-  to { width: calc(var(--type-chars) * 1ch); }
-}
-
-/* Моргание курсора */
-//@keyframes hero-caret {
-//  50% { border-right-color: transparent; }
-//}
-
-/* Accessibility: без анимаций — показываем сразу, курсор убираем */
-//@media (prefers-reduced-motion: reduce) {
-//  .hero__subtitle--type {
-//    animation: none;
-//    width: auto;
-//    border-right: 0;
-//  }
-//}
-

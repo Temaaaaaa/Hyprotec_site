@@ -5,6 +5,21 @@ import Stats from "./Stats.js";
 import ContactForm from './ContactForm.js';
 new ContactForm('.feedback-form');
 new Intro();
+import { initHeroType } from './HeroType.js';
+
+document.addEventListener('DOMContentLoaded', () => {
+    initHeroType('.hero__subtitle--type', {
+        // при желании подправь скорости под вкус:
+        typeDelay: 55,
+        eraseDelay: 35,
+        holdDelay: 1300,
+        gapDelay: 350,
+    });
+});
+
+
+
+
 
 
 

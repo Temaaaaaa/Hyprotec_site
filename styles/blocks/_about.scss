@@ -1,29 +1,34 @@
 @use '../helpers' as *;
 
-/* ===== ABOUT ===== */
+/* ===== ABOUT (roomier) ===== */
 
 .about__body {
-  margin-top: clamp(1.25rem, 3.5vw, 2.5rem);
+  margin-top: clamp(1.5rem, 4vw, 3rem);
 }
 
-/* Карточка */
+/* Карточка — больше отступы + тонкая граница */
 .about-card {
+  --card-pad-x: #{rem(27)};
+  --card-pad-y: #{rem(27)};
+  --card-radius: #{rem(16)};
+  --card-shadow: 0 #{rem(8)} #{rem(20)} rgba(0,0,0,.06);
+  --card-border-color: color-mix(in srgb, var(--color-dark) 12%, transparent);
+
   position: relative;
   background: var(--color-white);
-  //border: var(--border);
-  border-radius: rem(14);
-  padding: rem(16) rem(16) rem(16) rem(22);
+  border: rem(1) solid var(--card-border-color);
+  border-radius: var(--card-radius);
+  padding: var(--card-pad-y) var(--card-pad-x);
   display: flex;
   flex-direction: column;
-  row-gap: rem(10);
-  transition: box-shadow var(--transition-duration), translate var(--transition-duration);
-  box-shadow: 0 rem(10) rem(22) rgb(156, 50, 50);
-  translate: 0 -2px;
+  row-gap: rem(12);
+  transition: box-shadow var(--transition-duration), translate var(--transition-duration), border-color var(--transition-duration);
+  box-shadow: var(--card-shadow);
 
-  //@include hover {
-  //  box-shadow: 0 rem(10) rem(22) rgb(156, 50, 50);
-  //  translate: 0 -2px;
-  //}
+  @include hover {
+    translate: 0 -1px;
+    box-shadow: 0 #{rem(10)} #{rem(26)} rgba(0,0,0,.08);
+  }
 
   &__title {
     @include fluid-text(26, 18);
@@ -31,14 +36,14 @@
     line-height: 1.25;
     color: var(--color-dark);
     position: relative;
-    padding-bottom: rem(8);
+    padding-bottom: rem(10);
 
     &::after {
       content: '';
       position: absolute;
       left: 0;
       bottom: 0;
-      width: rem(36);
+      width: rem(44);
       height: rem(2);
       background-color: var(--color-accent);
     }
@@ -46,54 +51,48 @@
 
   &__text {
     color: var(--color-dark-900);
-    line-height: 1.6;
+    line-height: 1.65;
   }
 }
 
-/* Вертикальный список-таймлайн */
+/* Вертикальный список-таймлайн — больше «отступа дыхания» слева */
 .about__list--stacked {
+  --rail-offset: #{rem(50)}; /* было ~50 — расширяем, чтобы не жалось */
   display: flex;
   flex-direction: column;
   position: relative;
-  gap: rem(20);
-  padding-left: rem(50);
+  gap: rem(24);
+  padding-left: var(--rail-offset);
 
   /* Общая вертикальная линия слева */
-  &::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: rem(4);
-    bottom: rem(4);
-    width: rem(2);
-    background: var(--color-dark-15);
-    border-radius: rem(2);
-  }
+
 
   /* Акцентная полоса и маркер у каждой карточки */
   .about-card {
+    /* акцентная полоска слева на высоту карточки */
     &::before {
       content: '';
       position: absolute;
-      left: rem(-6);
-      top: rem(18);
-      bottom: rem(18);
+      left: rem(-10);
+      top: rem(20);
+      bottom: rem(20);
       width: rem(4);
       background: var(--color-accent);
       border-radius: rem(4);
     }
 
+    /* точка-маркер на «рельсе» */
     &::after {
       content: '';
       position: absolute;
-      left: rem(5);
-      top: rem(24);
+      left: rem(10);
+      top: rem(35);
       width: rem(12);
       height: rem(12);
       background: var(--color-white);
       border: rem(2) solid var(--color-accent);
       border-radius: 50%;
-      box-shadow: 0 0 0 rem(3) color-mix(in srgb, var(--color-accent) 15%, transparent);
+      box-shadow: 0 0 0 rem(3) color-mix(in srgb, var(--color-accent) 18%, transparent);
     }
 
     .about-card__title {
@@ -102,8 +101,8 @@
       &::after {
         position: static;
         display: block;
-        margin-top: rem(8);
-        width: rem(44);
+        margin-top: rem(10);
+        width: rem(48);
         height: rem(2);
         background: var(--color-accent);
         content: '';
@@ -111,26 +110,34 @@
     }
   }
 
-  /* Адаптив: сужаем отступы и чуть подвигаем маркеры/полосу */
+  /* Адаптив: компактнее, но с запасом воздуха */
   @include tablet {
-    padding-left: 0;
+    --rail-offset: #{rem(52)};
+    gap: rem(20);
 
     .about-card {
-      &::before { left: rem(-4); }
-      &::after  { left: rem(5); }
+      --card-pad-x: #{rem(20)};
+      --card-pad-y: #{rem(16)};
+
+      &::before { left: rem(-8); top: rem(18); bottom: rem(18); }
+      &::after  { left: rem(0); top: rem(22); }
     }
   }
 
   @include mobile {
+    --rail-offset: #{rem(40)};
     padding-left: 0;
+    gap: rem(16);
 
-    &::before { left: rem(-2); }
+    &::before { left: rem(4); }
 
     .about-card {
-      padding: rem(14) rem(14) rem(14) rem(16);
+      --card-pad-x: #{rem(16)};
+      --card-pad-y: #{rem(14)};
+      border-radius: rem(14);
 
-      &::before { top: rem(14); bottom: rem(14); }
-      &::after  { top: rem(18); left: rem(2); width: rem(10); height: rem(10); }
+      &::before { left: rem(-8); top: rem(14); bottom: rem(14); }
+      &::after  { left: rem(3); top: rem(18); width: rem(10); height: rem(10); }
     }
   }
 }
