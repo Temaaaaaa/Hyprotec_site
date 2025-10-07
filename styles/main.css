@@ -233,7 +233,7 @@ svg * {
   --color-gray-300: #c7cbd1;
   --color-dark-900: #22292b;
   --font-family-base: "Inter", sans-serif;
-  --font-family-accent: "Rubik", sans-serif;
+  --font-family-accent: "Kumbh Sans", sans-serif;
   --container-width: 100rem;
   --container-padding-x: 1rem;
   --transition-duration: 0.2s;
@@ -1091,10 +1091,14 @@ button[aria-label]::before {
   /* крупно на десктопе, уверенно на мобилке */
   font-size: clamp(2.625rem, -0.1549586777rem + 11.4049586777vw, 11.25rem);
   font-weight: 800;
-  letter-spacing: -0.02em;
-  line-height: 0.92;
   margin: 0; /* на всякий */
   text-wrap: balance; /* аккуратные переносы при узких контейнерах */
+}
+.hero__title .hero__logo {
+  display: block;
+  width: clamp(13.75rem, 5.2892561983rem + 34.7107438017vw, 40rem); /* плавно от мобилки до десктопа */
+  height: auto; /* сохраняем пропорции */
+  max-width: 100%; /* защита на узких контейнерах */
 }
 .hero__subtitle {
   /* базовый сабтайтл (если без печатной машинки) */
@@ -1462,7 +1466,7 @@ button[aria-label]::before {
 
 /* Карточка — больше отступы + тонкая граница */
 .about-card {
-  --card-pad-x: 1.6875rem;
+  --card-pad-x: 1.875rem;
   --card-pad-y: 1.6875rem;
   --card-radius: 1rem;
   --card-shadow: 0 0.5rem 1.25rem rgba(0,0,0,.06);

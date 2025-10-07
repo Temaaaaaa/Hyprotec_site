@@ -8,7 +8,7 @@
 
 /* Карточка — больше отступы + тонкая граница */
 .about-card {
-  --card-pad-x: #{rem(27)};
+  --card-pad-x: #{rem(30)};
   --card-pad-y: #{rem(27)};
   --card-radius: #{rem(16)};
   --card-shadow: 0 #{rem(8)} #{rem(20)} rgba(0,0,0,.06);
