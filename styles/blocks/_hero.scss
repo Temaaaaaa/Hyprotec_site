@@ -69,10 +69,18 @@
     /* крупно на десктопе, уверенно на мобилке */
     @include fluid-text(180, 42);
     font-weight: 800;
-    letter-spacing: -0.02em;
-    line-height: .92;
+    //letter-spacing: -0.02em;
+    //line-height: .92;
     margin: 0; /* на всякий */
     text-wrap: balance; /* аккуратные переносы при узких контейнерах */
+
+    .hero__logo {
+      display: block;
+      //width: clamp(220px, 32vw, 640px); /* плавно от мобилки до десктопа */
+      width: fluid(640,220); /* плавно от мобилки до десктопа */
+      height: auto;                     /* сохраняем пропорции */
+      max-width: 100%;                  /* защита на узких контейнерах */
+    }
   }
 
   &__subtitle {
