@@ -870,8 +870,15 @@
                 <form class="feedback-form card" novalidate aria-describedby="feedback-desc">
                     <p class="visually-hidden" id="feedback-desc">Форма обратной связи HYPROTEC</p>
 
-                    <!-- honeypot для антиспама -->
-<!--                    <input type="text" name="company" class="feedback-form__hp" tabindex="-1" autocomplete="off" aria-hidden="true">-->
+                    <!-- honeypot для антиспама (НЕ УДАЛЯЕМ, просто скрыт) -->
+                    <input
+                            type="text"
+                            name="company"
+                            class="feedback-form__hp visually-hidden"
+                            tabindex="-1"
+                            autocomplete="off"
+                            aria-hidden="true"
+                    >
 
                     <div class="feedback-form__grid">
                         <!-- Имя -->
@@ -881,22 +888,29 @@
                             <span class="field__error" aria-live="polite"></span>
                         </label>
 
-                        <!-- Контакт: телефон или email (один из) — UX подсказка -->
+                        <!-- Телефон -->
                         <label class="field field--floating">
-                            <input class="field__control" type="tel" name="phone" inputmode="tel" autocomplete="tel" placeholder=" "
-                                   pattern="^[\\d\\+\\-\\s\\(\\)]{10,}$">
-                            <span class="field__label">Телефон</span>
-                            <span class="field__hint">Можно указать телефон или email — что удобнее</span>
+                            <input
+                                    class="field__control"
+                                    type="tel"
+                                    name="phone"
+                                    inputmode="tel"
+                                    autocomplete="tel"
+                                    placeholder=" "
+                            >
+                            <span class="field__label">Телефон*</span>
+                            <span class="field__hint">Можно указать телефон и, при желании, email</span>
                             <span class="field__error" aria-live="polite"></span>
                         </label>
 
+                        <!-- Email -->
                         <label class="field field--floating">
                             <input class="field__control" type="email" name="email" autocomplete="email" placeholder=" ">
                             <span class="field__label">Email</span>
                             <span class="field__error" aria-live="polite"></span>
                         </label>
 
-                        <!-- Тема (необязательно, но помогает маршрутизации) -->
+                        <!-- Тема -->
                         <label class="field field--floating">
                             <input class="field__control" type="text" name="topic" placeholder=" ">
                             <span class="field__label">Тема (опционально)</span>
@@ -930,7 +944,6 @@
             </div>
         </div>
     </section>
-
 </main>
 
 <footer class="footer">
