@@ -42,7 +42,7 @@
                                 <li class="header__submenu-item"><a class="header__submenu-link" href="ntc/">Научно-технологический центр</a></li>
                                 <li class="header__submenu-item"><a class="header__submenu-link" href="supervising/">Супервайзинг и полевой аудит</a></li>
                                 <li class="header__submenu-item"><a class="header__submenu-link" href="consulting/">Технологический консалтинг</a></li>
-                                <li class="header__submenu-item"><a class="header__submenu-link" href="calibration/">Калибровка и Техническое обслуживание</a></li>
+                                <li class="header__submenu-item"><a class="header__submenu-link" href="calibration/">Калибровка и техническое обслуживание</a></li>
                                 <li class="header__submenu-item"><a class="header__submenu-link" href="education/">Центр профессионального обучения</a></li>
                                 <li class="header__submenu-item"><a class="header__submenu-link" href="mudvisionrt/">Cистема мониторинга параметров бурового раствора</a></li>
                             </ul>
@@ -222,6 +222,9 @@
             <div class="video-tour__inner container">
                 <figure class="video-tour__player card">
                     <video class="video-tour__video"
+                           autoplay
+                           muted
+                           playsinline
                            controls
                            preload="metadata"
                            poster="./images/tour-poster.jpg">
@@ -868,7 +871,7 @@
                     <p class="visually-hidden" id="feedback-desc">Форма обратной связи HYPROTEC</p>
 
                     <!-- honeypot для антиспама -->
-                    <input type="text" name="company" class="feedback-form__hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+<!--                    <input type="text" name="company" class="feedback-form__hp" tabindex="-1" autocomplete="off" aria-hidden="true">-->
 
                     <div class="feedback-form__grid">
                         <!-- Имя -->

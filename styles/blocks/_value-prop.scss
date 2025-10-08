@@ -103,9 +103,10 @@
 }
 
 .value-card__text {
-  color: var(--color-dark-900, #222);
+  color: var(--color-dark-900);
   line-height: 1.7;
   letter-spacing: -0.005em;
+  @include fluid-text(25,20);
 }
 
 /* дескриптор под заголовком секции */

@@ -43,8 +43,8 @@ export default async function handler(req, res) {
         }
 
         // --- Валидация ---
-        const hasName = String(name).trim().length >= 2;
-        const hasMsg = String(message).trim().length >= 5;
+        const hasName = String(name).trim().length >= 1;
+        const hasMsg = String(message).trim().length >= 1;
         const hasPhone = String(phone).trim().length >= 10;
         const hasEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(email).trim());
         const contactOk = hasPhone || hasEmail;

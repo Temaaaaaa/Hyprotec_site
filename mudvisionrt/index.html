@@ -42,7 +42,7 @@
                                 <li class="header__submenu-item"><a class="header__submenu-link" href="../ntc/">Научно-технологический центр</a></li>
                                 <li class="header__submenu-item"><a class="header__submenu-link" href="../supervising/">Супервайзинг и полевой аудит</a></li>
                                 <li class="header__submenu-item"><a class="header__submenu-link" href="../consulting/">Технологический консалтинг</a></li>
-                                <li class="header__submenu-item"><a class="header__submenu-link" href="../calibration/">Калибровка и Техническое обслуживание</a></li>
+                                <li class="header__submenu-item"><a class="header__submenu-link" href="../calibration/">Калибровка и техническое обслуживание</a></li>
                                 <li class="header__submenu-item"><a class="header__submenu-link" href="../education/">Центр профессионального обучения</a></li>
                                 <li class="header__submenu-item"><a class="header__submenu-link" href="../mudvisionrt/">Cистема мониторинга параметров бурового раствора</a></li>
                             </ul>
@@ -110,7 +110,7 @@
         <header class="section__header">
             <div class="section__header-inner container">
                 <div class="section__header-info">
-                    <h2 class="section__title section-title" id="tour-title">Видео-тур</h2>
+                    <h2 class="section__title section-title" id="tour-title">Анимационная презентация MudVisionRT</h2>
                 </div>
                 <div class="section__rule" aria-hidden="true"></div>
             </div>
@@ -121,6 +121,9 @@
                 <figure class="video-tour__player card">
                     <video class="video-tour__video"
                            controls
+                           autoplay
+                           muted
+                           playsinline
                            preload="metadata"
                            poster="./images/tour-poster.jpg">
                         <source src="video/tour.webm" type="video/webm">
@@ -128,7 +131,7 @@
                         Ваш браузер не поддерживает воспроизведение видео.
                     </video>
                     <figcaption class="video-tour__caption">
-                        Короткий обзор лаборатории и оборудования
+                        Визуализация функционала системы мониторинга параметров бурового раствора
                     </figcaption>
                 </figure>
             </div>
@@ -176,7 +179,7 @@
                         </div>
                         <h3 class="feature__title card__title">Дефицит квалифицированных кадров</h3>
                         <p class="feature__text card__text">
-                            Оптимизация ресурсов сторонних компаний с целью снижения затрат на ФОТ и повышения эффективности выполнения работ приводят к увеличению рисков в первую очередь для буровых подрядчиков
+                            На рынке труда по всем направлениям отмечается дефицит специалистов, который будет усиливаться и по прогнозам Минэкономразвития достигнет двух миллионов человек к 2030 году
                         </p>
                     </li>
 
@@ -187,7 +190,7 @@
                                 <path d="M24.5334 82.0001C24 83.0668 24 84.9335 24.5334 86.0001C25.2 87.7335 28.6667 88.0001 48.2667 87.7335L71.3334 87.3335V84.0001V80.6668L48.2667 80.2668C28.6667 80.0001 25.2 80.2668 24.5334 82.0001Z" fill="black"/>
                             </svg>
                         </div>
-                        <h3 class="feature__title card__title">ROP / MSE / Hole Cleaning</h3>
+                        <h3 class="feature__title card__title">Плотность данных и смена парадигм</h3>
                         <p class="feature__text card__text">
                             Плотность данных при ручных измерениях по замерам параметров буровых растворов с повышением скорости проходки не отвечает безопасной проводке скважин
                         </p>
@@ -216,15 +219,15 @@
                 <div class="overview__grid">
                     <!-- ЛЕВО: текст -->
                     <article class="overview__content">
-                        <h3 class="overview__subtitle">Кратко</h3>
+                        <h3 class="overview__subtitle">Описание функционала</h3>
 
                         <div class="overview__text">
                             <p class="overview__lead">
                                 <strong>MudVisionRT</strong> — полностью автоматическая система, которая непрерывно контролирует
-                                температуру и реологические параметры бурового раствора. Свойства раствора доступны в реальном времени,
-                                что ускоряет реакцию на нештатные ситуации и повышает производительность бурения.
+                                широкий диапазон параметров от базовых, в т.ч. реологию, температуру, плотность, электростабильность,
+                                водородный показатель, до продвинутых, таких как фильтрационные свойства раствора и проведение ретортного анализа.
                             </p>
-                            <p>
+                            <p class="overview__lead">
                                 Система помогает предотвращать нестабильность ствола, малое дифференциальное давление, скопление шлама
                                 и другие риски, сокращая НПВ. Архитектура «установил и забыл» исключает конфликт интересов при ручных измерениях.
                             </p>
@@ -306,7 +309,7 @@
             <div class="value-prop__inner container">
                 <ul class="value-prop__list value-prop__list--stacked">
                     <li class="value-card" data-badge="100%">
-                        <p class="value-card__text">Непредвзятость измерений и объективные данные для аргументированных переговоров: замеры выполняет машина автоматически.</p>
+                        <p class="value-card__text">Непредвзятость измерений и объективные данные для аргументированных переговоров: замеры выполняет система автоматически без участия человека</p>
                     </li>
 
                     <li class="value-card" data-badge="COST">
@@ -376,6 +379,120 @@
             </div>
         </div>
     </section>
+
+    <section class="showcase section" id="showcase" aria-labelledby="showcase-title">
+        <header class="section__header">
+            <div class="section__header-inner container">
+                <div class="section__header-info">
+                    <h2 class="section__title section-title" id="showcase-title">Примеры</h2>
+                </div>
+                <div class="section__rule" aria-hidden="true"></div>
+            </div>
+        </header>
+
+        <div class="showcase__body">
+            <div class="showcase__inner container">
+                <div class="carousel" data-js-carousel data-autoplay="true" data-interval="4500">
+                    <button class="carousel__btn carousel__btn--prev" data-js-carousel-prev aria-label="Назад" disabled>‹</button>
+                    <button class="carousel__btn carousel__btn--next" data-js-carousel-next aria-label="Вперёд">›</button>
+
+                    <div class="carousel__viewport"
+                         tabindex="0"
+                         role="region"
+                         aria-roledescription="carousel"
+                         aria-label="Примеры работ"
+                         data-js-carousel-viewport>
+                        <ul class="carousel__track" data-js-carousel-track>
+                            <li class="carousel__slide">
+                                <figure class="shot card">
+                                    <img class="shot__img" src="../images/smbr/1.jpg" alt="Пример 1" loading="lazy" decoding="async">
+                                </figure>
+                            </li>
+                            <li class="carousel__slide">
+                                <figure class="shot card">
+                                    <img class="shot__img" src="../images/smbr/2.jpg" alt="Пример 2" loading="lazy" decoding="async">
+                                </figure>
+                            </li>
+                            <li class="carousel__slide">
+                                <figure class="shot card shot--fit-contain shot--ratio-3-4 shot--framed">
+                                    <img class="shot__img" src="../images/smbr/3.jpg" alt="Портретный кадр">
+                                </figure>
+                            </li>
+
+                            <li class="carousel__slide">
+                                <figure class="shot card">
+                                    <img class="shot__img" src="../images/smbr/4.jpg" alt="Пример 4" loading="lazy" decoding="async">
+                                </figure>
+                            </li>
+                            <li class="carousel__slide">
+                                <figure class="shot card">
+                                    <img class="shot__img" src="../images/smbr/5.jpg" alt="Пример 4" loading="lazy" decoding="async">
+                                </figure>
+                            </li>
+                            <li class="carousel__slide">
+                                <figure class="shot card">
+                                    <img class="shot__img" src="../images/smbr/6.jpg" alt="Пример 4" loading="lazy" decoding="async">
+                                </figure>
+                            </li>
+                            <li class="carousel__slide">
+                                <figure class="shot card">
+                                    <img class="shot__img" src="../images/smbr/7.jpg" alt="Пример 4" loading="lazy" decoding="async">
+                                </figure>
+                            </li>
+                            <li class="carousel__slide">
+                                <figure class="shot card">
+                                    <img class="shot__img" src="../images/smbr/8.jpg" alt="Пример 4" loading="lazy" decoding="async">
+                                </figure>
+                            </li>
+                            <li class="carousel__slide">
+                                <figure class="shot card">
+                                    <img class="shot__img" src="../images/smbr/9.jpg" alt="Пример 4" loading="lazy" decoding="async">
+                                </figure>
+                            </li>
+                            <li class="carousel__slide">
+                                <figure class="shot card">
+                                    <img class="shot__img" src="../images/smbr/10.jpg" alt="Пример 4" loading="lazy" decoding="async">
+                                </figure>
+                            </li>
+                            <li class="carousel__slide">
+                                <figure class="shot card">
+                                    <img class="shot__img" src="../images/smbr/11.jpg" alt="Пример 4" loading="lazy" decoding="async">
+                                </figure>
+                            </li>
+                            <li class="carousel__slide">
+                                <figure class="shot card">
+                                    <img class="shot__img" src="../images/smbr/12.jpg" alt="Пример 4" loading="lazy" decoding="async">
+                                </figure>
+                            </li>
+                            <li class="carousel__slide">
+                                <figure class="shot card">
+                                    <img class="shot__img" src="../images/smbr/13.jpg" alt="Пример 4" loading="lazy" decoding="async">
+                                </figure>
+                            </li>
+                            <li class="carousel__slide">
+                                <figure class="shot card">
+                                    <img class="shot__img" src="../images/smbr/14.jpg" alt="Пример 4" loading="lazy" decoding="async">
+                                </figure>
+                            </li>
+                            <li class="carousel__slide">
+                                <figure class="shot card">
+                                    <img class="shot__img" src="../images/smbr/15.jpg" alt="Пример 4" loading="lazy" decoding="async">
+                                </figure>
+                            </li>
+                            <li class="carousel__slide">
+                                <figure class="shot card">
+                                    <img class="shot__img" src="../images/smbr/16.jpg" alt="Пример 4" loading="lazy" decoding="async">
+                                </figure>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="carousel__dots" data-js-carousel-dots aria-label="Навигация по слайдам"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
 </main>
 
 <footer class="footer">
