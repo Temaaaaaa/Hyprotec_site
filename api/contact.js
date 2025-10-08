@@ -1,12 +1,9 @@
-// api/contact.js
 /**
- * Serverless-эндпоинт для формы обратной связи HYPROTEC.
- * Ожидает JSON от фронта: { name, phone, email, topic, message, agree, company }
- * Шлёт заявку в Telegram. Возвращает { success, message }.
+ * Serverless-эндпоинт для формы HYPROTEC (Telegram).
+ * Новая валидация: телефон обязателен (11 цифр РФ), email — опционально.
  */
 
 function s(str = "", max = 500) {
-    // безопасная обрезка + экранирование для HTML в Telegram
     return String(str)
         .slice(0, max)
         .replaceAll("&", "&amp;")
@@ -22,7 +19,7 @@ export default async function handler(req, res) {
                 .json({ success: false, message: "Method Not Allowed" });
         }
 
-        // --- Парсинг входа ---
+        // --- Парсинг входных данных ---
         const body = req.body || (await readJson(req));
         const {
             name = "",
@@ -31,12 +28,11 @@ export default async function handler(req, res) {
             topic = "",
             message = "",
             agree = false,
-            company = "", // honeypot — должен быть пуст
+            company = "",
         } = body || {};
 
-        // --- Антиспам: honeypot ---
+        // --- Honeypot ---
         if (company && String(company).trim() !== "") {
-            // делаем вид, что всё ок, но ничего не отправляем
             return res
                 .status(200)
                 .json({ success: true, message: "Спасибо! Мы на связи." });
@@ -45,24 +41,32 @@ export default async function handler(req, res) {
         // --- Валидация ---
         const hasName = String(name).trim().length >= 1;
         const hasMsg = String(message).trim().length >= 1;
-        const hasPhone = String(phone).trim().length >= 10;
-        const hasEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(email).trim());
-        const contactOk = hasPhone || hasEmail;
+        const phoneDigits = String(phone).replace(/\D+/g, "");
+        let normalizedPhone = phoneDigits;
+
+        if (phoneDigits.startsWith("8")) normalizedPhone = "7" + phoneDigits.slice(1);
+        if (!normalizedPhone.startsWith("7")) normalizedPhone = "7" + normalizedPhone;
+
+        const hasPhone = normalizedPhone.length === 11;
+        const hasEmail = !!String(email).trim();
+        const emailOk = !hasEmail || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(email).trim());
 
         if (!hasName) {
-            return res
-                .status(422)
-                .json({ success: false, message: "Укажите имя." });
+            return res.status(422).json({ success: false, message: "Укажите имя." });
         }
         if (!hasMsg) {
-            return res
-                .status(422)
-                .json({ success: false, message: "Опишите ваш вопрос." });
+            return res.status(422).json({ success: false, message: "Опишите ваш вопрос." });
         }
-        if (!contactOk) {
+        if (!hasPhone) {
             return res.status(422).json({
                 success: false,
-                message: "Укажите телефон или email — один из вариантов.",
+                message: "Укажите корректный телефон (+7 и 11 цифр).",
+            });
+        }
+        if (!emailOk) {
+            return res.status(422).json({
+                success: false,
+                message: "Введите корректный email.",
             });
         }
         if (String(agree) !== "true" && agree !== true) {
@@ -75,7 +79,8 @@ export default async function handler(req, res) {
         // --- Подготовка сообщения ---
         const SITE = process.env.SITE_NAME || "HYPROTEC";
         const ua = req.headers["user-agent"] || "";
-        const ipHeader = req.headers["x-forwarded-for"] || req.headers["x-real-ip"] || "";
+        const ipHeader =
+            req.headers["x-forwarded-for"] || req.headers["x-real-ip"] || "";
         const ip = Array.isArray(ipHeader)
             ? ipHeader[0]
             : String(ipHeader).split(",")[0]?.trim();
@@ -83,7 +88,7 @@ export default async function handler(req, res) {
         const lines = [
             `<b>🧾 Заявка с сайта ${s(SITE, 60)}</b>`,
             `— <b>Имя:</b> ${s(name, 120)}`,
-            hasPhone ? `— <b>Телефон:</b> ${s(phone, 60)}` : "",
+            `— <b>Телефон:</b> ${s(phone, 60)}`,
             hasEmail ? `— <b>Email:</b> ${s(email, 120)}` : "",
             topic ? `— <b>Тема:</b> ${s(topic, 120)}` : "",
             `— <b>Сообщение:</b>\n${s(message, 2000)}`,
@@ -127,7 +132,6 @@ export default async function handler(req, res) {
             });
         }
 
-        // Успех
         return res
             .status(200)
             .json({ success: true, message: "Заявка отправлена. Спасибо!" });
@@ -139,7 +143,7 @@ export default async function handler(req, res) {
     }
 }
 
-/** Helpers **/
+/* ----------------- helpers ----------------- */
 async function readJson(req) {
     if (req.body && typeof req.body === "object") return req.body;
     const chunks = [];
@@ -151,6 +155,7 @@ async function readJson(req) {
         return {};
     }
 }
+
 async function safeText(resp) {
     try {
         return await resp.text();
