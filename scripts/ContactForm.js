@@ -93,11 +93,23 @@ export default class ContactForm {
     }
 
     formatPhone(digits) {
-        let d = digits.replace(/\D+/g, '');
+        // Оставляем только цифры
+        let d = String(digitsRaw || '').replace(/\D+/g, '');
+
+        // Если ничего не введено — остаётся пусто (никаких "+7")
+        if (!d) return '';
+
+        // Нормализуем ведущую "8" -> "7"
         if (d.startsWith('8')) d = '7' + d.slice(1);
+
+        // Если пользователь первым ввёл "7", трактуем её как код страны,
+        // не добавляем ещё одну "7".
         if (!d.startsWith('7')) d = '7' + d;
+
+        // Ограничим общую длину 11 цифрами (7 + 10)
         d = d.slice(0, 11);
 
+        // d[0] — это "7" (код страны). Оператор — d[1..3], дальше — номер
         let out = '+7';
         if (d.length > 1) out += ' (' + d.slice(1, 4);
         if (d.length >= 4) out += ') ' + d.slice(4, 7);
@@ -108,7 +120,9 @@ export default class ContactForm {
 
     onPhoneKeydown(e) {
         const k = e.key;
-        // Разрешаем навигацию
+        const input = this.$.phone;
+
+        // Разрешённая навигация
         if (['Tab','Enter','ArrowLeft','ArrowRight','Home','End','Delete'].includes(k)) return;
 
         // Фильтр символов
@@ -117,9 +131,14 @@ export default class ContactForm {
             return;
         }
 
-        // Backspace через разделители
+        // Если в поле ровно "+7" и жмут Backspace — очищаем до пустоты
         if (k === 'Backspace') {
-            const input = this.$.phone;
+            if (input.value === '+7') {
+                e.preventDefault();
+                input.value = '';
+                return;
+            }
+            // Мягкий прыжок через разделители
             const pos = input.selectionStart;
             const val = input.value;
             if (pos && /[()\-\s]/.test(val[pos - 1])) {
@@ -130,18 +149,25 @@ export default class ContactForm {
                 input.dispatchEvent(ev);
             }
         }
+
     }
 
     onPhoneInput() {
         const input = this.$.phone;
+
+        // Сколько было цифр слева от каретки до форматирования
         const start = input.selectionStart || 0;
         const before = input.value.slice(0, start);
         const beforeDigits = before.replace(/\D+/g, '').length;
 
-        const masked = this.formatPhone(this.getPhoneDigits());
+        // ТОЛЬКО цифры из текущего значения
+        const digits = input.value.replace(/\D+/g, '');
+
+        // Форматируем
+        const masked = this.formatPhone(digits);
         input.value = masked;
 
-        // восстановим каретку по количеству цифр до позиции
+        // Восстановим каретку по количеству цифр слева
         let i = 0, counted = 0;
         while (i < input.value.length && counted < beforeDigits) {
             if (/\d/.test(input.value[i])) counted++;
@@ -149,8 +175,9 @@ export default class ContactForm {
         }
         input.setSelectionRange(i, i);
 
-        // живой хинт для «незавершённого» номера
-        if (this.isPhonePartial()) {
+        // Живой хинт: если начали номер, но < 11 цифр — просим дописать
+        const dlen = digits.replace(/^8/, '7').replace(/^(?!7)/, '7').slice(0,11).length;
+        if (dlen > 0 && dlen < 11) {
             this.setFieldError(input, 'Допишите телефон до 11 цифр');
         } else {
             this.setFieldError(input, '');
