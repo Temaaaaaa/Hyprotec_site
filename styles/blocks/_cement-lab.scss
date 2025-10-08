@@ -68,7 +68,7 @@
   }
 
   &__title {
-    @include fluid-text(24, 16);
+    @include fluid-text(16, 14);
     font-weight: 600;
     color: var(--color-dark);
     line-height: 1.35;

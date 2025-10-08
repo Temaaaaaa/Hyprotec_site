@@ -1,0 +1,73 @@
+@use '../helpers' as *;
+
+/* Базовые параметры слайдов оставляем как есть */
+.carousel {
+  --slide-max: #{rem(920)};
+  --slide-gap: #{rem(16)};
+  --btn-offset: #{rem(4)};
+}
+
+/* Карточка-фото: теперь «настраивается» переменными */
+.shot {
+  /* по умолчанию широкоформат 16:10 */
+  --ratio: 16/10;
+  /* фокус кропа по умолчанию по центру */
+  --pos-x: 50%;
+  --pos-y: 50%;
+  /* режим вписывания: cover | contain */
+  --fit: cover;
+
+  padding: 0;
+  overflow: hidden;
+  border-radius: rem(12);
+  aspect-ratio: var(--ratio);
+  max-height: clamp(180px, 42vw, 420px);
+  width: 100%;
+
+  /* вариант «аккуратная рамка/подложка» для contain */
+  &--framed {
+    background: color-mix(in oklab, var(--color-dark) 6%, transparent);
+    outline: rem(1) solid color-mix(in oklab, var(--color-dark) 10%, transparent);
+    outline-offset: -1px;
+  }
+}
+
+.shot__img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: var(--fit);
+  object-position: var(--pos-x) var(--pos-y);
+  box-shadow: 0 rem(6) rem(24) rgba(0,0,0,.06);
+  /* Когда contain — не растягиваем выше оригинала */
+  image-rendering: auto;
+}
+
+/* Быстрые пресеты аспект-ratio */
+.shot--ratio-square   { --ratio: 1/1; }
+.shot--ratio-4-3      { --ratio: 4/3; }
+.shot--ratio-3-2      { --ratio: 3/2; }
+.shot--ratio-16-9     { --ratio: 16/9; }
+.shot--ratio-21-9     { --ratio: 21/9; }
+
+/* Для «узких портретов» удобнее 4:5 или 3:4 */
+.shot--ratio-4-5      { --ratio: 4/5; }
+.shot--ratio-3-4      { --ratio: 3/4; }
+
+/* Пресет «не режь, впиши» */
+.shot--fit-contain { --fit: contain; }
+
+/* Пресеты фокуса (когда cover и важно не отрезать лицо/объект) */
+.shot--focus-top       { --pos-y: 20%; }
+.shot--focus-bottom    { --pos-y: 80%; }
+.shot--focus-left      { --pos-x: 20%; }
+.shot--focus-right     { --pos-x: 80%; }
+.shot--focus-top-left  { --pos-x: 20%; --pos-y: 20%; }
+.shot--focus-top-right { --pos-x: 80%; --pos-y: 20%; }
+.shot--focus-bot-left  { --pos-x: 20%; --pos-y: 80%; }
+.shot--focus-bot-right { --pos-x: 80%; --pos-y: 80%; }
+
+/* Мобайл: чуть мягче ограничения */
+@include mobile {
+  .shot { border-radius: rem(10); max-height: clamp(160px, 48vw, 320px); }
+}

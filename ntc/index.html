@@ -42,7 +42,7 @@
                                 <li class="header__submenu-item"><a class="header__submenu-link" href="../ntc/">Научно-технологический центр</a></li>
                                 <li class="header__submenu-item"><a class="header__submenu-link" href="../supervising/">Супервайзинг и полевой аудит</a></li>
                                 <li class="header__submenu-item"><a class="header__submenu-link" href="../consulting/">Технологический консалтинг</a></li>
-                                <li class="header__submenu-item"><a class="header__submenu-link" href="../calibration/">Калибровка и Техническое обслуживание</a></li>
+                                <li class="header__submenu-item"><a class="header__submenu-link" href="../calibration/">Калибровка и техническое обслуживание</a></li>
                                 <li class="header__submenu-item"><a class="header__submenu-link" href="../education/">Центр профессионального обучения</a></li>
                                 <li class="header__submenu-item"><a class="header__submenu-link" href="../mudvisionrt/">Cистема мониторинга параметров бурового раствора</a></li>
                             </ul>
@@ -120,6 +120,9 @@
                 <figure class="video-tour__player card">
                     <video class="video-tour__video"
                            controls
+                           autoplay
+                           muted
+                           playsinline
                            preload="metadata"
                            poster="./images/tour-poster.jpg">
                         <source src="./video/tour.webm" type="video/webm">
@@ -514,7 +517,7 @@
               <img src="../images/ntc2/caco3.jpg" alt="" loading="lazy">
             </span>
                             <span class="lab-card__content">
-              <h3 class="lab-card__title">Определение содержания CaCO3</h3>
+              <h3 class="lab-card__title">Определение содержания CaCO<sup>3</sup></h3>
                                 <!--                                <span class="lab-card__meta">SGS</span>-->
             </span>
                         </a>
@@ -642,7 +645,7 @@
                     </li>
 
                     <li class="special-card">
-                        <h3 class="special-card__title">CUSTOMER-SPECIFIC TESTS</h3>
+                        <h3 class="special-card__title">Тестирования по стандартам Заказчиков</h3>
                         <p class="special-card__text">
                             Chevron/Texaco cementing recommendations; ExxonMobil cement testing requirement;
                             Solids Suspension — On/Off Settling Test (AMOCO); Dynamic Settling Test (AMOCO)
@@ -665,45 +668,48 @@
 
         <div class="stats__body">
             <div class="stats__inner container">
-                <ul class="stats__list">
-                    <li class="stat card card--underlined">
-                        <div class="stat__value">1&nbsp;723</div>
-                        <div class="stat__label">тестирований цементных растворов</div>
-                        <span class="stat__meta">30%</span>
-                    </li>
-
-                    <li class="stat card card--underlined">
-                        <div class="stat__value">3&nbsp;747</div>
-                        <div class="stat__label">тестирований буровых растворов</div>
-                        <span class="stat__meta">70%</span>
-                    </li>
-
-                    <li class="stat card card--underlined">
-                        <div class="stat__value">437</div>
+                <ul class="stats__list" aria-label="Ключевые показатели лаборатории">
+                    <!-- Баннер «скважины» на всю ширину -->
+                    <li class="stat stat--wells card card--underlined">
+                        <div class="stat__value" data-count="437">437</div>
                         <div class="stat__label">скважин</div>
                     </li>
 
-                    <li class="stat card card--underlined">
-                        <div class="stat__value">5&nbsp;470</div>
+                    <!-- Ряд 1 -->
+                    <li class="stat stat--tests card card--underlined">
+                        <div class="stat__value" data-count="5470">5&nbsp;470</div>
                         <div class="stat__label">испытаний</div>
                     </li>
 
-                    <li class="stat card card--underlined">
-                        <div class="stat__value">4&nbsp;254</div>
+                    <li class="stat stat--drilling card card--underlined">
+                        <div class="stat__value" data-count="3747">3&nbsp;747</div>
+                        <div class="stat__label">тестирований буровых растворов</div>
+                        <span class="stat__meta" data-count="70">70%</span>
+                    </li>
+
+                    <li class="stat stat--cement card card--underlined">
+                        <div class="stat__value" data-count="1723">1&nbsp;723</div>
+                        <div class="stat__label">тестирований цементных растворов</div>
+                        <span class="stat__meta" data-count="30">30%</span>
+                    </li>
+
+                    <!-- Ряд 2 -->
+                    <li class="stat stat--samples card card--underlined">
+                        <div class="stat__value" data-count="4254">4&nbsp;254</div>
                         <div class="stat__label">проб с отклонениями</div>
-                        <span class="stat__meta">78%</span>
+                        <span class="stat__meta" data-count="78">78%</span>
                     </li>
 
-                    <li class="stat card card--underlined">
-                        <div class="stat__value">343</div>
-                        <div class="stat__label">отклонений по ЦР</div>
-                        <span class="stat__meta">20%</span>
-                    </li>
-
-                    <li class="stat card card--underlined">
-                        <div class="stat__value">2&nbsp;988</div>
+                    <li class="stat stat--devbr card card--underlined">
+                        <div class="stat__value" data-count="2988">2&nbsp;988</div>
                         <div class="stat__label">отклонений по БР</div>
-                        <span class="stat__meta">80%</span>
+                        <span class="stat__meta" data-count="80">80%</span>
+                    </li>
+
+                    <li class="stat stat--devcr card card--underlined">
+                        <div class="stat__value" data-count="343">343</div>
+                        <div class="stat__label">отклонений по ЦР</div>
+                        <span class="stat__meta" data-count="20">20%</span>
                     </li>
                 </ul>
             </div>
