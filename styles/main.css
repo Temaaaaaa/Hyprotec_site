@@ -903,6 +903,7 @@ button[aria-label]::before {
   /* фон и базовая типографика */
   background-color: var(--color-dark-900);
   color: var(--color-gray-300);
+  margin-top: 3.125rem;
   /* внутренние отступы секции */
   padding-block: 2rem;
   /* сетка тела футера: слева бренд, справа меню */

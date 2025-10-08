@@ -1,0 +1,415 @@
+[1mdiff --git a/scripts/ContactForm.js b/scripts/ContactForm.js[m
+[1mindex 8c65cd5..9cc3669 100644[m
+[1m--- a/scripts/ContactForm.js[m
+[1m+++ b/scripts/ContactForm.js[m
+[36m@@ -1,4 +1,7 @@[m
+[31m-// Lightweight contact form controller (no deps)[m
+[32m+[m[32m// ContactForm.js — строгая валидация: если введён email, телефон обязателен и полный.[m
+[32m+[m[32m// Маска телефона РФ +7 (XXX) XXX-XX-XX с адекватным backspace и caret-позицией.[m
+[32m+[m[32m// Зависимостей нет.[m
+[32m+[m
+ export default class ContactForm {[m
+     constructor(selector = '.feedback-form') {[m
+         this.form = document.querySelector(selector);[m
+[36m@@ -13,11 +16,10 @@[m [mexport default class ContactForm {[m
+             this.ui.status.className = 'feedback-form__status';[m
+             this.ui.status.setAttribute('role', 'status');[m
+             this.ui.status.setAttribute('aria-live', 'polite');[m
+[31m-            const actions = this.form.querySelector('.feedback-form__actions');[m
+[31m-            (actions || this.form).appendChild(this.ui.status);[m
+[32m+[m[32m            (this.form.querySelector('.feedback-form__actions') || this.form)[m
+[32m+[m[32m                .appendChild(this.ui.status);[m
+         }[m
+ [m
+[31m-[m
+         this.inputs = {[m
+             name: this.form.elements.name,[m
+             phone: this.form.elements.phone,[m
+[36m@@ -25,94 +27,227 @@[m [mexport default class ContactForm {[m
+             topic: this.form.elements.topic,[m
+             message: this.form.elements.message,[m
+             agree: this.form.elements.agree,[m
+[31m-            honeypot: this.form.elements.company, // hidden anti-bot[m
+[32m+[m[32m            honeypot: this.form.elements.company, // может отсутствовать в разметке, ок[m
+         };[m
+ [m
+[31m-        // bind[m
+[32m+[m[32m        // Bind[m
+         this.form.addEventListener('submit', (e) => this.onSubmit(e));[m
+[31m-        // live validation hints[m
+[31m-        this.form.addEventListener('input', (e) => this.onInput(e));[m
+[31m-        // light phone mask (RU-ish)[m
+[32m+[m[32m        this.form.addEventListener('input', (e) => this.onInput(e), { passive: true });[m
+[32m+[m[32m        this.form.addEventListener('blur', (e) => this.onBlur(e), true);[m
+[32m+[m
+[32m+[m[32m        // Телефон: маска с управлением кареткой и backspace[m
+         if (this.inputs.phone) {[m
+[31m-            this.inputs.phone.addEventListener('input', () => this.maskPhone());[m
+[32m+[m[32m            this.inputs.phone.addEventListener('keydown', (e) => this.onPhoneKeydown(e));[m
+[32m+[m[32m            this.inputs.phone.addEventListener('input', () => this.onPhoneInput());[m
+             this.inputs.phone.addEventListener('blur', () => this.cleanPhoneIfEmpty());[m
+         }[m
+     }[m
+ [m
+[31m-    onInput(e) {[m
+[31m-        // clear error for that field[m
+[31m-        const input = e.target.closest('input,textarea');[m
+[31m-        if (!input) return;[m
+[31m-        this.setFieldError(input, '');[m
+[31m-        // cross-field rule: one of (phone,email)[m
+[31m-        if (input.name === 'phone' || input.name === 'email') {[m
+[31m-            this.setFieldError(this.inputs.phone, '');[m
+[31m-            this.setFieldError(this.inputs.email, '');[m
+[31m-        }[m
+[31m-    }[m
+[31m-[m
+[32m+[m[32m    // =========================[m
+[32m+[m[32m    // Общие утилиты[m
+[32m+[m[32m    // =========================[m
+     setStatus(text, type = 'info') {[m
+         if (!this.ui.status) return;[m
+[31m-        this.ui.status.textContent = text;[m
+[32m+[m[32m        this.ui.status.textContent = text || '';[m
+         this.ui.status.dataset.type = type;[m
+     }[m
+ [m
+     disableForm(disabled = true) {[m
+[31m-        this.form.querySelectorAll('input, textarea, button').forEach(el => { el.disabled = disabled; });[m
+[32m+[m[32m        this.form.querySelectorAll('input, textarea, button')[m
+[32m+[m[32m            .forEach((el) => { el.disabled = disabled; });[m
+     }[m
+ [m
+     setFieldError(input, message) {[m
+[31m-        const wrap = input.closest('.field, .check');[m
+[31m-        if (!wrap) return;[m
+[31m-        const err = wrap.querySelector('.field__error');[m
+[32m+[m[32m        const wrap = input?.closest('.field, .check');[m
+[32m+[m[32m        const err = wrap?.querySelector('.field__error');[m
+         if (err) err.textContent = message || '';[m
+[31m-        input.classList.toggle('is-invalid', !!message);[m
+[32m+[m[32m        if (input) {[m
+[32m+[m[32m            input.classList.toggle('is-invalid', !!message);[m
+[32m+[m[32m            input.setAttribute('aria-invalid', message ? 'true' : 'false');[m
+[32m+[m[32m        }[m
+     }[m
+ [m
+[31m-    validate() {[m
+[31m-        let ok = true;[m
+[32m+[m[32m    clearAllErrors() {[m
+[32m+[m[32m        this.form.querySelectorAll('.field__error').forEach((n) => (n.textContent = ''));[m
+[32m+[m[32m        this.form.querySelectorAll('.is-invalid').forEach((el) => el.classList.remove('is-invalid'));[m
+[32m+[m[32m        this.form.querySelectorAll('[aria-invalid="true"]').forEach((el) => el.setAttribute('aria-invalid', 'false'));[m
+[32m+[m[32m    }[m
+ [m
+[31m-        // required[m
+[31m-        ['name', 'message'].forEach(name => {[m
+[31m-            const el = this.inputs[name];[m
+[31m-            if (!el?.value.trim()) {[m
+[31m-                this.setFieldError(el, 'Обязательное поле');[m
+[31m-                ok = false;[m
+[32m+[m[32m    // =========================[m
+[32m+[m[32m    // Телефон: маска и проверка[m
+[32m+[m[32m    // =========================[m
+[32m+[m[32m    getPhoneDigits() {[m
+[32m+[m[32m        return (this.inputs.phone?.value || '').replace(/\D+/g, '');[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    isPhoneCompleteRU() {[m
+[32m+[m[32m        // Требуем ровно 11 цифр. Нормализуем на 7 в начале.[m
+[32m+[m[32m        let d = this.getPhoneDigits();[m
+[32m+[m[32m        if (!d) return false;[m
+[32m+[m[32m        if (d.startsWith('8')) d = '7' + d.slice(1);[m
+[32m+[m[32m        if (!d.startsWith('7')) return false;[m
+[32m+[m[32m        return d.length === 11;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    formatPhoneFromDigits(digits) {[m
+[32m+[m[32m        // Приводим к виду +7 (XXX) XXX-XX-XX[m
+[32m+[m[32m        let d = digits.replace(/\D+/g, '');[m
+[32m+[m[32m        if (!d) return '';[m
+[32m+[m
+[32m+[m[32m        if (d.startsWith('8')) d = '7' + d.slice(1);[m
+[32m+[m[32m        if (!d.startsWith('7')) d = '7' + d;[m
+[32m+[m[32m        d = d.slice(0, 11);[m
+[32m+[m
+[32m+[m[32m        let out = '+7';[m
+[32m+[m[32m        if (d.length > 1) out += ' (' + d.slice(1, 4);[m
+[32m+[m[32m        if (d.length >= 4) out += ') ' + d.slice(4, 7);[m
+[32m+[m[32m        if (d.length >= 7) out += '-' + d.slice(7, 9);[m
+[32m+[m[32m        if (d.length >= 9) out += '-' + d.slice(9, 11);[m
+[32m+[m
+[32m+[m[32m        return out;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    onPhoneKeydown(e) {[m
+[32m+[m[32m        // Разрешаем навигацию, delete/home/end/стрелки, tab[m
+[32m+[m[32m        const k = e.key;[m
+[32m+[m[32m        if ([m
+[32m+[m[32m            k === 'Tab' || k === 'Enter' ||[m
+[32m+[m[32m            k === 'ArrowLeft' || k === 'ArrowRight' || k === 'Home' || k === 'End' ||[m
+[32m+[m[32m            k === 'Delete'[m
+[32m+[m[32m        ) return;[m
+[32m+[m
+[32m+[m[32m        // Ограничение ввода: цифры, +, (, ), -, пробел — остальное блокируем[m
+[32m+[m[32m        const allowed = /[\d\+\-\s\(\)]/;[m
+[32m+[m[32m        if (k.length === 1 && !allowed.test(k)) {[m
+[32m+[m[32m            e.preventDefault();[m
+[32m+[m[32m            return;[m
+[32m+[m[32m        }[m
+[32m+[m
+[32m+[m[32m        // Backspace: перепрыгиваем разделители[m
+[32m+[m[32m        if (k === 'Backspace') {[m
+[32m+[m[32m            const input = this.inputs.phone;[m
+[32m+[m[32m            const pos = input.selectionStart;[m
+[32m+[m[32m            const val = input.value;[m
+[32m+[m
+[32m+[m[32m            // Если слева разделитель — сдвигаем каретку ещё на 1 влево, чтобы удалять «пачкой»[m
+[32m+[m[32m            const sep = /[()\-\s]/;[m
+[32m+[m[32m            if (pos && sep.test(val[pos - 1])) {[m
+[32m+[m[32m                e.preventDefault();[m
+[32m+[m[32m                const nextPos = pos - 1;[m
+[32m+[m[32m                input.setSelectionRange(nextPos, nextPos);[m
+[32m+[m[32m                // эмулируем повторный backspace по цифре[m
+[32m+[m[32m                const ev = new KeyboardEvent('keydown', { key: 'Backspace', bubbles: true });[m
+[32m+[m[32m                input.dispatchEvent(ev);[m
+             }[m
+[31m-        });[m
+[32m+[m[32m        }[m
+[32m+[m[32m    }[m
+ [m
+[31m-        // at least one of phone/email[m
+[31m-        const phoneVal = (this.inputs.phone?.value || '').trim();[m
+[31m-        const emailVal = (this.inputs.email?.value || '').trim();[m
+[32m+[m[32m    onPhoneInput() {[m
+[32m+[m[32m        const input = this.inputs.phone;[m
+[32m+[m[32m        const start = input.selectionStart || 0;[m
+ [m
+[31m-        if (!phoneVal && !emailVal) {[m
+[31m-            this.setFieldError(this.inputs.phone, 'Укажите телефон или email');[m
+[31m-            this.setFieldError(this.inputs.email, 'Укажите телефон или email');[m
+[31m-            ok = false;[m
+[32m+[m[32m        // Текущие только цифры, форматируем[m
+[32m+[m[32m        const digits = this.getPhoneDigits();[m
+[32m+[m[32m        const before = input.value.slice(0, start);[m
+[32m+[m[32m        const beforeDigits = before.replace(/\D+/g, '').length;[m
+[32m+[m
+[32m+[m[32m        const masked = this.formatPhoneFromDigits(digits);[m
+[32m+[m[32m        input.value = masked;[m
+[32m+[m
+[32m+[m[32m        // Восстанавливаем каретку: считаем, где оказаться после маски[m
+[32m+[m[32m        let i = 0;[m
+[32m+[m[32m        let counted = 0;[m
+[32m+[m[32m        while (i < input.value.length && counted < beforeDigits) {[m
+[32m+[m[32m            if (/\d/.test(input.value[i])) counted++;[m
+[32m+[m[32m            i++;[m
+[32m+[m[32m        }[m
+[32m+[m[32m        input.setSelectionRange(i, i);[m
+[32m+[m
+[32m+[m[32m        // Живые подсказки по формату[m
+[32m+[m[32m        if (digits.length && digits.length < 11) {[m
+[32m+[m[32m            this.setFieldError(input, 'Нужно 11 цифр телефона');[m
+[32m+[m[32m        } else {[m
+[32m+[m[32m            this.setFieldError(input, '');[m
+         }[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    cleanPhoneIfEmpty() {[m
+[32m+[m[32m        const input = this.inputs.phone;[m
+[32m+[m[32m        if (!input) return;[m
+[32m+[m[32m        // Если фактически нет цифр — очищаем поле полностью[m
+[32m+[m[32m        if (!this.getPhoneDigits()) input.value = '';[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    // =========================[m
+[32m+[m[32m    // Валидация[m
+[32m+[m[32m    // =========================[m
+[32m+[m[32m    validate() {[m
+[32m+[m[32m        let ok = true;[m
+[32m+[m
+[32m+[m[32m        const name = this.inputs.name;[m
+[32m+[m[32m        const message = this.inputs.message;[m
+[32m+[m[32m        const phone = this.inputs.phone;[m
+[32m+[m[32m        const email = this.inputs.email;[m
+[32m+[m[32m        const agree = this.inputs.agree;[m
+ [m
+[31m-        // formats[m
+[31m-        if (phoneVal && !/^[\d+\-\s()]{10,}$/.test(phoneVal)) {[m
+[31m-            this.setFieldError(this.inputs.phone, 'Неверный телефон');[m
+[32m+[m[32m        const nameVal = name?.value.trim() || '';[m
+[32m+[m[32m        const msgVal = message?.value.trim() || '';[m
+[32m+[m[32m        const emailVal = email?.value.trim() || '';[m
+[32m+[m
+[32m+[m[32m        // Обязательные[m
+[32m+[m[32m        if (!nameVal) {[m
+[32m+[m[32m            this.setFieldError(name, 'Обязательное поле');[m
+             ok = false;[m
+         }[m
+[31m-        if (emailVal && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal)) {[m
+[31m-            this.setFieldError(this.inputs.email, 'Неверный email');[m
+[32m+[m[32m        if (!msgVal) {[m
+[32m+[m[32m            this.setFieldError(message, 'Обязательное поле');[m
+             ok = false;[m
+         }[m
+ [m
+[31m-        // agree[m
+[31m-        if (this.inputs.agree && !this.inputs.agree.checked) {[m
+[31m-            this.setFieldError(this.inputs.agree, 'Нужно согласие');[m
+[32m+[m[32m        // Email формат (если введён)[m
+[32m+[m[32m        let emailOk = false;[m
+[32m+[m[32m        if (emailVal) {[m
+[32m+[m[32m            emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal);[m
+[32m+[m[32m            if (!emailOk) {[m
+[32m+[m[32m                this.setFieldError(email, 'Неверный email');[m
+[32m+[m[32m                ok = false;[m
+[32m+[m[32m            }[m
+[32m+[m[32m        }[m
+[32m+[m
+[32m+[m[32m        // Главное правило:[m
+[32m+[m[32m        // 1) Если email введён (и валиден) → телефон обязателен и ДОЛЖЕН быть полным (11 цифр РФ).[m
+[32m+[m[32m        // 2) Если email не введён → телефон обязателен и полный.[m
+[32m+[m[32m        const phoneComplete = this.isPhoneCompleteRU();[m
+[32m+[m
+[32m+[m[32m        if (emailVal) {[m
+[32m+[m[32m            if (!phoneComplete) {[m
+[32m+[m[32m                this.setFieldError(phone, 'Если указан email — заполните телефон полностью');[m
+[32m+[m[32m                ok = false;[m
+[32m+[m[32m            }[m
+[32m+[m[32m        } else {[m
+[32m+[m[32m            if (!phoneComplete) {[m
+[32m+[m[32m                this.setFieldError(phone, 'Укажите корректный телефон (+7 и 11 цифр)');[m
+[32m+[m[32m                ok = false;[m
+[32m+[m[32m            }[m
+[32m+[m[32m        }[m
+[32m+[m
+[32m+[m[32m        // Согласие[m
+[32m+[m[32m        if (agree && !agree.checked) {[m
+[32m+[m[32m            this.setFieldError(agree, 'Нужно согласие');[m
+             ok = false;[m
+         }[m
+ [m
+[31m-        // honeypot[m
+[31m-        if (this.inputs.honeypot?.value) ok = false;[m
+[32m+[m[32m        // Honeypot (если есть в форме и вдруг заполнен)[m
+[32m+[m[32m        if (this.inputs.honeypot?.value) {[m
+[32m+[m[32m            ok = false;[m
+[32m+[m[32m        }[m
+ [m
+         return ok;[m
+     }[m
+ [m
+[32m+[m[32m    // =========================[m
+[32m+[m[32m    // Сбор данных и отправка[m
+[32m+[m[32m    // =========================[m
+     collectPayload() {[m
+         const data = {[m
+             name: this.inputs.name?.value.trim() || null,[m
+[36m@@ -121,6 +256,7 @@[m [mexport default class ContactForm {[m
+             topic: this.inputs.topic?.value.trim() || null,[m
+             message: this.inputs.message?.value.trim() || null,[m
+             agree: !!this.inputs.agree?.checked,[m
+[32m+[m[32m            company: this.inputs.honeypot?.value || '', // honeypot на бэке[m
+             source: 'hyprotec-site',[m
+             ts: new Date().toISOString(),[m
+         };[m
+[36m@@ -129,8 +265,7 @@[m [mexport default class ContactForm {[m
+ [m
+     async onSubmit(e) {[m
+         e.preventDefault();[m
+[31m-        // clear previous errors[m
+[31m-        this.form.querySelectorAll('.field__error').forEach(n => (n.textContent = ''));[m
+[32m+[m[32m        this.clearAllErrors();[m
+ [m
+         if (!this.validate()) return;[m
+ [m
+[36m@@ -139,25 +274,32 @@[m [mexport default class ContactForm {[m
+ [m
+         const payload = this.collectPayload();[m
+ [m
+[31m-        // abort after 12s[m
+[32m+[m[32m        // Abort через 12с[m
+         const ctrl = new AbortController();[m
+         const timeout = setTimeout(() => ctrl.abort(), 12000);[m
+ [m
+         try {[m
+             const res = await fetch('/api/contact', {[m
+                 method: 'POST',[m
+[31m-                headers: {'Content-Type': 'application/json'},[m
+[32m+[m[32m                headers: { 'Content-Type': 'application/json' },[m
+                 body: JSON.stringify(payload),[m
+                 signal: ctrl.signal,[m
+             });[m
+ [m
+             clearTimeout(timeout);[m
+ [m
+[31m-            if (!res.ok) throw new Error(`HTTP ${res.status}`);[m
+[32m+[m[32m            if (!res.ok) {[m
+[32m+[m[32m                // попробуем прочитать ответ бэка, чтобы показать текст[m
+[32m+[m[32m                let msg = `HTTP ${res.status}`;[m
+[32m+[m[32m                try {[m
+[32m+[m[32m                    const j = await res.json();[m
+[32m+[m[32m                    if (j?.message) msg = j.message;[m
+[32m+[m[32m                } catch {}[m
+[32m+[m[32m                throw new Error(msg);[m
+[32m+[m[32m            }[m
+ [m
+             this.setStatus('Заявка отправлена. Спасибо!', 'success');[m
+             this.form.reset();[m
+[31m-            // return focus to first field for accessibility[m
+             this.inputs.name?.focus();[m
+         } catch (err) {[m
+             this.setStatus('Не получилось отправить. Попробуйте ещё раз.', 'error');[m
+[36m@@ -167,27 +309,37 @@[m [mexport default class ContactForm {[m
+         }[m
+     }[m
+ [m
+[31m-    // ---------- tiny phone helpers ----------[m
+[31m-    maskPhone() {[m
+[31m-        // digits only, try to format like +7 (XXX) XXX-XX-XX — без навязчивости[m
+[31m-        let d = this.inputs.phone.value.replace(/\D+/g, '');[m
+[31m-        if (!d) return;[m
+[31m-        if (d.startsWith('8')) d = '7' + d.slice(1);[m
+[31m-        if (!d.startsWith('7')) d = '7' + d;[m
+[31m-        d = d.slice(0, 11);[m
+[32m+[m[32m    // =========================[m
+[32m+[m[32m    // UX-мелочи[m
+[32m+[m[32m    // =========================[m
+[32m+[m[32m    onInput(e) {[m
+[32m+[m[32m        const input = e.target.closest('input,textarea');[m
+[32m+[m[32m        if (!input) return;[m
+ [m
+[31m-        let out = '+7';[m
+[31m-        if (d.length > 1) out += ' (' + d.slice(1, 4);[m
+[31m-        if (d.length >= 4) out += ') ' + d.slice(4, 7);[m
+[31m-        if (d.length >= 7) out += '-' + d.slice(7, 9);[m
+[31m-        if (d.length >= 9) out += '-' + d.slice(9, 11);[m
+[32m+[m[32m        // Снимаем ошибку с текущего поля[m
+[32m+[m[32m        this.setFieldError(input, '');[m
+ [m
+[31m-        this.inputs.phone.value = out;[m
+[32m+[m[32m        // Скрестные поля: если меняем phone/email — снимаем ошибки на обоих[m
+[32m+[m[32m        if (input.name === 'phone' || input.name === 'email') {[m
+[32m+[m[32m            this.setFieldError(this.inputs.phone, '');[m
+[32m+[m[32m            this.setFieldError(this.inputs.email, '');[m
+[32m+[m[32m        }[m
+     }[m
+ [m
+[31m-    cleanPhoneIfEmpty() {[m
+[31m-        if (this.inputs.phone.value.replace(/\D+/g, '').length <= 1) {[m
+[31m-            this.inputs.phone.value = '';[m
+[32m+[m[32m    onBlur(e) {[m
+[32m+[m[32m        const input = e.target.closest('input,textarea');[m
+[32m+[m[32m        if (!input) return;[m
+[32m+[m
+[32m+[m[32m        // Локальная подсветка на blur[m
+[32m+[m[32m        if (input === this.inputs.email && input.value.trim()) {[m
+[32m+[m[32m            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.value.trim())) {[m
+[32m+[m[32m                this.setFieldError(input, 'Неверный email');[m
+[32m+[m[32m            }[m
+[32m+[m[32m        }[m
+[32m+[m[32m        if (input === this.inputs.phone && this.getPhoneDigits()) {[m
+[32m+[m[32m            if (!this.isPhoneCompleteRU()) {[m
+[32m+[m[32m                this.setFieldError(input, 'Нужно 11 цифр телефона');[m
+[32m+[m[32m            }[m
+         }[m
+     }[m
+ }[m
