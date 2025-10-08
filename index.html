@@ -6,6 +6,23 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Hyprotec | Home</title>
+    <meta name="description" content="HYPROTEC — лабораторные испытания цементных растворов, оснащение и сервис для нефтегазовых компаний. Собственная лаборатория, сертифицированные методики, оборудование и внедрение под ключ.">
+
+    <meta name="robots" content="index,follow">
+    <link rel="canonical" href="https://hyprotec.ru/">
+
+    <!-- hreflang для RU/EN (важно: абсолютные URL) -->
+    <link rel="alternate" href="https://hyprotec.ru/" hreflang="ru">
+    <link rel="alternate" href="https://hyprotec.ru/en/" hreflang="en">
+    <link rel="alternate" href="https://hyprotec.ru/" hreflang="x-default">
+
+    <!-- Open Graph / Twitter -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="HYPROTEC — нефтесервисная компания">
+    <meta property="og:description" content="Лаборатория, оборудование и сервис для нефтегазовой отрасли.">
+    <meta property="og:url" content="https://hyprotec.ru/">
+    <meta property="og:image" content="https://hyprotec.ru/images/og-cover.jpg">
+    <meta name="twitter:card" content="summary_large_image">
     <link rel="stylesheet" href="./styles/main.css">
     <script type="module" src="./scripts/main.js" defer></script>
 </head>
@@ -72,15 +89,11 @@
         </div>
     </div>
 </header>
+<div class="intro" data-js-intro aria-hidden="true">
+    <div class="intro__bg" aria-hidden="true"></div>
 
-<main>
-    <!-- Intro / Cinematic -->
-    <!-- Intro / Preloader -->
-    <div class="intro" data-js-intro aria-hidden="true">
-        <div class="intro__bg" aria-hidden="true"></div>
-
-        <div class="intro__inner container">
-            <div class="intro__brand">
+    <div class="intro__inner container">
+        <div class="intro__brand">
       <span class="intro__logo" aria-label="HYPROTEC">
         <span class="intro__logo-part">H</span>
         <span class="intro__logo-part">Y</span>
@@ -91,14 +104,15 @@
         <span class="intro__logo-part">E</span>
         <span class="intro__logo-part">C</span>
       </span>
-                <span class="intro__tagline">нефтесервисная компания</span>
-            </div>
+            <span class="intro__tagline">нефтесервисная компания</span>
+        </div>
 
-            <div class="intro__progress" aria-hidden="true">
-                <span class="intro__bar"></span>
-            </div>
+        <div class="intro__progress" aria-hidden="true">
+            <span class="intro__bar"></span>
         </div>
     </div>
+</div>
+<main>
     <section class="hero" id="home" data-js-first-screen>
         <div class="hero__bg">
             <video class="hero__video"
@@ -106,8 +120,7 @@
                    muted
                    loop
                    playsinline
-                   preload="metadata"
-                   poster="./images/hero-poster.jpg">
+                   preload="metadata">
                 <source src="./video/Hero-Video-fixed.mp4" type="video/mp4">
             </video>
         </div>
@@ -138,9 +151,6 @@
             </div>
         </div>
     </section>
-
-
-
     <section class="about section full-vw-line full-vw-line--bottom full-vw-line--left" id="about" aria-labelledby="about-title">
         <header class="section__header">
             <div class="section__header-inner container">
@@ -150,7 +160,6 @@
                 <div class="section__rule" aria-hidden="true"></div>
             </div>
         </header>
-
         <div class="about__body">
             <div class="about__inner container">
                 <ul class="about__list about__list--stacked">
@@ -207,7 +216,6 @@
             </div>
         </div>
     </section>
-
     <section class="video-tour section" id="tour" aria-labelledby="tour-title">
         <header class="section__header">
             <div class="section__header-inner container">
@@ -217,7 +225,6 @@
                 <div class="section__rule" aria-hidden="true"></div>
             </div>
         </header>
-
         <div class="video-tour__body" id="video-tour">
             <div class="video-tour__inner container">
                 <figure class="video-tour__player card">
@@ -226,9 +233,7 @@
                            muted
                            playsinline
                            controls
-                           preload="metadata"
-                           poster="./images/tour-poster.jpg">
-                        <source src="./video/tour.webm" type="video/webm">
+                           preload="metadata">
                         <source src="./video/Hero-Video-fixed.mp4" type="video/mp4">
                         Ваш браузер не поддерживает воспроизведение видео.
                     </video>
@@ -239,7 +244,6 @@
             </div>
         </div>
     </section>
-
     <section class="features section" id="features" aria-labelledby="features-title">
         <header class="section__header">
             <div class="section__header-inner container">
@@ -298,7 +302,6 @@
             </div>
         </div>
     </section>
-
     <section class="stats section" id="lab-stats" aria-labelledby="lab-stats-title">
         <header class="section__header">
             <div class="section__header-inner container">
@@ -358,8 +361,6 @@
             </div>
         </div>
     </section>
-
-
     <section class="values section" id="values" aria-labelledby="values-title">
         <header class="section__header">
             <div class="section__header-inner container">
@@ -374,18 +375,13 @@
             <div class="values__inner container">
 
                 <div class="carousel" data-js-carousel data-autoplay="true" data-interval="5000">
-                    <!-- controls -->
                     <button class="carousel__btn carousel__btn--prev" data-js-carousel-prev aria-label="Назад" disabled>‹</button>
                     <button class="carousel__btn carousel__btn--next" data-js-carousel-next aria-label="Вперёд">›</button>
-
-                    <!-- viewport -->
                     <div class="carousel__viewport" tabindex="0" role="region" aria-roledescription="carousel" aria-label="Ценности компании" data-js-carousel-viewport>
                         <ul class="carousel__track" data-js-carousel-track>
-                            <!-- Slide 1 -->
                             <li class="carousel__slide">
                                 <article class="value card card--underlined card--accent-red">
                                     <div class="value__icon feature__icon" aria-hidden="true">
-                                        <!-- shield / safety icon -->
                                         <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                                             <path d="M24 4L8 10V22C8 32.493 14.667 41.92 24 44C33.333 41.92 40 32.493 40 22V10L24 4Z" stroke="#E73439" stroke-width="2" fill="none"/>
                                             <path d="M17 24l5 5 9-11" stroke="#E73439" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -398,11 +394,9 @@
                                 </article>
                             </li>
 
-                            <!-- Slide 2 -->
                             <li class="carousel__slide">
                                 <article class="value card card--underlined card--accent-red">
                                     <div class="value__icon feature__icon" aria-hidden="true">
-                                        <!-- quality / badge -->
                                         <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                                             <circle cx="24" cy="20" r="12" stroke="#E73439" stroke-width="2"/>
                                             <path d="M18 36l-2 8 8-4 8 4-2-8" stroke="#E73439" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
@@ -411,18 +405,14 @@
                                     </div>
                                     <h3 class="value__title card__title">Технологии</h3>
                                     <p class="value__text card__text">
-
                                         Компания получает конкурентное преимущество за счёт непрерывного внедрения технологий: онлайн-мониторинг параметров, автоматизация процессов, аналитика данных и верифицированные методики, повышающие точность, скорость принятия решений и надёжность.
-
                                     </p>
                                 </article>
                             </li>
 
-                            <!-- Slide 3 -->
                             <li class="carousel__slide">
                                 <article class="value card card--underlined card--accent-red">
                                     <div class="value__icon feature__icon" aria-hidden="true">
-                                        <!-- innovation / atom -->
                                         <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                                             <circle cx="24" cy="24" r="3" fill="#E73439"/>
                                             <ellipse cx="24" cy="24" rx="16" ry="8" stroke="#E73439" stroke-width="2"/>
@@ -437,11 +427,9 @@
                                 </article>
                             </li>
 
-                            <!-- Slide 4 -->
                             <li class="carousel__slide">
                                 <article class="value card card--underlined card--accent-red">
                                     <div class="value__icon feature__icon" aria-hidden="true">
-                                        <!-- handshake / partnership -->
                                         <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                                             <path d="M6 26l8-8 8 8 6-6 14 14" stroke="#E73439" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                             <path d="M34 36l6-6" stroke="#E73439" stroke-width="2" stroke-linecap="round"/>
@@ -454,7 +442,6 @@
                                 </article>
                             </li>
 
-                            <!-- Slide 5 -->
                             <li class="carousel__slide">
                                 <article class="value card card--underlined card--accent-red">
                                     <div class="value__icon feature__icon" aria-hidden="true">
@@ -473,7 +460,6 @@
                         </ul>
                     </div>
 
-                    <!-- dots -->
                     <div class="carousel__dots" data-js-carousel-dots aria-label="Навигация по слайдам"></div>
                 </div>
 
@@ -493,7 +479,6 @@
         </header>
 
         <div class="services__grid container" role="list">
-            <!-- 1 -->
             <article class="service-card" role="listitem">
                 <figure class="service-card__media">
                     <img src="./images/cards/card1.jpeg" alt="Научно-технологический центр">
@@ -506,7 +491,6 @@
                 </div>
             </article>
 
-            <!-- 2 -->
             <article class="service-card" role="listitem">
                 <figure class="service-card__media">
                     <img src="./images/supervising.jpg" alt="Супервайзинг и полевой аудит">
@@ -519,7 +503,6 @@
                 </div>
             </article>
 
-            <!-- 3 -->
             <article class="service-card" role="listitem">
                 <figure class="service-card__media">
                     <img src="./images/cards/card3.jpeg" alt="Технологический консалтинг">
@@ -531,7 +514,6 @@
                     <a class="button" href="../consulting">Подробнее</a>
                 </div>
             </article>
-
 
             <article class="service-card" role="listitem">
                 <figure class="service-card__media">
@@ -568,7 +550,6 @@
             </article>
         </div>
     </section>
-
     <section class="equipment section" id="equipment" aria-labelledby="equipment-title">
         <header class="section__header">
             <div class="section__header-inner container">
@@ -578,7 +559,6 @@
                 <div class="section__rule" aria-hidden="true"></div>
             </div>
         </header>
-
         <div class="equipment__body">
             <div class="equipment__inner container">
                 <div class="equipment__lead">
@@ -600,7 +580,6 @@
             </div>
         </div>
     </section>
-
     <section class="section tco" id="tco" aria-labelledby="tco-title">
         <header class="section__header">
             <div class="section__header-inner container">
@@ -613,10 +592,8 @@
                 <div class="section__rule" aria-hidden="true"></div>
             </div>
         </header>
-
         <div class="section__body">
             <div class="container">
-                <!-- Грид: таблица + изображение -->
                 <div class="tco__grid">
                     <!-- Таблица -->
                     <div class="tco__cell tco__cell--table">
@@ -661,8 +638,6 @@
                             </div>
                         </div>
                     </div>
-
-                    <!-- Иллюстрация -->
                     <div class="tco__cell tco__cell--media">
                         <figure class="tco__figure">
                             <img
@@ -673,15 +648,11 @@
                         </figure>
                     </div>
                 </div>
-
-                <!-- Список ключевых выводов -->
                 <ul class="tco__notes" aria-label="Ключевые выводы">
                     <li>Совокупная стоимость владения за 500 циклов (за год) на HPHT Greatest дешевле на 85% аналога из США</li>
                     <li>Аналогичный межремонтный период</li>
                     <li>Наличие сервиса, запасных и расходных частей на территории РФ</li>
                 </ul>
-
-                <!-- Нижние карточки -->
                 <div class="tco__cards">
                     <ul class="tco-cards__list">
                         <li class="tco-card">
@@ -694,7 +665,6 @@
                                 </div>
                             </a>
                         </li>
-
                         <li class="tco-card">
                             <a class="tco-card__link" href="#">
                                 <img class="tco-card__img" src="./images/mudlab/lab2.jpg" alt="" loading="lazy" width="640" height="360">
@@ -705,7 +675,6 @@
                                 </div>
                             </a>
                         </li>
-
                         <li class="tco-card">
                             <a class="tco-card__link" href="#">
                                 <img class="tco-card__img" src="./images/mudlab/lab3.jpg" alt="" loading="lazy" width="640" height="360">
@@ -725,7 +694,6 @@
                         <p>Положительный опыт использования, наряду с широким спектром гарантийных обязательств и наличием сервиса в России дают заказчикам уверенность в поставляемом нами оборудовании.</p>
                         <p>Обратитесь к нашим специалистам — мы порекомендуем оптимальное оборудование с гарантией и сервисом исходя из ваших потребностей.</p>
                     </div>
-
                     <div class="tco__summary-media">
                         <!-- если нужна картинка справа — оставь, если нет, просто убери img -->
                         <img class="tco__summary-img" src="./images/NTC.png" alt="" loading="lazy" width="960" height="540">
@@ -735,7 +703,6 @@
             </div>
         </div>
     </section>
-
     <section class="trust section full-vw-line full-vw-line--bottom full-vw-line--left" id="clients" aria-labelledby="trust-title">
         <header class="section__header">
             <div class="section__header-inner container">
@@ -746,7 +713,6 @@
                 <div class="section__rule" aria-hidden="true"></div>
             </div>
         </header>
-
         <div class="trust__body">
             <div class="trust__inner container">
                 <div class="trust__marquee" role="region" aria-label="Логотипы клиентов (автопрокрутка)">
@@ -776,7 +742,6 @@
                             <li class="trust-card"><img src="images/logos/gns.svg"                                alt="ИГС Группа компаний" loading="lazy"></li>
                         </ul>
 
-                        <!-- Копия №2 (дублируется для бесшовной прокрутки) -->
                         <ul class="trust__list" aria-hidden="true">
                             <!-- скопируй тот же набор элементов, что и выше -->
                             <li class="trust-card"><img src="images/logos/7a9226b1eea5a45a8d8921135dc25e9c.jpg"  alt="" loading="lazy"></li>
@@ -806,7 +771,6 @@
             </div>
         </div>
     </section>
-
     <section class="contacts section full-vw-line full-vw-line--bottom full-vw-line--left" id="contacts" aria-labelledby="contacts-title">
         <header class="section__header">
             <div class="section__header-inner container">
@@ -816,16 +780,13 @@
                 <div class="section__rule" aria-hidden="true"></div>
             </div>
         </header>
-
         <div class="contacts__body">
             <div class="contacts__inner container" itemscope itemtype="https://schema.org/Organization">
                 <!-- Левая колонка -->
                 <div class="contacts__info">
                     <a class="contacts__phone" href="tel:+79223180000" itemprop="telephone">8&nbsp;922&nbsp;318&nbsp;00&nbsp;00</a>
                     <a class="contacts__email" href="mailto:info@hyprotec.ru" itemprop="email">info@hyprotec.ru</a>
-
                     <p class="contacts__time">пн–пт с 10:00 до 19:00</p>
-
                     <ul class="contacts__list">
                         <li><span class="muted">ООО «</span><b itemprop="name">ХАЙПРОТЕК</b><span class="muted">»</span></li>
                         <li>ИНН: <a href="#" rel="nofollow noopener">7203456345</a></li>
@@ -838,11 +799,7 @@
                         </li>
                     </ul>
                 </div>
-
-                <!-- Правая колонка -->
                 <div class="contacts__map">
-                    <!-- ВСТАВЬ свой src (Яндекс.Карты → Поделиться → Код для сайта).
-                         Ниже — рабочий шаблон, можно оставить и подменить параметры. -->
                     <iframe
                             class="contacts__map-frame"
                             title="Карта: ул. Грибоедова, 15 — ХАЙПРОТЕК"
@@ -869,8 +826,6 @@
             <div class="feedback__center container">
                 <form class="feedback-form card" novalidate aria-describedby="feedback-desc">
                     <p class="visually-hidden" id="feedback-desc">Форма обратной связи HYPROTEC</p>
-
-                    <!-- honeypot для антиспама (НЕ УДАЛЯЕМ, просто скрыт) -->
                     <input
                             type="text"
                             name="company"
@@ -881,14 +836,12 @@
                     >
 
                     <div class="feedback-form__grid">
-                        <!-- Имя -->
                         <label class="field field--floating">
                             <input class="field__control" type="text" name="name" autocomplete="name" placeholder=" " required>
                             <span class="field__label">Имя*</span>
                             <span class="field__error" aria-live="polite"></span>
                         </label>
 
-                        <!-- Телефон -->
                         <label class="field field--floating">
                             <input
                                     class="field__control"
@@ -899,32 +852,28 @@
                                     placeholder=" "
                             >
                             <span class="field__label">Телефон*</span>
-                            <span class="field__hint">Можно указать телефон и, при желании, email</span>
+                            <span class="field__hint">Можно указать телефон и при желании email</span>
                             <span class="field__error" aria-live="polite"></span>
                         </label>
 
-                        <!-- Email -->
                         <label class="field field--floating">
                             <input class="field__control" type="email" name="email" autocomplete="email" placeholder=" ">
                             <span class="field__label">Email</span>
                             <span class="field__error" aria-live="polite"></span>
                         </label>
 
-                        <!-- Тема -->
                         <label class="field field--floating">
                             <input class="field__control" type="text" name="topic" placeholder=" ">
                             <span class="field__label">Тема (опционально)</span>
                             <span class="field__error" aria-live="polite"></span>
                         </label>
 
-                        <!-- Сообщение -->
                         <label class="field field--floating field--full">
                             <textarea class="field__control field__control--area" name="message" rows="6" placeholder=" " required></textarea>
                             <span class="field__label">Сообщение*</span>
                             <span class="field__error" aria-live="polite"></span>
                         </label>
 
-                        <!-- Согласие -->
                         <label class="check field--full">
                             <input class="check__input" type="checkbox" name="agree" required>
                             <span class="check__box" aria-hidden="true"></span>
