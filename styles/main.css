@@ -1537,18 +1537,6 @@ button[aria-label]::before {
   background: var(--color-accent);
   border-radius: 0.25rem;
 }
-.about__list--stacked .about-card::after {
-  content: "";
-  position: absolute;
-  left: 0.625rem;
-  top: 2.1875rem;
-  width: 0.75rem;
-  height: 0.75rem;
-  background: var(--color-white);
-  border: 0.125rem solid var(--color-accent);
-  border-radius: 50%;
-  box-shadow: 0 0 0 0.1875rem color-mix(in srgb, var(--color-accent) 18%, transparent);
-}
 .about__list--stacked .about-card .about-card__title {
   margin-left: 0.125rem;
 }
@@ -1575,10 +1563,6 @@ button[aria-label]::before {
     top: 1.125rem;
     bottom: 1.125rem;
   }
-  .about__list--stacked .about-card::after {
-    left: 0rem;
-    top: 1.375rem;
-  }
 }
 @media (width <= 48.18625rem) {
   .about__list--stacked {
@@ -1598,12 +1582,6 @@ button[aria-label]::before {
     left: -0.5rem;
     top: 0.875rem;
     bottom: 0.875rem;
-  }
-  .about__list--stacked .about-card::after {
-    left: 0.1875rem;
-    top: 1.125rem;
-    width: 0.625rem;
-    height: 0.625rem;
   }
 }
 

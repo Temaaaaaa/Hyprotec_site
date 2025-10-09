@@ -82,18 +82,18 @@
     }
 
     /* точка-маркер на «рельсе» */
-    &::after {
-      content: '';
-      position: absolute;
-      left: rem(10);
-      top: rem(35);
-      width: rem(12);
-      height: rem(12);
-      background: var(--color-white);
-      border: rem(2) solid var(--color-accent);
-      border-radius: 50%;
-      box-shadow: 0 0 0 rem(3) color-mix(in srgb, var(--color-accent) 18%, transparent);
-    }
+    //&::after {
+    //  content: '';
+    //  position: absolute;
+    //  left: rem(10);
+    //  top: rem(35);
+    //  width: rem(12);
+    //  height: rem(12);
+    //  background: var(--color-white);
+    //  border: rem(2) solid var(--color-accent);
+    //  border-radius: 50%;
+    //  box-shadow: 0 0 0 rem(3) color-mix(in srgb, var(--color-accent) 18%, transparent);
+    //}
 
     .about-card__title {
       margin-left: rem(2);
@@ -120,7 +120,7 @@
       --card-pad-y: #{rem(16)};
 
       &::before { left: rem(-8); top: rem(18); bottom: rem(18); }
-      &::after  { left: rem(0); top: rem(22); }
+      //&::after  { left: rem(0); top: rem(22); }
     }
   }
 
@@ -137,7 +137,7 @@
       border-radius: rem(14);
 
       &::before { left: rem(-8); top: rem(14); bottom: rem(14); }
-      &::after  { left: rem(3); top: rem(18); width: rem(10); height: rem(10); }
+      //&::after  { left: rem(3); top: rem(18); width: rem(10); height: rem(10); }
     }
   }
 }
