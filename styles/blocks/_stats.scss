@@ -46,6 +46,8 @@
     gap: 0; /* вместо ручных margin-top у элементов */
     min-height: clamp(120px, 22vw, 180px);
     text-align: center;
+    box-shadow: 0 rem(8) rem(20) color-mix(in srgb, var(--color-accent) 24%, transparent);
+    translate: 0 0;
 
     .stat__value {
       font-family: var(--font-family-accent), sans-serif;
