@@ -60,12 +60,12 @@
                             </button>
 
                             <ul class="header__submenu" id="submenu-services" role="menu" aria-label="Services">
-                                <li class="header__submenu-item"><a class="header__submenu-link" href="../ntc/">Scientific and Technological Center</a></li>
-                                <li class="header__submenu-item"><a class="header__submenu-link" href="../supervising/">Supervision and Field Audit</a></li>
-                                <li class="header__submenu-item"><a class="header__submenu-link" href="../consulting/">Technical Consulting</a></li>
-                                <li class="header__submenu-item"><a class="header__submenu-link" href="../calibration/">Calibration and Maintenance</a></li>
-                                <li class="header__submenu-item"><a class="header__submenu-link" href="../education/">Professional Training Center</a></li>
-                                <li class="header__submenu-item"><a class="header__submenu-link" href="../mudvisionrt/">Drilling Fluid Monitoring System</a></li>
+                                <li class="header__submenu-item"><a class="header__submenu-link" href="../ntc/" target="_blank">Scientific and Technological Center</a></li>
+                                <li class="header__submenu-item"><a class="header__submenu-link" href="../supervising/" target="_blank">Supervision and Field Audit</a></li>
+                                <li class="header__submenu-item"><a class="header__submenu-link" href="../consulting/" target="_blank">Technical Consulting</a></li>
+                                <li class="header__submenu-item"><a class="header__submenu-link" href="../calibration/" target="_blank">Calibration and Maintenance</a></li>
+                                <li class="header__submenu-item"><a class="header__submenu-link" href="../education/" target="_blank">Professional Training Center</a></li>
+                                <li class="header__submenu-item"><a class="header__submenu-link" href="../mudvisionrt/" target="_blank">Drilling Fluid Monitoring System</a></li>
                             </ul>
                         </li>
                         <li class="header__menu-item"><a class="header__menu-link" href="../#equipment">Equipment</a></li>
@@ -73,8 +73,8 @@
                     </ul>
                 </nav>
                 <nav class="header__language-select" aria-label="Language selection">
-                    <a class="header__language-ru" href="/calibration" lang="ru" hreflang="ru">RU</a>
-                    <a class="header__language-en" href="/en/calibration" lang="en" hreflang="en" aria-current="true">EN</a>
+                    <a class="header__language-ru" href="/consulting" lang="ru" hreflang="ru">RU</a>
+                    <a class="header__language-en" href="/en/consulting" lang="en" hreflang="en" aria-current="true">EN</a>
                 </nav>
             </div>
 
@@ -93,29 +93,29 @@
         </div>
     </div>
 </header>
-<!--<div class="intro" data-js-intro aria-hidden="true">-->
-<!--    <div class="intro__bg" aria-hidden="true"></div>-->
+<div class="intro" data-js-intro aria-hidden="true">
+    <div class="intro__bg" aria-hidden="true"></div>
 
-<!--    <div class="intro__inner container">-->
-<!--        <div class="intro__brand">-->
-<!--      <span class="intro__logo" aria-label="HYPROTEC">-->
-<!--        <span class="intro__logo-part">H</span>-->
-<!--        <span class="intro__logo-part">Y</span>-->
-<!--        <span class="intro__logo-part">P</span>-->
-<!--        <span class="intro__logo-part">R</span>-->
-<!--        <span class="intro__logo-part">O</span>-->
-<!--        <span class="intro__logo-part">T</span>-->
-<!--        <span class="intro__logo-part">E</span>-->
-<!--        <span class="intro__logo-part">C</span>-->
-<!--      </span>-->
-<!--            <span class="intro__tagline">oilfield service company</span>-->
-<!--        </div>-->
+    <div class="intro__inner container">
+        <div class="intro__brand">
+      <span class="intro__logo" aria-label="HYPROTEC">
+        <span class="intro__logo-part">H</span>
+        <span class="intro__logo-part">Y</span>
+        <span class="intro__logo-part">P</span>
+        <span class="intro__logo-part">R</span>
+        <span class="intro__logo-part">O</span>
+        <span class="intro__logo-part">T</span>
+        <span class="intro__logo-part">E</span>
+        <span class="intro__logo-part">C</span>
+      </span>
+            <span class="intro__tagline">oilfield service company</span>
+        </div>
 
-<!--        <div class="intro__progress" aria-hidden="true">-->
-<!--            <span class="intro__bar"></span>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
+        <div class="intro__progress" aria-hidden="true">
+            <span class="intro__bar"></span>
+        </div>
+    </div>
+</div>
 <main>
     <section class="hero hero--secondary hero--image" style="--hero-bg:url('/images/cards/card3.jpeg')">
     <div class="hero__bg" aria-hidden="true"></div>
@@ -210,24 +210,89 @@
                             </li>
                         </ul>
                     </div>
-
-                    <!-- dots (your JS will inject .carousel__dot buttons here) -->
                     <div class="carousel__dots" data-js-carousel-dots aria-label="Slide navigation"></div>
                 </div>
-
             </div>
         </div>
     </section>
 
+    <section class="contacts section full-vw-line full-vw-line--bottom full-vw-line--left" id="contacts" aria-labelledby="contacts-title">
+        <header class="section__header">
+            <div class="section__header-inner container">
+                <div class="section__header-info">
+                    <h2 class="section__title section-title" id="contacts-title">Contacts</h2>
+                </div>
+                <div class="section__rule" aria-hidden="true"></div>
+            </div>
+        </header>
 
+        <div class="contacts__body">
+            <div class="contacts__inner container" itemscope itemtype="https://schema.org/Organization">
+                <!-- Left column -->
+                <div class="contacts__info">
+                    <a class="contacts__phone" href="tel:+79223180000" itemprop="telephone">8&nbsp;922&nbsp;318&nbsp;00&nbsp;00</a>
+                    <a class="contacts__email" href="mailto:info@hyprotec.ru" itemprop="email">info@hyprotec.ru</a>
+                    <p class="contacts__time">Mon–Fri 10:00–19:00</p>
+                    <ul class="contacts__list">
+                        <li><span class="muted">LLC “</span><b itemprop="name">HYPROTEC</b><span class="muted">”</span></li>
+                        <li>TIN: <a href="#" rel="nofollow noopener">7203456345</a></li>
+                        <li>KPP: <a href="#" rel="nofollow noopener">720301001</a></li>
+                        <li>PSRN: <a href="#" rel="nofollow noopener">1187232020722</a></li>
+                        <li itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
+                            <meta itemprop="postalCode" content="625000">
+                            <span class="muted">625000, Tyumen Region, Tyumen,</span><br>
+                            <span itemprop="streetAddress">15 Griboedova St., premises 1</span>
+                        </li>
+                    </ul>
+                </div>
 
-
+                <div class="contacts__map">
+                    <iframe
+                            class="contacts__map-frame"
+                            title="Map: 15 Griboedova St. — HYPROTEC"
+                            src="https://yandex.ru/map-widget/v1/?um=constructor%3Af2b12c5ceae10d922c0fee41817b70696ff03f02db3c599ca4628d5f3698f18a&amp;source=constructor"
+                            loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade"
+                            allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    </section>
 </main>
+<footer class="footer">
+    <div class="footer__inner container">
+        <div class="footer__body">
+            <div class="footer__brand">
+                <a href="/en/" class="footer__logo" aria-label="HYPROTEC">
+                    <img src="/images/logo-main.svg" alt="HYPROTEC">
+                </a>
+                <p class="footer__copyright">
+                    <span aria-hidden="true">©</span> All rights reserved. HYPROTEC.
+                </p>
+            </div>
 
-<footer>
-
-
+            <nav class="footer__menu" aria-label="Footer menu">
+                <div class="footer__menu-column">
+                    <span class="footer__menu-title">MENU</span>
+                    <ul class="footer__menu-list">
+                        <li class="footer__menu-item">
+                            <a href="/en/..#about" class="footer__menu-link">About</a>
+                        </li>
+                        <li class="footer__menu-item">
+                            <a href="/en/..#services-section" class="footer__menu-link">Services</a>
+                        </li>
+                        <li class="footer__menu-item">
+                            <a href="/en/..#about" class="footer__menu-link">Projects</a>
+                        </li>
+                        <li class="footer__menu-item">
+                            <a href="/en/..#contacts" class="footer__menu-link">Contacts</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </div>
 </footer>
-
 </body>
 </html>

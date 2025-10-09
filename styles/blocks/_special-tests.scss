@@ -81,18 +81,18 @@
       border-radius: rem(4);
     }
 
-    &::after {
-      content: '';
-      position: absolute;
-      left: rem(5);
-      top: rem(24);
-      width: rem(12);
-      height: rem(12);
-      background: var(--color-white);
-      border: rem(2) solid var(--color-accent);
-      border-radius: 50%;
-      box-shadow: 0 0 0 rem(3) color-mix(in srgb, var(--color-accent) 15%, transparent);
-    }
+    //&::after {
+    //  content: '';
+    //  position: absolute;
+    //  left: rem(5);
+    //  top: rem(24);
+    //  width: rem(12);
+    //  height: rem(12);
+    //  background: var(--color-white);
+    //  border: rem(2) solid var(--color-accent);
+    //  border-radius: 50%;
+    //  box-shadow: 0 0 0 rem(3) color-mix(in srgb, var(--color-accent) 15%, transparent);
+    //}
 
     .special-card__title {
       margin-left: rem(2);

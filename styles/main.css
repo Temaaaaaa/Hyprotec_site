@@ -1410,6 +1410,8 @@ button[aria-label]::before {
   gap: 0.625rem;
   text-align: center;
   padding: clamp(1.25rem, 2.5vw, 1.75rem); /* чуть просторнее */
+  box-shadow: 0 0.5rem 1.25rem color-mix(in srgb, var(--color-accent) 24%, transparent);
+  translate: 0 0;
 }
 .feature .feature__icon {
   --size: 4.5rem;
@@ -1475,7 +1477,8 @@ button[aria-label]::before {
   flex-direction: column;
   row-gap: 0.75rem;
   transition: box-shadow var(--transition-duration), translate var(--transition-duration), border-color var(--transition-duration);
-  box-shadow: var(--card-shadow);
+  box-shadow: 0 0.5rem 1.25rem color-mix(in srgb, var(--color-accent) 24%, transparent);
+  translate: 0 0;
 }
 @media (any-hover: hover) {
   .about-card:hover {
@@ -1652,6 +1655,8 @@ button[aria-label]::before {
   gap: 0; /* вместо ручных margin-top у элементов */
   min-height: clamp(120px, 22vw, 180px);
   text-align: center;
+  box-shadow: 0 0.5rem 1.25rem color-mix(in srgb, var(--color-accent) 24%, transparent);
+  translate: 0 0;
 }
 .stats .stat .stat__value {
   font-family: var(--font-family-accent), sans-serif;
@@ -3170,18 +3175,6 @@ button[aria-label]::before {
   width: 0.25rem;
   background: var(--color-accent);
   border-radius: 0.25rem;
-}
-.special-tests__list--stacked .special-card::after {
-  content: "";
-  position: absolute;
-  left: 0.3125rem;
-  top: 1.5rem;
-  width: 0.75rem;
-  height: 0.75rem;
-  background: var(--color-white);
-  border: 0.125rem solid var(--color-accent);
-  border-radius: 50%;
-  box-shadow: 0 0 0 0.1875rem color-mix(in srgb, var(--color-accent) 15%, transparent);
 }
 .special-tests__list--stacked .special-card .special-card__title {
   margin-left: 0.125rem;
@@ -5472,6 +5465,52 @@ html.is-intro-active .hero .hero__subtitle--type {
   .shot {
     border-radius: 0.625rem;
     max-height: clamp(160px, 48vw, 320px);
+  }
+}
+/* ————————— shots: two images side-by-side ————————— */
+.shots {
+  /* планшет+: две колонки */
+}
+.shots__grid {
+  display: grid;
+  gap: clamp(1.5rem, 1.7417355372rem + -0.9917355372vw, 0.75rem);
+  grid-template-columns: 1fr;
+}
+@media (width >= 63.99875rem) {
+  .shots__grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+.shots__item {
+  overflow: hidden;
+  border-radius: clamp(1.25rem, 1.4111570248rem + -0.6611570248vw, 0.75rem);
+  /* если у .card уже есть фон/тень — они применятся */
+}
+.shots__img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 16/10;
+  object-fit: cover;
+  transform: scale(1.001);
+  transition: transform var(--transition-fast, 0.25s) ease;
+  will-change: transform;
+}
+@media (any-hover: hover) {
+  .shots__img:hover {
+    transform: scale(1.04);
+  }
+}
+@media (any-hover: none) {
+  .shots__img:active {
+    transform: scale(1.04);
+  }
+}
+
+/* кастом: если хочешь чуть повыше карточки на десктопе */
+@media (width >= 90.06125rem) {
+  .shots__img {
+    aspect-ratio: 16/9;
   }
 }
 

@@ -1,0 +1,41 @@
+@use '../helpers' as *; // твой набор функций/миксинов: rem(), fluid(), hover, $tablet и т.д.
+
+/* ————————— shots: two images side-by-side ————————— */
+.shots {
+  &__grid {
+    display: grid;
+    gap: fluid(12, 24);                    // плавный зазор
+    grid-template-columns: 1fr;            // мобилка: в одну колонку
+  }
+
+  /* планшет+: две колонки */
+  @media (width >= rem($tablet)) {
+    &__grid { grid-template-columns: 1fr 1fr; }
+  }
+
+  &__item {
+    overflow: hidden;
+    border-radius: fluid(12, 20);
+    /* если у .card уже есть фон/тень — они применятся */
+  }
+
+  &__img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 16 / 10;                 // одинаковая «карточная» высота
+    object-fit: cover;
+    transform: scale(1.001);               // анти-дерганье на ховере
+    transition: transform var(--transition-fast, .25s) ease;
+    will-change: transform;
+
+    @include hover {
+      transform: scale(1.04);
+    }
+  }
+}
+
+/* кастом: если хочешь чуть повыше карточки на десктопе */
+@media (width >= rem($laptop)) {
+  .shots__img { aspect-ratio: 16 / 9; }
+}

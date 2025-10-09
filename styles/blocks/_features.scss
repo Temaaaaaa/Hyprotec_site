@@ -30,6 +30,8 @@
 
   text-align: center;
   padding: clamp(1.25rem, 2.5vw, 1.75rem); /* чуть просторнее */
+  box-shadow: 0 rem(8) rem(20) color-mix(in srgb, var(--color-accent) 24%, transparent);
+  translate: 0 0;
 
   .feature__icon {
     --size: #{rem(72)};
