@@ -5,66 +5,90 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Hyprotec | Home</title>
-    <link rel="stylesheet" href="../styles/main.css">
-    <script type="module" src="../scripts/main.js" defer></script>
+
+    <title>HYPROTEC | Home</title>
+
+    <meta name="description" content="HYPROTEC — laboratory testing of cement slurries, equipment, and service solutions for oil and gas companies. In-house certified laboratory, verified testing methods, turnkey equipment supply, and implementation.">
+
+    <meta name="robots" content="index,follow">
+    <link rel="canonical" href="https://hyprotec.ru/en/">
+
+    <!-- hreflang for RU / EN (absolute URLs are important) -->
+    <link rel="alternate" href="https://hyprotec.ru/" hreflang="ru">
+    <link rel="alternate" href="https://hyprotec.ru/en/" hreflang="en">
+    <link rel="alternate" href="https://hyprotec.ru/" hreflang="x-default">
+
+    <!-- Open Graph / Twitter -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="HYPROTEC — oilfield service company">
+    <meta property="og:description" content="Laboratory, equipment, and service solutions for the oil and gas industry.">
+    <meta property="og:url" content="https://hyprotec.ru/en/">
+    <meta property="og:image" content="https://hyprotec.ru/images/og-cover.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <link rel="stylesheet" href="/styles/main.css">
+    <script type="module" src="/scripts/main.js" defer></script>
 </head>
 <body>
 <header class="header" data-js-header>
     <div class="header__body">
         <div class="header__body-inner container">
-            <a class="header__logo logo" href="../" aria-label="Home" title="Home">
-                <img class="logo__image" src="../images/logo-main.svg" alt="" width="300" height="50" />
+            <a class="header__logo logo" href="/en/" aria-label="Home" title="Home">
+                <img class="logo__image" src="/images/logo-main.svg" alt="HYPROTEC" width="300" height="50" />
             </a>
 
             <div class="header__overlay" id="header-panel" data-js-header-overlay>
-                <nav class="header__menu" aria-label="Главное меню">
+                <nav class="header__menu" aria-label="Main menu">
                     <ul class="header__menu-list">
-                        <li class="header__menu-item"><a class="header__menu-link" href="#supervising" aria-current="page">Супервайзинг</a></li>
+                        <li class="header__menu-item">
+                            <a class="header__menu-link" href="#supervising" aria-current="page">Supervising</a>
+                        </li>
+
                         <li class="header__menu-item header__menu-item--has-submenu">
                             <a class="header__menu-link"
-                               href="../#services-section"
+                               href="/en/#services-section"
                                aria-haspopup="true"
                                aria-expanded="false">
-                                Услуги <span class="header__submenu-caret" aria-hidden="true">▾</span>
+                                Services <span class="header__submenu-caret" aria-hidden="true">▾</span>
                             </a>
 
                             <button class="header__submenu-toggle visible-mobile"
                                     type="button"
-                                    aria-label="Показать подменю «Услуги»"
+                                    aria-label="Show submenu “Services”"
                                     aria-controls="submenu-services"
                                     aria-expanded="false"
                                     data-js-submenu-toggle>
                                 <span class="header__submenu-icon" aria-hidden="true"></span>
                             </button>
 
-                            <ul class="header__submenu" id="submenu-services" role="menu" aria-label="Услуги">
-                                <li class="header__submenu-item"><a class="header__submenu-link" href="../ntc/">Научно-технологический центр</a></li>
-                                <li class="header__submenu-item"><a class="header__submenu-link" href="../supervising/">Супервайзинг и полевой аудит</a></li>
-                                <li class="header__submenu-item"><a class="header__submenu-link" href="../consulting/">Технологический консалтинг</a></li>
-                                <li class="header__submenu-item"><a class="header__submenu-link" href="../calibration/">Калибровка и техническое обслуживание</a></li>
-                                <li class="header__submenu-item"><a class="header__submenu-link" href="../education/">Центр профессионального обучения</a></li>
-                                <li class="header__submenu-item"><a class="header__submenu-link" href="../mudvisionrt/">Cистема мониторинга параметров бурового раствора</a></li>
+                            <ul class="header__submenu" id="submenu-services" role="menu" aria-label="Services">
+                                <li class="header__submenu-item"><a class="header__submenu-link" href="/en/ntc/">Scientific & Technological Center</a></li>
+                                <li class="header__submenu-item"><a class="header__submenu-link" href="/en/supervising/">Supervising & Field Audit</a></li>
+                                <li class="header__submenu-item"><a class="header__submenu-link" href="/en/consulting/">Technological Consulting</a></li>
+                                <li class="header__submenu-item"><a class="header__submenu-link" href="/en/calibration/">Calibration & Maintenance</a></li>
+                                <li class="header__submenu-item"><a class="header__submenu-link" href="/en/education/">Training Center</a></li>
+                                <li class="header__submenu-item"><a class="header__submenu-link" href="/en/mudvisionrt/">Mud Parameters Monitoring System</a></li>
                             </ul>
                         </li>
-                        <li class="header__menu-item"><a class="header__menu-link" href="#values">Почему мы?</a></li>
-                        <li class="header__menu-item"><a class="header__menu-link" href="#contacts">Контакты</a></li>
+
+                        <li class="header__menu-item"><a class="header__menu-link" href="#values">Why Choose Us?</a></li>
+                        <li class="header__menu-item"><a class="header__menu-link" href="#contacts">Contacts</a></li>
                     </ul>
                 </nav>
-                <nav class="header__language-select" aria-label="Выбор языка">
-                    <a class="header__language-ru" href="/supervising" lang="ru" hreflang="ru" aria-current="true">RU</a>
-                    <a class="header__language-en" href="/en/supervising" lang="en" hreflang="en">EN</a>
+
+                <nav class="header__language-select" aria-label="Language selection">
+                    <a class="header__language-ru" href="/supervising" lang="ru" hreflang="ru">RU</a>
+                    <a class="header__language-en" href="/en/supervising" lang="en" hreflang="en" aria-current="true">EN</a>
                 </nav>
             </div>
 
             <button
-                    class="header__burger-button burger-button  visible-mobile"
+                    class="header__burger-button burger-button visible-mobile"
                     type="button"
-                    aria-label="Открыть меню"
+                    aria-label="Open menu"
                     aria-controls="header-panel"
                     aria-expanded="false"
-                    data-js-header-burger-button
-            >
+                    data-js-header-burger-button>
                 <span class="burger-button__line"></span>
                 <span class="burger-button__line"></span>
                 <span class="burger-button__line"></span>
@@ -86,7 +110,7 @@
                loading="eager"
           >
       </span>
-            <span class="intro__tagline">нефтесервисная компания</span>
+            <span class="intro__tagline">oilfield service company</span>
         </div>
 
         <div class="intro__progress" aria-hidden="true">
@@ -94,19 +118,21 @@
         </div>
     </div>
 </div>
+
 <main>
-    <section class="hero hero--secondary hero--image" style="--hero-bg:url('../images/supervising.jpg')">
+    <section class="hero hero--secondary hero--image" style="--hero-bg:url('/images/supervising.jpg')">
         <div class="hero__bg" aria-hidden="true"></div>
         <div class="hero__inner container hero__inner--center">
-            <h1 class="hero__title">Супервайзинг</h1>
-            <p class="hero__subtitle">И ПОЛЕВОЙ АУДИТ</p>
+            <h1 class="hero__title">Supervising</h1>
+            <p class="hero__subtitle">AND FIELD AUDIT</p>
         </div>
     </section>
+
     <section class="supervising section" id="supervising" aria-labelledby="supervising-title">
         <header class="section__header">
             <div class="section__header-inner container">
                 <div class="section__header-info">
-                    <h2 class="section__title section-title" id="supervising-title">Супервайзинг</h2>
+                    <h2 class="section__title section-title" id="supervising-title">Supervising</h2>
                 </div>
                 <div class="section__rule" aria-hidden="true"></div>
             </div>
@@ -117,19 +143,19 @@
                 <div class="supervising__grid">
                     <div class="supervising__text">
                         <p>
-                            Наша служба супервайзинга осуществляет контроль проведения работ на объекте Заказчика,
-                            включая все этапы бурения, цементирования и закачивания, представляя прямые интересы Заказчика.
+                            Our supervising service oversees operations at the Customer’s site across all stages of drilling,
+                            cementing, and pumping, representing the Customer’s direct interests.
                         </p>
                         <p>
-                            Обеспечиваем соблюдение технологий и регламентов, оперативно корректируем рецептуры и параметры,
-                            ведём сменные и итоговые отчёты, координируем подрядчиков и соблюдение HSE-требований.
+                            We ensure compliance with technologies and procedures, promptly adjust recipes and operating parameters,
+                            maintain shift and final reports, coordinate contractors, and enforce HSE requirements.
                         </p>
                     </div>
 
                     <figure class="supervising__figure card">
                         <img class="supervising__image"
-                             src="../images/supervising.jpg"
-                             alt="Инженер HYPROTEC ведёт супервайзинг на объекте"
+                             src="/images/supervising.jpg"
+                             alt="HYPROTEC engineer supervising operations on site"
                              loading="lazy">
                     </figure>
                 </div>
@@ -140,7 +166,7 @@
         <header class="section__header">
             <div class="section__header-inner container">
                 <div class="section__header-info">
-                    <h2 class="section__title section-title" id="values-title">Почему нас выбирают?</h2>
+                    <h2 class="section__title section-title" id="values-title">Why Choose Us?</h2>
                 </div>
                 <div class="section__rule" aria-hidden="true"></div>
             </div>
@@ -151,25 +177,26 @@
 
                 <div class="carousel" data-js-carousel data-autoplay="true" data-interval="5000">
                     <!-- controls -->
-                    <button class="carousel__btn carousel__btn--prev" data-js-carousel-prev aria-label="Назад" disabled>‹</button>
-                    <button class="carousel__btn carousel__btn--next" data-js-carousel-next aria-label="Вперёд">›</button>
+                    <button class="carousel__btn carousel__btn--prev" data-js-carousel-prev aria-label="Previous" disabled>‹</button>
+                    <button class="carousel__btn carousel__btn--next" data-js-carousel-next aria-label="Next">›</button>
 
                     <!-- viewport -->
-                    <div class="carousel__viewport" tabindex="0" role="region" aria-roledescription="carousel" aria-label="Ценности компании" data-js-carousel-viewport>
+                    <div class="carousel__viewport" tabindex="0" role="region" aria-roledescription="carousel" aria-label="Company values" data-js-carousel-viewport>
                         <ul class="carousel__track" data-js-carousel-track>
+
                             <!-- Slide 1 -->
                             <li class="carousel__slide">
                                 <article class="value card card--underlined card--accent-red">
                                     <div class="value__icon feature__icon" aria-hidden="true">
-                                        <!-- shield / safety icon -->
+                                        <!-- shield / safety -->
                                         <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                                             <path d="M24 4L8 10V22C8 32.493 14.667 41.92 24 44C33.333 41.92 40 32.493 40 22V10L24 4Z" stroke="#E73439" stroke-width="2" fill="none"/>
                                             <path d="M17 24l5 5 9-11" stroke="#E73439" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                         </svg>
                                     </div>
-                                    <h3 class="value__title card__title">Объективная оценка работ подрядчиков</h3>
+                                    <h3 class="value__title card__title">Objective Assessment of Contractors</h3>
                                     <p class="value__text card__text">
-                                        Вы получаете полную и объективную оценку качества работ подрядчиков
+                                        You receive a full and unbiased evaluation of your contractors’ work quality.
                                     </p>
                                 </article>
                             </li>
@@ -185,11 +212,9 @@
                                             <path d="M20 20l3 3 7-7" stroke="#E73439" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                         </svg>
                                     </div>
-                                    <h3 class="value__title card__title">Оперативность рекомендаций</h3>
+                                    <h3 class="value__title card__title">Prompt Recommendations</h3>
                                     <p class="value__text card__text">
-
-                                        Вы всегда оперативно будите получать эффективные рекомендации по улучшению технологии цементирования
-
+                                        You always receive timely and effective recommendations to improve cementing technology.
                                     </p>
                                 </article>
                             </li>
@@ -206,9 +231,9 @@
                                             <ellipse cx="24" cy="24" rx="8" ry="16" stroke="#E73439" stroke-width="2" transform="rotate(-60 24 24)"/>
                                         </svg>
                                     </div>
-                                    <h3 class="value__title card__title">Сроки и безопасность</h3>
+                                    <h3 class="value__title card__title">Deadlines and Safety</h3>
                                     <p class="value__text card__text">
-                                        Мы сокращаем непроизводительное время и предотвращаем аварийность
+                                        We reduce non-productive time and prevent accidents.
                                     </p>
                                 </article>
                             </li>
@@ -223,9 +248,9 @@
                                             <path d="M34 36l6-6" stroke="#E73439" stroke-width="2" stroke-linecap="round"/>
                                         </svg>
                                     </div>
-                                    <h3 class="value__title card__title">Качество крепления скважин</h3>
+                                    <h3 class="value__title card__title">Well Integrity Improvement</h3>
                                     <p class="value__text card__text">
-                                        Мы повышаем качество крепления скважин
+                                        We enhance the quality and reliability of well cementing.
                                     </p>
                                 </article>
                             </li>
@@ -240,17 +265,18 @@
                                             <circle cx="24" cy="18" r="5" stroke="#E73439" stroke-width="2"/>
                                         </svg>
                                     </div>
-                                    <h3 class="value__title card__title">Компенсирование затрат</h3>
+                                    <h3 class="value__title card__title">Cost Recovery</h3>
                                     <p class="value__text card__text">
-                                        Вы сможете компенсировать затраты связанные с отклонением от плана работ ввиду низкого качества услуг по цементированию скважин
+                                        You can recover costs associated with deviations from the work plan caused by poor cementing quality.
                                     </p>
                                 </article>
                             </li>
+
                         </ul>
                     </div>
 
                     <!-- dots -->
-                    <div class="carousel__dots" data-js-carousel-dots aria-label="Навигация по слайдам"></div>
+                    <div class="carousel__dots" data-js-carousel-dots aria-label="Slide navigation"></div>
                 </div>
 
             </div>
@@ -260,7 +286,7 @@
         <header class="section__header">
             <div class="section__header-inner container">
                 <div class="section__header-info">
-                    <h2 class="section__title section-title" id="offering-title">Услуги</h2>
+                    <h2 class="section__title section-title" id="offering-title">Services</h2>
                 </div>
                 <div class="section__rule" aria-hidden="true"></div>
             </div>
@@ -269,117 +295,132 @@
         <div class="offering__body">
             <div class="offering__inner container">
                 <ul class="offering__list" data-js-offering>
-                    <!-- item -->
+
+                    <!-- item 1 -->
                     <li class="offering__item">
                         <button class="offering__header"
                                 id="off-1-header"
                                 aria-expanded="false"
                                 aria-controls="off-1-panel"
                                 type="button">
-                            <span class="offering__title">Выездные аудиты</span>
+                            <span class="offering__title">Field Audits</span>
                             <span class="offering__icon" aria-hidden="true"></span>
                         </button>
                         <div class="offering__panel" id="off-1-panel" role="region" aria-labelledby="off-1-header">
                             <div class="offering__content">
-                                <p>Выездные аудиты по цементированию на объектах Заказчика согласно техническом заданию</p>
+                                <p>On-site cementing audits performed according to the Customer’s technical assignment.</p>
                             </div>
                         </div>
                     </li>
 
+                    <!-- item 2 -->
                     <li class="offering__item">
                         <button class="offering__header" id="off-2-header" aria-expanded="false"
                                 aria-controls="off-2-panel" type="button">
-                            <span class="offering__title">Контроль оснастки</span>
+                            <span class="offering__title">Casing Equipment Control</span>
                             <span class="offering__icon" aria-hidden="true"></span>
                         </button>
                         <div class="offering__panel" id="off-2-panel" role="region" aria-labelledby="off-2-header">
                             <div class="offering__content">
-                                <p>Контроль оснастки при спуске обсадных колонн, хвостовиков, мостов, РИР</p>
+                                <p>Monitoring of casing, liner, plug, and remedial cementing equipment during running operations.</p>
                             </div>
                         </div>
                     </li>
 
+                    <!-- item 3 -->
                     <li class="offering__item">
                         <button class="offering__header" id="off-3-header" aria-expanded="false"
                                 aria-controls="off-3-panel" type="button">
-                            <span class="offering__title">Контроль параметров бурового раствора</span>
+                            <span class="offering__title">Drilling Fluid Parameters Control</span>
                             <span class="offering__icon" aria-hidden="true"></span>
                         </button>
                         <div class="offering__panel" id="off-3-panel" role="region" aria-labelledby="off-3-header">
                             <div class="offering__content">
-                                <p>Контроль параметров бурового раствора и количества циклов промывки перед цементированием</p>
+                                <p>Control of drilling fluid parameters and circulation cycles prior to cementing.</p>
                             </div>
                         </div>
                     </li>
+
+                    <!-- item 4 -->
                     <li class="offering__item">
                         <button class="offering__header" id="off-4-header" aria-expanded="false"
-                                aria-controls="off-3-panel" type="button">
-                            <span class="offering__title">Мониторинг процессов цементирования</span>
+                                aria-controls="off-4-panel" type="button">
+                            <span class="offering__title">Cementing Process Monitoring</span>
                             <span class="offering__icon" aria-hidden="true"></span>
                         </button>
-                        <div class="offering__panel" id="off-4-panel" role="region" aria-labelledby="off-3-header">
+                        <div class="offering__panel" id="off-4-panel" role="region" aria-labelledby="off-4-header">
                             <div class="offering__content">
-                                <p>Мониторинг выполнения технологических регламентов в процессе цементирования</p>
+                                <p>Monitoring of compliance with process regulations during cementing operations.</p>
                             </div>
                         </div>
                     </li>
+
+                    <!-- item 5 -->
                     <li class="offering__item">
                         <button class="offering__header" id="off-5-header" aria-expanded="false"
-                                aria-controls="off-3-panel" type="button">
-                            <span class="offering__title">Отбор проб</span>
+                                aria-controls="off-5-panel" type="button">
+                            <span class="offering__title">Sampling</span>
                             <span class="offering__icon" aria-hidden="true"></span>
                         </button>
-                        <div class="offering__panel" id="off-5-panel" role="region" aria-labelledby="off-3-header">
+                        <div class="offering__panel" id="off-5-panel" role="region" aria-labelledby="off-5-header">
                             <div class="offering__content">
-                                <p>Отбор проб воды, сухой тампонажной смеси, цементного и бурового раствора и буферных жидкостей</p>
+                                <p>Sampling of water, dry cement blend, cement and drilling fluids, and spacer fluids.</p>
                             </div>
                         </div>
                     </li>
+
+                    <!-- item 6 -->
                     <li class="offering__item">
                         <button class="offering__header" id="off-6-header" aria-expanded="false"
-                                aria-controls="off-3-panel" type="button">
-                            <span class="offering__title">Проведение исследований</span>
+                                aria-controls="off-6-panel" type="button">
+                            <span class="offering__title">Laboratory Testing</span>
                             <span class="offering__icon" aria-hidden="true"></span>
                         </button>
-                        <div class="offering__panel" id="off-6-panel" role="region" aria-labelledby="off-3-header">
+                        <div class="offering__panel" id="off-6-panel" role="region" aria-labelledby="off-6-header">
                             <div class="offering__content">
-                                <p>Проведение физико-химических исследований проб сухой тампонажной смеси, цементного и бурового раствора и буферных жидкостей</p>
+                                <p>Physical and chemical analysis of dry cement blends, cement and drilling fluids, and spacer samples.</p>
                             </div>
                         </div>
                     </li>
+
+                    <!-- item 7 -->
                     <li class="offering__item">
                         <button class="offering__header" id="off-7-header" aria-expanded="false"
-                                aria-controls="off-3-panel" type="button">
-                            <span class="offering__title">Входной контроль материалов</span>
+                                aria-controls="off-7-panel" type="button">
+                            <span class="offering__title">Incoming Material Inspection</span>
                             <span class="offering__icon" aria-hidden="true"></span>
                         </button>
-                        <div class="offering__panel" id="off-7-panel" role="region" aria-labelledby="off-3-header">
+                        <div class="offering__panel" id="off-7-panel" role="region" aria-labelledby="off-7-header">
                             <div class="offering__content">
-                                <p>Входной контроль материалов для приготовления тампонажных и буровых растворов, буферных жидкостей</p>
+                                <p>Inspection of materials used for preparation of cement and drilling fluids, as well as spacer fluids.</p>
                             </div>
                         </div>
                     </li>
+
+                    <!-- item 8 -->
                     <li class="offering__item">
                         <button class="offering__header" id="off-8-header" aria-expanded="false"
-                                aria-controls="off-3-panel" type="button">
-                            <span class="offering__title">Внеплановый аудит</span>
+                                aria-controls="off-8-panel" type="button">
+                            <span class="offering__title">Unscheduled Audit</span>
                             <span class="offering__icon" aria-hidden="true"></span>
                         </button>
-                        <div class="offering__panel" id="off-8-panel" role="region" aria-labelledby="off-3-header">
+                        <div class="offering__panel" id="off-8-panel" role="region" aria-labelledby="off-8-header">
                             <div class="offering__content">
-                                <p>Внеплановый аудит склада, лаборатории и цементного завода сервисных компаний</p>
+                                <p>Unscheduled inspection of service company facilities — warehouses, laboratories, and cement plants.</p>
                             </div>
                         </div>
                     </li>
+
+                    <!-- item 9 -->
                     <li class="offering__item">
                         <button class="offering__header" id="off-9-header" aria-expanded="false"
-                                aria-controls="off-3-panel" type="button">
-                            <span class="offering__title">Отчетная и рекомендательная документация</span>
+                                aria-controls="off-9-panel" type="button">
+                            <span class="offering__title">Reporting and Recommendations</span>
                             <span class="offering__icon" aria-hidden="true"></span>
                         </button>
-                        <div class="offering__panel" id="off-9-panel" role="region" aria-labelledby="off-3-header">
+                        <div class="offering__panel" id="off-9-panel" role="region" aria-labelledby="off-9-header">
                             <div class="offering__content">
-                                <p>Предоставление отчетной документации с планом мероприятий и рекомендаций по повышению качества работ</p>
+                                <p>Provision of detailed reports, action plans, and recommendations to improve cementing quality.</p>
                             </div>
                         </div>
                     </li>
@@ -392,7 +433,7 @@
         <header class="section__header">
             <div class="section__header-inner container">
                 <div class="section__header-info">
-                    <h2 class="section__title section-title" id="contacts-title">Контакты</h2>
+                    <h2 class="section__title section-title" id="contacts-title">Contacts</h2>
                 </div>
                 <div class="section__rule" aria-hidden="true"></div>
             </div>
@@ -400,34 +441,34 @@
 
         <div class="contacts__body">
             <div class="contacts__offices container" itemscope itemtype="https://schema.org/Organization">
-                <!-- === Представительство в Тюмени === -->
+                <!-- === Tyumen Office === -->
                 <div class="contacts__inner" itemprop="department" itemscope itemtype="https://schema.org/Organization">
-                    <!-- Левая колонка -->
+                    <!-- Left column -->
                     <div class="contacts__info">
-                        <h3 class="contacts__office-title">Представительство в Тюмени</h3>
+                        <h3 class="contacts__office-title">Tyumen Office</h3>
 
                         <a class="contacts__phone" href="tel:+79223180000" itemprop="telephone">+7&nbsp;922&nbsp;318&nbsp;00&nbsp;00</a>
                         <a class="contacts__email" href="mailto:info@hyprotec.ru" itemprop="email">info@hyprotec.ru</a>
-                        <p class="contacts__time">пн–пт с 10:00 до 19:00</p>
+                        <p class="contacts__time">Mon–Fri 10:00–19:00</p>
 
                         <ul class="contacts__list">
-                            <li><span class="muted">ООО «</span><b itemprop="name">ХАЙПРОТЕК</b><span class="muted">»</span></li>
-                            <li>ИНН: <a href="#" rel="nofollow noopener">7203456345</a></li>
-                            <li>КПП: <a href="#" rel="nofollow noopener">720301001</a></li>
-                            <li>ОГРН: <a href="#" rel="nofollow noopener">1187232020722</a></li>
+                            <li><span class="muted">LLC “</span><b itemprop="name">HYPROTEC</b><span class="muted">”</span></li>
+                            <li>Tax ID (INN): <a href="#" rel="nofollow noopener">7203456345</a></li>
+                            <li>KPP: <a href="#" rel="nofollow noopener">720301001</a></li>
+                            <li>PSRN (OGRN): <a href="#" rel="nofollow noopener">1187232020722</a></li>
                             <li itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
                                 <meta itemprop="postalCode" content="625000">
-                                <span class="muted">625000, Тюменская область, г. Тюмень,</span><br>
-                                <span itemprop="streetAddress">ул. Грибоедова, д. 15, пом. 1</span>
+                                <span class="muted">625000, Tyumen Region, Tyumen,</span><br>
+                                <span itemprop="streetAddress">15 Griboedova St., premises 1</span>
                             </li>
                         </ul>
                     </div>
 
-                    <!-- Правая колонка (карта) -->
+                    <!-- Right column (map) -->
                     <div class="contacts__map">
                         <iframe
                                 class="contacts__map-frame"
-                                title="Карта: Тюмень, ул. Грибоедова, 15 — ХАЙПРОТЕК"
+                                title="Map: Tyumen, 15 Griboedova St. — HYPROTEC"
                                 src="https://yandex.ru/map-widget/v1/?um=constructor%3Af2b12c5ceae10d922c0fee41817b70696ff03f02db3c599ca4628d5f3698f18a&amp;source=constructor"
                                 loading="lazy"
                                 referrerpolicy="no-referrer-when-downgrade"
@@ -436,31 +477,30 @@
                     </div>
                 </div>
 
-                <!-- === Представительство в Новом Уренгое === -->
+                <!-- === Novy Urengoy Office === -->
                 <div class="contacts__inner" itemprop="department" itemscope itemtype="https://schema.org/Organization">
-                    <!-- Левая колонка -->
+                    <!-- Left column -->
                     <div class="contacts__info">
-                        <h3 class="contacts__office-title">Представительство в Новом Уренгое</h3>
+                        <h3 class="contacts__office-title">Novy Urengoy Office</h3>
 
                         <a class="contacts__phone" href="tel:+79124221080" itemprop="telephone">+7&nbsp;912&nbsp;422&nbsp;10&nbsp;80</a>
                         <a class="contacts__email" href="mailto:lab_nu@hyprotec.ru" itemprop="email">lab_nu@hyprotec.ru</a>
-                        <p class="contacts__time">пн–вс 08:00 – 20:00</p>
+                        <p class="contacts__time">Mon–Sun 08:00–20:00</p>
 
                         <ul class="contacts__list">
                             <li itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
                                 <meta itemprop="postalCode" content="629305">
-                                <span class="muted">629305, Ямало-Ненецкий автономный округ, г. Новый Уренгой,</span><br>
-                                <span itemprop="streetAddress">ул. Таёжная, д. 138А</span>
+                                <span class="muted">629305, Yamalo-Nenets Autonomous Okrug, Novy Urengoy,</span><br>
+                                <span itemprop="streetAddress">138A Taezhnaya St.</span>
                             </li>
                         </ul>
                     </div>
 
-                    <!-- Правая колонка (карта) -->
+                    <!-- Right column (map) -->
                     <div class="contacts__map">
-                        <!-- ЗАМЕНИ src на свой конструктор Яндекс.Карт для этого адреса -->
                         <iframe
                                 class="contacts__map-frame"
-                                title="Карта: Новый Уренгой, ул. Таёжная, 138А — ХАЙПРОТЕК"
+                                title="Map: Novy Urengoy, 138A Taezhnaya St. — HYPROTEC"
                                 src="https://yandex.ru/map-widget/v1/?um=constructor%3Aeea6ad1acbf3a93b688640a93eff8d045f04ccd065b183fe8a6d04f152b2d5c3&amp;source=constructor"
                                 loading="lazy"
                                 referrerpolicy="no-referrer-when-downgrade"
@@ -472,34 +512,33 @@
         </div>
     </section>
 </main>
-
 <footer class="footer">
     <div class="footer__inner container">
         <div class="footer__body">
             <div class="footer__brand">
-                <a href="/" class="footer__logo" aria-label="HYPROTEC">
-                    <!-- поставь свой SVG/IMG логотип -->
-                    <img src="../images/logo-main.svg" alt="HYPROTEC">
+                <a href="/en/" class="footer__logo" aria-label="HYPROTEC">
+                    <img src="/images/logo-main.svg" alt="HYPROTEC">
                 </a>
                 <p class="footer__copyright">
-                    <span aria-hidden="true">©</span> Все права защищены. HYPROTEC.
+                    <span aria-hidden="true">©</span> All rights reserved. HYPROTEC.
                 </p>
             </div>
-            <nav class="footer__menu" aria-label="Меню в подвале">
+
+            <nav class="footer__menu" aria-label="Footer menu">
                 <div class="footer__menu-column">
-                    <span class="footer__menu-title">МЕНЮ</span>
+                    <span class="footer__menu-title">MENU</span>
                     <ul class="footer__menu-list">
                         <li class="footer__menu-item">
-                            <a href="/" class="footer__menu-link">О нас</a>
+                            <a href="/en/" class="footer__menu-link">About</a>
                         </li>
                         <li class="footer__menu-item">
-                            <a href="/" class="footer__menu-link">Услуги</a>
+                            <a href="/en/" class="footer__menu-link">Services</a>
                         </li>
                         <li class="footer__menu-item">
-                            <a href="/" class="footer__menu-link">Проекты</a>
+                            <a href="/en/" class="footer__menu-link">Projects</a>
                         </li>
                         <li class="footer__menu-item">
-                            <a href="/" class="footer__menu-link">Контакты</a>
+                            <a href="/en/" class="footer__menu-link">Contacts</a>
                         </li>
                     </ul>
                 </div>
@@ -507,9 +546,6 @@
         </div>
     </div>
 </footer>
-
-
-
 
 </body>
 </html>
