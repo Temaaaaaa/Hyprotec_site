@@ -2,8 +2,6 @@ import Intro from './Preloader.js';
 import Header from "./Header.js";
 import Carousel from "./Carousel.js";
 import Stats from "./Stats.js";
-import ContactForm from './ContactForm.js';
-new ContactForm('.feedback-form');
 new Intro();
 import { initHeroType } from './HeroType.js';
 

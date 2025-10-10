@@ -1,14 +1,12 @@
 @use '../helpers' as *;
 
 /* ————————————————————————————————
-   Intro overlay — fast & pretty
+   Intro overlay — fast & pretty (with logo image)
    ———————————————————————————————— */
 
 .intro {
-  /* Тонкая настройка */
-  --intro-stagger: .06s;
+  /* Настройки */
   --intro-ease: cubic-bezier(.22,1,.36,1);
-  --intro-letter-dur: .60s;
   --intro-fade-dur: .42s;
   --intro-leave-dur: .46s;
   --intro-accent: var(--color-accent, #e53935);
@@ -16,24 +14,22 @@
   --intro-bg-1: #171a20;
   --intro-bg-2: #1b2028;
 
-  //@include mobile { --intro-stagger: .085s; }
-
   position: fixed;
   inset: 0;
   z-index: 9999;
   display: grid;
   place-items: center;
-  pointer-events: none;               /* JS сам клик не ловит */
+  pointer-events: none;
   background: none;
   isolation: isolate;
-  contain: layout paint;              /* сужаем область влияния */
-  transform: translateZ(0);           /* композитный слой */
+  contain: layout paint;
+  transform: translateZ(0);
   will-change: opacity, transform;
 
-  /* Быстро скрыть узел после ухода (добавляй класс из JS) */
+  /* быстрое удаление ноды (на случай, если понадобится принудительно) */
   &--hidden { display: none !important; }
 
-  /* Фон — лёгкий, без тяжёлых фильтров */
+  /* Фон */
   &__bg {
     position: absolute;
     inset: 0;
@@ -41,7 +37,7 @@
     background:
             radial-gradient(60% 40% at 50% 20%, rgba(255,255,255,.08), transparent 65%),
             linear-gradient(180deg, var(--intro-bg-1), var(--intro-bg-2) 55%, var(--intro-bg-1));
-    /* Едва заметное «дыхание» акцентной линзы */
+
     &::before {
       content: "";
       position: absolute;
@@ -54,7 +50,6 @@
       animation: intro-glow 3.2s ease-in-out infinite alternate;
     }
 
-    /* Тонкая сетка — только на десктопах с курсором */
     @media (hover:hover) and (pointer:fine) {
       &::after {
         content: "";
@@ -76,38 +71,32 @@
     row-gap: rem(20);
     text-align: center;
     color: var(--intro-fg);
-    content-visibility: auto;         /* браузер сам отложит рендер */
+    content-visibility: auto;
   }
 
-  &__brand { display: grid; row-gap: rem(10); }
+  &__brand {
+    display: grid;
+    row-gap: rem(10);
+  }
 
+  /* Контейнер логотипа */
   &__logo {
-    display: inline-flex;
-    column-gap: rem(10);
-    font-family: var(--font-accent, 'Rubik', system-ui, sans-serif);
-    font-weight: 700;
-    letter-spacing: .02em;
-    text-transform: uppercase;
-    @include fluid-text(72, 36);
-    text-shadow: 0 4px 18px rgba(0,0,0,.35);
+    display: inline-grid;
+    place-items: center;
     will-change: transform, opacity;
+
+    /* если где-то остались посимвольные части — прячем, чтобы не ломали раскладку */
+    .intro__logo-part { display: none !important; }
   }
 
-  /* Посимвольный влёт */
-  &__logo-part {
-    display: inline-block;
-    transform: translateY(24px);
+  /* Картинка логотипа */
+  &__logo-img {
+    inline-size:  clamp(rem(220), 28vw, rem(520));;
+    block-size: auto;
     opacity: 0;
-    animation: intro-slide-up var(--intro-letter-dur) var(--intro-ease) forwards;
-    will-change: transform, opacity;
-    font-variant-ligatures: none;
-  }
-
-  /* задержки до 48 символов */
-  @for $i from 1 through 48 {
-    .intro__logo-part:nth-child(#{$i}) {
-      animation-delay: calc(#{ $i - 1 } * var(--intro-stagger));
-    }
+    transform: translateY(6px) scale(.985);
+    will-change: opacity, transform;
+    animation: intro-logo-reveal .7s var(--intro-ease) .2s both;
   }
 
   &__tagline {
@@ -115,9 +104,9 @@
     color: color-mix(in srgb, var(--intro-fg), transparent 35%);
     letter-spacing: .08em;
     text-transform: lowercase;
-    transform: translateY(8px);
+    transform: translateY(6px);
     opacity: 0;
-    animation: intro-fade-up var(--intro-fade-dur) calc(3 * var(--intro-stagger)) ease-out forwards;
+    animation: intro-fade-up var(--intro-fade-dur) .32s ease-out forwards;
     will-change: transform, opacity;
   }
 
@@ -128,9 +117,9 @@
     border-radius: 999px;
     overflow: hidden;
     margin-top: rem(10);
-    transform: translateY(6px);
+    transform: translateY(4px);
     opacity: 0;
-    animation: intro-fade-up calc(var(--intro-fade-dur) - .06s) calc(5 * var(--intro-stagger)) ease-out forwards;
+    animation: intro-fade-up calc(var(--intro-fade-dur) - .06s) .44s ease-out forwards;
     will-change: opacity, transform;
   }
 
@@ -139,12 +128,11 @@
     width: 0%;
     height: 100%;
     background: var(--intro-accent);
-    animation: intro-bar var(--intro-bar-dur, 1.45s) var(--intro-bar-delay, .45s) ease-out forwards;
+    animation: intro-bar var(--intro-bar-dur, 1.6s) var(--intro-bar-delay, .45s) ease-out forwards;
     will-change: width;
-    transition: width var(--intro-bar-dur, 1.45s) ease-out var(--intro-bar-delay, .45s);
   }
 
-  /* Мягкий уход: fade + micro-scale */
+  /* Мягкий уход (JS добавляет .is-leaving) */
   &.is-leaving { animation: intro-leave-lite var(--intro-leave-dur) var(--intro-ease) forwards; }
 }
 
@@ -159,9 +147,8 @@ html.is-intro-active .hero .hero__subtitle--type {
   0%   { opacity: .55; transform: translateZ(0) scale(.985) translateY(0); }
   100% { opacity: .85; transform: translateZ(0) scale(1.035) translateY(-1%); }
 }
-@keyframes intro-slide-up {
-  from { transform: translateY(24px); opacity: 0; }
-  to   { transform: translateY(0);    opacity: 1; }
+@keyframes intro-logo-reveal {
+  to { opacity: 1; transform: translateY(0) scale(1); }
 }
 @keyframes intro-fade-up {
   from { transform: translateY(6px); opacity: 0; }
