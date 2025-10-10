@@ -41,7 +41,7 @@
             <div class="header__overlay" id="header-panel" data-js-header-overlay>
                 <nav class="header__menu" aria-label="Main menu">
                     <ul class="header__menu-list">
-                        <li class="header__menu-item"><a class="header__menu-link" href="../#about" aria-current="page">About</a></li>
+                        <li class="header__menu-item"><a class="header__menu-link" href="#cementing" aria-current="page">Cementing</a></li>
                         <li class="header__menu-item header__menu-item--has-submenu">
                             <a class="header__menu-link"
                                href="../#services-section"
@@ -68,7 +68,7 @@
                                 <li class="header__submenu-item"><a class="header__submenu-link" href="../mudvisionrt/" target="_blank">Drilling Fluid Monitoring System</a></li>
                             </ul>
                         </li>
-                        <li class="header__menu-item"><a class="header__menu-link" href="../#equipment">Equipment</a></li>
+                        <li class="header__menu-item"><a class="header__menu-link" href="#examples">examples</a></li>
                         <li class="header__menu-item"><a class="header__menu-link" href="#contacts">Contacts</a></li>
                     </ul>
                 </nav>
@@ -99,14 +99,13 @@
     <div class="intro__inner container">
         <div class="intro__brand">
       <span class="intro__logo" aria-label="HYPROTEC">
-        <span class="intro__logo-part">H</span>
-        <span class="intro__logo-part">Y</span>
-        <span class="intro__logo-part">P</span>
-        <span class="intro__logo-part">R</span>
-        <span class="intro__logo-part">O</span>
-        <span class="intro__logo-part">T</span>
-        <span class="intro__logo-part">E</span>
-        <span class="intro__logo-part">C</span>
+          <img alt="Hyprotec"
+               class="intro_logo-img"
+               src="/images/logo-main.svg"
+               width="320" height="64"
+               decoding="async"
+               loading="eager"
+          >
       </span>
             <span class="intro__tagline">oilfield service company</span>
         </div>
@@ -160,7 +159,7 @@
                     <div class="cementing__media">
                         <figure class="cementing__figure card">
                             <img class="cementing__image"
-                                 src="/images/consulting-about.png"
+                                 src="/images/consulting-1.jpg"
                                  alt="Displacement efficiency at 0.5 m³/min" loading="lazy">
                         </figure>
                     </div>
@@ -197,10 +196,10 @@
                          data-js-carousel-viewport>
                         <ul class="carousel__track" data-js-carousel-track>
                             <li class="carousel__slide">
-                                <img class="carousel__img" src="/images/consulting-1.png" alt="Chart 1" loading="lazy" decoding="async">
+                                <img class="carousel__img" src="/images/consulting_2.jpg" alt="Chart 1" loading="lazy" decoding="async">
                             </li>
                             <li class="carousel__slide">
-                                <img class="carousel__img" src="/images/consulting-2.png" alt="Chart 2" loading="lazy" decoding="async">
+                                <img class="carousel__img" src="/images/consulting_3.jpg" alt="Chart 2" loading="lazy" decoding="async">
                             </li>
                             <li class="carousel__slide">
                                 <img class="carousel__img" src="/images/consulting-3.png" alt="Chart 3" loading="lazy" decoding="async">
@@ -227,34 +226,73 @@
         </header>
 
         <div class="contacts__body">
-            <div class="contacts__inner container" itemscope itemtype="https://schema.org/Organization">
-                <!-- Left column -->
-                <div class="contacts__info">
-                    <a class="contacts__phone" href="tel:+79223180000" itemprop="telephone">8&nbsp;922&nbsp;318&nbsp;00&nbsp;00</a>
-                    <a class="contacts__email" href="mailto:info@hyprotec.ru" itemprop="email">info@hyprotec.ru</a>
-                    <p class="contacts__time">Mon–Fri 10:00–19:00</p>
-                    <ul class="contacts__list">
-                        <li><span class="muted">LLC “</span><b itemprop="name">HYPROTEC</b><span class="muted">”</span></li>
-                        <li>TIN: <a href="#" rel="nofollow noopener">7203456345</a></li>
-                        <li>KPP: <a href="#" rel="nofollow noopener">720301001</a></li>
-                        <li>PSRN: <a href="#" rel="nofollow noopener">1187232020722</a></li>
-                        <li itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
-                            <meta itemprop="postalCode" content="625000">
-                            <span class="muted">625000, Tyumen Region, Tyumen,</span><br>
-                            <span itemprop="streetAddress">15 Griboedova St., premises 1</span>
-                        </li>
-                    </ul>
+            <div class="contacts__offices container" itemscope itemtype="https://schema.org/Organization">
+                <!-- === Tyumen Office === -->
+                <div class="contacts__inner" itemprop="department" itemscope itemtype="https://schema.org/Organization">
+                    <!-- Left column -->
+                    <div class="contacts__info">
+                        <h3 class="contacts__office-title">Tyumen Office</h3>
+
+                        <a class="contacts__phone" href="tel:+79223180000" itemprop="telephone">+7&nbsp;922&nbsp;318&nbsp;00&nbsp;00</a>
+                        <a class="contacts__email" href="mailto:info@hyprotec.ru" itemprop="email">info@hyprotec.ru</a>
+                        <p class="contacts__time">Mon–Fri 10:00–19:00</p>
+
+                        <ul class="contacts__list">
+                            <li><span class="muted">LLC “</span><b itemprop="name">HYPROTEC</b><span class="muted">”</span></li>
+                            <li>Tax ID (INN): <a href="#" rel="nofollow noopener">7203456345</a></li>
+                            <li>KPP: <a href="#" rel="nofollow noopener">720301001</a></li>
+                            <li>PSRN (OGRN): <a href="#" rel="nofollow noopener">1187232020722</a></li>
+                            <li itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
+                                <meta itemprop="postalCode" content="625000">
+                                <span class="muted">625000, Tyumen Region, Tyumen,</span><br>
+                                <span itemprop="streetAddress">15 Griboedova St., premises 1</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Right column (map) -->
+                    <div class="contacts__map">
+                        <iframe
+                                class="contacts__map-frame"
+                                title="Map: Tyumen, 15 Griboedova St. — HYPROTEC"
+                                src="https://yandex.ru/map-widget/v1/?um=constructor%3Af2b12c5ceae10d922c0fee41817b70696ff03f02db3c599ca4628d5f3698f18a&amp;source=constructor"
+                                loading="lazy"
+                                referrerpolicy="no-referrer-when-downgrade"
+                                allowfullscreen>
+                        </iframe>
+                    </div>
                 </div>
 
-                <div class="contacts__map">
-                    <iframe
-                            class="contacts__map-frame"
-                            title="Map: 15 Griboedova St. — HYPROTEC"
-                            src="https://yandex.ru/map-widget/v1/?um=constructor%3Af2b12c5ceae10d922c0fee41817b70696ff03f02db3c599ca4628d5f3698f18a&amp;source=constructor"
-                            loading="lazy"
-                            referrerpolicy="no-referrer-when-downgrade"
-                            allowfullscreen>
-                    </iframe>
+                <!-- === Novy Urengoy Office === -->
+                <div class="contacts__inner" itemprop="department" itemscope itemtype="https://schema.org/Organization">
+                    <!-- Left column -->
+                    <div class="contacts__info">
+                        <h3 class="contacts__office-title">Novy Urengoy Office</h3>
+
+                        <a class="contacts__phone" href="tel:+79124221080" itemprop="telephone">+7&nbsp;912&nbsp;422&nbsp;10&nbsp;80</a>
+                        <a class="contacts__email" href="mailto:lab_nu@hyprotec.ru" itemprop="email">lab_nu@hyprotec.ru</a>
+                        <p class="contacts__time">Mon–Sun 08:00–20:00</p>
+
+                        <ul class="contacts__list">
+                            <li itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
+                                <meta itemprop="postalCode" content="629305">
+                                <span class="muted">629305, Yamalo-Nenets Autonomous Okrug, Novy Urengoy,</span><br>
+                                <span itemprop="streetAddress">138A Taezhnaya St.</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Right column (map) -->
+                    <div class="contacts__map">
+                        <iframe
+                                class="contacts__map-frame"
+                                title="Map: Novy Urengoy, 138A Taezhnaya St. — HYPROTEC"
+                                src="https://yandex.ru/map-widget/v1/?um=constructor%3Aeea6ad1acbf3a93b688640a93eff8d045f04ccd065b183fe8a6d04f152b2d5c3&amp;source=constructor"
+                                loading="lazy"
+                                referrerpolicy="no-referrer-when-downgrade"
+                                allowfullscreen>
+                        </iframe>
+                    </div>
                 </div>
             </div>
         </div>

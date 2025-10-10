@@ -1,71 +1,101 @@
 <!doctype html>
-<html lang="ru">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Hyprotec | Home</title>
-    <link rel="stylesheet" href="../styles/main.css">
-    <script type="module" src="../scripts/main.js" defer></script>
+
+    <title>HYPROTEC | Home</title>
+
+    <meta name="description" content="HYPROTEC — laboratory testing of cement slurries, equipment, and service solutions for oil and gas companies. In-house certified laboratory, verified testing methods, turnkey equipment supply, and implementation.">
+
+    <meta name="robots" content="index,follow">
+    <link rel="canonical" href="https://hyprotec.ru/en/">
+
+    <!-- hreflang for RU / EN (absolute URLs are important) -->
+    <link rel="alternate" href="https://hyprotec.ru/" hreflang="ru">
+    <link rel="alternate" href="https://hyprotec.ru/en/" hreflang="en">
+    <link rel="alternate" href="https://hyprotec.ru/" hreflang="x-default">
+
+    <!-- Open Graph / Twitter -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="HYPROTEC — oilfield service company">
+    <meta property="og:description" content="Laboratory, equipment, and service solutions for the oil and gas industry.">
+    <meta property="og:url" content="https://hyprotec.ru/en/">
+    <meta property="og:image" content="https://hyprotec.ru/images/og-cover.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <link rel="stylesheet" href="/styles/main.css">
+    <script type="module" src="/scripts/main.js" defer></script>
 </head>
 <body>
 <header class="header" data-js-header>
     <div class="header__body">
         <div class="header__body-inner container">
-            <a class="header__logo logo" href="../" aria-label="Home" title="Home">
-                <img class="logo__image" src="../images/logo-main.svg" alt="" width="300" height="50" />
+            <a class="header__logo logo" href="/" aria-label="Home" title="Home">
+                <img class="logo__image" src="/images/logo-main.svg" alt="HYPROTEC Logo" width="300" height="50" />
             </a>
 
             <div class="header__overlay" id="header-panel" data-js-header-overlay>
-                <nav class="header__menu" aria-label="Главное меню">
+                <nav class="header__menu" aria-label="Main menu">
                     <ul class="header__menu-list">
-                        <li class="header__menu-item"><a class="header__menu-link" href="#tour" aria-current="page">Видео-тур</a></li>
+                        <li class="header__menu-item">
+                            <a class="header__menu-link" href="#tour" aria-current="page">Video Tour</a>
+                        </li>
+
                         <li class="header__menu-item header__menu-item--has-submenu">
                             <a class="header__menu-link"
-                               href="../#services-section"
+                               href="/#services-section"
                                aria-haspopup="true"
                                aria-expanded="false">
-                                Услуги <span class="header__submenu-caret" aria-hidden="true">▾</span>
+                                Services <span class="header__submenu-caret" aria-hidden="true">▾</span>
                             </a>
 
                             <button class="header__submenu-toggle visible-mobile"
                                     type="button"
-                                    aria-label="Показать подменю «Услуги»"
+                                    aria-label="Show submenu “Services”"
                                     aria-controls="submenu-services"
                                     aria-expanded="false"
                                     data-js-submenu-toggle>
                                 <span class="header__submenu-icon" aria-hidden="true"></span>
                             </button>
 
-                            <ul class="header__submenu" id="submenu-services" role="menu" aria-label="Услуги">
-                                <li class="header__submenu-item"><a class="header__submenu-link" href="../ntc/">Научно-технологический центр</a></li>
-                                <li class="header__submenu-item"><a class="header__submenu-link" href="../supervising/">Супервайзинг и полевой аудит</a></li>
-                                <li class="header__submenu-item"><a class="header__submenu-link" href="../consulting/">Технологический консалтинг</a></li>
-                                <li class="header__submenu-item"><a class="header__submenu-link" href="../calibration/">Калибровка и техническое обслуживание</a></li>
-                                <li class="header__submenu-item"><a class="header__submenu-link" href="../education/">Центр профессионального обучения</a></li>
-                                <li class="header__submenu-item"><a class="header__submenu-link" href="../mudvisionrt/">Cистема мониторинга параметров бурового раствора</a></li>
+                            <ul class="header__submenu" id="submenu-services" role="menu" aria-label="Services">
+                                <li class="header__submenu-item"><a class="header__submenu-link" href="/ntc/">Scientific and Technological Center</a></li>
+                                <li class="header__submenu-item"><a class="header__submenu-link" href="/supervising/">Supervising and Field Audit</a></li>
+                                <li class="header__submenu-item"><a class="header__submenu-link" href="/consulting/">Technical Consulting</a></li>
+                                <li class="header__submenu-item"><a class="header__submenu-link" href="/calibration/">Calibration and Maintenance</a></li>
+                                <li class="header__submenu-item"><a class="header__submenu-link" href="/education/">Professional Training Center</a></li>
+                                <li class="header__submenu-item"><a class="header__submenu-link" href="/mudvisionrt/">Drilling Fluid Parameters Monitoring System</a></li>
                             </ul>
                         </li>
-                        <li class="header__menu-item"><a class="header__menu-link" href="#equipment">Оснащение</a></li>
-                        <li class="header__menu-item"><a class="header__menu-link" href="#cement-lab">Лаборатории</a></li>
-                        <li class="header__menu-item"><a class="header__menu-link" href="#contacts">Контакты</a></li>
+
+                        <li class="header__menu-item">
+                            <a class="header__menu-link" href="#equipment">Equipment</a>
+                        </li>
+                        <li class="header__menu-item">
+                            <a class="header__menu-link" href="#cement-lab">Laboratories</a>
+                        </li>
+                        <li class="header__menu-item">
+                            <a class="header__menu-link" href="#contacts">Contacts</a>
+                        </li>
                     </ul>
                 </nav>
-                <nav class="header__language-select" aria-label="Выбор языка">
-                    <a class="header__language-ru" href="/ntc" lang="ru" hreflang="ru" aria-current="true">RU</a>
-                    <a class="header__language-en" href="/en/ntc" lang="en" hreflang="en">EN</a>
+
+                <nav class="header__language-select" aria-label="Language selection">
+                    <a class="header__language-ru" href="/ntc" lang="ru" hreflang="ru">RU</a>
+                    <a class="header__language-en" href="/en/ntc" lang="en" hreflang="en" aria-current="true">EN</a>
                 </nav>
             </div>
 
             <button
-                    class="header__burger-button burger-button  visible-mobile"
+                    class="header__burger-button burger-button visible-mobile"
                     type="button"
-                    aria-label="Открыть меню"
+                    aria-label="Open menu"
                     aria-controls="header-panel"
                     aria-expanded="false"
-                    data-js-header-burger-button
-            >
+                    data-js-header-burger-button>
                 <span class="burger-button__line"></span>
                 <span class="burger-button__line"></span>
                 <span class="burger-button__line"></span>
@@ -73,7 +103,6 @@
         </div>
     </div>
 </header>
-
 <div class="intro" data-js-intro aria-hidden="true">
     <div class="intro__bg" aria-hidden="true"></div>
 
@@ -88,7 +117,7 @@
                loading="eager"
           >
       </span>
-            <span class="intro__tagline">нефтесервисная компания</span>
+            <span class="intro__tagline">oilfield service company</span>
         </div>
 
         <div class="intro__progress" aria-hidden="true">
@@ -98,18 +127,19 @@
 </div>
 
 <main>
-    <section class="hero hero--secondary hero--image" style="--hero-bg:url('../images/cards/card1.jpeg')">
+    <section class="hero hero--secondary hero--image" style="--hero-bg:url('/images/cards/card1.jpeg')">
         <div class="hero__bg" aria-hidden="true"></div>
         <div class="hero__inner container hero__inner--center">
-            <h1 class="hero__title">Научно-технологический центр</h1>
-            <p class="hero__subtitle">Действующая аккредитация ФСА ГОСТ ISO/IEC 17025-2019</p>
+            <h1 class="hero__title">Scientific and Technological Center</h1>
+            <p class="hero__subtitle">Accredited by the Federal Accreditation Service (FSA) under GOST ISO/IEC 17025-2019</p>
         </div>
     </section>
+
     <section class="video-tour section" id="tour" aria-labelledby="tour-title">
         <header class="section__header">
             <div class="section__header-inner container">
                 <div class="section__header-info">
-                    <h2 class="section__title section-title" id="tour-title">Видео-тур</h2>
+                    <h2 class="section__title section-title" id="tour-title">Video Tour</h2>
                 </div>
                 <div class="section__rule" aria-hidden="true"></div>
             </div>
@@ -124,13 +154,13 @@
                            muted
                            playsinline
                            preload="metadata"
-                           poster="./images/tour-poster.jpg">
-                        <source src="./video/tour.webm" type="video/webm">
-                        <source src="../video/Hero-Video-fixed.mp4" type="video/mp4">
-                        Ваш браузер не поддерживает воспроизведение видео.
+                           poster="/images/tour-poster.jpg">
+                        <source src="/video/tour.webm" type="video/webm">
+                        <source src="/video/Hero-Video-fixed.mp4" type="video/mp4">
+                        Your browser does not support video playback.
                     </video>
                     <figcaption class="video-tour__caption">
-                        Короткий обзор лаборатории и оборудования
+                        A short overview of the laboratory and its equipment
                     </figcaption>
                 </figure>
             </div>
@@ -140,7 +170,7 @@
         <header class="section__header">
             <div class="section__header-inner container">
                 <div class="section__header-info">
-                    <h2 class="section__title section-title" id="outfit-title">Оснащение</h2>
+                    <h2 class="section__title section-title" id="outfit-title">Equipment</h2>
                 </div>
                 <div class="section__rule" aria-hidden="true"></div>
             </div>
@@ -148,46 +178,45 @@
 
         <div class="outfit__body">
             <div class="outfit__inner container">
-                <!-- верх: текст + одиночное изображение -->
+                <!-- top: text + single image -->
                 <div class="outfit__grid">
                     <div class="outfit__text">
                         <p>
-                            Лаборатория включает в себя более 100 единиц ведущих производителей оборудования,
-                            таких, как Grace, Fann, Matest, Memmert, LOIP, Thermo Scientific, GreaTest, OFITE.
+                            The laboratory is equipped with more than 100 units of instruments from leading manufacturers
+                            such as Grace, Fann, Matest, Memmert, LOIP, Thermo Scientific, GreaTest, and OFITE.
                         </p>
                         <p>
-                            Большинство оборудования не имеет отечественных аналогов. Оснащение позволяет
-                            выполнять до 250 полных комплексов тестирования тампонажных смесей и до 650
-                            комплексов тестирования бурового раствора ежеквартально.
+                            Most of the equipment has no domestic analogues. The facilities enable up to 250 full sets
+                            of cement slurry tests and up to 650 sets of drilling fluid tests per quarter.
                         </p>
                         <p>
-                            Лаборатория работает по российским и международным стандартам:
-                            ISO 13500, ISO 10414:2008, ГОСТ 33213-2014, РД 39-00147001-773-2004,
-                            ISO 10426, ISO 13503, ISO 10416, ISO 9001:2015.
+                            The laboratory operates in accordance with Russian and international standards:
+                            ISO&nbsp;13500, ISO&nbsp;10414:2008, GOST&nbsp;33213-2014, RD&nbsp;39-00147001-773-2004,
+                            ISO&nbsp;10426, ISO&nbsp;13503, ISO&nbsp;10416, ISO&nbsp;9001:2015.
                         </p>
                     </div>
 
                     <figure class="outfit__figure card">
                         <img class="outfit__image"
-                             src="../images/8.jpeg"
-                             alt="Фрагмент лаборатории HYPROTEC"
+                             src="/images/8.jpeg"
+                             alt="HYPROTEC laboratory fragment"
                              loading="lazy">
                     </figure>
                 </div>
 
-                <!-- низ: KPI -->
+                <!-- bottom: KPI -->
                 <ul class="outfit__stats">
                     <li class="stat">
                         <div class="stat__value">&gt; 100</div>
-                        <div class="stat__label">единиц оборудования</div>
+                        <div class="stat__label">units of equipment</div>
                     </li>
                     <li class="stat">
                         <div class="stat__value">&gt; 1000</div>
-                        <div class="stat__label">испытаний проб<br>тампонажных смесей</div>
+                        <div class="stat__label">cement slurry<br>sample tests</div>
                     </li>
                     <li class="stat">
                         <div class="stat__value">&gt; 2500</div>
-                        <div class="stat__label">испытаний проб<br>буровых растворов</div>
+                        <div class="stat__label">drilling fluid<br>sample tests</div>
                     </li>
                 </ul>
             </div>
@@ -199,7 +228,7 @@
             <div class="section__header-inner container">
                 <div class="section__header-info">
                     <h2 class="section__title section-title" id="cement-lab-title">
-                        Лаборатория цементирования скважин
+                        Well Cementing Laboratory
                     </h2>
                 </div>
                 <div class="section__rule" aria-hidden="true"></div>
@@ -211,12 +240,12 @@
 
                 <ul class="cement-lab__list">
                     <li class="cement-lab__item">
-                        <a class="lab-card card" href="#strength-destruction" aria-label="Определение прочности разрушающим методом">
+                        <a class="lab-card card" href="#strength-destruction" aria-label="Preparation process">
             <span class="lab-card__media">
-              <img src="../images/ntc/prigotovlenye.jpg" alt="" loading="lazy">
+              <img src="/images/ntc/prigotovlenye.jpg" alt="Sample preparation" loading="lazy">
             </span>
                             <span class="lab-card__content">
-              <h3 class="lab-card__title">Приготовление</h3>
+              <h3 class="lab-card__title">Preparation</h3>
             </span>
                         </a>
                     </li>
@@ -224,10 +253,10 @@
                     <li class="cement-lab__item">
                         <a class="lab-card card" href="#rheology">
             <span class="lab-card__media">
-              <img src="../images/ntc/vyazkost.jpg" alt="" loading="lazy">
+              <img src="/images/ntc/vyazkost.jpg" alt="Rheology testing" loading="lazy">
             </span>
                             <span class="lab-card__content">
-              <h3 class="lab-card__title">Определение вязкости</h3>
+              <h3 class="lab-card__title">Rheology Measurement</h3>
             </span>
                         </a>
                     </li>
@@ -235,150 +264,151 @@
                     <li class="cement-lab__item">
                         <a class="lab-card card" href="#thickening">
             <span class="lab-card__media">
-              <img src="../images/ntc/prochost1.jpg" alt="" loading="lazy">
+              <img src="/images/ntc/prochost1.jpg" alt="Strength test (destructive)" loading="lazy">
             </span>
                             <span class="lab-card__content">
-              <h3 class="lab-card__title">Определение прочности разрушающим методом</h3>
-<!--              <span class="lab-card__meta">Консистометр · ISO 10426-2</span>-->
-            </span>
-                        </a>
-                    </li>
-                    <li class="cement-lab__item">
-                        <a class="lab-card card" href="#thickening">
-            <span class="lab-card__media">
-              <img src="../images/ntc/prochost2.jpg" alt="" loading="lazy">
-            </span>
-                            <span class="lab-card__content">
-              <h3 class="lab-card__title">Определение прочности разрушающим методом</h3>
-                                <!--              <span class="lab-card__meta">Консистометр · ISO 10426-2</span>-->
-            </span>
-                        </a>
-                    </li>
-                    <li class="cement-lab__item">
-                        <a class="lab-card card" href="#thickening">
-            <span class="lab-card__media">
-              <img src="../images/ntc/nerazrushprochnost.jpg" alt="" loading="lazy">
-            </span>
-                            <span class="lab-card__content">
-              <h3 class="lab-card__title">Определение прочности</h3>
-                                <span class="lab-card__meta">неразрушающим методом (UCA)</span>
-            </span>
-                        </a>
-                    </li>
-                    <li class="cement-lab__item">
-                        <a class="lab-card card" href="#thickening">
-            <span class="lab-card__media">
-              <img src="../images/ntc/water.jpg" alt="" loading="lazy">
-            </span>
-                            <span class="lab-card__content">
-              <h3 class="lab-card__title">Определение водоотдачи</h3>
-<!--                                              <span class="lab-card__meta">неразрушающим методом (UCA)</span>-->
-            </span>
-                        </a>
-                    </li>
-                    <li class="cement-lab__item">
-                        <a class="lab-card card" href="#thickening">
-            <span class="lab-card__media">
-              <img src="../images/ntc/smachiv.jpg" alt="" loading="lazy">
-            </span>
-                            <span class="lab-card__content">
-              <h3 class="lab-card__title">Определение плотности, смачиваемости</h3>
-                                <!--                                              <span class="lab-card__meta">неразрушающим методом (UCA)</span>-->
-            </span>
-                        </a>
-                    </li>
-                    <li class="cement-lab__item">
-                        <a class="lab-card card" href="#thickening">
-            <span class="lab-card__media">
-              <img src="../images/ntc/smachiv.jpg" alt="" loading="lazy">
-            </span>
-                            <span class="lab-card__content">
-              <h3 class="lab-card__title">Определение времени загустевания с имитацией закачки</h3>
-                                <span class="lab-card__meta">включая остановки</span>
-            </span>
-                        </a>
-                    </li>
-                    </li>
-                    <li class="cement-lab__item">
-                        <a class="lab-card card" href="#thickening">
-            <span class="lab-card__media">
-              <img src="../images/ntc/conditioner.jpg" alt="" loading="lazy">
-            </span>
-                            <span class="lab-card__content">
-              <h3 class="lab-card__title">Приготовление</h3>
-                                <span class="lab-card__meta">кондиционирование</span>
-            </span>
-                        </a>
-                    </li>
-                    <li class="cement-lab__item">
-                        <a class="lab-card card" href="#thickening">
-            <span class="lab-card__media">
-              <img src="../images/ntc/smach2.jpg" alt="" loading="lazy">
-            </span>
-                            <span class="lab-card__content">
-              <h3 class="lab-card__title">Определение смачиваемости</h3>
-                                <span class="lab-card__meta">кондиционирование</span>
-            </span>
-                        </a>
-                    </li>
-                    <li class="cement-lab__item">
-                        <a class="lab-card card" href="#thickening">
-            <span class="lab-card__media">
-              <img src="../images/ntc/chc.jpg" alt="" loading="lazy">
-            </span>
-                            <span class="lab-card__content">
-              <h3 class="lab-card__title">Определение СНС</h3>
-                                <span class="lab-card__meta">SGS</span>
-            </span>
-                        </a>
-                    </li>
-                    <li class="cement-lab__item">
-                        <a class="lab-card card" href="#thickening">
-            <span class="lab-card__media">
-              <img src="../images/ntc/ves.jpg" alt="" loading="lazy">
-            </span>
-                            <span class="lab-card__content">
-              <h3 class="lab-card__title">Определение удельного веса материалов</h3>
-<!--                                <span class="lab-card__meta">SGS</span>-->
-            </span>
-                        </a>
-                    </li>
-                    <li class="cement-lab__item">
-                        <a class="lab-card card" href="#thickening">
-            <span class="lab-card__media">
-              <img src="../images/ntc/yung.jpg" alt="" loading="lazy">
-            </span>
-                            <span class="lab-card__content">
-              <h3 class="lab-card__title">Определение модуля Юнга и коэффициента Пуассона</h3>
-<!--                                                                <span class="lab-card__meta">и коэффициента Пуассона</span>-->
-            </span>
-                        </a>
-                    </li>
-                    <li class="cement-lab__item">
-                        <a class="lab-card card" href="#thickening">
-            <span class="lab-card__media">
-              <img src="../images/ntc/rashir.jpg" alt="" loading="lazy">
-            </span>
-                            <span class="lab-card__content">
-              <h3 class="lab-card__title">Определение усадки и расширения</h3>
-<!--                                                                <span class="lab-card__meta">и коэффициента Пуассона</span>-->
+              <h3 class="lab-card__title">Strength Determination (Destructive Method)</h3>
             </span>
                         </a>
                     </li>
 
+                    <li class="cement-lab__item">
+                        <a class="lab-card card" href="#thickening">
+            <span class="lab-card__media">
+              <img src="/images/ntc/prochost2.jpg" alt="Strength test (destructive)" loading="lazy">
+            </span>
+                            <span class="lab-card__content">
+              <h3 class="lab-card__title">Strength Determination (Destructive Method)</h3>
+            </span>
+                        </a>
+                    </li>
 
-                    <!-- добавляй такие же элементы дальше -->
+                    <li class="cement-lab__item">
+                        <a class="lab-card card" href="#thickening">
+            <span class="lab-card__media">
+              <img src="/images/ntc/nerazrushprochnost.jpg" alt="Non-destructive strength testing (UCA)" loading="lazy">
+            </span>
+                            <span class="lab-card__content">
+              <h3 class="lab-card__title">Strength Determination</h3>
+              <span class="lab-card__meta">Non-destructive method (UCA)</span>
+            </span>
+                        </a>
+                    </li>
+
+                    <li class="cement-lab__item">
+                        <a class="lab-card card" href="#thickening">
+            <span class="lab-card__media">
+              <img src="/images/ntc/water.jpg" alt="Fluid loss test" loading="lazy">
+            </span>
+                            <span class="lab-card__content">
+              <h3 class="lab-card__title">Fluid Loss Determination</h3>
+            </span>
+                        </a>
+                    </li>
+
+                    <li class="cement-lab__item">
+                        <a class="lab-card card" href="#thickening">
+            <span class="lab-card__media">
+              <img src="/images/ntc/smachiv.jpg" alt="Density and wettability testing" loading="lazy">
+            </span>
+                            <span class="lab-card__content">
+              <h3 class="lab-card__title">Density and Wettability Determination</h3>
+            </span>
+                        </a>
+                    </li>
+
+                    <li class="cement-lab__item">
+                        <a class="lab-card card" href="#thickening">
+            <span class="lab-card__media">
+              <img src="/images/ntc/smachiv.jpg" alt="Thickening time with pumping simulation" loading="lazy">
+            </span>
+                            <span class="lab-card__content">
+              <h3 class="lab-card__title">Thickening Time Determination with Pumping Simulation</h3>
+              <span class="lab-card__meta">Including pauses and interruptions</span>
+            </span>
+                        </a>
+                    </li>
+
+                    <li class="cement-lab__item">
+                        <a class="lab-card card" href="#thickening">
+            <span class="lab-card__media">
+              <img src="/images/ntc/conditioner.jpg" alt="Sample conditioning" loading="lazy">
+            </span>
+                            <span class="lab-card__content">
+              <h3 class="lab-card__title">Preparation</h3>
+              <span class="lab-card__meta">Conditioning</span>
+            </span>
+                        </a>
+                    </li>
+
+                    <li class="cement-lab__item">
+                        <a class="lab-card card" href="#thickening">
+            <span class="lab-card__media">
+              <img src="/images/ntc/smach2.jpg" alt="Wettability test" loading="lazy">
+            </span>
+                            <span class="lab-card__content">
+              <h3 class="lab-card__title">Wettability Determination</h3>
+              <span class="lab-card__meta">Conditioning</span>
+            </span>
+                        </a>
+                    </li>
+
+                    <li class="cement-lab__item">
+                        <a class="lab-card card" href="#thickening">
+            <span class="lab-card__media">
+              <img src="/images/ntc/chc.jpg" alt="Gel strength test" loading="lazy">
+            </span>
+                            <span class="lab-card__content">
+              <h3 class="lab-card__title">Gel Strength Determination</h3>
+              <span class="lab-card__meta">SGS</span>
+            </span>
+                        </a>
+                    </li>
+
+                    <li class="cement-lab__item">
+                        <a class="lab-card card" href="#thickening">
+            <span class="lab-card__media">
+              <img src="/images/ntc/ves.jpg" alt="Specific gravity test" loading="lazy">
+            </span>
+                            <span class="lab-card__content">
+              <h3 class="lab-card__title">Specific Gravity Determination of Materials</h3>
+            </span>
+                        </a>
+                    </li>
+
+                    <li class="cement-lab__item">
+                        <a class="lab-card card" href="#thickening">
+            <span class="lab-card__media">
+              <img src="/images/ntc/yung.jpg" alt="Elastic modulus and Poisson’s ratio measurement" loading="lazy">
+            </span>
+                            <span class="lab-card__content">
+              <h3 class="lab-card__title">Elastic Modulus and Poisson’s Ratio Determination</h3>
+            </span>
+                        </a>
+                    </li>
+
+                    <li class="cement-lab__item">
+                        <a class="lab-card card" href="#thickening">
+            <span class="lab-card__media">
+              <img src="/images/ntc/rashir.jpg" alt="Shrinkage and expansion measurement" loading="lazy">
+            </span>
+                            <span class="lab-card__content">
+              <h3 class="lab-card__title">Shrinkage and Expansion Determination</h3>
+            </span>
+                        </a>
+                    </li>
                 </ul>
 
             </div>
         </div>
     </section>
+
     <section class="cement-lab section" aria-labelledby="cement-lab-title">
         <header class="section__header">
             <div class="section__header-inner container">
                 <div class="section__header-info">
-                    <h2 class="section__title section-title">
-                        Лаборатория буровых растворов
+                    <h2 class="section__title section-title" id="cement-lab-title">
+                        Drilling Fluids Laboratory
                     </h2>
                 </div>
                 <div class="section__rule" aria-hidden="true"></div>
@@ -390,12 +420,12 @@
 
                 <ul class="cement-lab__list">
                     <li class="cement-lab__item">
-                        <a class="lab-card card" href="#strength-destruction" aria-label="Определение прочности разрушающим методом">
+                        <a class="lab-card card" href="#strength-destruction" aria-label="Preparation">
             <span class="lab-card__media">
-              <img src="../images/ntc2/prigotovleniey.jpg" alt="" loading="lazy">
+              <img src="/images/ntc2/prigotovleniey.jpg" alt="Sample preparation" loading="lazy">
             </span>
                             <span class="lab-card__content">
-              <h3 class="lab-card__title">Приготовление</h3>
+              <h3 class="lab-card__title">Preparation</h3>
             </span>
                         </a>
                     </li>
@@ -403,10 +433,10 @@
                     <li class="cement-lab__item">
                         <a class="lab-card card" href="#rheology">
             <span class="lab-card__media">
-              <img src="../images/ntc2/temperature-spark.jpg" alt="" loading="lazy">
+              <img src="/images/ntc2/temperature-spark.jpg" alt="Flash point (open cup) testing" loading="lazy">
             </span>
                             <span class="lab-card__content">
-              <h3 class="lab-card__title">Определение температуры вспышки в открытом тигле</h3>
+              <h3 class="lab-card__title">Open Cup Flash Point Determination</h3>
             </span>
                         </a>
                     </li>
@@ -414,193 +444,198 @@
                     <li class="cement-lab__item">
                         <a class="lab-card card" href="#thickening">
             <span class="lab-card__media">
-              <img src="../images/ntc2/anilin-dot.jpg" alt="" loading="lazy">
+              <img src="/images/ntc2/anilin-dot.jpg" alt="Aniline point measurement" loading="lazy">
             </span>
                             <span class="lab-card__content">
-              <h3 class="lab-card__title">Определение анилиновой точки</h3>
-                                <!--              <span class="lab-card__meta">Консистометр · ISO 10426-2</span>-->
+              <h3 class="lab-card__title">Aniline Point Determination</h3>
             </span>
                         </a>
                     </li>
+
                     <li class="cement-lab__item">
                         <a class="lab-card card" href="#thickening">
             <span class="lab-card__media">
-              <img src="../images/ntc2/tekuschest.jpg" alt="" loading="lazy">
+              <img src="/images/ntc2/tekuschest.jpg" alt="Pour and freeze point testing" loading="lazy">
             </span>
                             <span class="lab-card__content">
-              <h3 class="lab-card__title">Определение температуры текучести и застывания</h3>
-                                <!--              <span class="lab-card__meta">Консистометр · ISO 10426-2</span>-->
+              <h3 class="lab-card__title">Pour and Freeze Point Determination</h3>
             </span>
                         </a>
                     </li>
+
                     <li class="cement-lab__item">
                         <a class="lab-card card" href="#thickening">
             <span class="lab-card__media">
-              <img src="../images/ntc2/plotnost.jpg" alt="" loading="lazy">
+              <img src="/images/ntc2/plotnost.jpg" alt="Density testing" loading="lazy">
             </span>
                             <span class="lab-card__content">
-              <h3 class="lab-card__title">Определение плотности</h3>
-                                <span class="lab-card__meta">неразрушающим методом (UCA)</span>
+              <h3 class="lab-card__title">Density Determination</h3>
+              <span class="lab-card__meta">Non-destructive method (UCA)</span>
             </span>
                         </a>
                     </li>
+
                     <li class="cement-lab__item">
                         <a class="lab-card card" href="#thickening">
             <span class="lab-card__media">
-              <img src="../images/ntc2/plotnost2.jpg" alt="" loading="lazy">
+              <img src="/images/ntc2/plotnost2.jpg" alt="Density testing (alternative setup)" loading="lazy">
             </span>
                             <span class="lab-card__content">
-              <h3 class="lab-card__title">Определение плотности</h3>
-                                <!--                                              <span class="lab-card__meta">неразрушающим методом (UCA)</span>-->
+              <h3 class="lab-card__title">Density Determination</h3>
             </span>
                         </a>
                     </li>
+
                     <li class="cement-lab__item">
                         <a class="lab-card card" href="#thickening">
             <span class="lab-card__media">
-              <img src="../images/ntc2/termostat.jpg" alt="" loading="lazy">
+              <img src="/images/ntc2/termostat.jpg" alt="Dynamic temperature control (thermostating)" loading="lazy">
             </span>
                             <span class="lab-card__content">
-              <h3 class="lab-card__title">Динамическое термостатирование</h3>
-                                <!--                                              <span class="lab-card__meta">неразрушающим методом (UCA)</span>-->
+              <h3 class="lab-card__title">Dynamic Thermostating</h3>
             </span>
                         </a>
                     </li>
+
                     <li class="cement-lab__item">
                         <a class="lab-card card" href="#thickening">
             <span class="lab-card__media">
-              <img src="../images/ntc2/electrosoprotiv.jpg" alt="" loading="lazy">
+              <img src="/images/ntc2/electrosoprotiv.jpg" alt="Electrical resistivity measurement" loading="lazy">
             </span>
                             <span class="lab-card__content">
-              <h3 class="lab-card__title">Определение электросопротивления</h3>
-                                <span class="lab-card__meta">включая остановки</span>
+              <h3 class="lab-card__title">Electrical Resistivity Determination</h3>
+              <span class="lab-card__meta">Including pauses</span>
             </span>
                         </a>
                     </li>
-                    </li>
+
                     <li class="cement-lab__item">
                         <a class="lab-card card" href="#thickening">
             <span class="lab-card__media">
-              <img src="../images/ntc2/voda.jpg" alt="" loading="lazy">
+              <img src="/images/ntc2/voda.jpg" alt="Water/solids/hydrocarbons content analysis" loading="lazy">
             </span>
                             <span class="lab-card__content">
-              <h3 class="lab-card__title">Определение содержания </h3>
-                                <span class="lab-card__meta">воды/твердой фазы/углеводородов</span>
+              <h3 class="lab-card__title">Content Determination</h3>
+              <span class="lab-card__meta">Water / Solids / Hydrocarbons</span>
             </span>
                         </a>
                     </li>
+
                     <li class="cement-lab__item">
                         <a class="lab-card card" href="#thickening">
             <span class="lab-card__media">
-              <img src="../images/ntc2/pesok.jpg" alt="" loading="lazy">
+              <img src="/images/ntc2/pesok.jpg" alt="Sand content test" loading="lazy">
             </span>
                             <span class="lab-card__content">
-              <h3 class="lab-card__title">Определение содержания песка</h3>
-                                <span class="lab-card__meta">кондиционирование</span>
+              <h3 class="lab-card__title">Sand Content Determination</h3>
+              <span class="lab-card__meta">Conditioning</span>
             </span>
                         </a>
                     </li>
+
                     <li class="cement-lab__item">
                         <a class="lab-card card" href="#thickening">
             <span class="lab-card__media">
-              <img src="../images/ntc2/electrostab.jpg" alt="" loading="lazy">
+              <img src="/images/ntc2/electrostab.jpg" alt="Electrical stability test" loading="lazy">
             </span>
                             <span class="lab-card__content">
-              <h3 class="lab-card__title">Определение электростабильности</h3>
-                                <span class="lab-card__meta">SGS</span>
+              <h3 class="lab-card__title">Electrical Stability Determination</h3>
+              <span class="lab-card__meta">SGS</span>
             </span>
                         </a>
                     </li>
+
                     <li class="cement-lab__item">
                         <a class="lab-card card" href="#thickening">
             <span class="lab-card__media">
-              <img src="../images/ntc2/caco3.jpg" alt="" loading="lazy">
+              <img src="/images/ntc2/caco3.jpg" alt="Calcium carbonate content (CaCO3)" loading="lazy">
             </span>
                             <span class="lab-card__content">
-              <h3 class="lab-card__title">Определение содержания CaCO<sup>3</sup></h3>
-                                <!--                                <span class="lab-card__meta">SGS</span>-->
+              <h3 class="lab-card__title">Calcium Carbonate Content (CaCO<sub>3</sub>)</h3>
             </span>
                         </a>
                     </li>
+
                     <li class="cement-lab__item">
                         <a class="lab-card card" href="#thickening">
             <span class="lab-card__media">
-              <img src="../images/ntc2/vyazkost.jpg" alt="" loading="lazy">
+              <img src="/images/ntc2/vyazkost.jpg" alt="Viscosity testing" loading="lazy">
             </span>
                             <span class="lab-card__content">
-              <h3 class="lab-card__title">Определение вязкости</h3>
-                                <!--                                                                <span class="lab-card__meta">и коэффициента Пуассона</span>-->
+              <h3 class="lab-card__title">Viscosity Determination</h3>
             </span>
                         </a>
                     </li>
+
                     <li class="cement-lab__item">
                         <a class="lab-card card" href="#thickening">
             <span class="lab-card__media">
-              <img src="../images/ntc2/vyazkost2.jpg" alt="" loading="lazy">
+              <img src="/images/ntc2/vyazkost2.jpg" alt="Viscosity testing (alternative setup)" loading="lazy">
             </span>
                             <span class="lab-card__content">
-              <h3 class="lab-card__title">Определение вязкости</h3>
-                                <!--                                                                <span class="lab-card__meta">и коэффициента Пуассона</span>-->
+              <h3 class="lab-card__title">Viscosity Determination</h3>
             </span>
                         </a>
                     </li>
+
                     <li class="cement-lab__item">
                         <a class="lab-card card" href="#thickening">
             <span class="lab-card__media">
-              <img src="../images/ntc2/vyazkost-red.jpg" alt="" loading="lazy">
+              <img src="/images/ntc2/vyazkost-red.jpg" alt="Viscosity determination (reduced)" loading="lazy">
             </span>
                             <span class="lab-card__content">
-              <h3 class="lab-card__title">Определение вязкости</h3>
-                                <!--                                                                <span class="lab-card__meta">и коэффициента Пуассона</span>-->
+              <h3 class="lab-card__title">Viscosity Determination</h3>
             </span>
                         </a>
                     </li>
+
                     <li class="cement-lab__item">
                         <a class="lab-card card" href="#thickening">
             <span class="lab-card__media">
-              <img src="../images/ntc2/hpht.jpg" alt="" loading="lazy">
+              <img src="/images/ntc2/hpht.jpg" alt="HPHT fluid loss test" loading="lazy">
             </span>
                             <span class="lab-card__content">
-              <h3 class="lab-card__title">Определение водоотдачи HPHT</h3>
-                                <!--                                                                <span class="lab-card__meta">и коэффициента Пуассона</span>-->
+              <h3 class="lab-card__title">HPHT Fluid Loss Determination</h3>
             </span>
                         </a>
                     </li>
+
                     <li class="cement-lab__item">
                         <a class="lab-card card" href="#thickening">
             <span class="lab-card__media">
-              <img src="../images/ntc2/water-splash.jpg" alt="" loading="lazy">
+              <img src="/images/ntc2/water-splash.jpg" alt="LPLT fluid loss test" loading="lazy">
             </span>
                             <span class="lab-card__content">
-              <h3 class="lab-card__title">Определение водоотдачи LPLT</h3>
-                                <!--                                                                <span class="lab-card__meta">и коэффициента Пуассона</span>-->
+              <h3 class="lab-card__title">LPLT Fluid Loss Determination</h3>
             </span>
                         </a>
                     </li>
+
                     <li class="cement-lab__item">
                         <a class="lab-card card" href="#thickening">
             <span class="lab-card__media">
-              <img src="../images/ntc2/him-anal.jpg" alt="" loading="lazy">
+              <img src="/images/ntc2/him-anal.jpg" alt="Chemical analysis" loading="lazy">
             </span>
                             <span class="lab-card__content">
-              <h3 class="lab-card__title">Химический анализ</h3>
-                                <!--                                                                <span class="lab-card__meta">и коэффициента Пуассона</span>-->
+              <h3 class="lab-card__title">Chemical Analysis</h3>
             </span>
                         </a>
                     </li>
+
                     <li class="cement-lab__item">
                         <a class="lab-card card" href="#thickening">
             <span class="lab-card__media">
-              <img src="../images/ntc2/tverd.jpg" alt="" loading="lazy">
+              <img src="/images/ntc2/tverd.jpg" alt="Determination of solids in liquid" loading="lazy">
             </span>
                             <span class="lab-card__content">
-              <h3 class="lab-card__title">Определение твердых частиц в жидкости</h3>
-                                <!--                                                                <span class="lab-card__meta">и коэффициента Пуассона</span>-->
+              <h3 class="lab-card__title">Solids-in-Liquid Determination</h3>
             </span>
                         </a>
                     </li>
-                    <!-- добавляй такие же элементы дальше -->
+
+                    <!-- add similar items below as needed -->
                 </ul>
+
             </div>
         </div>
     </section>
@@ -611,7 +646,7 @@
             <div class="section__header-inner container">
                 <div class="section__header-info">
                     <h2 class="section__title section-title" id="special-tests-title">
-                        Специальное тестирование тампонажных растворов
+                        Special Testing of Cement Slurries
                     </h2>
                 </div>
                 <div class="section__rule" aria-hidden="true"></div>
@@ -623,31 +658,30 @@
                 <ul class="special-tests__list special-tests__list--stacked">
 
                     <li class="special-card">
-                        <h3 class="special-card__title">Арктические условия</h3>
+                        <h3 class="special-card__title">Arctic Conditions</h3>
                         <p class="special-card__text">
-                            Термоциклическая устойчивость, определение теплопроводности
+                            Thermocyclic resistance; thermal conductivity determination
                         </p>
                     </li>
 
                     <li class="special-card">
-                        <h3 class="special-card__title">ЭЛАСТИЧНЫЕ ЦЕМЕНТНЫЕ СИСТЕМЫ</h3>
+                        <h3 class="special-card__title">Elastic Cement Systems</h3>
                         <p class="special-card__text">
-                            Определение модуля Юнга, коэффициента Пуассона, адгезионных свойств,
-                            стойкости к циклическим механическим нагрузкам
+                            Young’s modulus, Poisson’s ratio, adhesion properties, and resistance to cyclic mechanical loading
                         </p>
                     </li>
 
                     <li class="special-card">
                         <h3 class="special-card__title">
-                            ПАРОНАГНЕТАТЕЛЬНЫЕ И ВЫСОКОТЕМПЕРАТУРНЫЕ СКВАЖИНЫ SAGD/HPHT
+                            Steam Injection & High-Temperature Wells (SAGD / HPHT)
                         </h3>
-                        <p class="special-card__text">Термо- и термоциклическая стабильность</p>
+                        <p class="special-card__text">Thermal and thermocyclic stability</p>
                     </li>
 
                     <li class="special-card">
-                        <h3 class="special-card__title">Тестирования по стандартам Заказчиков</h3>
+                        <h3 class="special-card__title">Customer Standard–Based Testing</h3>
                         <p class="special-card__text">
-                            Chevron/Texaco cementing recommendations; ExxonMobil cement testing requirement;
+                            Chevron/Texaco cementing recommendations; ExxonMobil cement testing requirements;
                             Solids Suspension — On/Off Settling Test (AMOCO); Dynamic Settling Test (AMOCO)
                         </p>
                     </li>
@@ -660,7 +694,7 @@
         <header class="section__header">
             <div class="section__header-inner container">
                 <div class="section__header-info">
-                    <h2 class="section__title section-title" id="lab-stats-title">Лаборатория в цифрах</h2>
+                    <h2 class="section__title section-title" id="lab-stats-title">Laboratory by the Numbers</h2>
                 </div>
                 <div class="section__rule" aria-hidden="true"></div>
             </div>
@@ -668,58 +702,59 @@
 
         <div class="stats__body">
             <div class="stats__inner container">
-                <ul class="stats__list" aria-label="Ключевые показатели лаборатории">
-                    <!-- Баннер «скважины» на всю ширину -->
+                <ul class="stats__list" aria-label="Key laboratory metrics">
+                    <!-- Full-width “wells” banner -->
                     <li class="stat stat--wells card card--underlined">
                         <div class="stat__value" data-count="437">437</div>
-                        <div class="stat__label">скважин</div>
+                        <div class="stat__label">wells</div>
                     </li>
 
-                    <!-- Ряд 1 -->
+                    <!-- Row 1 -->
                     <li class="stat stat--tests card card--underlined">
                         <div class="stat__value" data-count="5470">5&nbsp;470</div>
-                        <div class="stat__label">испытаний</div>
+                        <div class="stat__label">tests</div>
                     </li>
 
                     <li class="stat stat--drilling card card--underlined">
                         <div class="stat__value" data-count="3747">3&nbsp;747</div>
-                        <div class="stat__label">тестирований буровых растворов</div>
+                        <div class="stat__label">drilling fluid tests</div>
                         <span class="stat__meta" data-count="70">70%</span>
                     </li>
 
                     <li class="stat stat--cement card card--underlined">
                         <div class="stat__value" data-count="1723">1&nbsp;723</div>
-                        <div class="stat__label">тестирований цементных растворов</div>
+                        <div class="stat__label">cement slurry tests</div>
                         <span class="stat__meta" data-count="30">30%</span>
                     </li>
 
-                    <!-- Ряд 2 -->
+                    <!-- Row 2 -->
                     <li class="stat stat--samples card card--underlined">
                         <div class="stat__value" data-count="4254">4&nbsp;254</div>
-                        <div class="stat__label">проб с отклонениями</div>
+                        <div class="stat__label">samples out of spec</div>
                         <span class="stat__meta" data-count="78">78%</span>
                     </li>
 
                     <li class="stat stat--devbr card card--underlined">
                         <div class="stat__value" data-count="2988">2&nbsp;988</div>
-                        <div class="stat__label">отклонений по БР</div>
+                        <div class="stat__label">drilling fluid deviations</div>
                         <span class="stat__meta" data-count="80">80%</span>
                     </li>
 
                     <li class="stat stat--devcr card card--underlined">
                         <div class="stat__value" data-count="343">343</div>
-                        <div class="stat__label">отклонений по ЦР</div>
+                        <div class="stat__label">cement slurry deviations</div>
                         <span class="stat__meta" data-count="20">20%</span>
                     </li>
                 </ul>
             </div>
         </div>
     </section>
+
     <section class="offering section" id="offering" aria-labelledby="offering-title">
         <header class="section__header">
             <div class="section__header-inner container">
                 <div class="section__header-info">
-                    <h2 class="section__title section-title" id="offering-title">Услуги</h2>
+                    <h2 class="section__title section-title" id="offering-title">Services</h2>
                 </div>
                 <div class="section__rule" aria-hidden="true"></div>
             </div>
@@ -728,109 +763,143 @@
         <div class="offering__body">
             <div class="offering__inner container">
                 <ul class="offering__list" data-js-offering>
-                    <!-- item -->
+                    <!-- item 1 -->
                     <li class="offering__item">
                         <button class="offering__header"
                                 id="off-1-header"
                                 aria-expanded="false"
                                 aria-controls="off-1-panel"
                                 type="button">
-                            <span class="offering__title">Разработка и внедрение</span>
+                            <span class="offering__title">Development & Implementation</span>
                             <span class="offering__icon" aria-hidden="true"></span>
                         </button>
                         <div class="offering__panel" id="off-1-panel" role="region" aria-labelledby="off-1-header">
                             <div class="offering__content">
-                                <p>Разработка и помощь при внедрении инновационных технических и технологических решений, направленных на оптимизацию и повышение эффективности технологий строительства скважин в условиях зрелых месторождений, а также в регионах со сложными горно-геологическими и природно-климатическими условиями (ММП, АВПД, АНПД, ТРИЗ, SAGD и др.)</p>
+                                <p>
+                                    Development and support in implementing innovative technical and technological solutions
+                                    to optimize and improve drilling technologies for mature fields as well as regions
+                                    with complex geological and environmental conditions (UBD/MPD, HPHT/LPHT, lost-circulation control,
+                                    SAGD, etc.).
+                                </p>
                             </div>
                         </div>
                     </li>
 
+                    <!-- item 2 -->
                     <li class="offering__item">
                         <button class="offering__header" id="off-2-header" aria-expanded="false"
                                 aria-controls="off-2-panel" type="button">
-                            <span class="offering__title">Оптимизация бурения</span>
+                            <span class="offering__title">Drilling Optimization</span>
                             <span class="offering__icon" aria-hidden="true"></span>
                         </button>
                         <div class="offering__panel" id="off-2-panel" role="region" aria-labelledby="off-2-header">
                             <div class="offering__content">
-                                <p>Оптимизация состава технологических жидкостей и выработка подходов для предупреждения осложнений при бурении, заканчивании и освоении скважин</p>
+                                <p>
+                                    Optimization of well construction fluids and approaches to prevent complications
+                                    during drilling, completion, and wellbore cleanup/start-up.
+                                </p>
                             </div>
                         </div>
                     </li>
 
+                    <!-- item 3 -->
                     <li class="offering__item">
                         <button class="offering__header" id="off-3-header" aria-expanded="false"
                                 aria-controls="off-3-panel" type="button">
-                            <span class="offering__title">Подбор химических реагентов</span>
+                            <span class="offering__title">Selection of Chemical Additives</span>
                             <span class="offering__icon" aria-hidden="true"></span>
                         </button>
                         <div class="offering__panel" id="off-3-panel" role="region" aria-labelledby="off-3-header">
                             <div class="offering__content">
-                                <p>Оптимизация и подбор химических реагентов для улучшения качества готовых тампонажных и буровых растворов</p>
+                                <p>
+                                    Optimization and selection of chemical additives to improve the quality of cement slurries
+                                    and drilling fluids.
+                                </p>
                             </div>
                         </div>
                     </li>
+
+                    <!-- item 4 -->
                     <li class="offering__item">
                         <button class="offering__header" id="off-4-header" aria-expanded="false"
-                                aria-controls="off-3-panel" type="button">
-                            <span class="offering__title">Разработка растворов и жидкостей</span>
+                                aria-controls="off-4-panel" type="button">
+                            <span class="offering__title">Formulation of Fluids</span>
                             <span class="offering__icon" aria-hidden="true"></span>
                         </button>
-                        <div class="offering__panel" id="off-4-panel" role="region" aria-labelledby="off-3-header">
+                        <div class="offering__panel" id="off-4-panel" role="region" aria-labelledby="off-4-header">
                             <div class="offering__content">
-                                <p>Разработка рецептур буровых,тампонажных растворов и жидкостей глушения под конкретные горно-геологические условия</p>
+                                <p>
+                                    Development of formulations for drilling fluids, cement slurries, and kill pills
+                                    tailored to specific geological conditions.
+                                </p>
                             </div>
                         </div>
                     </li>
+
+                    <!-- item 5 -->
                     <li class="offering__item">
                         <button class="offering__header" id="off-5-header" aria-expanded="false"
-                                aria-controls="off-3-panel" type="button">
-                            <span class="offering__title">Разработка и тестирование рецептур</span>
+                                aria-controls="off-5-panel" type="button">
+                            <span class="offering__title">Formulation Development & Testing</span>
                             <span class="offering__icon" aria-hidden="true"></span>
                         </button>
-                        <div class="offering__panel" id="off-5-panel" role="region" aria-labelledby="off-3-header">
+                        <div class="offering__panel" id="off-5-panel" role="region" aria-labelledby="off-5-header">
                             <div class="offering__content">
-                                <p>Разработка и тестирование рецептур буферных жидкостей</p>
+                                <p>
+                                    Development and testing of spacer/buffer fluid formulations.
+                                </p>
                             </div>
                         </div>
                     </li>
+
+                    <!-- item 6 -->
                     <li class="offering__item">
                         <button class="offering__header" id="off-6-header" aria-expanded="false"
-                                aria-controls="off-3-panel" type="button">
-                            <span class="offering__title">Входной контроль качества</span>
+                                aria-controls="off-6-panel" type="button">
+                            <span class="offering__title">Incoming Quality Control</span>
                             <span class="offering__icon" aria-hidden="true"></span>
                         </button>
-                        <div class="offering__panel" id="off-6-panel" role="region" aria-labelledby="off-3-header">
+                        <div class="offering__panel" id="off-6-panel" role="region" aria-labelledby="off-6-header">
                             <div class="offering__content">
-                                <p>Входной контроль качества цемента, тампонажных смесей, буровых растворов и буферных жидкостей</p>
+                                <p>
+                                    Incoming quality control of cement, cement slurries, drilling fluids, and spacer fluids.
+                                </p>
                             </div>
                         </div>
                     </li>
+
+                    <!-- item 7 -->
                     <li class="offering__item">
                         <button class="offering__header" id="off-7-header" aria-expanded="false"
-                                aria-controls="off-3-panel" type="button">
-                            <span class="offering__title">Входной контроль материалов</span>
+                                aria-controls="off-7-panel" type="button">
+                            <span class="offering__title">Incoming Inspection of Materials</span>
                             <span class="offering__icon" aria-hidden="true"></span>
                         </button>
-                        <div class="offering__panel" id="off-7-panel" role="region" aria-labelledby="off-3-header">
+                        <div class="offering__panel" id="off-7-panel" role="region" aria-labelledby="off-7-header">
                             <div class="offering__content">
-                                <p>Входной контроль материалов для приготовления тампонажных и буровых растворов, буферных жидкостей</p>
+                                <p>
+                                    Incoming inspection of materials for preparing cement and drilling fluids, including spacer fluids.
+                                </p>
                             </div>
                         </div>
                     </li>
+
+                    <!-- item 8 -->
                     <li class="offering__item">
                         <button class="offering__header" id="off-8-header" aria-expanded="false"
-                                aria-controls="off-3-panel" type="button">
-                            <span class="offering__title">Обучение лаборантов и инженеров</span>
+                                aria-controls="off-8-panel" type="button">
+                            <span class="offering__title">Training for Lab Technicians and Engineers</span>
                             <span class="offering__icon" aria-hidden="true"></span>
                         </button>
-                        <div class="offering__panel" id="off-8-panel" role="region" aria-labelledby="off-3-header">
+                        <div class="offering__panel" id="off-8-panel" role="region" aria-labelledby="off-8-header">
                             <div class="offering__content">
-                                <p>Повышение квалификации лаборантов и инженеров по тампонажным и буровым растворам</p>
+                                <p>
+                                    Advanced training for laboratory technicians and engineers in cement and drilling fluids.
+                                </p>
                             </div>
                         </div>
                     </li>
-                    <!-- добавляй элементы по необходимости -->
+
                 </ul>
             </div>
         </div>
@@ -839,7 +908,7 @@
         <header class="section__header">
             <div class="section__header-inner container">
                 <div class="section__header-info">
-                    <h2 class="section__title section-title" id="contacts-title">Контакты</h2>
+                    <h2 class="section__title section-title" id="contacts-title">Contacts</h2>
                 </div>
                 <div class="section__rule" aria-hidden="true"></div>
             </div>
@@ -847,34 +916,34 @@
 
         <div class="contacts__body">
             <div class="contacts__offices container" itemscope itemtype="https://schema.org/Organization">
-                <!-- === Представительство в Тюмени === -->
+                <!-- === Tyumen Office === -->
                 <div class="contacts__inner" itemprop="department" itemscope itemtype="https://schema.org/Organization">
-                    <!-- Левая колонка -->
+                    <!-- Left column -->
                     <div class="contacts__info">
-                        <h3 class="contacts__office-title">Представительство в Тюмени</h3>
+                        <h3 class="contacts__office-title">Tyumen Office</h3>
 
                         <a class="contacts__phone" href="tel:+79223180000" itemprop="telephone">+7&nbsp;922&nbsp;318&nbsp;00&nbsp;00</a>
                         <a class="contacts__email" href="mailto:info@hyprotec.ru" itemprop="email">info@hyprotec.ru</a>
-                        <p class="contacts__time">пн–пт с 10:00 до 19:00</p>
+                        <p class="contacts__time">Mon–Fri 10:00–19:00</p>
 
                         <ul class="contacts__list">
-                            <li><span class="muted">ООО «</span><b itemprop="name">ХАЙПРОТЕК</b><span class="muted">»</span></li>
-                            <li>ИНН: <a href="#" rel="nofollow noopener">7203456345</a></li>
-                            <li>КПП: <a href="#" rel="nofollow noopener">720301001</a></li>
-                            <li>ОГРН: <a href="#" rel="nofollow noopener">1187232020722</a></li>
+                            <li><span class="muted">LLC “</span><b itemprop="name">HYPROTEC</b><span class="muted">”</span></li>
+                            <li>Tax ID (INN): <a href="#" rel="nofollow noopener">7203456345</a></li>
+                            <li>KPP: <a href="#" rel="nofollow noopener">720301001</a></li>
+                            <li>PSRN (OGRN): <a href="#" rel="nofollow noopener">1187232020722</a></li>
                             <li itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
                                 <meta itemprop="postalCode" content="625000">
-                                <span class="muted">625000, Тюменская область, г. Тюмень,</span><br>
-                                <span itemprop="streetAddress">ул. Грибоедова, д. 15, пом. 1</span>
+                                <span class="muted">625000, Tyumen Region, Tyumen,</span><br>
+                                <span itemprop="streetAddress">15 Griboedova St., premises 1</span>
                             </li>
                         </ul>
                     </div>
 
-                    <!-- Правая колонка (карта) -->
+                    <!-- Right column (map) -->
                     <div class="contacts__map">
                         <iframe
                                 class="contacts__map-frame"
-                                title="Карта: Тюмень, ул. Грибоедова, 15 — ХАЙПРОТЕК"
+                                title="Map: Tyumen, 15 Griboedova St. — HYPROTEC"
                                 src="https://yandex.ru/map-widget/v1/?um=constructor%3Af2b12c5ceae10d922c0fee41817b70696ff03f02db3c599ca4628d5f3698f18a&amp;source=constructor"
                                 loading="lazy"
                                 referrerpolicy="no-referrer-when-downgrade"
@@ -883,31 +952,30 @@
                     </div>
                 </div>
 
-                <!-- === Представительство в Новом Уренгое === -->
+                <!-- === Novy Urengoy Office === -->
                 <div class="contacts__inner" itemprop="department" itemscope itemtype="https://schema.org/Organization">
-                    <!-- Левая колонка -->
+                    <!-- Left column -->
                     <div class="contacts__info">
-                        <h3 class="contacts__office-title">Представительство в Новом Уренгое</h3>
+                        <h3 class="contacts__office-title">Novy Urengoy Office</h3>
 
                         <a class="contacts__phone" href="tel:+79124221080" itemprop="telephone">+7&nbsp;912&nbsp;422&nbsp;10&nbsp;80</a>
                         <a class="contacts__email" href="mailto:lab_nu@hyprotec.ru" itemprop="email">lab_nu@hyprotec.ru</a>
-                        <p class="contacts__time">пн–вс 08:00 – 20:00</p>
+                        <p class="contacts__time">Mon–Sun 08:00–20:00</p>
 
                         <ul class="contacts__list">
                             <li itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
                                 <meta itemprop="postalCode" content="629305">
-                                <span class="muted">629305, Ямало-Ненецкий автономный округ, г. Новый Уренгой,</span><br>
-                                <span itemprop="streetAddress">ул. Таёжная, д. 138А</span>
+                                <span class="muted">629305, Yamalo-Nenets Autonomous Okrug, Novy Urengoy,</span><br>
+                                <span itemprop="streetAddress">138A Taezhnaya St.</span>
                             </li>
                         </ul>
                     </div>
 
-                    <!-- Правая колонка (карта) -->
+                    <!-- Right column (map) -->
                     <div class="contacts__map">
-                        <!-- ЗАМЕНИ src на свой конструктор Яндекс.Карт для этого адреса -->
                         <iframe
                                 class="contacts__map-frame"
-                                title="Карта: Новый Уренгой, ул. Таёжная, 138А — ХАЙПРОТЕК"
+                                title="Map: Novy Urengoy, 138A Taezhnaya St. — HYPROTEC"
                                 src="https://yandex.ru/map-widget/v1/?um=constructor%3Aeea6ad1acbf3a93b688640a93eff8d045f04ccd065b183fe8a6d04f152b2d5c3&amp;source=constructor"
                                 loading="lazy"
                                 referrerpolicy="no-referrer-when-downgrade"
@@ -919,34 +987,33 @@
         </div>
     </section>
 </main>
-
 <footer class="footer">
     <div class="footer__inner container">
         <div class="footer__body">
             <div class="footer__brand">
-                <a href="/" class="footer__logo" aria-label="HYPROTEC">
-                    <!-- поставь свой SVG/IMG логотип -->
-                    <img src="../images/logo-main.svg" alt="HYPROTEC">
+                <a href="/en/" class="footer__logo" aria-label="HYPROTEC">
+                    <img src="/images/logo-main.svg" alt="HYPROTEC">
                 </a>
                 <p class="footer__copyright">
-                    <span aria-hidden="true">©</span> Все права защищены. HYPROTEC.
+                    <span aria-hidden="true">©</span> All rights reserved. HYPROTEC.
                 </p>
             </div>
-            <nav class="footer__menu" aria-label="Меню в подвале">
+
+            <nav class="footer__menu" aria-label="Footer menu">
                 <div class="footer__menu-column">
-                    <span class="footer__menu-title">МЕНЮ</span>
+                    <span class="footer__menu-title">MENU</span>
                     <ul class="footer__menu-list">
                         <li class="footer__menu-item">
-                            <a href="/" class="footer__menu-link">О нас</a>
+                            <a href="/en/" class="footer__menu-link">About</a>
                         </li>
                         <li class="footer__menu-item">
-                            <a href="/" class="footer__menu-link">Услуги</a>
+                            <a href="/en/" class="footer__menu-link">Services</a>
                         </li>
                         <li class="footer__menu-item">
-                            <a href="/" class="footer__menu-link">Проекты</a>
+                            <a href="/en/" class="footer__menu-link">Projects</a>
                         </li>
                         <li class="footer__menu-item">
-                            <a href="/" class="footer__menu-link">Контакты</a>
+                            <a href="/en/" class="footer__menu-link">Contacts</a>
                         </li>
                     </ul>
                 </div>
@@ -954,5 +1021,6 @@
         </div>
     </div>
 </footer>
+
 </body>
 </html>
