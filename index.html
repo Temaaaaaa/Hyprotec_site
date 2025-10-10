@@ -95,14 +95,13 @@
     <div class="intro__inner container">
         <div class="intro__brand">
       <span class="intro__logo" aria-label="HYPROTEC">
-        <span class="intro__logo-part">H</span>
-        <span class="intro__logo-part">Y</span>
-        <span class="intro__logo-part">P</span>
-        <span class="intro__logo-part">R</span>
-        <span class="intro__logo-part">O</span>
-        <span class="intro__logo-part">T</span>
-        <span class="intro__logo-part">E</span>
-        <span class="intro__logo-part">C</span>
+          <img alt="Hyprotec"
+               class="intro_logo-img"
+               src="./images/logo-main.svg"
+               width="320" height="64"
+               decoding="async"
+               loading="eager"
+          >
       </span>
             <span class="intro__tagline">нефтесервисная компания</span>
         </div>
@@ -780,119 +779,162 @@
                 <div class="section__rule" aria-hidden="true"></div>
             </div>
         </header>
+
         <div class="contacts__body">
-            <div class="contacts__inner container" itemscope itemtype="https://schema.org/Organization">
-                <!-- Левая колонка -->
-                <div class="contacts__info">
-                    <a class="contacts__phone" href="tel:+79223180000" itemprop="telephone">8&nbsp;922&nbsp;318&nbsp;00&nbsp;00</a>
-                    <a class="contacts__email" href="mailto:info@hyprotec.ru" itemprop="email">info@hyprotec.ru</a>
-                    <p class="contacts__time">пн–пт с 10:00 до 19:00</p>
-                    <ul class="contacts__list">
-                        <li><span class="muted">ООО «</span><b itemprop="name">ХАЙПРОТЕК</b><span class="muted">»</span></li>
-                        <li>ИНН: <a href="#" rel="nofollow noopener">7203456345</a></li>
-                        <li>КПП: <a href="#" rel="nofollow noopener">720301001</a></li>
-                        <li>ОГРН: <a href="#" rel="nofollow noopener">1187232020722</a></li>
-                        <li itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
-                            <meta itemprop="postalCode" content="625000">
-                            <span class="muted">625000, Тюменская область, г. Тюмень,</span><br>
-                            <span itemprop="streetAddress">ул. Грибоедова, д. 15, пом. 1</span>
-                        </li>
-                    </ul>
+            <div class="contacts__offices container" itemscope itemtype="https://schema.org/Organization">
+                <!-- === Представительство в Тюмени === -->
+                <div class="contacts__inner" itemprop="department" itemscope itemtype="https://schema.org/Organization">
+                    <!-- Левая колонка -->
+                    <div class="contacts__info">
+                        <h3 class="contacts__office-title">Представительство в Тюмени</h3>
+
+                        <a class="contacts__phone" href="tel:+79223180000" itemprop="telephone">+7&nbsp;922&nbsp;318&nbsp;00&nbsp;00</a>
+                        <a class="contacts__email" href="mailto:info@hyprotec.ru" itemprop="email">info@hyprotec.ru</a>
+                        <p class="contacts__time">пн–пт с 10:00 до 19:00</p>
+
+                        <ul class="contacts__list">
+                            <li><span class="muted">ООО «</span><b itemprop="name">ХАЙПРОТЕК</b><span class="muted">»</span></li>
+                            <li>ИНН: <a href="#" rel="nofollow noopener">7203456345</a></li>
+                            <li>КПП: <a href="#" rel="nofollow noopener">720301001</a></li>
+                            <li>ОГРН: <a href="#" rel="nofollow noopener">1187232020722</a></li>
+                            <li itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
+                                <meta itemprop="postalCode" content="625000">
+                                <span class="muted">625000, Тюменская область, г. Тюмень,</span><br>
+                                <span itemprop="streetAddress">ул. Грибоедова, д. 15, пом. 1</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Правая колонка (карта) -->
+                    <div class="contacts__map">
+                        <iframe
+                                class="contacts__map-frame"
+                                title="Карта: Тюмень, ул. Грибоедова, 15 — ХАЙПРОТЕК"
+                                src="https://yandex.ru/map-widget/v1/?um=constructor%3Af2b12c5ceae10d922c0fee41817b70696ff03f02db3c599ca4628d5f3698f18a&amp;source=constructor"
+                                loading="lazy"
+                                referrerpolicy="no-referrer-when-downgrade"
+                                allowfullscreen>
+                        </iframe>
+                    </div>
                 </div>
-                <div class="contacts__map">
-                    <iframe
-                            class="contacts__map-frame"
-                            title="Карта: ул. Грибоедова, 15 — ХАЙПРОТЕК"
-                            src="https://yandex.ru/map-widget/v1/?um=constructor%3Af2b12c5ceae10d922c0fee41817b70696ff03f02db3c599ca4628d5f3698f18a&amp;source=constructor"
-                            loading="lazy"
-                            referrerpolicy="no-referrer-when-downgrade"
-                            allowfullscreen>
-                    </iframe>
+
+                <!-- === Представительство в Новом Уренгое === -->
+                <div class="contacts__inner" itemprop="department" itemscope itemtype="https://schema.org/Organization">
+                    <!-- Левая колонка -->
+                    <div class="contacts__info">
+                        <h3 class="contacts__office-title">Представительство в Новом Уренгое</h3>
+
+                        <a class="contacts__phone" href="tel:+79124221080" itemprop="telephone">+7&nbsp;912&nbsp;422&nbsp;10&nbsp;80</a>
+                        <a class="contacts__email" href="mailto:lab_nu@hyprotec.ru" itemprop="email">lab_nu@hyprotec.ru</a>
+                        <p class="contacts__time">пн–вс 08:00 – 20:00</p>
+
+                        <ul class="contacts__list">
+                            <li itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
+                                <meta itemprop="postalCode" content="629305">
+                                <span class="muted">629305, Ямало-Ненецкий автономный округ, г. Новый Уренгой,</span><br>
+                                <span itemprop="streetAddress">ул. Таёжная, д. 138А</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Правая колонка (карта) -->
+                    <div class="contacts__map">
+                        <!-- ЗАМЕНИ src на свой конструктор Яндекс.Карт для этого адреса -->
+                        <iframe
+                                class="contacts__map-frame"
+                                title="Карта: Новый Уренгой, ул. Таёжная, 138А — ХАЙПРОТЕК"
+                                src="https://yandex.ru/map-widget/v1/?um=constructor%3Aeea6ad1acbf3a93b688640a93eff8d045f04ccd065b183fe8a6d04f152b2d5c3&amp;source=constructor"
+                                loading="lazy"
+                                referrerpolicy="no-referrer-when-downgrade"
+                                allowfullscreen>
+                        </iframe>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
-    <section class="feedback section full-vw-line full-vw-line--bottom full-vw-line--left" id="feedback" aria-labelledby="feedback-title">
-        <header class="section__header">
-            <div class="section__header-inner container">
-                <div class="section__header-info">
-                    <h2 class="section__title section-title" id="feedback-title">Написать нам</h2>
-                </div>
-                <div class="section__rule" aria-hidden="true"></div>
-            </div>
-        </header>
 
-        <div class="feedback__body">
-            <div class="feedback__center container">
-                <form class="feedback-form card" novalidate aria-describedby="feedback-desc">
-                    <p class="visually-hidden" id="feedback-desc">Форма обратной связи HYPROTEC</p>
-                    <input
-                            type="text"
-                            name="company"
-                            class="feedback-form__hp visually-hidden"
-                            tabindex="-1"
-                            autocomplete="off"
-                            aria-hidden="true"
-                    >
+    <!--    <section class="feedback section full-vw-line full-vw-line&#45;&#45;bottom full-vw-line&#45;&#45;left" id="feedback" aria-labelledby="feedback-title">-->
+<!--        <header class="section__header">-->
+<!--            <div class="section__header-inner container">-->
+<!--                <div class="section__header-info">-->
+<!--                    <h2 class="section__title section-title" id="feedback-title">Написать нам</h2>-->
+<!--                </div>-->
+<!--                <div class="section__rule" aria-hidden="true"></div>-->
+<!--            </div>-->
+<!--        </header>-->
 
-                    <div class="feedback-form__grid">
-                        <label class="field field--floating">
-                            <input class="field__control" type="text" name="name" autocomplete="name" placeholder=" " required>
-                            <span class="field__label">Имя*</span>
-                            <span class="field__error" aria-live="polite"></span>
-                        </label>
+<!--        <div class="feedback__body">-->
+<!--            <div class="feedback__center container">-->
+<!--                <form class="feedback-form card" novalidate aria-describedby="feedback-desc">-->
+<!--                    <p class="visually-hidden" id="feedback-desc">Форма обратной связи HYPROTEC</p>-->
+<!--                    <input-->
+<!--                            type="text"-->
+<!--                            name="company"-->
+<!--                            class="feedback-form__hp visually-hidden"-->
+<!--                            tabindex="-1"-->
+<!--                            autocomplete="off"-->
+<!--                            aria-hidden="true"-->
+<!--                    >-->
 
-                        <label class="field field--floating">
-                            <input
-                                    class="field__control"
-                                    type="tel"
-                                    name="phone"
-                                    inputmode="tel"
-                                    autocomplete="tel"
-                                    placeholder=" "
-                            >
-                            <span class="field__label">Телефон*</span>
-                            <span class="field__hint">Можно указать телефон и при желании email</span>
-                            <span class="field__error" aria-live="polite"></span>
-                        </label>
+<!--                    <div class="feedback-form__grid">-->
+<!--                        <label class="field field&#45;&#45;floating">-->
+<!--                            <input class="field__control" type="text" name="name" autocomplete="name" placeholder=" " required>-->
+<!--                            <span class="field__label">Имя*</span>-->
+<!--                            <span class="field__error" aria-live="polite"></span>-->
+<!--                        </label>-->
 
-                        <label class="field field--floating">
-                            <input class="field__control" type="email" name="email" autocomplete="email" placeholder=" ">
-                            <span class="field__label">Email</span>
-                            <span class="field__error" aria-live="polite"></span>
-                        </label>
+<!--                        <label class="field field&#45;&#45;floating">-->
+<!--                            <input-->
+<!--                                    class="field__control"-->
+<!--                                    type="tel"-->
+<!--                                    name="phone"-->
+<!--                                    inputmode="tel"-->
+<!--                                    autocomplete="tel"-->
+<!--                                    placeholder=" "-->
+<!--                            >-->
+<!--                            <span class="field__label">Телефон*</span>-->
+<!--                            <span class="field__hint">Можно указать телефон и при желании email</span>-->
+<!--                            <span class="field__error" aria-live="polite"></span>-->
+<!--                        </label>-->
 
-                        <label class="field field--floating">
-                            <input class="field__control" type="text" name="topic" placeholder=" ">
-                            <span class="field__label">Тема (опционально)</span>
-                            <span class="field__error" aria-live="polite"></span>
-                        </label>
+<!--                        <label class="field field&#45;&#45;floating">-->
+<!--                            <input class="field__control" type="email" name="email" autocomplete="email" placeholder=" ">-->
+<!--                            <span class="field__label">Email</span>-->
+<!--                            <span class="field__error" aria-live="polite"></span>-->
+<!--                        </label>-->
 
-                        <label class="field field--floating field--full">
-                            <textarea class="field__control field__control--area" name="message" rows="6" placeholder=" " required></textarea>
-                            <span class="field__label">Сообщение*</span>
-                            <span class="field__error" aria-live="polite"></span>
-                        </label>
+<!--                        <label class="field field&#45;&#45;floating">-->
+<!--                            <input class="field__control" type="text" name="topic" placeholder=" ">-->
+<!--                            <span class="field__label">Тема (опционально)</span>-->
+<!--                            <span class="field__error" aria-live="polite"></span>-->
+<!--                        </label>-->
 
-                        <label class="check field--full">
-                            <input class="check__input" type="checkbox" name="agree" required>
-                            <span class="check__box" aria-hidden="true"></span>
-                            <span class="check__label">Согласен на обработку персональных данных</span>
-                            <span class="field__error" aria-live="polite"></span>
-                        </label>
-                    </div>
+<!--                        <label class="field field&#45;&#45;floating field&#45;&#45;full">-->
+<!--                            <textarea class="field__control field__control&#45;&#45;area" name="message" rows="6" placeholder=" " required></textarea>-->
+<!--                            <span class="field__label">Сообщение*</span>-->
+<!--                            <span class="field__error" aria-live="polite"></span>-->
+<!--                        </label>-->
 
-                    <div class="feedback-form__actions">
-                        <button class="button feedback-form__submit" type="submit">Отправить</button>
-                        <span class="feedback-form__status" role="status" aria-live="polite"></span>
-                        <p class="feedback-form__policy">
-                            Нажимая «Отправить», вы соглашаетесь с политикой обработки персональных данных.
-                        </p>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </section>
+<!--                        <label class="check field&#45;&#45;full">-->
+<!--                            <input class="check__input" type="checkbox" name="agree" required>-->
+<!--                            <span class="check__box" aria-hidden="true"></span>-->
+<!--                            <span class="check__label">Согласен на обработку персональных данных</span>-->
+<!--                            <span class="field__error" aria-live="polite"></span>-->
+<!--                        </label>-->
+<!--                    </div>-->
+
+<!--                    <div class="feedback-form__actions">-->
+<!--                        <button class="button feedback-form__submit" type="submit">Отправить</button>-->
+<!--                        <span class="feedback-form__status" role="status" aria-live="polite"></span>-->
+<!--                        <p class="feedback-form__policy">-->
+<!--                            Нажимая «Отправить», вы соглашаетесь с политикой обработки персональных данных.-->
+<!--                        </p>-->
+<!--                    </div>-->
+<!--                </form>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </section>-->
 </main>
 
 <footer class="footer">

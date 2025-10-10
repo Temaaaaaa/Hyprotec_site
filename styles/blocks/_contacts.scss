@@ -2,7 +2,10 @@
 
 /* ===== Contacts ===== */
 .contacts {
-
+  &__offices {
+    display: grid;
+    gap: rem(40);           // промежуток между офисами
+  }
 
   &__inner {
     display: grid;
@@ -14,6 +17,15 @@
     }
   }
 
+  &__office-title {
+    @include fluid-text(20, 16);
+    font-weight: 800;
+    letter-spacing: .02em;
+    text-transform: uppercase;
+    color: var(--color-dark-700);
+    margin-bottom: rem(6);
+  }
+
   /* Левая колонка */
   &__info {
     display: grid;
@@ -22,7 +34,7 @@
   }
 
   &__phone {
-    @include fluid-text(56, 28);      /* крупный номер как на рефе */
+    @include fluid-text(56, 28);
     font-weight: 800;
     line-height: 1.05;
     letter-spacing: -.01em;
@@ -36,7 +48,6 @@
     font-weight: 700;
     color: var(--color-accent);
     text-decoration: none;
-
     @include hover { text-decoration: underline; }
   }
 
@@ -80,7 +91,7 @@
   }
 }
 
-/* На узких — одна колонка, карта ниже, отступ побольше */
+/* На узких — одна колонка, карта ниже */
 @include mobile {
   .contacts__map { margin-top: rem(8); }
 }
