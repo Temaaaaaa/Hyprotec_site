@@ -1,0 +1,68 @@
+@use '../helpers' as *;
+
+.cookie {
+  position: fixed;
+  inset: auto 0 0 0;
+  z-index: 9998;
+  background: var(--color-dark, #111);
+  color: var(--color-white, #fff);
+  padding-block: rem(14);
+  box-shadow: 0 -8px 24px rgba(0,0,0,.25);
+  transform: translateY(100%);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform var(--transition-duration, .2s) ease, opacity var(--transition-duration, .2s) ease;
+
+  &.is-visible {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  &__inner {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: rem(16);
+    align-items: center;
+
+    @include tablet { grid-template-columns: 1fr; }
+  }
+
+  &__title { @include fluid-text(18,16); display: block; margin-bottom: .25em; }
+  &__desc  { @include fluid-text(16,14); margin: 0; opacity: .95; }
+  &__link  { color: var(--color-white, #fff); text-decoration: underline; }
+
+  &__actions { display: flex; gap: rem(8); justify-content: flex-end; @include tablet { justify-content: stretch; } }
+
+  &__btn {
+    @include fluid-text(16,14);
+    border: var(--border, 1px solid rgba(255,255,255,.25));
+    background: transparent;
+    color: var(--color-white, #fff);
+    padding: rem(10) rem(14);
+    border-radius: rem(10);
+    cursor: pointer;
+    transition: transform .12s ease, opacity .12s ease, background-color .2s ease;
+
+    @include hover() { background: rgba(255,255,255,.08); }
+    &:focus-visible { outline: 2px dashed var(--color-accent, #e73439); outline-offset: 3px; }
+
+    &--primary {
+      background: var(--color-accent, #e73439);
+      border-color: var(--color-accent, #e73439);
+      color: #fff;
+      @include hover() { opacity: .92; }
+    }
+  }
+}
+
+/* (опционально) кнопка «Настройки cookie» */
+.cookie-manage {
+  position: fixed; right: rem(16); bottom: rem(16);
+  border: var(--border, 1px solid rgba(0,0,0,.12));
+  background: var(--color-white, #fff);
+  color: var(--color-dark, #111);
+  padding: rem(10) rem(12); border-radius: rem(10);
+  box-shadow: 0 6px 20px rgba(0,0,0,.1);
+  @include hover() { transform: translateY(-1px); }
+}
