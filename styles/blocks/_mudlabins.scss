@@ -1,0 +1,57 @@
+@use '../helpers' as *;
+
+.section__eyebrow {
+  @include fluid-text(14, 12);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-gray);
+  margin: 0 0 rem(8);
+}
+
+.brand {
+  &__intro {
+    text-align: center;
+    max-width: rem(920);
+    margin-inline: auto;
+  }
+
+  &__logo {
+    margin: 0 auto rem(24);
+    img { width: min(40vw, rem(320)); height: auto; display: inline-block; }
+  }
+
+  &__text {
+    @include fluid-text(18, 16);
+    color: var(--color-dark-900, var(--color-dark));
+    display: grid;
+    gap: rem(12);
+    margin: 0 auto rem(20);
+    text-align: center;
+  }
+
+  &__cta { margin: 0 0 rem(32); }
+
+  &__gallery {
+    // отступы до карусели как у тебя на других секциях
+    margin-top: rem(24);
+  }
+}
+
+/* Кнопка "Скачать каталог" — используй свой компонент кнопки, тут — минимал */
+.button.brand__button {
+  display: inline-flex; align-items: center; gap: rem(8);
+  padding: rem(12) rem(20);
+  border: var(--border, 1px solid currentColor);
+  border-radius: rem(8);
+  transition: transform var(--transition-duration, .3s) ease;
+  &:hover { transform: translateY(-1px); }
+  .button__icon {
+    @include square(rem(20));
+    background: currentColor;
+    /* можешь вставить svg через mask-image, если есть иконка PDF */
+  }
+}
+
+/* Перфоманс для 50 слайдов */
+.carousel__slide { content-visibility: auto; contain-intrinsic-size: 400px 225px; }
+.carousel__img   { width: 100%; height: auto; aspect-ratio: 16/9; object-fit: cover; display: block; }

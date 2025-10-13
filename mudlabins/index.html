@@ -43,7 +43,7 @@
         <div class="brand__intro container">
             <figure class="brand__logo">
                 <img
-                        src="/images/mudlabs/logo_lqip.jpg"
+                        src="/images/mudlabs/hero-mudlabs.jpg"
                         data-src="/images/mudlabs/logo_1024.png"
                         alt="MudLabIns — сделано в России"
                         width="512" height="512"
@@ -59,51 +59,366 @@
             </div>
 
             <p class="brand__cta">
-                <a class="button brand__button" href="/images/mudlabs/hero-mudlabs.jpg" download>
+                <a class="button brand__button" href="https://disk.yandex.ru/i/vdmXicXeKwHY0A" download>
                     <span class="button__icon" aria-hidden="true"></span>
                     <span class="button__text">Скачать каталог MudLabIns</span>
                 </a>
             </p>
         </div>
+    </div>
+</section>
 
-        <!-- Галерея/карусель -->
-        <div class="brand__gallery container">
-            <div class="carousel" data-js-carousel>
-                <div class="carousel__viewport" data-js-carousel-viewport>
-                    <ul class="carousel__list">
-                        <!-- СЛАЙД 1 -->
+<section class="showcase section" id="showcase" aria-labelledby="showcase-title">
+    <header class="section__header">
+        <div class="section__header-inner container">
+            <div class="section__header-info">
+                <h2 class="section__title section-title" id="showcase-title">Медиагалерея MudVisionRT</h2>
+            </div>
+            <div class="section__rule" aria-hidden="true"></div>
+        </div>
+    </header>
+
+    <div class="showcase__body">
+        <div class="showcase__inner container">
+            <div class="carousel" data-js-carousel data-autoplay="true" data-interval="4500">
+                <button class="carousel__btn carousel__btn--prev" data-js-carousel-prev aria-label="Назад" disabled>‹</button>
+                <button class="carousel__btn carousel__btn--next" data-js-carousel-next aria-label="Вперёд">›</button>
+
+                <div class="carousel__viewport"
+                     tabindex="0"
+                     role="region"
+                     aria-roledescription="carousel"
+                     aria-label="Примеры работ"
+                     data-js-carousel-viewport>
+                    <ul class="carousel__track" data-js-carousel-track>
+                        <!-- 1) почти 4:3 -->
+                        <!-- 1 -->
                         <li class="carousel__slide">
-                            <picture class="lazy-picture">
-                                <source type="image/avif"
-                                        data-srcset="/images/mudlabs/01_640.avif 640w,
-                                     /images/mudlabs/01_1280.avif 1280w,
-                                     /images/mudlabs/01_1920.avif 1920w">
-                                <source type="image/webp"
-                                        data-srcset="/images/mudlabs/01_640.webp 640w,
-                                     /images/mudlabs/01_1280.webp 1280w,
-                                     /images/mudlabs/01_1920.webp 1920w">
-                                <img class="carousel__img"
-                                     src="/images/mudlabs/01_lqip.jpg"
-                                     data-src="/images/mudlabs/01_1280.jpg"
-                                     data-srcset="/images/mudlabs/01_640.jpg 640w,
-                                  /images/mudlabs/01_1280.jpg 1280w,
-                                  /images/mudlabs/01_1920.jpg 1920w"
-                                     sizes="(max-width: 768px) 90vw, 1100px"
-                                     alt="MudLabIns — оборудование, фото 1"
-                                     width="1280" height="720"
-                                     loading="lazy" decoding="async">
-                            </picture>
+                            <figure class="shot card shot--fit-contain shot--framed shot--ratio-4-3">
+                                <img class="shot__img" src="/images/mudlabs/1.jpg" alt="MudLabIns — фото 1" loading="lazy" decoding="async">
+                            </figure>
                         </li>
 
-                        <!-- Дублируй блок <li> … </li> для всех 50 фото,
-                             меняя индексы 02, 03, … -->
+                        <!-- 2 -->
+                        <li class="carousel__slide">
+                            <figure class="shot card shot--fit-contain shot--framed shot--ratio-16-9">
+                                <img class="shot__img" src="/images/mudlabs/2.jpg" alt="MudLabIns — фото 2" loading="lazy" decoding="async">
+                            </figure>
+                        </li>
+
+                        <!-- 3 -->
+                        <li class="carousel__slide">
+                            <figure class="shot card shot--fit-contain shot--framed shot--ratio-square">
+                                <img class="shot__img" src="/images/mudlabs/3.jpg" alt="MudLabIns — фото 3" loading="lazy" decoding="async">
+                            </figure>
+                        </li>
+
+                        <!-- 4 -->
+                        <li class="carousel__slide">
+                            <figure class="shot card shot--fit-contain shot--framed shot--ratio-21-9">
+                                <img class="shot__img" src="/images/mudlabs/4.jpg" alt="MudLabIns — фото 4" loading="lazy" decoding="async">
+                            </figure>
+                        </li>
+
+                        <!-- 5 -->
+                        <li class="carousel__slide">
+                            <figure class="shot card shot--fit-contain shot--framed shot--ratio-4-3">
+                                <img class="shot__img" src="/images/mudlabs/5.jpg" alt="MudLabIns — фото 5" loading="lazy" decoding="async">
+                            </figure>
+                        </li>
+
+                        <!-- 6 -->
+                        <li class="carousel__slide">
+                            <figure class="shot card shot--fit-contain shot--framed shot--ratio-4-3">
+                                <img class="shot__img" src="/images/mudlabs/6.jpg" alt="MudLabIns — фото 6" loading="lazy" decoding="async">
+                            </figure>
+                        </li>
+
+                        <!-- 7 (сверх-вертикальная) -->
+                        <li class="carousel__slide">
+                            <figure class="shot card shot--fit-contain shot--framed shot--ratio-3-4">
+                                <img class="shot__img" src="/images/mudlabs/7.jpg" alt="MudLabIns — фото 7" loading="lazy" decoding="async">
+                            </figure>
+                        </li>
+
+                        <!-- 8 -->
+                        <li class="carousel__slide">
+                            <figure class="shot card shot--fit-contain shot--framed shot--ratio-4-3">
+                                <img class="shot__img" src="/images/mudlabs/8.jpg" alt="MudLabIns — фото 8" loading="lazy" decoding="async">
+                            </figure>
+                        </li>
+
+                        <!-- 9 -->
+                        <li class="carousel__slide">
+                            <figure class="shot card shot--fit-contain shot--framed shot--ratio-16-9">
+                                <img class="shot__img" src="/images/mudlabs/9.jpg" alt="MudLabIns — фото 9" loading="lazy" decoding="async">
+                            </figure>
+                        </li>
+
+                        <!-- 10 (очень широкий) -->
+                        <li class="carousel__slide">
+                            <figure class="shot card shot--fit-contain shot--framed shot--ratio-21-9">
+                                <img class="shot__img" src="/images/mudlabs/10.jpg" alt="MudLabIns — фото 10" loading="lazy" decoding="async">
+                            </figure>
+                        </li>
+
+                        <!-- 11 -->
+                        <li class="carousel__slide">
+                            <figure class="shot card shot--fit-contain shot--framed shot--ratio-16-9">
+                                <img class="shot__img" src="/images/mudlabs/11.jpg" alt="MudLabIns — фото 11" loading="lazy" decoding="async">
+                            </figure>
+                        </li>
+
+                        <!-- 12 (очень широкий) -->
+                        <li class="carousel__slide">
+                            <figure class="shot card shot--fit-contain shot--framed shot--ratio-21-9">
+                                <img class="shot__img" src="/images/mudlabs/12.jpg" alt="MudLabIns — фото 12" loading="lazy" decoding="async">
+                            </figure>
+                        </li>
+
+                        <!-- 13 -->
+                        <li class="carousel__slide">
+                            <figure class="shot card shot--fit-contain shot--framed shot--ratio-16-9">
+                                <img class="shot__img" src="/images/mudlabs/13.jpg" alt="MudLabIns — фото 13" loading="lazy" decoding="async">
+                            </figure>
+                        </li>
+
+                        <!-- 14 (очень широкий) -->
+                        <li class="carousel__slide">
+                            <figure class="shot card shot--fit-contain shot--framed shot--ratio-21-9">
+                                <img class="shot__img" src="/images/mudlabs/14.jpg" alt="MudLabIns — фото 14" loading="lazy" decoding="async">
+                            </figure>
+                        </li>
+
+                        <!-- 15 (очень широкий) -->
+                        <li class="carousel__slide">
+                            <figure class="shot card shot--fit-contain shot--framed shot--ratio-21-9">
+                                <img class="shot__img" src="/images/mudlabs/15.jpg" alt="MudLabIns — фото 15" loading="lazy" decoding="async">
+                            </figure>
+                        </li>
+                        <!-- 16 — широкий, ~4:3 -->
+                        <li class="carousel__slide">
+                            <figure class="shot card shot--fit-contain shot--framed shot--ratio-4-3">
+                                <img class="shot__img" src="/images/mudlabs/16.jpg" alt="MudLabIns — фото 16" loading="lazy" decoding="async">
+                            </figure>
+                        </li>
+
+                        <!-- 17 — очень широкий, ~21:9 -->
+                        <li class="carousel__slide">
+                            <figure class="shot card shot--fit-contain shot--framed shot--ratio-21-9">
+                                <img class="shot__img" src="/images/mudlabs/17.jpg" alt="MudLabIns — фото 17" loading="lazy" decoding="async">
+                            </figure>
+                        </li>
+
+                        <!-- 18 — широкий, ~16:9 -->
+                        <li class="carousel__slide">
+                            <figure class="shot card shot--fit-contain shot--framed shot--ratio-16-9">
+                                <img class="shot__img" src="/images/mudlabs/18.jpg" alt="MudLabIns — фото 18" loading="lazy" decoding="async">
+                            </figure>
+                        </li>
+
+                        <!-- 19 — высокий портрет, лучше 4:5 -->
+                        <li class="carousel__slide">
+                            <figure class="shot card shot--fit-contain shot--framed shot--ratio-4-5">
+                                <img class="shot__img" src="/images/mudlabs/19.jpg" alt="MudLabIns — фото 19 (портретный)" loading="lazy" decoding="async">
+                            </figure>
+                        </li>
+
+                        <!-- 20 — почти квадрат -->
+                        <li class="carousel__slide">
+                            <figure class="shot card shot--fit-contain shot--framed shot--ratio-square">
+                                <img class="shot__img" src="/images/mudlabs/20.jpg" alt="MudLabIns — фото 20" loading="lazy" decoding="async">
+                            </figure>
+                        </li>
+
+                        <!-- 21 — высокий портрет, 4:5 -->
+                        <li class="carousel__slide">
+                            <figure class="shot card shot--fit-contain shot--framed shot--ratio-4-5">
+                                <img class="shot__img" src="/images/mudlabs/21.jpg" alt="MudLabIns — фото 21 (портретный)" loading="lazy" decoding="async">
+                            </figure>
+                        </li>
+
+                        <!-- 22 — вертикальный, ближе к 3:4 -->
+                        <li class="carousel__slide">
+                            <figure class="shot card shot--fit-contain shot--framed shot--ratio-3-4">
+                                <img class="shot__img" src="/images/mudlabs/22.jpg" alt="MudLabIns — фото 22 (вертикальный)" loading="lazy" decoding="async">
+                            </figure>
+                        </li>
+                        <!-- 23 — вертикальный, ~3:4 -->
+                        <li class="carousel__slide">
+                            <figure class="shot card shot--fit-contain shot--framed shot--ratio-3-4">
+                                <img class="shot__img" src="/images/mudlabs/23.jpg" alt="MudLabIns — фото 23" loading="lazy" decoding="async">
+                            </figure>
+                        </li>
+
+                        <!-- 24 — близко к 4:3 -->
+                        <li class="carousel__slide">
+                            <figure class="shot card shot--fit-contain shot--framed shot--ratio-4-3">
+                                <img class="shot__img" src="/images/mudlabs/24.jpg" alt="MudLabIns — фото 24" loading="lazy" decoding="async">
+                            </figure>
+                        </li>
+
+                        <!-- 25 — почти квадрат -->
+                        <li class="carousel__slide">
+                            <figure class="shot card shot--fit-contain shot--framed shot--ratio-square">
+                                <img class="shot__img" src="/images/mudlabs/25.jpg" alt="MudLabIns — фото 25" loading="lazy" decoding="async">
+                            </figure>
+                        </li>
+
+                        <!-- 26 — почти квадрат -->
+                        <li class="carousel__slide">
+                            <figure class="shot card shot--fit-contain shot--framed shot--ratio-square">
+                                <img class="shot__img" src="/images/mudlabs/26.jpg" alt="MudLabIns — фото 26" loading="lazy" decoding="async">
+                            </figure>
+                        </li>
+
+                        <!-- 27 — вертикальный, 3:4 -->
+                        <li class="carousel__slide">
+                            <figure class="shot card shot--fit-contain shot--framed shot--ratio-3-4">
+                                <img class="shot__img" src="/images/mudlabs/27.jpg" alt="MudLabIns — фото 27" loading="lazy" decoding="async">
+                            </figure>
+                        </li>
+
+                        <!-- 28 — вертикальный, 3:4 -->
+                        <li class="carousel__slide">
+                            <figure class="shot card shot--fit-contain shot--framed shot--ratio-3-4">
+                                <img class="shot__img" src="/images/mudlabs/28.jpg" alt="MudLabIns — фото 28" loading="lazy" decoding="async">
+                            </figure>
+                        </li>
+
+                        <!-- 29 — почти квадрат / слегка шире -->
+                        <li class="carousel__slide">
+                            <figure class="shot card shot--fit-contain shot--framed shot--ratio-square">
+                                <img class="shot__img" src="/images/mudlabs/29.jpg" alt="MudLabIns — фото 29" loading="lazy" decoding="async">
+                            </figure>
+                        </li>
+
+                        <!-- 30 — вертикальный, 3:4 -->
+                        <li class="carousel__slide">
+                            <figure class="shot card shot--fit-contain shot--framed shot--ratio-3-4">
+                                <img class="shot__img" src="/images/mudlabs/30.jpg" alt="MudLabIns — фото 30" loading="lazy" decoding="async">
+                            </figure>
+                        </li>
+                        <!-- 31 — портрет, ближе к 3:4 (A4) -->
+                        <li class="carousel__slide">
+                            <figure class="shot card shot--fit-contain shot--framed shot--ratio-3-4">
+                                <img class="shot__img" src="/images/mudlabs/31.jpg" alt="MudLabIns — фото 31" loading="lazy" decoding="async">
+                            </figure>
+                        </li>
+
+                        <!-- 32 — широкий, около 2:1 → берём 16:9 -->
+                        <li class="carousel__slide">
+                            <figure class="shot card shot--fit-contain shot--framed shot--ratio-16-9">
+                                <img class="shot__img" src="/images/mudlabs/32.jpg" alt="MudLabIns — фото 32" loading="lazy" decoding="async">
+                            </figure>
+                        </li>
+
+                        <!-- 33 — умеренно широкий, подходит 4:3 -->
+                        <li class="carousel__slide">
+                            <figure class="shot card shot--fit-contain shot--framed shot--ratio-4-3">
+                                <img class="shot__img" src="/images/mudlabs/33.jpg" alt="MudLabIns — фото 33" loading="lazy" decoding="async">
+                            </figure>
+                        </li>
+
+                        <!-- 34 — 4:3 -->
+                        <li class="carousel__slide">
+                            <figure class="shot card shot--fit-contain shot--framed shot--ratio-4-3">
+                                <img class="shot__img" src="/images/mudlabs/34.jpg" alt="MudLabIns — фото 34" loading="lazy" decoding="async">
+                            </figure>
+                        </li>
+
+                        <!-- 35 — 4:3 -->
+                        <li class="carousel__slide">
+                            <figure class="shot card shot--fit-contain shot--framed shot--ratio-4-3">
+                                <img class="shot__img" src="/images/mudlabs/35.jpg" alt="MudLabIns — фото 35" loading="lazy" decoding="async">
+                            </figure>
+                        </li>
+
+                        <!-- 36 — 4:3 -->
+                        <li class="carousel__slide">
+                            <figure class="shot card shot--fit-contain shot--framed shot--ratio-4-3">
+                                <img class="shot__img" src="/images/mudlabs/36.jpg" alt="MudLabIns — фото 36" loading="lazy" decoding="async">
+                            </figure>
+                        </li>
+
+                        <!-- 37 — высокий портрет, берём самый «узкий» из пресетов: 3:4 -->
+                        <li class="carousel__slide">
+                            <figure class="shot card shot--fit-contain shot--framed shot--ratio-3-4">
+                                <img class="shot__img" src="/images/mudlabs/37.jpg" alt="MudLabIns — фото 37 (портретный)" loading="lazy" decoding="async">
+                            </figure>
+                        </li>
+
+                        <!-- 38 — портрет, ближе к 4:5 -->
+                        <li class="carousel__slide">
+                            <figure class="shot card shot--fit-contain shot--framed shot--ratio-4-5">
+                                <img class="shot__img" src="/images/mudlabs/38.jpg" alt="MudLabIns — фото 38 (портретный)" loading="lazy" decoding="async">
+                            </figure>
+                        </li>
+                        <!-- 39 -->
+                        <li class="carousel__slide">
+                            <figure class="shot card shot--fit-contain shot--framed shot--ratio-4-5">
+                                <img class="shot__img" src="/images/mudlabs/39.jpg" alt="MudLabIns — фото 39" loading="lazy" decoding="async">
+                            </figure>
+                        </li>
+
+                        <!-- 40 -->
+                        <li class="carousel__slide">
+                            <figure class="shot card shot--fit-contain shot--framed shot--ratio-4-5">
+                                <img class="shot__img" src="/images/mudlabs/40.jpg" alt="MudLabIns — фото 40" loading="lazy" decoding="async">
+                            </figure>
+                        </li>
+
+                        <!-- 41 -->
+                        <li class="carousel__slide">
+                            <figure class="shot card shot--fit-contain shot--framed shot--ratio-4-5">
+                                <img class="shot__img" src="/images/mudlabs/41.jpg" alt="MudLabIns — фото 41" loading="lazy" decoding="async">
+                            </figure>
+                        </li>
+
+                        <!-- 42 -->
+                        <li class="carousel__slide">
+                            <figure class="shot card shot--fit-contain shot--framed shot--ratio-4-5">
+                                <img class="shot__img" src="/images/mudlabs/42.jpg" alt="MudLabIns — фото 42" loading="lazy" decoding="async">
+                            </figure>
+                        </li>
+
+                        <!-- 43 -->
+                        <li class="carousel__slide">
+                            <figure class="shot card shot--fit-contain shot--framed shot--ratio-4-5">
+                                <img class="shot__img" src="/images/mudlabs/43.jpg" alt="MudLabIns — фото 43" loading="lazy" decoding="async">
+                            </figure>
+                        </li>
+
+                        <!-- 44 -->
+                        <li class="carousel__slide">
+                            <figure class="shot card shot--fit-contain shot--framed shot--ratio-4-5">
+                                <img class="shot__img" src="/images/mudlabs/44.jpg" alt="MudLabIns — фото 44" loading="lazy" decoding="async">
+                            </figure>
+                        </li>
+
+                        <!-- 45 -->
+                        <li class="carousel__slide">
+                            <figure class="shot card shot--fit-contain shot--framed shot--ratio-4-5">
+                                <img class="shot__img" src="/images/mudlabs/45.jpg" alt="MudLabIns — фото 45" loading="lazy" decoding="async">
+                            </figure>
+                        </li>
+
+                        <!-- 46 -->
+                        <li class="carousel__slide">
+                            <figure class="shot card shot--fit-contain shot--framed shot--ratio-4-5">
+                                <img class="shot__img" src="/images/mudlabs/46.jpg" alt="MudLabIns — фото 46" loading="lazy" decoding="async">
+                            </figure>
+                        </li>
+
+
+
+
+
+
                     </ul>
                 </div>
 
-                <!-- Если в твоём Carousel есть элементы управления — оставь эти container-местодержатели; иначе убери -->
-                <button class="carousel__prev" type="button" aria-label="Предыдущий слайд"></button>
-                <button class="carousel__next" type="button" aria-label="Следующий слайд"></button>
-                <div class="carousel__dots" data-js-carousel-dots aria-hidden="true"></div>
+                <div class="carousel__dots" data-js-carousel-dots aria-label="Навигация по слайдам"></div>
             </div>
         </div>
     </div>
