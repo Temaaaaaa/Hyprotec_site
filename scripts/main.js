@@ -1,68 +1,159 @@
 import Intro from './Preloader.js';
-import Header from "./Header.js";
-import Carousel from "./Carousel.js";
-import Stats from "./Stats.js";
-new Intro();
+import Header from './Header.js';
+import Carousel from './Carousel.js';
+import Stats from './Stats.js';
 import { initHeroType } from './HeroType.js';
 import initCookieConsent from './CookieConsent.js';
-initCookieConsent();
+import { initTcoBars } from './tco-bars.js';
 
-document.addEventListener('DOMContentLoaded', () => {
+new Intro();
+new Header();
+initCookieConsent();
+initTcoBars();
+
+const initCarousels = () => {
+    const nodes = document.querySelectorAll('[data-js-carousel]');
+    nodes.forEach((el) => {
+        const autoplay = el.getAttribute('data-autoplay') === 'true';
+        const interval = Number(el.getAttribute('data-interval')) || 4500;
+        new Carousel(el, { autoplay, interval });
+    });
+};
+
+const initHeroSubtitles = () => {
+    const heroNodes = document.querySelectorAll('.hero__subtitle--type');
+    if (!heroNodes.length) {
+        return;
+    }
+
+    heroNodes.forEach((el) => {
+        const length = el.textContent.trim().length;
+        el.style.setProperty('--type-chars', length.toString());
+    });
+
     initHeroType('.hero__subtitle--type', {
-        // при желании подправь скорости под вкус:
         typeDelay: 55,
         eraseDelay: 35,
         holdDelay: 1300,
         gapDelay: 350,
     });
-});
+};
 
+const initStats = () => {
+    if (!document.querySelector('#lab-stats')) {
+        return;
+    }
 
-
-
-
-
-
-document.addEventListener('DOMContentLoaded', () => {
     const stats = new Stats('#lab-stats', { threshold: 0.3, once: true });
     stats.init();
-    // при необходимости: stats.destroy();
-});
+};
 
-function initOfferingAccordion(){
-    const root=document.querySelector('[data-js-offering]'); if(!root) return;
-    const multi=root.getAttribute('data-multiple')==='true';
-    const items=[...root.querySelectorAll('.offering__item')];
-    items.forEach(i=>{const p=i.querySelector('.offering__panel'); p.style.height='0px'; p.setAttribute('aria-hidden','true'); i.querySelector('.offering__header').setAttribute('aria-expanded','false');});
-    root.addEventListener('click',e=>{
-        const h=e.target.closest('.offering__header'); if(!h) return;
-        const it=h.closest('.offering__item'), p=it.querySelector('.offering__panel'), c=it.querySelector('.offering__content');
-        const toggle=(open)=>{h.setAttribute('aria-expanded',open); p.setAttribute('aria-hidden',!open); it.classList.toggle('is-open',open);};
-        if(!multi) items.forEach(x=>x!==it&&x.classList.contains('is-open')&&(x.querySelector('.offering__panel').style.height=x.querySelector('.offering__content').scrollHeight+'px',requestAnimationFrame(()=>x.querySelector('.offering__panel').style.height='0px'),toggle.call(null,false),x.classList.remove('is-open')));
-        const isOpen=it.classList.contains('is-open');
-        if(isOpen){p.style.height=c.scrollHeight+'px'; requestAnimationFrame(()=>p.style.height='0px'); toggle(false);}
-        else{p.style.height='0px'; requestAnimationFrame(()=>{p.style.height=c.scrollHeight+'px';}); p.addEventListener('transitionend',e=>{if(e.propertyName==='height') p.style.height='auto'},{once:true}); toggle(true);}
+const initOfferingAccordion = () => {
+    const root = document.querySelector('[data-js-offering]');
+    if (!root) {
+        return;
+    }
+
+    const allowMultiple = root.dataset.multiple === 'true';
+    const items = Array.from(root.querySelectorAll('.offering__item'))
+        .map((item) => {
+            const header = item.querySelector('.offering__header');
+            const panel = item.querySelector('.offering__panel');
+            const content = item.querySelector('.offering__content');
+
+            if (!header || !panel || !content) {
+                return null;
+            }
+
+            return {
+                item,
+                header,
+                panel,
+                content,
+            };
+        })
+        .filter(Boolean);
+
+    if (!items.length) {
+        return;
+    }
+
+    const setExpandedState = (entry, expanded) => {
+        entry.header.setAttribute('aria-expanded', String(expanded));
+        entry.panel.setAttribute('aria-hidden', String(!expanded));
+        entry.item.classList.toggle('is-open', expanded);
+    };
+
+    const expand = (entry) => {
+        const { panel, content } = entry;
+        panel.style.height = '0px';
+        requestAnimationFrame(() => {
+            panel.style.height = `${content.scrollHeight}px`;
+        });
+        panel.addEventListener(
+            'transitionend',
+            (event) => {
+                if (event.propertyName === 'height') {
+                    panel.style.height = 'auto';
+                }
+            },
+            { once: true },
+        );
+        setExpandedState(entry, true);
+    };
+
+    const collapse = (entry) => {
+        const { panel, content } = entry;
+        panel.style.height = `${content.scrollHeight}px`;
+        requestAnimationFrame(() => {
+            panel.style.height = '0px';
+        });
+        setExpandedState(entry, false);
+    };
+
+    items.forEach((entry) => {
+        entry.panel.style.height = '0px';
+        setExpandedState(entry, false);
     });
+
+    root.addEventListener('click', (event) => {
+        const header = event.target.closest('.offering__header');
+        if (!header) {
+            return;
+        }
+
+        const entry = items.find((item) => item.header === header);
+        if (!entry) {
+            return;
+        }
+
+        const isOpen = entry.item.classList.contains('is-open');
+        if (isOpen) {
+            collapse(entry);
+            return;
+        }
+
+        if (!allowMultiple) {
+            items.forEach((item) => {
+                if (item !== entry && item.item.classList.contains('is-open')) {
+                    collapse(item);
+                }
+            });
+        }
+
+        expand(entry);
+    });
+};
+
+const initOnReady = () => {
+    initCarousels();
+    initHeroSubtitles();
+    initStats();
+    initOfferingAccordion();
+};
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initOnReady, { once: true });
+} else {
+    initOnReady();
 }
-initOfferingAccordion();
-
-
-// scripts/main.js
-import { initTcoBars } from './tco-bars.js';
-initTcoBars();
-new Header();
-
-document.querySelectorAll('[data-js-carousel]').forEach(el => {
-    // можно читать настройки из data-атрибутов
-    const autoplay = el.getAttribute('data-autoplay') === 'true';
-    const interval = Number(el.getAttribute('data-interval')) || 4500;
-
-    new Carousel(el, { autoplay, interval });
-});
-document.querySelectorAll('.hero__subtitle--type').forEach(el => {
-    const n = el.textContent.trim().length;                 // длина строки
-    el.style.setProperty('--type-chars', n.toString());     // ставим в CSS-переменную
-});
-
-
-
