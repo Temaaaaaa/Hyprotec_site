@@ -5629,23 +5629,13 @@ html.is-intro-active .hero .hero__subtitle--type {
 }
 
 /* Кнопка "Скачать каталог" — используй свой компонент кнопки, тут — минимал */
-.button.brand__button {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.75rem 1.25rem;
-  border: var(--border, 1px solid currentColor);
-  border-radius: 0.5rem;
-  transition: transform var(--transition-duration, 0.3s) ease;
-}
-.button.brand__button:hover {
-  transform: translateY(-1px);
-}
+/* Иконка загрузки — через mask + fallback */
 .button.brand__button .button__icon {
-  width: 1.25rem;
-  height: 1.25rem;
-  background: currentColor;
-  /* можешь вставить svg через mask-image, если есть иконка PDF */
+  background: none !important; /* глушим старое */
+  background-image: url("/icons/Download_line.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
 }
 
 /* Перфоманс для 50 слайдов */

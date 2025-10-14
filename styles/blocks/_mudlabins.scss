@@ -38,19 +38,17 @@
 }
 
 /* Кнопка "Скачать каталог" — используй свой компонент кнопки, тут — минимал */
-.button.brand__button {
-  display: inline-flex; align-items: center; gap: rem(8);
-  padding: rem(12) rem(20);
-  border: var(--border, 1px solid currentColor);
-  border-radius: rem(8);
-  transition: transform var(--transition-duration, .3s) ease;
-  &:hover { transform: translateY(-1px); }
-  .button__icon {
-    @include square(rem(20));
-    background: currentColor;
-    /* можешь вставить svg через mask-image, если есть иконка PDF */
-  }
+/* Иконка загрузки — через mask + fallback */
+.button.brand__button .button__icon {
+  background: none !important;        /* глушим старое */
+  background-image: url("/icons/Download_line.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
 }
+
+
+
 
 /* Перфоманс для 50 слайдов */
 .carousel__slide { content-visibility: auto; contain-intrinsic-size: 400px 225px; }
