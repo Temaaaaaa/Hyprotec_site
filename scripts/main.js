@@ -4,8 +4,8 @@ import Carousel from "./Carousel.js";
 import Stats from "./Stats.js";
 new Intro();
 import { initHeroType } from './HeroType.js';
-import initCookieConsent from './CookieConsent.js';
-initCookieConsent();
+// import initCookieConsent from './CookieConsent.js';
+// initCookieConsent();
 
 document.addEventListener('DOMContentLoaded', () => {
     initHeroType('.hero__subtitle--type', {
