@@ -3776,6 +3776,7 @@ button[aria-label]::before {
   background: var(--color-white);
   border: 0.0625rem solid var(--color-dark-15, rgba(0, 0, 0, 0.15));
   box-shadow: 0 1.375rem 3.75rem rgba(0, 0, 0, 0.06);
+  font-size: clamp(1rem, 0.9194214876rem + 0.3305785124vw, 1.25rem);
   /* аккуратная полоска-акцент слева */
   position: relative;
 }
@@ -3810,6 +3811,7 @@ button[aria-label]::before {
   margin: 0;
   padding: 0;
   list-style: none;
+  font-size: clamp(1rem, 0.9194214876rem + 0.3305785124vw, 1.25rem);
 }
 
 .maintenance__item {
@@ -3914,6 +3916,7 @@ button[aria-label]::before {
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  font-size: clamp(0.875rem, 0.7541322314rem + 0.4958677686vw, 1.25rem);
   padding: clamp(16px, 2.4vw, 24px) clamp(16px, 2.6vw, 28px);
   background: var(--color-white);
   border: 0.0625rem solid var(--color-dark-15, rgba(0, 0, 0, 0.15));
@@ -3921,7 +3924,6 @@ button[aria-label]::before {
 }
 
 .training__lead {
-  font-size: clamp(1rem, 0.9194214876rem + 0.3305785124vw, 1.25rem);
   line-height: 1.72;
   color: var(--color-dark);
   margin: 0;
@@ -4080,6 +4082,7 @@ button[aria-label]::before {
   gap: clamp(16px, 3vw, 24px);
   align-items: stretch; /* равная высота */
   /* подстрой: 360–520 */
+  font-size: clamp(1rem, 0.9194214876rem + 0.3305785124vw, 1.25rem);
 }
 @media (width <= 63.99875rem) {
   .course__grid {
@@ -4119,12 +4122,12 @@ button[aria-label]::before {
 }
 
 .course__subtitle {
-  font-size: clamp(1rem, 0.9597107438rem + 0.1652892562vw, 1.125rem);
   margin: 0.125rem 0 0.375rem;
   font-weight: 700;
   color: var(--color-dark-900, #222);
   padding-bottom: 0.375rem;
   position: relative;
+  font-size: clamp(1rem, 0.9194214876rem + 0.3305785124vw, 1.25rem);
 }
 .course__subtitle::after {
   content: "";
@@ -5669,6 +5672,7 @@ html.is-intro-active .hero .hero__subtitle--type {
   grid-template-columns: minmax(0, 1.04fr) minmax(0, 0.96fr);
   gap: clamp(16px, 3vw, 24px);
   align-items: stretch;
+  font-size: clamp(1.125rem, 1.0847107438rem + 0.1652892562vw, 1.25rem);
 }
 @media (width <= 63.99875rem) {
   .service__grid {
@@ -5703,8 +5707,7 @@ html.is-intro-active .hero .hero__subtitle--type {
 }
 
 .service__text {
-  font-size: clamp(1rem, 0.9798553719rem + 0.0826446281vw, 1.0625rem);
-  line-height: 1.7;
+  font-size: clamp(1rem, 0.9194214876rem + 0.3305785124vw, 1.25rem);
   color: var(--color-dark-900, #222);
 }
 .service__text p {
@@ -5763,6 +5766,7 @@ html.is-intro-active .hero .hero__subtitle--type {
   border-radius: 0.875rem;
   box-shadow: 0 1rem 2.5rem rgba(0, 0, 0, 0.05);
   padding: clamp(14px, 2.2vw, 22px) clamp(16px, 2.6vw, 28px);
+  font-size: clamp(1.125rem, 1.0847107438rem + 0.1652892562vw, 1.25rem);
 }
 
 .service-feature__title {
@@ -5787,17 +5791,6 @@ html.is-intro-active .hero .hero__subtitle--type {
   color: var(--color-accent);
   font-weight: 700;
   font-size: 0.875rem;
-}
-
-.service-feature__text {
-  font-size: clamp(1.125rem, 1.0847107438rem + 0.1652892562vw, 1.25rem);
-  line-height: 1.7;
-}
-.service-feature__text p {
-  margin: 0;
-}
-.service-feature__text p + p {
-  margin-top: 0.625rem;
 }
 
 /* вложенные списки с мягкими буллетами */
@@ -5838,6 +5831,7 @@ html.is-intro-active .hero .hero__subtitle--type {
   border-radius: 0.875rem;
   box-shadow: 0 1rem 2.5rem rgba(0, 0, 0, 0.05);
   overflow: clip;
+  font-size: clamp(1.125rem, 1.0847107438rem + 0.1652892562vw, 1.25rem);
   /* тонкие декоративные линии по краям во всю ширину контейнера */
 }
 .service__trust-inner::before, .service__trust-inner::after {

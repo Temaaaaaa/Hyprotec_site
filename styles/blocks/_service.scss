@@ -15,6 +15,7 @@
   align-items: stretch;
   @include tablet { grid-template-columns: 1fr; }
   @include tablet-above { --row-min: #{rem(420)}; }
+  @include fluid-text(20,18);
 }
 
 /* карточки обеих колонок */
@@ -33,8 +34,7 @@
 }
 
 .service__text {
-  @include fluid-text(17, 16);
-  line-height: 1.7;
+  @include fluid-text(20, 16);
   color: var(--color-dark-900, #222);
 
   p { margin: 0; }
@@ -89,6 +89,7 @@
   border-radius: rem(14);
   box-shadow: 0 rem(16) rem(40) rgba(0,0,0,.05);
   padding: clamp(14px, 2.2vw, 22px) clamp(16px, 2.6vw, 28px);
+  @include fluid-text(20,18);
 }
 
 .service-feature__title {
@@ -116,11 +117,6 @@
 }
 
 .service-feature__text {
-  @include fluid-text(20, 18);
-  line-height: 1.7;
-
-  p { margin: 0; }
-  p + p { margin-top: rem(10); }
 }
 
 /* вложенные списки с мягкими буллетами */
@@ -160,6 +156,7 @@
   border-radius: rem(14);
   box-shadow: 0 rem(16) rem(40) rgba(0,0,0,.05);
   overflow: clip;
+  @include fluid-text(20,18);
 
   /* тонкие декоративные линии по краям во всю ширину контейнера */
   &::before,
