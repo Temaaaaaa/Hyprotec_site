@@ -1,11 +1,21 @@
 @use '../helpers' as *;
 
-/* Фон секции чуть светлее для контраста */
-
-
+/* Отступ между заголовком секции и телом */
 .equipment__body { margin-top: clamp(1rem, 3vw, 2rem); }
 
-/* Крупный вводный текст */
+/* ===== Верх: текст слева + фото справа ===== */
+.equipment__grid {
+  display: grid;
+  gap: clamp(1rem, 3vw, 2rem);
+
+  /* две колонки начиная с tablet */
+  @include tablet-above {
+    grid-template-columns: 1fr minmax(rem(280), rem(520));
+    align-items: start;
+  }
+}
+
+/* Крупный вводный текст (как было) */
 .equipment__lead {
   p + p { margin-top: rem(18); }
   p {
@@ -15,7 +25,51 @@
   }
 }
 
-/* Сетка «пилюль» */
+/* Карточка с фотографией */
+.equipment__media {
+  position: relative;
+  border-radius: rem(16);
+  overflow: hidden;
+  background: var(--color-gray-300);
+  box-shadow:
+          0 rem(2) rem(18) rgba(0,0,0,.06),
+          inset 0 0 0 rem(1) rgba(20,20,20,.06);
+
+  /* соотношение сторон на узких экранах */
+  aspect-ratio: 4 / 3;
+
+  /* легкий глянец сверху */
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(180deg, rgba(255,255,255,.12), transparent 45%);
+    mix-blend-mode: screen;
+  }
+}
+
+.equipment__img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* подпись к фото (опционально; убери из разметки если не нужна) */
+.equipment__caption {
+  position: absolute;
+  left: rem(14);
+  bottom: rem(14);
+  padding: rem(6) rem(10);
+  border-radius: rem(12);
+  background: rgba(255,255,255,.85);
+  backdrop-filter: blur(4px);
+  @include fluid-text(14, 12);
+  color: var(--color-dark);
+}
+
+/* ===== Сетка «пилюль» (как было) ===== */
 .equipment__chips {
   margin-top: clamp(1.25rem, 3.5vw, 2.25rem);
   display: grid;
@@ -25,7 +79,7 @@
   @include laptop-above { grid-template-columns: repeat(3, 1fr); }
 }
 
-/* Пилюля-карточка с красной кромкой слева */
+/* Пилюля-карточка с красной кромкой слева (как было) */
 .chip {
   position: relative;
   padding: rem(18) rem(22);

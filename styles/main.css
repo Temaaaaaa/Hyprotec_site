@@ -2104,12 +2104,25 @@ button[aria-label]::before {
     transform: none !important;
   }
 }
-/* Фон секции чуть светлее для контраста */
+/* Отступ между заголовком секции и телом */
 .equipment__body {
   margin-top: clamp(1rem, 3vw, 2rem);
 }
 
-/* Крупный вводный текст */
+/* ===== Верх: текст слева + фото справа ===== */
+.equipment__grid {
+  display: grid;
+  gap: clamp(1rem, 3vw, 2rem);
+  /* две колонки начиная с tablet */
+}
+@media (width > 63.99875rem) {
+  .equipment__grid {
+    grid-template-columns: 1fr minmax(17.5rem, 32.5rem);
+    align-items: start;
+  }
+}
+
+/* Крупный вводный текст (как было) */
 .equipment__lead p + p {
   margin-top: 1.125rem;
 }
@@ -2119,7 +2132,47 @@ button[aria-label]::before {
   color: var(--color-dark-900);
 }
 
-/* Сетка «пилюль» */
+/* Карточка с фотографией */
+.equipment__media {
+  position: relative;
+  border-radius: 1rem;
+  overflow: hidden;
+  background: var(--color-gray-300);
+  box-shadow: 0 0.125rem 1.125rem rgba(0, 0, 0, 0.06), inset 0 0 0 0.0625rem rgba(20, 20, 20, 0.06);
+  /* соотношение сторон на узких экранах */
+  aspect-ratio: 4/3;
+  /* легкий глянец сверху */
+}
+.equipment__media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.12), transparent 45%);
+  mix-blend-mode: screen;
+}
+
+.equipment__img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* подпись к фото (опционально; убери из разметки если не нужна) */
+.equipment__caption {
+  position: absolute;
+  left: 0.875rem;
+  bottom: 0.875rem;
+  padding: 0.375rem 0.625rem;
+  border-radius: 0.75rem;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(4px);
+  font-size: clamp(0.75rem, 0.7097107438rem + 0.1652892562vw, 0.875rem);
+  color: var(--color-dark);
+}
+
+/* ===== Сетка «пилюль» (как было) ===== */
 .equipment__chips {
   margin-top: clamp(1.25rem, 3.5vw, 2.25rem);
   display: grid;
@@ -2136,7 +2189,7 @@ button[aria-label]::before {
   }
 }
 
-/* Пилюля-карточка с красной кромкой слева */
+/* Пилюля-карточка с красной кромкой слева (как было) */
 .chip {
   position: relative;
   padding: 1.125rem 1.375rem;
