@@ -13,6 +13,7 @@
   align-items: stretch;                 /* равная высота */
   @include tablet { grid-template-columns: 1fr; }
   @include tablet-above { --row-min: #{rem(420)}; } /* подстрой: 360–520 */
+  @include fluid-text(20,16);
 }
 
 /* обе колонки тянутся по высоте строки */
@@ -30,6 +31,7 @@
   flex-direction: column;
   gap: rem(16);
   padding: clamp(16px, 2.4vw, 24px) clamp(16px, 2.6vw, 28px);
+  //@include fluid-text(20,16);
 
   background: var(--color-white);
   border: rem(1) solid var(--color-dark-15, rgba(0,0,0,.15));
@@ -37,12 +39,13 @@
 }
 
 .course__subtitle {
-  @include fluid-text(18, 16);
+  //@include fluid-text(18, 16);
   margin: rem(2) 0 rem(6);
   font-weight: 700;
   color: var(--color-dark-900, #222);
   padding-bottom: rem(6);
   position: relative;
+  @include fluid-text(20,16);
 
   &::after {
     content: '';

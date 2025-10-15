@@ -35,6 +35,7 @@
   display: flex;
   flex-direction: column;
   gap: rem(16);
+  @include fluid-text(20,14);
   padding: clamp(16px, 2.4vw, 24px) clamp(16px, 2.6vw, 28px);
 
   background: var(--color-white);
@@ -43,7 +44,7 @@
 }
 
 .training__lead {
-  @include fluid-text(20, 16);
+  //@include fluid-text(20, 16);
   line-height: 1.72;
   color: var(--color-dark);
   margin: 0;

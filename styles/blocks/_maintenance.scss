@@ -47,6 +47,7 @@
   background: var(--color-white);
   border: rem(1) solid var(--color-dark-15, rgba(0,0,0,.15));
   box-shadow: 0 rem(22) rem(60) rgba(0,0,0,.06);
+  @include fluid-text(20,16);
 
   /* аккуратная полоска-акцент слева */
   position: relative;
@@ -78,6 +79,7 @@
   margin: 0;
   padding: 0;
   list-style: none;
+  @include fluid-text(20,16);
 }
 .maintenance__item {
   position: relative;
