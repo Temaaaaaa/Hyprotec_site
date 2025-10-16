@@ -1,12 +1,9 @@
 @use '../helpers' as *;
 
-/* =========================
-   TRAINING — v2 (чисто и «дорого»)
-   ========================= */
 
 .training__body { margin-top: clamp(1.25rem, 3vw, 2rem); }
 
-/* 1) Сетка: равная высота колонок */
+
 .training__grid {
   display: grid;
   grid-template-columns: minmax(0, 1.04fr) minmax(0, .96fr);
@@ -17,7 +14,7 @@
   @include tablet-above { --row-min: #{rem(380)}; } /* подгони 340–460 */
 }
 
-/* Общие правила для колонок */
+
 .training__content,
 .training__media {
   height: 100%;
@@ -55,7 +52,7 @@
 
 /* Подзаголовок — спокойная линия снизу */
 .training__subtitle {
-  @include fluid-text(18, 16);
+  @include fluid-text(20,16);
   margin: rem(2) 0 rem(6);
   font-weight: 700;
   color: var(--color-dark-900, #222);
