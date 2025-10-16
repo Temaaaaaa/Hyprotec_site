@@ -1456,7 +1456,6 @@ button[aria-label]::before {
     width: 2.75rem;
   }
 }
-/* ===== ABOUT (roomier) ===== */
 .about__body {
   margin-top: clamp(1.5rem, 4vw, 3rem);
 }
@@ -1524,7 +1523,6 @@ button[aria-label]::before {
   padding-left: var(--rail-offset);
   /* Общая вертикальная линия слева */
   /* Акцентная полоса и маркер у каждой карточки */
-  /* Адаптив: компактнее, но с запасом воздуха */
 }
 .about__list--stacked .about-card {
   /* акцентная полоска слева на высоту карточки */
@@ -3923,14 +3921,10 @@ button[aria-label]::before {
   letter-spacing: -0.01em;
 }
 
-/* =========================
-   TRAINING — v2 (чисто и «дорого»)
-   ========================= */
 .training__body {
   margin-top: clamp(1.25rem, 3vw, 2rem);
 }
 
-/* 1) Сетка: равная высота колонок */
 .training__grid {
   display: grid;
   grid-template-columns: minmax(0, 1.04fr) minmax(0, 0.96fr);
@@ -3949,7 +3943,6 @@ button[aria-label]::before {
   }
 }
 
-/* Общие правила для колонок */
 .training__content,
 .training__media {
   height: 100%;
@@ -3991,7 +3984,7 @@ button[aria-label]::before {
 
 /* Подзаголовок — спокойная линия снизу */
 .training__subtitle {
-  font-size: clamp(1rem, 0.9597107438rem + 0.1652892562vw, 1.125rem);
+  font-size: clamp(1rem, 0.9194214876rem + 0.3305785124vw, 1.25rem);
   margin: 0.125rem 0 0.375rem;
   font-weight: 700;
   color: var(--color-dark-900, #222);

@@ -1,7 +1,5 @@
 @use '../helpers' as *;
 
-/* ===== ABOUT (roomier) ===== */
-
 .about__body {
   margin-top: clamp(1.5rem, 4vw, 3rem);
 }
@@ -111,7 +109,6 @@
     }
   }
 
-  /* Адаптив: компактнее, но с запасом воздуха */
   @include tablet {
     --rail-offset: #{rem(52)};
     gap: rem(20);
