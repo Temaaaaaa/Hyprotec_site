@@ -139,43 +139,5 @@
     }
   }
 }
-.about-card--image {
-  --card-pad-x: #{rem(14)};
-  --card-pad-y: #{rem(14)};
-
-  padding: var(--card-pad-y) var(--card-pad-x);
-  max-width: clamp(#{rem(260)}, 55vw, #{rem(460)}); // общий размер блока
-  margin-inline: auto; // по центру (убери, если нужно слева)
-}
-
-.about-card--image .about-card__img {
-  display: block;
-  width: 100%;
-  height: auto;
-  max-height: #{rem(300)};
-  object-fit: contain;
-  border-radius: #{rem(14)};
-  background: color-mix(in srgb, var(--color-dark) 4%, transparent);
-}
-
-@include tablet {
-  .about-card--image {
-    max-width: clamp(#{rem(240)}, 70vw, #{rem(420)});
-  }
-
-  .about-card--image .about-card__img {
-    max-height: #{rem(280)};
-  }
-}
-
-@include mobile {
-  .about-card--image {
-    max-width: 100%;
-  }
-
-  .about-card--image .about-card__img {
-    max-height: #{rem(240)};
-  }
-}
 
 

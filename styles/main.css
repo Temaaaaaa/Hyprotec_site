@@ -5252,6 +5252,66 @@ html.is-intro-active .hero .hero__subtitle--type {
     border-radius: 0.75rem;
   }
 }
+.legal {
+  padding-block: clamp(2.5rem, 1.694214876rem + 3.305785124vw, 5rem);
+}
+.legal__inner {
+  max-width: 56.25rem;
+  margin-inline: auto;
+}
+.legal__title {
+  margin-bottom: clamp(1.5rem, 1.3388429752rem + 0.6611570248vw, 2rem);
+  color: var(--color-dark);
+}
+.legal__content {
+  font-size: 1.125rem;
+  line-height: 1.6;
+  color: var(--color-dark-900);
+}
+@media (width <= 48.18625rem) {
+  .legal__content {
+    font-size: 1rem;
+  }
+}
+.legal__content h3 {
+  font-size: clamp(1.25rem, 1.1694214876rem + 0.3305785124vw, 1.5rem);
+  font-weight: 600;
+  color: var(--color-dark);
+  margin-top: 3rem;
+  margin-bottom: 1rem;
+}
+.legal__content h3:first-child {
+  margin-top: 0;
+}
+.legal__content p {
+  margin-bottom: 1rem;
+}
+.legal__content ul {
+  list-style: disc;
+  padding-left: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+.legal__content ul li {
+  margin-bottom: 0.5rem;
+  padding-left: 0.5rem;
+}
+.legal__content ul li::marker {
+  color: var(--color-accent);
+}
+.legal__content code {
+  font-family: inherit;
+  font-weight: 500;
+  color: var(--color-accent);
+  background-color: var(--color-white-secondary);
+  padding: 0.125rem 0.375rem;
+  border-radius: 0.25rem;
+}
+.legal__content a {
+  color: var(--color-accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
 /* Базовые параметры слайдов оставляем как есть */
 .carousel {
   --slide-max: 57.5rem;
@@ -5411,118 +5471,6 @@ html.is-intro-active .hero .hero__subtitle--type {
 @media (width >= 90.06125rem) {
   .shots__img {
     aspect-ratio: 16/9;
-  }
-}
-/* ——— Legal pages (privacy/cookies/terms) ——— */
-.legal {
-  /* TOC */
-  /* Content card */
-}
-.legal__meta {
-  font-size: clamp(0.75rem, 0.7097107438rem + 0.1652892562vw, 0.875rem);
-  color: var(--color-gray-300);
-  margin-top: 0.5rem;
-}
-.legal__body {
-  padding-block: 1.5rem 3rem;
-}
-.legal__container {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 3fr);
-  gap: 2rem;
-}
-@media (width <= 63.99875rem) {
-  .legal__container {
-    grid-template-columns: 1fr;
-  }
-}
-.legal__toc {
-  position: sticky;
-  top: 1.5rem;
-  align-self: start;
-  background: var(--color-white);
-  border: var(--border, 1px solid rgba(0, 0, 0, 0.08));
-  border-radius: 0.75rem;
-  padding: 1rem;
-}
-@media (width <= 63.99875rem) {
-  .legal__toc {
-    position: static;
-  }
-}
-.legal__toc-nav {
-  display: grid;
-  gap: 0.5rem;
-}
-.legal__toc-nav a {
-  font-size: clamp(0.875rem, 0.8347107438rem + 0.1652892562vw, 1rem);
-  color: var(--color-dark);
-  text-decoration: none;
-  padding: 0.375rem 0.5rem;
-  border-radius: 0.5rem;
-  transition: background-color var(--transition-duration, 0.2s);
-}
-@media (any-hover: hover) {
-  .legal__toc-nav a:hover {
-    background: rgba(0, 0, 0, 0.04);
-  }
-}
-@media (any-hover: none) {
-  .legal__toc-nav a:active {
-    background: rgba(0, 0, 0, 0.04);
-  }
-}
-.legal__toc-nav a:focus-visible {
-  outline: 2px dashed var(--color-accent);
-  outline-offset: 3px;
-}
-.legal__content {
-  background: var(--color-white);
-  border: var(--border, 1px solid rgba(0, 0, 0, 0.08));
-  border-radius: 0.75rem;
-  padding: clamp(1rem, 2vw, 1.75rem);
-  line-height: 1.65;
-}
-.legal__content h2 {
-  font-size: clamp(1.125rem, 1.0444214876rem + 0.3305785124vw, 1.375rem);
-  margin: 1.2em 0 0.6em;
-}
-.legal__content p, .legal__content li {
-  font-size: clamp(0.875rem, 0.8347107438rem + 0.1652892562vw, 1rem);
-}
-.legal__content ul {
-  margin: 0.5em 0 1em 1.2em;
-}
-.legal__content a {
-  color: var(--color-accent);
-  text-decoration: underline;
-}
-.legal__content code {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  font-size: 0.95em;
-}
-
-/* Подсветка активного раздела по :target (необязательно, но приятно) */
-:target {
-  scroll-margin-top: 5.625rem;
-} /* чтобы заголовок не прятался под хедером */
-.legal__toc-nav a[href*="#"] { /* чтобы не ломать сборку — пусто */ }
-@supports selector(:has(*)) {
-  .legal__toc-nav a {
-    /* если заголовок в контенте в фокусе/цели — помечаем ссылку */
-  }
-  .legal__toc-nav a.is-active {
-    background: rgba(0, 0, 0, 0.06);
-  }
-}
-/* Печать — чистая версия */
-@media print {
-  .header, .footer, .cookie, .section__rule, .legal__toc {
-    display: none !important;
-  }
-  .legal__content {
-    border: none;
-    padding: 0;
   }
 }
 .cookie {
