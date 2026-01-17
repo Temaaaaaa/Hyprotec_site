@@ -1,73 +1,86 @@
 @use '../helpers' as *;
 
-/* ——— Legal pages (privacy/cookies/terms) ——— */
 .legal {
-  &__meta { @include fluid-text(14,12); color: var(--color-gray-300); margin-top: .5rem; }
+  // Адаптивный отступ сверху и снизу (от 40px до 80px)
+  padding-block: fluid(80, 40);
 
-  &__body { padding-block: rem(24) rem(48); }
-
-  &__container {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 3fr);
-    gap: rem(32);
-    @include tablet { grid-template-columns: 1fr; }
+  &__inner {
+    // Ограничиваем ширину контента.
+    // 800-900px — это золотой стандарт для комфортного чтения текста.
+    max-width: rem(900);
+    margin-inline: auto;
   }
 
-  /* TOC */
-  &__toc {
-    position: sticky; top: rem(24);
-    align-self: start;
-    background: var(--color-white);
-    border: var(--border, 1px solid rgba(0,0,0,.08));
-    border-radius: rem(12);
-    padding: rem(16);
-    @include tablet { position: static; }
+  &__title {
+    // Заголовок H1
+    margin-bottom: fluid(32, 24);
+    color: var(--color-dark);
   }
-  &__toc-nav {
-    display: grid; gap: rem(8);
-    a {
-      @include fluid-text(16,14);
+
+  &__content {
+    // Базовый текст
+    font-size: rem(18);
+    line-height: 1.6; // Увеличенный интерлиньяж для легкого чтения
+    color: var(--color-dark-900);
+
+    // На мобилке чуть уменьшаем шрифт
+    @include mobile {
+      font-size: rem(16);
+    }
+
+    // --- Стилизация вложенных элементов (так как это "простыня" текста) ---
+
+    // Заголовки разделов (1. Введение, 2. Сбор данных...)
+    h3 {
+      @include fluid-text(24, 20);
+      font-weight: 600;
       color: var(--color-dark);
-      text-decoration: none;
-      padding: rem(6) rem(8);
-      border-radius: rem(8);
-      transition: background-color var(--transition-duration,.2s);
 
-      @include hover() { background: rgba(0,0,0,.04); }
-      &:focus-visible { outline: 2px dashed var(--color-accent); outline-offset: 3px; }
+      // Отступ сверху больше, чем снизу, чтобы визуально группировать блоки
+      margin-top: rem(48);
+      margin-bottom: rem(16);
+
+      &:first-child { margin-top: 0; }
+    }
+
+    // Абзацы
+    p {
+      margin-bottom: rem(16);
+    }
+
+    // Списки
+    ul {
+      list-style: disc;
+      padding-left: rem(20);
+      margin-bottom: rem(24);
+
+      li {
+        margin-bottom: rem(8);
+        padding-left: rem(8);
+
+        // Красивые маркеры (опционально, если дефолтные не нравятся)
+        &::marker {
+          color: var(--color-accent);
+        }
+      }
+    }
+
+    // Выделение email (тег code)
+    code {
+      font-family: inherit; // Не меняем шрифт на моноширинный
+      font-weight: 500;
+      color: var(--color-accent);
+      background-color: var(--color-white-secondary); // Твой светлый фон из переменных
+      padding: rem(2) rem(6);
+      border-radius: rem(4);
+    }
+
+    // Ссылки внутри текста
+    a {
+      color: var(--color-accent);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+
     }
   }
-
-  /* Content card */
-  &__content {
-    background: var(--color-white);
-    border: var(--border, 1px solid rgba(0,0,0,.08));
-    border-radius: rem(12);
-    padding: clamp(1rem, 2vw, 1.75rem);
-    line-height: 1.65;
-
-    h2 { @include fluid-text(22,18); margin: 1.2em 0 .6em; }
-    p, li { @include fluid-text(16,14); }
-    ul { margin: .5em 0 1em 1.2em; }
-    a { color: var(--color-accent); text-decoration: underline; }
-    code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .95em; }
-  }
-}
-
-/* Подсветка активного раздела по :target (необязательно, но приятно) */
-:target { scroll-margin-top: rem(90); } /* чтобы заголовок не прятался под хедером */
-.legal__toc-nav a[href*="#"] {
-  &[href="##{target}"] {} /* чтобы не ломать сборку — пусто */
-}
-@supports selector(:has(*)) {
-  .legal__toc-nav a {
-    /* если заголовок в контенте в фокусе/цели — помечаем ссылку */
-    &.is-active { background: rgba(0,0,0,.06); }
-  }
-}
-
-/* Печать — чистая версия */
-@media print {
-  .header, .footer, .cookie, .section__rule, .legal__toc { display: none !important; }
-  .legal__content { border: none; padding: 0; }
 }
