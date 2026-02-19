@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Новости | HYPROTEC</title>
+    <meta
+      name="description"
+      content="Публикации HYPROTEC из Telegram-канала."
+    />
+    <link rel="stylesheet" href="../styles/main.css" />
+    <script type="module" src="../scripts/main.js" defer></script>
+    <script type="module" src="../scripts/news.js" defer></script>
+  </head>
+  <body>
+    <header class="header" data-js-header>
+      <div class="header__body">
+        <div class="header__body-inner container">
+          <a
+            class="header__logo logo"
+            href="../"
+            aria-label="Home"
+            title="Home"
+          >
+            <img
+              class="logo__image"
+              src="../images/logo-main.svg"
+              alt=""
+              width="300"
+              height="50"
+            />
+          </a>
+
+          <div class="header__overlay" id="header-panel" data-js-header-overlay>
+            <nav class="header__menu" aria-label="Главное меню">
+              <ul class="header__menu-list">
+                <li class="header__menu-item">
+                  <a class="header__menu-link" href="../">Главная</a>
+                </li>
+                <li class="header__menu-item">
+                  <a class="header__menu-link" href="../#services-section"
+                    >Услуги</a
+                  >
+                </li>
+                <li class="header__menu-item">
+                  <a class="header__menu-link" href="../#contacts">Контакты</a>
+                </li>
+                <li class="header__menu-item">
+                  <a
+                    class="header__menu-link"
+                    href="https://t.me/hyprotec"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >Telegram</a
+                  >
+                </li>
+              </ul>
+            </nav>
+          </div>
+
+          <button
+            class="header__burger-button burger-button visible-mobile"
+            type="button"
+            aria-label="Открыть меню"
+            aria-controls="header-panel"
+            aria-expanded="false"
+            data-js-header-burger-button
+          >
+            <span class="burger-button__line"></span>
+            <span class="burger-button__line"></span>
+            <span class="burger-button__line"></span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero hero--secondary news-hero">
+        <div class="hero__bg" aria-hidden="true"></div>
+        <div class="hero__inner container hero__inner--left">
+          <h1 class="hero__title">Новости</h1>
+          <p class="hero__subtitle">
+            Актуальные публикации из Telegram-канала HYPROTEC.
+          </p>
+        </div>
+      </section>
+
+      <section class="news-feed section" data-news-feed>
+        <header class="section__header">
+          <div class="section__header-inner container">
+            <div class="section__header-info">
+              <h2 class="section__title section-title">Лента публикаций</h2>
+            </div>
+            <div class="section__rule" aria-hidden="true"></div>
+          </div>
+        </header>
+
+        <div class="news-feed__body">
+          <div class="news-feed__inner container">
+            <p class="news-feed__status" data-news-status>
+              Загрузка публикаций...
+            </p>
+            <div class="news-feed__list" data-news-list></div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="footer__inner container">
+        <div class="footer__body">
+          <div class="footer__brand">
+            <a href="../" class="footer__logo" aria-label="HYPROTEC">
+              <img src="../images/logo-main.svg" alt="HYPROTEC" />
+            </a>
+            <p class="footer__copyright">
+              <span aria-hidden="true">©</span> Все права защищены. HYPROTEC.
+            </p>
+          </div>
+          <nav class="footer__menu" aria-label="Меню в подвале">
+            <div class="footer__menu-column">
+              <span class="footer__menu-title">МЕНЮ</span>
+              <ul class="footer__menu-list">
+                <li class="footer__menu-item">
+                  <a href="../" class="footer__menu-link">Главная</a>
+                </li>
+                <li class="footer__menu-item">
+                  <a href="../policy/" class="footer__menu-link"
+                    >Политика конфиденциальности</a
+                  >
+                </li>
+                <li class="footer__menu-item">
+                  <a
+                    href="https://t.me/hyprotec"
+                    class="footer__menu-link"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >Telegram</a
+                  >
+                </li>
+              </ul>
+            </div>
+          </nav>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -4,16 +4,22 @@
    COURSE — буровые растворы (ровные колонки)
    ========================= */
 
-.course__body { margin-top: clamp(1.25rem, 3vw, 2rem); }
+.course__body {
+  margin-top: clamp(1.25rem, 3vw, 2rem);
+}
 
 .course__grid {
   display: grid;
-  grid-template-columns: minmax(0, 1.04fr) minmax(0, .96fr);
+  grid-template-columns: minmax(0, 1.04fr) minmax(0, 0.96fr);
   gap: clamp(16px, 3vw, 24px);
-  align-items: stretch;                 /* равная высота */
-  @include tablet { grid-template-columns: 1fr; }
-  @include tablet-above { --row-min: #{rem(420)}; } /* подстрой: 360–520 */
-  @include fluid-text(20,16);
+  align-items: stretch; /* равная высота */
+  @include tablet {
+    grid-template-columns: 1fr;
+  }
+  @include tablet-above {
+    --row-min: #{rem(420)};
+  } /* подстрой: 360–520 */
+  // @include fluid-text(20,16);
 }
 
 /* обе колонки тянутся по высоте строки */
@@ -22,7 +28,10 @@
   height: 100%;
   min-height: var(--row-min, auto);
   border-radius: rem(16);
-  @include mobile { border-radius: rem(14); min-height: auto; }
+  @include mobile {
+    border-radius: rem(14);
+    min-height: auto;
+  }
 }
 
 /* ——— Левая панель ——— */
@@ -34,8 +43,8 @@
   //@include fluid-text(20,16);
 
   background: var(--color-white);
-  border: rem(1) solid var(--color-dark-15, rgba(0,0,0,.15));
-  box-shadow: 0 rem(18) rem(54) rgba(0,0,0,.06);
+  border: rem(1) solid var(--color-dark-15, rgba(0, 0, 0, 0.15));
+  box-shadow: 0 rem(18) rem(54) rgba(0, 0, 0, 0.06);
 }
 
 .course__subtitle {
@@ -45,13 +54,15 @@
   color: var(--color-dark-900, #222);
   padding-bottom: rem(6);
   position: relative;
-  @include fluid-text(20,16);
+  @include fluid-text(20, 16);
 
   &::after {
     content: '';
     position: absolute;
-    left: 0; bottom: 0;
-    width: rem(56); height: rem(2);
+    left: 0;
+    bottom: 0;
+    width: rem(56);
+    height: rem(2);
     background: var(--color-accent);
     border-radius: rem(2);
   }
@@ -73,8 +84,10 @@
   &::before {
     content: '';
     position: absolute;
-    left: 0; top: 0.72em;
-    width: rem(6); height: rem(6);
+    left: 0;
+    top: 0.72em;
+    width: rem(6);
+    height: rem(6);
     border-radius: 50%;
     background: var(--color-accent);
     box-shadow: 0 0 0 rem(3) color-mix(in srgb, var(--color-accent), #fff 85%);
@@ -84,7 +97,7 @@
 
 .course__note {
   margin-top: rem(6);
-  opacity: .85;
+  opacity: 0.85;
   line-height: 1.6;
 }
 
@@ -94,10 +107,12 @@
   position: relative;
   padding: var(--pad);
   background: var(--color-white);
-  border: rem(1) solid var(--color-dark-15, rgba(0,0,0,.15));
-  box-shadow: 0 rem(22) rem(60) rgba(0,0,0,.07);
+  border: rem(1) solid var(--color-dark-15, rgba(0, 0, 0, 0.15));
+  box-shadow: 0 rem(22) rem(60) rgba(0, 0, 0, 0.07);
 
-  @include mobile { --pad: #{rem(8)}; }
+  @include mobile {
+    --pad: #{rem(8)};
+  }
 }
 
 /* картинка заполняет высоту колонки */
@@ -124,7 +139,11 @@
   height: 26%;
   border-bottom-left-radius: calc(rem(16) - var(--pad));
   border-bottom-right-radius: calc(rem(16) - var(--pad));
-  background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,.35) 90%);
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0.35) 90%
+  );
   pointer-events: none;
 
   @include mobile {
@@ -143,13 +162,14 @@
   font-size: rem(13);
   line-height: 1;
   color: var(--color-white);
-  background: rgba(0,0,0,.55);
+  background: rgba(0, 0, 0, 0.55);
   backdrop-filter: blur(6px);
   border-radius: 999px;
   white-space: nowrap;
 }
 
 /* заголовок секции плотнее при переносах */
-#course-mud-title { line-height: 1.16; letter-spacing: -0.01em; }
-
-
+#course-mud-title {
+  line-height: 1.16;
+  letter-spacing: -0.01em;
+}
