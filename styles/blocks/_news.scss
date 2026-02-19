@@ -7,8 +7,11 @@
   padding-block: rem(80) rem(36);
 
   .hero__bg {
-    background:
-      radial-gradient(circle at 20% 30%, rgba(231, 52, 57, 0.25), transparent 45%),
+    background: radial-gradient(
+        circle at 20% 30%,
+        rgba(231, 52, 57, 0.25),
+        transparent 45%
+      ),
       linear-gradient(125deg, #0e0f10 0%, #202226 45%, #30343a 100%);
   }
 
