@@ -1,7 +1,8 @@
 const fs = require('fs');
 
 const TOKEN = process.env.TG_TOKEN;
-const CHANNEL_ID = '@okaasdf_bot';
+// Используем числовой ID, который мы увидели в твоих логах
+const CHANNEL_ID = "-1003859497665";
 
 async function fetchTelegramNews() {
     const url = `https://api.telegram.org/bot${TOKEN}/getUpdates`;
@@ -12,25 +13,17 @@ async function fetchTelegramNews() {
 
         if (!data.ok) throw new Error(data.description);
 
-        // --- ЛОГИ ДЛЯ ОТЛАДКИ ---
-        console.log("--- СЫРЫЕ ДАННЫЕ ОТ TELEGRAM ---");
-        console.log(JSON.stringify(data, null, 2));
-        console.log("-------------------------------");
-
-        if (data.result.length === 0) {
-            console.log("⚠️ Telegram вернул пустой список. Бот не видит новых сообщений.");
-        }
-
         const posts = data.result
             .filter(item => {
                 const post = item.channel_post;
                 if (!post) return false;
 
-                // Проверяем, что приходит в логи: юзернейм или ID
-                console.log(`Проверяю пост ID: ${post.message_id} от канала: ${post.chat.username || post.chat.id}`);
+                // Сравниваем ID как строки, чтобы не было ошибок
+                const chatId = String(post.chat.id);
+                const targetId = String(CHANNEL_ID);
 
-                return post.chat.username === CHANNEL_ID.replace('@', '') ||
-                    post.chat.id.toString() === CHANNEL_ID;
+                console.log(`Проверяю пост от ID: ${chatId}`);
+                return chatId === targetId;
             })
             .map(item => {
                 const post = item.channel_post;
@@ -42,19 +35,28 @@ async function fetchTelegramNews() {
             })
             .reverse();
 
+        // Проверяем папку
         if (!fs.existsSync('./data')) fs.mkdirSync('./data');
 
+        // Читаем старые новости
         let existingNews = [];
         if (fs.existsSync('./data/news.json')) {
-            const fileContent = fs.readFileSync('./data/news.json', 'utf8');
-            existingNews = JSON.parse(fileContent || '[]');
+            try {
+                const fileContent = fs.readFileSync('./data/news.json', 'utf8');
+                existingNews = JSON.parse(fileContent || '[]');
+            } catch (e) {
+                existingNews = [];
+            }
         }
 
+        // Объединяем и убираем дубликаты
         const allNews = [...posts, ...existingNews];
         const uniqueNews = Array.from(new Map(allNews.map(item => [item.id, item])).values()).slice(0, 10);
 
         fs.writeFileSync('./data/news.json', JSON.stringify(uniqueNews, null, 2));
-        console.log(`✅ Итог: сохранено постов - ${uniqueNews.length}`);
+
+        console.log(`✅ Найдено в этом запросе: ${posts.length}`);
+        console.log(`✅ Итого сохранено в файл: ${uniqueNews.length}`);
 
     } catch (error) {
         console.error('❌ Ошибка:', error.message);
