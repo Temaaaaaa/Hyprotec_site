@@ -3,7 +3,11 @@ name: Telegram News Sync
 on:
   schedule:
     - cron: '0 * * * *' # Запуск каждый час
-  workflow_dispatch:   # Ручной запуск кнопкой
+  workflow_dispatch: # Ручной запуск кнопкой
+
+concurrency:
+  group: telegram-news-sync
+  cancel-in-progress: false
 
 jobs:
   build:
@@ -31,11 +35,12 @@ jobs:
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          
-          # Добавляем JSON с данными и все новые картинки из твоей папки images
+
+          # Добавляем JSON + состояние offset + картинки (если есть)
           git add data/news.json
-          git add images/news/
-          
+          [ -f data/tg_state.json ] && git add data/tg_state.json || true
+          [ -d images/news ] && git add images/news/ || true
+
           # Если изменений нет, скрипт не упадет благодаря || exit 0
           git commit -m "chore: auto-update news and images from Telegram" || exit 0
           git push
