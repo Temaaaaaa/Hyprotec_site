@@ -1,0 +1,36 @@
+name: Telegram News Sync
+
+on:
+  schedule:
+    - cron: '0 * * * *' # Запуск каждый час (в 00 минут каждого часа)
+  workflow_dispatch:   # Позволяет запускать скрипт вручную кнопкой на GitHub
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Загружаем код из твоего репозитория на сервер
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2. Устанавливаем Node.js (как на твоем компьютере)
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      # 3. Запускаем наш скрипт загрузки новостей
+      - name: Run Fetch Script
+        env:
+          TG_TOKEN: ${{ secrets.TG_TOKEN }} # Берем токен из "сейфа"
+        run: node get_news.js
+
+      # 4. Сохраняем обновленный news.json обратно в репозиторий
+      - name: Commit and Push changes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/news.json
+          git commit -m "chore: auto-update news from Telegram" || exit 0
+          git push

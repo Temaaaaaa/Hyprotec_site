@@ -1,0 +1,95 @@
+@use '../helpers' as *;
+
+.feedback {
+  padding-block: fluid(180, 100);
+
+  &__body {
+    margin-top: fluid(60, 30);
+  }
+}
+
+.feedback-form {
+  --card-pad-x: #{fluid(80, 24)};
+  --card-pad-y: #{fluid(70, 32)};
+
+  max-width: rem(1100);
+  margin-inline: auto;
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: fluid(40, 20);
+
+    @include mobile {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  &__field {
+    display: flex;
+    flex-direction: column;
+    gap: rem(14);
+
+    &--full {
+      grid-column: span 2;
+      @include mobile { grid-column: span 1; }
+    }
+  }
+
+  &__label {
+    font-weight: 600;
+    color: var(--color-dark);
+    @include fluid-text(20, 16);
+  }
+
+  &__input {
+    width: 100%;
+    padding: fluid(22, 16) fluid(28, 20);
+    background-color: var(--color-white);
+    border: rem(1) solid color-mix(in srgb, var(--color-dark) 15%, transparent);
+    border-radius: rem(16);
+    font-family: var(--font-family-base);
+    @include fluid-text(20, 16);
+    transition: all var(--transition-duration);
+
+    &:focus {
+      outline: none;
+      border-color: var(--color-accent);
+      box-shadow: 0 0 0 rem(5) color-mix(in srgb, var(--color-accent) 12%, transparent);
+    }
+
+    &--textarea {
+      min-height: fluid(220, 150);
+      resize: vertical;
+    }
+  }
+
+  &__footer {
+    margin-top: fluid(50, 32);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: rem(16);
+  }
+
+  &__button {
+    min-width: rem(280);
+    padding-block: rem(20);
+    @include fluid-text(20, 18);
+
+    @include mobile { width: 100%; }
+  }
+
+  &__result {
+    @include fluid-text(18, 16);
+    font-weight: 500;
+    &.is-success { color: #28a745; }
+    &.is-error { color: var(--color-accent); }
+  }
+
+  // Эффект загрузки
+  &.is-loading {
+    opacity: 0.7;
+    pointer-events: none;
+  }
+}
