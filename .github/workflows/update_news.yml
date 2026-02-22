@@ -29,6 +29,7 @@ jobs:
       - name: Run Fetch Script
         env:
           TG_TOKEN: ${{ secrets.TG_TOKEN }}
+          CHANNEL_ID: ${{ secrets.CHANNEL_ID }}
         run: node get_news.js
 
       - name: Commit and Push changes

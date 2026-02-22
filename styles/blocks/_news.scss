@@ -157,6 +157,18 @@
     grid-template-columns: minmax(rem(320), rem(460)) 1fr;
   }
 
+  &__media {
+    position: relative;
+    overflow: hidden;
+    min-height: rem(220);
+    background-color: #eef2f6;
+
+    @include tablet-above {
+      min-height: rem(320);
+      height: 100%;
+    }
+  }
+
   &__image {
     aspect-ratio: 16 / 9;
     width: 100%;
@@ -182,6 +194,78 @@
     @include mobile-s {
       min-height: rem(180);
     }
+  }
+
+  &__image--empty {
+    display: grid;
+    place-items: center;
+    color: rgba(26, 31, 39, 0.55);
+    font-family: var(--font-family-accent), sans-serif;
+    font-size: fluid(34, 24);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    background:
+      radial-gradient(
+        circle at 20% 22%,
+        rgba(231, 52, 57, 0.18),
+        transparent 42%
+      ),
+      linear-gradient(125deg, #e7ebf1 0%, #f1f4f8 46%, #e7ecf2 100%);
+  }
+
+  &__badges {
+    position: absolute;
+    top: rem(12);
+    right: rem(12);
+    z-index: 3;
+    display: inline-flex;
+    align-items: center;
+    gap: rem(8);
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+
+  &__badge {
+    display: inline-flex;
+    align-items: center;
+    border-radius: rem(999);
+    padding: rem(6) rem(10);
+    font-size: rem(12);
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    color: #fff;
+    backdrop-filter: blur(rem(4));
+    box-shadow: 0 rem(4) rem(10) rgba(0, 0, 0, 0.2);
+  }
+
+  &__badge--video {
+    background: rgba(20, 20, 20, 0.72);
+  }
+
+  &__badge--count {
+    background: rgba(231, 52, 57, 0.9);
+  }
+
+  &__thumbs {
+    position: absolute;
+    left: rem(12);
+    right: rem(12);
+    bottom: rem(12);
+    z-index: 2;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: rem(8);
+  }
+
+  &__thumb {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    border-radius: rem(10);
+    border: rem(2) solid rgba(255, 255, 255, 0.82);
+    object-fit: cover;
+    object-position: center;
+    box-shadow: 0 rem(6) rem(16) rgba(0, 0, 0, 0.22);
+    background-color: #eef2f6;
   }
 
   &__body {

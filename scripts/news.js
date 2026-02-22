@@ -24,35 +24,8 @@ async function loadTelegramNews(list, status) {
     }
 
     const fragment = document.createDocumentFragment();
-
     items.forEach((item) => {
-      const card = document.createElement('article');
-      card.className = 'news-card';
-
-      if (item.image) {
-        const image = document.createElement('img');
-        image.className = 'news-card__image';
-        image.src = normalizeImagePath(item.image);
-        image.alt = '';
-        image.loading = 'lazy';
-        card.append(image);
-      }
-
-      const body = document.createElement('div');
-      body.className = 'news-card__body';
-
-      const date = document.createElement('time');
-      date.className = 'news-card__date';
-      date.textContent = formatDate(item.date);
-      body.append(date);
-
-      const text = document.createElement('p');
-      text.className = 'news-card__text';
-      text.textContent = item.text || 'Без текста';
-      body.append(text);
-
-      card.append(body);
-      fragment.append(card);
+      fragment.append(createNewsCard(item));
     });
 
     list.replaceChildren(fragment);
@@ -62,6 +35,108 @@ async function loadTelegramNews(list, status) {
       'Не удалось загрузить публикации. Проверьте data/news.json.';
     console.error(error);
   }
+}
+
+function createNewsCard(item) {
+  const card = document.createElement('article');
+  card.className = 'news-card';
+
+  const mediaRoot = document.createElement('div');
+  mediaRoot.className = 'news-card__media';
+
+  const coverImage = getCoverImage(item);
+  if (coverImage) {
+    const image = document.createElement('img');
+    image.className = 'news-card__image';
+    image.src = normalizeImagePath(coverImage);
+    image.alt = '';
+    image.loading = 'lazy';
+    mediaRoot.append(image);
+  } else {
+    const empty = document.createElement('div');
+    empty.className = 'news-card__image news-card__image--empty';
+    empty.textContent = 'HYPROTEC';
+    mediaRoot.append(empty);
+  }
+
+  const badges = createBadges(item);
+  if (badges) mediaRoot.append(badges);
+
+  const thumbs = createThumbs(item);
+  if (thumbs) mediaRoot.append(thumbs);
+
+  const body = document.createElement('div');
+  body.className = 'news-card__body';
+
+  const date = document.createElement('time');
+  date.className = 'news-card__date';
+  date.textContent = formatDate(item.date);
+  body.append(date);
+
+  const text = document.createElement('p');
+  text.className = 'news-card__text';
+  text.textContent = item.text || 'Без текста';
+  body.append(text);
+
+  card.append(mediaRoot, body);
+  return card;
+}
+
+function createBadges(item) {
+  const hasVideo = Boolean(item.has_video);
+  const mediaCount = Number(item.media_count) || item.media.length;
+  if (!hasVideo && mediaCount <= 1) return null;
+
+  const wrap = document.createElement('div');
+  wrap.className = 'news-card__badges';
+
+  if (hasVideo) {
+    const video = document.createElement('span');
+    video.className = 'news-card__badge news-card__badge--video';
+    video.textContent = 'Видео';
+    wrap.append(video);
+  }
+
+  if (mediaCount > 1) {
+    const count = document.createElement('span');
+    count.className = 'news-card__badge news-card__badge--count';
+    count.textContent = `${mediaCount} медиа`;
+    wrap.append(count);
+  }
+
+  return wrap;
+}
+
+function createThumbs(item) {
+  if (!Array.isArray(item.media) || item.media.length <= 1) return null;
+
+  const others = item.media
+    .slice(1, 4)
+    .map((media) => normalizeImagePath(media.image));
+  if (!others.length) return null;
+
+  const thumbs = document.createElement('div');
+  thumbs.className = 'news-card__thumbs';
+
+  others.forEach((src) => {
+    const thumb = document.createElement('img');
+    thumb.className = 'news-card__thumb';
+    thumb.src = src;
+    thumb.alt = '';
+    thumb.loading = 'lazy';
+    thumbs.append(thumb);
+  });
+
+  return thumbs;
+}
+
+function getCoverImage(item) {
+  if (typeof item.image === 'string' && item.image.trim()) return item.image;
+  if (!Array.isArray(item.media)) return '';
+  const mediaWithImage = item.media.find(
+    (media) => media && typeof media.image === 'string' && media.image.trim(),
+  );
+  return mediaWithImage?.image || '';
 }
 
 async function fetchNews() {
@@ -77,24 +152,60 @@ async function fetchNews() {
 
       return data
         .filter((item) => typeof item === 'object' && item !== null)
+        .map(normalizeNewsItem)
         .sort((a, b) => toTimestamp(b.date) - toTimestamp(a.date));
     } catch (_error) {
-      // Move to next URL candidate.
+      // try next candidate
     }
   }
 
   throw new Error('News file is not available');
 }
 
-function normalizeImagePath(path) {
-  if (!path || typeof path !== 'string') return '';
+function normalizeNewsItem(item) {
+  const normalized = { ...item };
+  normalized.media = Array.isArray(item.media)
+    ? item.media
+        .filter(
+          (media) =>
+            media && typeof media.image === 'string' && media.image.trim(),
+        )
+        .map((media) => ({
+          type: media.type === 'video' ? 'video' : 'photo',
+          image: media.image,
+        }))
+    : [];
+
   if (
-    path.startsWith('http://') ||
-    path.startsWith('https://') ||
-    path.startsWith('/')
-  )
-    return path;
-  return `../${path.replace(/^\.?\//, '')}`;
+    !normalized.media.length &&
+    typeof normalized.image === 'string' &&
+    normalized.image.trim()
+  ) {
+    normalized.media.push({
+      type: normalized.has_video ? 'video' : 'photo',
+      image: normalized.image,
+    });
+  }
+
+  normalized.media_count =
+    Number(normalized.media_count) || normalized.media.length;
+  normalized.has_video =
+    Boolean(normalized.has_video) ||
+    normalized.media.some((media) => media.type === 'video');
+
+  return normalized;
+}
+
+function normalizeImagePath(imagePath) {
+  if (!imagePath || typeof imagePath !== 'string') return '';
+  if (
+    imagePath.startsWith('http://') ||
+    imagePath.startsWith('https://') ||
+    imagePath.startsWith('/')
+  ) {
+    return imagePath;
+  }
+  return `../${imagePath.replace(/^\.?\//, '')}`;
 }
 
 function formatDate(value) {
