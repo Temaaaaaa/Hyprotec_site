@@ -86,7 +86,7 @@
         "key": "photo:6:AgACAgIAAyEFAATmC0LBAAMGaZp3DmAj4Xo5S8gxBnolc0JfJXIAAmUVaxs9o9FIEqdi_cQc4kYBAAMCAAN4AAM6BA"
       },
       {
-        "type": "video",
+        "type": "photo",
         "image": "images/news/tg_7_video.jpg",
         "video": "",
         "key": "video:7:AAMCAgADIQUABOYLQsEAAwdpmncOnI5ZRmzSvPyYASYPJDSSDAAC1JUAAj2j0UjuDHPR2BsAAUoBAAdtAAM6BA"
@@ -95,7 +95,7 @@
     "image": "images/news/tg_6_photo.jpg",
     "video": null,
     "media_count": 2,
-    "has_video": true,
+    "has_video": false,
     "source_message_ids": [
       6,
       7
