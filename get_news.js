@@ -7,7 +7,7 @@ const NEWS_IMAGE_PATH = './images/news';
 const DATA_DIR = './data';
 const NEWS_PATH = './data/news.json';
 const STATE_PATH = './data/tg_state.json';
-const TG_IMAGE_PREFIX = 'tg_';
+const TG_FILE_PREFIX = 'tg_';
 const MAX_NEWS_ITEMS =
   Number(process.env.MAX_NEWS_ITEMS) > 0
     ? Number(process.env.MAX_NEWS_ITEMS)
@@ -33,6 +33,21 @@ function writeJson(filePath, payload) {
   fs.writeFileSync(filePath, JSON.stringify(payload, null, 2));
 }
 
+function toUnix(value) {
+  if (typeof value === 'number' && Number.isFinite(value)) {
+    return value > 1_000_000_000_000 ? Math.floor(value / 1000) : value;
+  }
+
+  if (typeof value === 'string') {
+    const asNumber = Number(value);
+    if (Number.isFinite(asNumber)) return toUnix(asNumber);
+    const parsed = Date.parse(value);
+    if (!Number.isNaN(parsed)) return Math.floor(parsed / 1000);
+  }
+
+  return 0;
+}
+
 function readState() {
   const state = safeReadJson(STATE_PATH, { lastUpdateId: null });
   return {
@@ -47,21 +62,6 @@ function writeState(lastUpdateId) {
   writeJson(STATE_PATH, {
     lastUpdateId: Number.isFinite(lastUpdateId) ? lastUpdateId : null,
   });
-}
-
-function toUnix(value) {
-  if (typeof value === 'number' && Number.isFinite(value)) {
-    return value > 1_000_000_000_000 ? Math.floor(value / 1000) : value;
-  }
-
-  if (typeof value === 'string') {
-    const asNumber = Number(value);
-    if (Number.isFinite(asNumber)) return toUnix(asNumber);
-    const parsed = Date.parse(value);
-    if (!Number.isNaN(parsed)) return Math.floor(parsed / 1000);
-  }
-
-  return 0;
 }
 
 function getBestPhotoFileId(photoList) {
@@ -81,53 +81,82 @@ function getPostMediaDescriptors(post) {
   if (photoFileId) {
     media.push({
       type: 'photo',
-      fileId: photoFileId,
+      photoFileId,
       key: `photo:${post.message_id}:${photoFileId}`,
     });
   }
 
   if (post.video) {
-    const videoThumbFileId = getVideoThumbFileId(post.video);
-    if (videoThumbFileId) {
-      media.push({
-        type: 'video',
-        fileId: videoThumbFileId,
-        key: `video:${post.message_id}:${videoThumbFileId}`,
-      });
-    }
+    media.push({
+      type: 'video',
+      thumbFileId: getVideoThumbFileId(post.video),
+      videoFileId: post.video.file_id || null,
+      key: `video:${post.message_id}:${post.video.file_id || 'unknown'}`,
+    });
   }
 
   return media;
 }
 
+function pickCoverMedia(mediaList) {
+  if (!Array.isArray(mediaList) || !mediaList.length) return null;
+
+  const playableVideo = mediaList.find(
+    (entry) =>
+      entry &&
+      entry.type === 'video' &&
+      typeof entry.video === 'string' &&
+      entry.video.trim(),
+  );
+  if (playableVideo) return playableVideo;
+
+  const imageMedia = mediaList.find(
+    (entry) => entry && typeof entry.image === 'string' && entry.image.trim(),
+  );
+  if (imageMedia) return imageMedia;
+
+  return mediaList[0];
+}
+
 function normalizeStoredItem(item) {
   if (!item || typeof item !== 'object' || item.id == null) return null;
 
-  const normalizedMedia = Array.isArray(item.media)
+  const media = Array.isArray(item.media)
     ? item.media
-        .filter(
-          (media) =>
-            media && typeof media.image === 'string' && media.image.trim(),
-        )
-        .map((media) => ({
-          type: media.type === 'video' ? 'video' : 'photo',
-          image: media.image,
-          key: media.key || `${media.type || 'photo'}:${media.image}`,
+        .filter((entry) => {
+          if (!entry || typeof entry !== 'object') return false;
+          const hasImage =
+            typeof entry.image === 'string' && entry.image.trim();
+          const hasVideo =
+            typeof entry.video === 'string' && entry.video.trim();
+          return hasImage || hasVideo;
+        })
+        .map((entry) => ({
+          type: entry.type === 'video' ? 'video' : 'photo',
+          image: typeof entry.image === 'string' ? entry.image : '',
+          video: typeof entry.video === 'string' ? entry.video : '',
+          key:
+            entry.key ||
+            `${entry.type || 'photo'}:${entry.image || entry.video || 'legacy'}`,
         }))
     : [];
 
-  if (
-    !normalizedMedia.length &&
-    typeof item.image === 'string' &&
-    item.image.trim()
-  ) {
-    normalizedMedia.push({
-      type: item.has_video ? 'video' : 'photo',
-      image: item.image,
-      key: `legacy:${item.image}`,
-    });
+  if (!media.length) {
+    const hasLegacyImage =
+      typeof item.image === 'string' && item.image.trim();
+    const hasLegacyVideo =
+      typeof item.video === 'string' && item.video.trim();
+    if (hasLegacyImage || hasLegacyVideo) {
+      media.push({
+        type: hasLegacyVideo ? 'video' : 'photo',
+        image: hasLegacyImage ? item.image : '',
+        video: hasLegacyVideo ? item.video : '',
+        key: `legacy:${item.id}`,
+      });
+    }
   }
 
+  const cover = pickCoverMedia(media);
   const sourceMessageIds = Array.isArray(item.source_message_ids)
     ? Array.from(
         new Set(item.source_message_ids.map(Number).filter(Number.isFinite)),
@@ -138,10 +167,11 @@ function normalizeStoredItem(item) {
     id: item.id,
     text: typeof item.text === 'string' ? item.text : 'Без текста',
     date: toUnix(item.date),
-    media: normalizedMedia,
-    image: normalizedMedia[0]?.image || null,
-    media_count: normalizedMedia.length,
-    has_video: normalizedMedia.some((media) => media.type === 'video'),
+    media,
+    image: cover?.image || null,
+    video: cover?.video || null,
+    media_count: media.length,
+    has_video: media.some((entry) => entry.type === 'video'),
     source_message_ids: sourceMessageIds,
   };
 }
@@ -149,7 +179,7 @@ function normalizeStoredItem(item) {
 function readExistingNews() {
   const parsed = safeReadJson(NEWS_PATH, []);
   if (!Array.isArray(parsed)) return [];
-  return parsed.map((item) => normalizeStoredItem(item)).filter(Boolean);
+  return parsed.map(normalizeStoredItem).filter(Boolean);
 }
 
 async function downloadFile(fileId, fileName) {
@@ -161,15 +191,18 @@ async function downloadFile(fileId, fileName) {
       return `images/news/${fileName}`;
     }
 
-    const getFileUrl = `https://api.telegram.org/bot${TOKEN}/getFile?file_id=${fileId}`;
-    const fileMetaResponse = await fetch(getFileUrl);
+    const fileMetaResponse = await fetch(
+      `https://api.telegram.org/bot${TOKEN}/getFile?file_id=${fileId}`,
+    );
     if (!fileMetaResponse.ok) return null;
+
     const fileMeta = await fileMetaResponse.json();
     if (!fileMeta.ok) return null;
 
     const filePath = fileMeta.result.file_path;
-    const downloadUrl = `https://api.telegram.org/file/bot${TOKEN}/${filePath}`;
-    const fileResponse = await fetch(downloadUrl);
+    const fileResponse = await fetch(
+      `https://api.telegram.org/file/bot${TOKEN}/${filePath}`,
+    );
     if (!fileResponse.ok) return null;
 
     const buffer = await fileResponse.arrayBuffer();
@@ -208,14 +241,50 @@ async function buildIncomingNews(channelPosts) {
     for (const post of sortedGroup) {
       const descriptors = getPostMediaDescriptors(post);
       for (const descriptor of descriptors) {
-        const fileName = `${TG_IMAGE_PREFIX}${post.message_id}_${descriptor.type}.jpg`;
-        const imagePath = await downloadFile(descriptor.fileId, fileName);
-        if (!imagePath) continue;
-        media.push({
-          type: descriptor.type,
-          image: imagePath,
-          key: descriptor.key,
-        });
+        if (descriptor.type === 'photo') {
+          const imagePath = await downloadFile(
+            descriptor.photoFileId,
+            `${TG_FILE_PREFIX}${post.message_id}_photo.jpg`,
+          );
+          if (!imagePath) continue;
+          media.push({
+            type: 'photo',
+            image: imagePath,
+            video: '',
+            key: descriptor.key,
+          });
+          continue;
+        }
+
+        if (descriptor.type === 'video') {
+          let posterPath = '';
+          let videoPath = '';
+
+          if (descriptor.thumbFileId) {
+            posterPath =
+              (await downloadFile(
+                descriptor.thumbFileId,
+                `${TG_FILE_PREFIX}${post.message_id}_video_poster.jpg`,
+              )) || '';
+          }
+
+          if (descriptor.videoFileId) {
+            videoPath =
+              (await downloadFile(
+                descriptor.videoFileId,
+                `${TG_FILE_PREFIX}${post.message_id}_video.mp4`,
+              )) || '';
+          }
+
+          if (!posterPath && !videoPath) continue;
+
+          media.push({
+            type: 'video',
+            image: posterPath,
+            video: videoPath,
+            key: descriptor.key,
+          });
+        }
       }
     }
 
@@ -226,13 +295,15 @@ async function buildIncomingNews(channelPosts) {
     const sourceMessageIds = sortedGroup
       .map((post) => Number(post.message_id))
       .filter(Number.isFinite);
+    const cover = pickCoverMedia(media);
 
     incoming.push({
       id,
       text,
       date,
       media,
-      image: media[0]?.image || null,
+      image: cover?.image || null,
+      video: cover?.video || null,
       media_count: media.length,
       has_video: media.some((entry) => entry.type === 'video'),
       source_message_ids: sourceMessageIds,
@@ -252,18 +323,23 @@ function mergeNews(existingNews, incomingNews) {
       date: 0,
       media: [],
       image: null,
+      video: null,
       media_count: 0,
       has_video: false,
       source_message_ids: [],
     };
 
     const mediaByKey = new Map();
-    [...(prev.media || []), ...(item.media || [])].forEach((media) => {
-      if (!media || !media.key || !media.image) return;
-      mediaByKey.set(media.key, media);
+    [...(prev.media || []), ...(item.media || [])].forEach((entry) => {
+      if (!entry || !entry.key) return;
+      const hasImage = typeof entry.image === 'string' && entry.image.trim();
+      const hasVideo = typeof entry.video === 'string' && entry.video.trim();
+      if (!hasImage && !hasVideo) return;
+      mediaByKey.set(entry.key, entry);
     });
-    const media = Array.from(mediaByKey.values());
 
+    const media = Array.from(mediaByKey.values());
+    const cover = pickCoverMedia(media);
     const sourceMessageIds = Array.from(
       new Set(
         [...(prev.source_message_ids || []), ...(item.source_message_ids || [])]
@@ -278,7 +354,8 @@ function mergeNews(existingNews, incomingNews) {
       text: item.text || prev.text || 'Без текста',
       date: Math.max(toUnix(prev.date), toUnix(item.date)),
       media,
-      image: media[0]?.image || null,
+      image: cover?.image || null,
+      video: cover?.video || null,
       media_count: media.length,
       has_video: media.some((entry) => entry.type === 'video'),
       source_message_ids: sourceMessageIds,
@@ -292,26 +369,34 @@ function mergeNews(existingNews, incomingNews) {
     .slice(0, MAX_NEWS_ITEMS);
 }
 
-function cleanupUnusedTelegramImages(newsItems) {
+function cleanupUnusedTelegramFiles(newsItems) {
   if (!fs.existsSync(NEWS_IMAGE_PATH)) return;
 
   const usedFiles = new Set();
   newsItems.forEach((item) => {
     const media = Array.isArray(item.media) ? item.media : [];
     media.forEach((entry) => {
-      if (!entry || typeof entry.image !== 'string') return;
-      const filename = path.basename(entry.image);
-      if (filename.startsWith(TG_IMAGE_PREFIX)) usedFiles.add(filename);
+      if (!entry || typeof entry !== 'object') return;
+
+      if (typeof entry.image === 'string' && entry.image.trim()) {
+        const imageName = path.basename(entry.image);
+        if (imageName.startsWith(TG_FILE_PREFIX)) usedFiles.add(imageName);
+      }
+
+      if (typeof entry.video === 'string' && entry.video.trim()) {
+        const videoName = path.basename(entry.video);
+        if (videoName.startsWith(TG_FILE_PREFIX)) usedFiles.add(videoName);
+      }
     });
   });
 
   fs.readdirSync(NEWS_IMAGE_PATH).forEach((filename) => {
-    if (!filename.startsWith(TG_IMAGE_PREFIX)) return;
+    if (!filename.startsWith(TG_FILE_PREFIX)) return;
     if (usedFiles.has(filename)) return;
     try {
       fs.unlinkSync(path.join(NEWS_IMAGE_PATH, filename));
     } catch (_e) {
-      // Keep sync resilient in case of fs races.
+      // Keep sync resilient.
     }
   });
 }
@@ -327,7 +412,6 @@ async function fetchTelegramNews() {
     limit: '100',
     allowed_updates: JSON.stringify(['channel_post']),
   });
-
   if (Number.isFinite(state.lastUpdateId)) {
     params.set('offset', String(state.lastUpdateId + 1));
   }
@@ -341,10 +425,10 @@ async function fetchTelegramNews() {
     if (!data.ok) throw new Error(data.description);
 
     const maxUpdateId = data.result.reduce(
-      (max, item) => {
-        if (!Number.isFinite(item.update_id)) return max;
-        return Math.max(max, item.update_id);
-      },
+      (max, item) =>
+        Number.isFinite(item.update_id)
+          ? Math.max(max, item.update_id)
+          : max,
       Number.isFinite(state.lastUpdateId) ? state.lastUpdateId : 0,
     );
 
@@ -357,13 +441,11 @@ async function fetchTelegramNews() {
     const incomingNews = await buildIncomingNews(channelPosts);
     const mergedNews = mergeNews(existingNews, incomingNews);
 
-    cleanupUnusedTelegramImages(mergedNews);
+    cleanupUnusedTelegramFiles(mergedNews);
     writeJson(NEWS_PATH, mergedNews);
     writeState(maxUpdateId);
 
-    const withMediaCount = mergedNews.filter(
-      (item) => item.media_count > 0,
-    ).length;
+    const withMediaCount = mergedNews.filter((item) => item.media_count > 0).length;
     console.log(`✅ Synced. Items with media: ${withMediaCount}`);
   } catch (error) {
     console.error(`❌ Sync error: ${error.message}`);

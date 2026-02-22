@@ -44,25 +44,13 @@ function createNewsCard(item) {
   const mediaRoot = document.createElement('div');
   mediaRoot.className = 'news-card__media';
 
-  const coverImage = getCoverImage(item);
-  if (coverImage) {
-    const image = document.createElement('img');
-    image.className = 'news-card__image';
-    image.src = normalizeImagePath(coverImage);
-    image.alt = '';
-    image.loading = 'lazy';
-    mediaRoot.append(image);
-  } else {
-    const empty = document.createElement('div');
-    empty.className = 'news-card__image news-card__image--empty';
-    empty.textContent = 'HYPROTEC';
-    mediaRoot.append(empty);
-  }
+  const coverMedia = pickCoverMedia(item.media);
+  mediaRoot.append(createCoverNode(coverMedia));
 
   const badges = createBadges(item);
   if (badges) mediaRoot.append(badges);
 
-  const thumbs = createThumbs(item);
+  const thumbs = createThumbs(item, coverMedia);
   if (thumbs) mediaRoot.append(thumbs);
 
   const body = document.createElement('div');
@@ -80,6 +68,40 @@ function createNewsCard(item) {
 
   card.append(mediaRoot, body);
   return card;
+}
+
+function createCoverNode(media) {
+  if (media && media.type === 'video' && media.video) {
+    const video = document.createElement('video');
+    video.className = 'news-card__video';
+    video.controls = true;
+    video.preload = 'metadata';
+    video.playsInline = true;
+    if (media.image) {
+      video.poster = normalizeMediaPath(media.image);
+    }
+
+    const source = document.createElement('source');
+    source.src = normalizeMediaPath(media.video);
+    source.type = guessVideoMime(source.src);
+    video.append(source);
+
+    return video;
+  }
+
+  if (media && media.image) {
+    const image = document.createElement('img');
+    image.className = 'news-card__image';
+    image.src = normalizeMediaPath(media.image);
+    image.alt = '';
+    image.loading = 'lazy';
+    return image;
+  }
+
+  const empty = document.createElement('div');
+  empty.className = 'news-card__image news-card__image--empty';
+  empty.textContent = 'HYPROTEC';
+  return empty;
 }
 
 function createBadges(item) {
@@ -107,36 +129,59 @@ function createBadges(item) {
   return wrap;
 }
 
-function createThumbs(item) {
+function createThumbs(item, coverMedia) {
   if (!Array.isArray(item.media) || item.media.length <= 1) return null;
 
-  const others = item.media
-    .slice(1, 4)
-    .map((media) => normalizeImagePath(media.image));
+  const coverKey = coverMedia?.key || '';
+  const others = item.media.filter((entry) => entry.key !== coverKey).slice(0, 3);
   if (!others.length) return null;
 
   const thumbs = document.createElement('div');
   thumbs.className = 'news-card__thumbs';
 
-  others.forEach((src) => {
-    const thumb = document.createElement('img');
-    thumb.className = 'news-card__thumb';
-    thumb.src = src;
-    thumb.alt = '';
-    thumb.loading = 'lazy';
-    thumbs.append(thumb);
+  others.forEach((entry) => {
+    const thumbWrap = document.createElement('div');
+    thumbWrap.className = 'news-card__thumb-wrap';
+
+    if (entry.image) {
+      const thumb = document.createElement('img');
+      thumb.className = 'news-card__thumb';
+      thumb.src = normalizeMediaPath(entry.image);
+      thumb.alt = '';
+      thumb.loading = 'lazy';
+      thumbWrap.append(thumb);
+    } else {
+      const empty = document.createElement('div');
+      empty.className = 'news-card__thumb news-card__thumb--empty';
+      empty.textContent = 'MEDIA';
+      thumbWrap.append(empty);
+    }
+
+    if (entry.type === 'video') {
+      const play = document.createElement('span');
+      play.className = 'news-card__thumb-play';
+      play.textContent = '▶';
+      thumbWrap.append(play);
+    }
+
+    thumbs.append(thumbWrap);
   });
 
   return thumbs;
 }
 
-function getCoverImage(item) {
-  if (typeof item.image === 'string' && item.image.trim()) return item.image;
-  if (!Array.isArray(item.media)) return '';
-  const mediaWithImage = item.media.find(
-    (media) => media && typeof media.image === 'string' && media.image.trim(),
+function pickCoverMedia(media) {
+  if (!Array.isArray(media) || !media.length) return null;
+
+  const playableVideo = media.find(
+    (entry) => entry && entry.type === 'video' && entry.video,
   );
-  return mediaWithImage?.image || '';
+  if (playableVideo) return playableVideo;
+
+  const firstWithImage = media.find((entry) => entry && entry.image);
+  if (firstWithImage) return firstWithImage;
+
+  return media[0];
 }
 
 async function fetchNews() {
@@ -166,46 +211,66 @@ function normalizeNewsItem(item) {
   const normalized = { ...item };
   normalized.media = Array.isArray(item.media)
     ? item.media
-        .filter(
-          (media) =>
-            media && typeof media.image === 'string' && media.image.trim(),
-        )
-        .map((media) => ({
-          type: media.type === 'video' ? 'video' : 'photo',
-          image: media.image,
+        .filter((entry) => {
+          if (!entry || typeof entry !== 'object') return false;
+          const hasImage =
+            typeof entry.image === 'string' && entry.image.trim();
+          const hasVideo =
+            typeof entry.video === 'string' && entry.video.trim();
+          return hasImage || hasVideo;
+        })
+        .map((entry) => ({
+          type: entry.type === 'video' ? 'video' : 'photo',
+          image: entry.image || '',
+          video: entry.video || '',
+          key:
+            entry.key ||
+            `${entry.type || 'photo'}:${entry.image || entry.video || 'legacy'}`,
         }))
     : [];
 
-  if (
-    !normalized.media.length &&
-    typeof normalized.image === 'string' &&
-    normalized.image.trim()
-  ) {
-    normalized.media.push({
-      type: normalized.has_video ? 'video' : 'photo',
-      image: normalized.image,
-    });
+  if (!normalized.media.length) {
+    const hasImage =
+      typeof normalized.image === 'string' && normalized.image.trim();
+    const hasVideo =
+      typeof normalized.video === 'string' && normalized.video.trim();
+
+    if (hasImage || hasVideo) {
+      normalized.media.push({
+        type: hasVideo ? 'video' : 'photo',
+        image: hasImage ? normalized.image : '',
+        video: hasVideo ? normalized.video : '',
+        key: `legacy:${normalized.id || normalized.date || Math.random()}`,
+      });
+    }
   }
 
   normalized.media_count =
     Number(normalized.media_count) || normalized.media.length;
   normalized.has_video =
     Boolean(normalized.has_video) ||
-    normalized.media.some((media) => media.type === 'video');
+    normalized.media.some((entry) => entry.type === 'video');
 
   return normalized;
 }
 
-function normalizeImagePath(imagePath) {
-  if (!imagePath || typeof imagePath !== 'string') return '';
+function normalizeMediaPath(mediaPath) {
+  if (!mediaPath || typeof mediaPath !== 'string') return '';
   if (
-    imagePath.startsWith('http://') ||
-    imagePath.startsWith('https://') ||
-    imagePath.startsWith('/')
+    mediaPath.startsWith('http://') ||
+    mediaPath.startsWith('https://') ||
+    mediaPath.startsWith('/')
   ) {
-    return imagePath;
+    return mediaPath;
   }
-  return `../${imagePath.replace(/^\.?\//, '')}`;
+  return `../${mediaPath.replace(/^\.?\//, '')}`;
+}
+
+function guessVideoMime(src) {
+  const lower = String(src || '').toLowerCase();
+  if (lower.endsWith('.webm')) return 'video/webm';
+  if (lower.endsWith('.ogg') || lower.endsWith('.ogv')) return 'video/ogg';
+  return 'video/mp4';
 }
 
 function formatDate(value) {

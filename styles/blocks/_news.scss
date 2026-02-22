@@ -148,7 +148,8 @@
     box-shadow: 0 rem(16) rem(36) rgba(20, 20, 20, 0.12),
       0 rem(3) rem(10) rgba(20, 20, 20, 0.08);
 
-    .news-card__image {
+    .news-card__image,
+    .news-card__video {
       transform: scale(1.03);
     }
   }
@@ -161,7 +162,7 @@
     position: relative;
     overflow: hidden;
     min-height: rem(220);
-    background-color: #eef2f6;
+    background-color: #101419;
 
     @include tablet-above {
       min-height: rem(320);
@@ -173,11 +174,11 @@
     aspect-ratio: 16 / 9;
     width: 100%;
     min-height: rem(220);
-    height: auto;
-    object-fit: cover;
+    height: 100%;
+    object-fit: contain;
     object-position: center;
     display: block;
-    background-color: #eef2f6;
+    background-color: #101419;
     transition: transform 0.45s ease;
 
     @include tablet-above {
@@ -193,6 +194,21 @@
 
     @include mobile-s {
       min-height: rem(180);
+    }
+  }
+
+  &__video {
+    width: 100%;
+    min-height: rem(220);
+    height: 100%;
+    display: block;
+    object-fit: contain;
+    background-color: #101419;
+    transition: transform 0.45s ease;
+
+    @include tablet-above {
+      min-height: rem(320);
+      height: 100%;
     }
   }
 
@@ -257,15 +273,44 @@
     gap: rem(8);
   }
 
+  &__thumb-wrap {
+    position: relative;
+  }
+
   &__thumb {
     width: 100%;
     aspect-ratio: 1 / 1;
     border-radius: rem(10);
     border: rem(2) solid rgba(255, 255, 255, 0.82);
-    object-fit: cover;
+    object-fit: contain;
     object-position: center;
     box-shadow: 0 rem(6) rem(16) rgba(0, 0, 0, 0.22);
-    background-color: #eef2f6;
+    background-color: #101419;
+  }
+
+  &__thumb--empty {
+    display: grid;
+    place-items: center;
+    color: rgba(255, 255, 255, 0.72);
+    font-size: rem(11);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  &__thumb-play {
+    position: absolute;
+    right: rem(6);
+    bottom: rem(6);
+    width: rem(20);
+    height: rem(20);
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: rgba(20, 20, 20, 0.75);
+    color: #fff;
+    font-size: rem(10);
+    line-height: 1;
+    pointer-events: none;
   }
 
   &__body {
@@ -311,7 +356,8 @@
 
 @media (prefers-reduced-motion: reduce) {
   .news-card,
-  .news-card__image {
+  .news-card__image,
+  .news-card__video {
     transition: none;
   }
 }
