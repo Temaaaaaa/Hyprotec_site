@@ -61,19 +61,16 @@ function createNewsCard(item) {
   const card = document.createElement('article');
   card.className = 'news-card';
 
+  const media = Array.isArray(item.media) ? item.media : [];
+
   const mediaRoot = document.createElement('div');
   mediaRoot.className = 'news-card__media';
+  mediaRoot.append(createMediaGallery(media));
 
-  const coverMedia = pickCoverMedia(item.media);
-  mediaRoot.append(createCoverNode(coverMedia));
-
-  const badges = createBadges(item);
+  const badges = createBadges(media);
   if (badges) mediaRoot.append(badges);
 
-  const thumbs = createThumbs(item, coverMedia);
-  if (thumbs) mediaRoot.append(thumbs);
-
-  if (!coverMedia) {
+  if (!media.length) {
     card.classList.add('news-card--no-media');
   }
 
@@ -94,38 +91,93 @@ function createNewsCard(item) {
   return card;
 }
 
-function createCoverNode(media) {
-  if (isPlayableVideoMedia(media)) {
-    const video = document.createElement('video');
-    video.className = 'news-card__video';
-    video.controls = true;
-    video.preload = 'metadata';
-    video.playsInline = true;
-    video.setAttribute('aria-label', 'Видео публикации');
+function createMediaGallery(media) {
+  if (!Array.isArray(media) || !media.length) {
+    return createEmptyMediaNode();
+  }
 
-    const normalizedVideoPath = normalizeMediaPath(media.video);
-    const normalizedPosterPath = media.image ? normalizeMediaPath(media.image) : '';
-    if (normalizedPosterPath) {
-      video.poster = normalizedPosterPath;
+  const carousel = document.createElement('div');
+  carousel.className = 'news-card__carousel';
+
+  const slides = document.createElement('div');
+  slides.className = 'news-card__slides';
+
+  const cover = pickCoverMedia(media);
+  const initialIndex = Math.max(
+    0,
+    media.findIndex((entry) => entry.key === cover?.key),
+  );
+
+  const slideNodes = media.map((entry, index) => {
+    const slide = document.createElement('div');
+    slide.className = 'news-card__slide';
+    if (index === initialIndex) {
+      slide.classList.add('is-active');
     }
 
-    video.addEventListener(
-      'error',
-      () => {
-        const fallbackNode = normalizedPosterPath
-          ? createImageNode(normalizedPosterPath)
-          : createEmptyMediaNode();
-        video.replaceWith(fallbackNode);
-      },
-      { once: true },
-    );
+    slide.append(createMediaNode(entry));
+    slides.append(slide);
+    return slide;
+  });
 
-    const source = document.createElement('source');
-    source.src = normalizedVideoPath;
-    source.type = guessVideoMime(source.src);
-    video.append(source);
+  carousel.append(slides);
 
-    return video;
+  if (slideNodes.length > 1) {
+    let activeIndex = initialIndex;
+    const counter = document.createElement('div');
+    counter.className = 'news-card__counter';
+
+    const prev = createCarouselButton('prev');
+    const next = createCarouselButton('next');
+
+    function setActive(nextIndex) {
+      const normalizedIndex =
+        (nextIndex + slideNodes.length) % slideNodes.length;
+      activeIndex = normalizedIndex;
+
+      slideNodes.forEach((slide, index) => {
+        const isActive = index === normalizedIndex;
+        slide.classList.toggle('is-active', isActive);
+        if (!isActive) {
+          slide.querySelectorAll('video').forEach((video) => {
+            video.pause();
+          });
+        }
+      });
+
+      counter.textContent = `${normalizedIndex + 1} / ${slideNodes.length}`;
+    }
+
+    prev.addEventListener('click', () => {
+      setActive(activeIndex - 1);
+    });
+
+    next.addEventListener('click', () => {
+      setActive(activeIndex + 1);
+    });
+
+    setActive(initialIndex);
+    carousel.append(prev, next, counter);
+  }
+
+  return carousel;
+}
+
+function createCarouselButton(direction) {
+  const button = document.createElement('button');
+  button.type = 'button';
+  button.className = `news-card__nav news-card__nav--${direction}`;
+  button.setAttribute(
+    'aria-label',
+    direction === 'next' ? 'Следующее медиа' : 'Предыдущее медиа',
+  );
+  button.textContent = direction === 'next' ? '›' : '‹';
+  return button;
+}
+
+function createMediaNode(media) {
+  if (isPlayableVideoMedia(media)) {
+    return createVideoNode(media);
   }
 
   if (hasImageMedia(media)) {
@@ -133,6 +185,39 @@ function createCoverNode(media) {
   }
 
   return createEmptyMediaNode();
+}
+
+function createVideoNode(media) {
+  const video = document.createElement('video');
+  video.className = 'news-card__video';
+  video.controls = true;
+  video.preload = 'metadata';
+  video.playsInline = true;
+  video.setAttribute('aria-label', 'Видео публикации');
+
+  const normalizedVideoPath = normalizeMediaPath(media.video);
+  const normalizedPosterPath = media.image ? normalizeMediaPath(media.image) : '';
+  if (normalizedPosterPath) {
+    video.poster = normalizedPosterPath;
+  }
+
+  video.addEventListener(
+    'error',
+    () => {
+      const fallbackNode = normalizedPosterPath
+        ? createImageNode(normalizedPosterPath)
+        : createEmptyMediaNode();
+      video.replaceWith(fallbackNode);
+    },
+    { once: true },
+  );
+
+  const source = document.createElement('source');
+  source.src = normalizedVideoPath;
+  source.type = guessVideoMime(source.src);
+  video.append(source);
+
+  return video;
 }
 
 function createImageNode(src) {
@@ -151,10 +236,9 @@ function createEmptyMediaNode() {
   return empty;
 }
 
-function createBadges(item) {
-  const media = Array.isArray(item.media) ? item.media : [];
-  const hasVideo = media.some(isPlayableVideoMedia);
-  const mediaCount = media.length || Number(item.media_count) || 0;
+function createBadges(media) {
+  const mediaCount = Array.isArray(media) ? media.length : 0;
+  const hasVideo = Array.isArray(media) && media.some(isPlayableVideoMedia);
   if (!hasVideo && mediaCount <= 1) return null;
 
   const wrap = document.createElement('div');
@@ -175,47 +259,6 @@ function createBadges(item) {
   }
 
   return wrap;
-}
-
-function createThumbs(item, coverMedia) {
-  if (!Array.isArray(item.media) || item.media.length <= 1) return null;
-
-  const coverKey = coverMedia?.key || '';
-  const others = item.media.filter((entry) => entry.key !== coverKey).slice(0, 3);
-  if (!others.length) return null;
-
-  const thumbs = document.createElement('div');
-  thumbs.className = 'news-card__thumbs';
-
-  others.forEach((entry) => {
-    const thumbWrap = document.createElement('div');
-    thumbWrap.className = 'news-card__thumb-wrap';
-
-    if (hasImageMedia(entry)) {
-      const thumb = document.createElement('img');
-      thumb.className = 'news-card__thumb';
-      thumb.src = normalizeMediaPath(entry.image);
-      thumb.alt = '';
-      thumb.loading = 'lazy';
-      thumbWrap.append(thumb);
-    } else {
-      const empty = document.createElement('div');
-      empty.className = 'news-card__thumb news-card__thumb--empty';
-      empty.textContent = 'MEDIA';
-      thumbWrap.append(empty);
-    }
-
-    if (isPlayableVideoMedia(entry)) {
-      const play = document.createElement('span');
-      play.className = 'news-card__thumb-play';
-      play.textContent = '▶';
-      thumbWrap.append(play);
-    }
-
-    thumbs.append(thumbWrap);
-  });
-
-  return thumbs;
 }
 
 function pickCoverMedia(media) {

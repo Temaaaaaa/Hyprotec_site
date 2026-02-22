@@ -1,5 +1,6 @@
-﻿const fs = require('fs');
+const fs = require('fs');
 const path = require('path');
+const { spawnSync } = require('child_process');
 
 const TOKEN = process.env.TG_TOKEN;
 const CHANNEL_ID = process.env.CHANNEL_ID || '-1003859497665';
@@ -12,6 +13,21 @@ const MAX_NEWS_ITEMS =
   Number(process.env.MAX_NEWS_ITEMS) > 0
     ? Number(process.env.MAX_NEWS_ITEMS)
     : 10;
+const OPTIMIZE_VIDEOS = String(process.env.OPTIMIZE_VIDEOS || 'true') !== 'false';
+const OPTIMIZE_MIN_BYTES =
+  Number(process.env.OPTIMIZE_MIN_BYTES) > 0
+    ? Number(process.env.OPTIMIZE_MIN_BYTES)
+    : 4 * 1024 * 1024;
+const MAX_VIDEO_WIDTH =
+  Number(process.env.MAX_VIDEO_WIDTH) > 0
+    ? Number(process.env.MAX_VIDEO_WIDTH)
+    : 1280;
+const VIDEO_CRF =
+  Number(process.env.VIDEO_CRF) > 0 ? Number(process.env.VIDEO_CRF) : 29;
+const VIDEO_PRESET = process.env.VIDEO_PRESET || 'veryfast';
+
+let isFfmpegChecked = false;
+let hasFfmpeg = false;
 
 function ensureDir(dirPath) {
   if (!fs.existsSync(dirPath)) {
@@ -197,6 +213,89 @@ function readExistingNews() {
   return parsed.map(normalizeStoredItem).filter(Boolean);
 }
 
+function ensureFfmpegAvailability() {
+  if (isFfmpegChecked) return hasFfmpeg;
+
+  isFfmpegChecked = true;
+  const check = spawnSync('ffmpeg', ['-version'], {
+    stdio: 'ignore',
+    shell: false,
+  });
+  hasFfmpeg = check.status === 0;
+
+  if (OPTIMIZE_VIDEOS && !hasFfmpeg) {
+    console.warn('[warn] ffmpeg not found, video optimization is skipped');
+  }
+
+  return hasFfmpeg;
+}
+
+function optimizeVideoInPlace(relativePath) {
+  if (!OPTIMIZE_VIDEOS || !hasNonEmptyString(relativePath)) return relativePath;
+  if (!ensureFfmpegAvailability()) return relativePath;
+
+  const absolutePath = path.resolve(relativePath);
+  if (!fs.existsSync(absolutePath)) return relativePath;
+
+  const sourceStat = fs.statSync(absolutePath);
+  if (!sourceStat.isFile() || sourceStat.size < OPTIMIZE_MIN_BYTES) {
+    return relativePath;
+  }
+
+  const outputPath = `${absolutePath}.optimized.mp4`;
+  const scaleFilter = `scale=min(iw\\,${MAX_VIDEO_WIDTH}):-2`;
+
+  const result = spawnSync(
+    'ffmpeg',
+    [
+      '-y',
+      '-i',
+      absolutePath,
+      '-vf',
+      scaleFilter,
+      '-c:v',
+      'libx264',
+      '-preset',
+      VIDEO_PRESET,
+      '-crf',
+      String(VIDEO_CRF),
+      '-c:a',
+      'aac',
+      '-b:a',
+      '96k',
+      '-movflags',
+      '+faststart',
+      outputPath,
+    ],
+    {
+      stdio: 'ignore',
+      shell: false,
+    },
+  );
+
+  if (result.status !== 0 || !fs.existsSync(outputPath)) {
+    if (fs.existsSync(outputPath)) fs.unlinkSync(outputPath);
+    console.warn(`[warn] ffmpeg optimization failed for ${relativePath}`);
+    return relativePath;
+  }
+
+  const optimizedStat = fs.statSync(outputPath);
+  const keepOriginal =
+    !optimizedStat.isFile() ||
+    optimizedStat.size === 0 ||
+    optimizedStat.size >= sourceStat.size;
+
+  if (keepOriginal) {
+    fs.unlinkSync(outputPath);
+    return relativePath;
+  }
+
+  fs.renameSync(outputPath, absolutePath);
+  const savedKb = Math.round((sourceStat.size - optimizedStat.size) / 1024);
+  console.log(`[ok] Optimized ${path.basename(relativePath)} (-${savedKb} KB)`);
+  return relativePath;
+}
+
 async function downloadFile(fileId, fileName) {
   if (!TOKEN || !fileId || !fileName) return null;
 
@@ -346,6 +445,10 @@ async function buildIncomingNews(channelPosts) {
                 descriptor.videoFileId,
                 `${TG_FILE_PREFIX}${post.message_id}_video.mp4`,
               )) || '';
+          }
+
+          if (videoPath) {
+            videoPath = optimizeVideoInPlace(videoPath);
           }
 
           if (!posterPath && !videoPath) continue;

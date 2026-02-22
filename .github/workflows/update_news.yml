@@ -27,10 +27,22 @@ jobs:
         with:
           node-version: '20'
 
+      - name: Ensure ffmpeg
+        run: |
+          if ! command -v ffmpeg >/dev/null 2>&1; then
+            sudo apt-get update
+            sudo apt-get install -y ffmpeg
+          fi
+
       - name: Run Fetch Script
         env:
           TG_TOKEN: ${{ secrets.TG_TOKEN }}
           CHANNEL_ID: ${{ secrets.CHANNEL_ID }}
+          OPTIMIZE_VIDEOS: 'true'
+          OPTIMIZE_MIN_BYTES: '4000000'
+          MAX_VIDEO_WIDTH: '1280'
+          VIDEO_CRF: '29'
+          VIDEO_PRESET: 'veryfast'
         run: node get_news.js
 
       - name: Commit and Push changes
