@@ -10,6 +10,8 @@ const STATUS_CLASS_BY_TYPE = {
   error: 'news-feed__status--error',
 };
 
+const LOGO_PATH = '../images/logo-main.svg';
+
 document.addEventListener('DOMContentLoaded', () => {
   const root = document.querySelector('[data-news-feed]');
   if (!root) return;
@@ -58,21 +60,13 @@ function shouldRenderNewsItem(item) {
 }
 
 function createNewsCard(item) {
+  const media = Array.isArray(item.media) ? item.media : [];
+  const hasMedia = media.length > 0;
+  const hasVideo = media.some(isPlayableVideoMedia);
+
   const card = document.createElement('article');
   card.className = 'news-card';
-
-  const media = Array.isArray(item.media) ? item.media : [];
-
-  const mediaRoot = document.createElement('div');
-  mediaRoot.className = 'news-card__media';
-  mediaRoot.append(createMediaGallery(media));
-
-  const badges = createBadges(media);
-  if (badges) mediaRoot.append(badges);
-
-  if (!media.length) {
-    card.classList.add('news-card--no-media');
-  }
+  if (!hasMedia) card.classList.add('news-card--text-only');
 
   const body = document.createElement('div');
   body.className = 'news-card__body';
@@ -87,66 +81,114 @@ function createNewsCard(item) {
   text.textContent = item.text || 'Без текста';
   body.append(text);
 
-  card.append(mediaRoot, body);
+  if (hasMedia) {
+    const actions = document.createElement('div');
+    actions.className = 'news-card__actions';
+
+    const button = document.createElement('button');
+    button.className = 'news-card__media-button';
+    button.type = 'button';
+    button.textContent = 'Посмотреть медиа';
+    button.addEventListener('click', () => {
+      openNewsMediaModal({
+        media,
+        title: item.text || 'Публикация HYPROTEC',
+      });
+    });
+
+    const meta = document.createElement('span');
+    meta.className = 'news-card__media-meta';
+    const mediaLabel = hasVideo ? 'медиа, включая видео' : 'медиа';
+    meta.textContent = `${media.length} ${mediaLabel}`;
+
+    actions.append(button, meta);
+    body.append(actions);
+  }
+
+  const aside = document.createElement('div');
+  aside.className = 'news-card__aside';
+
+  const logoWrap = document.createElement('div');
+  logoWrap.className = 'news-card__logo';
+  const logo = document.createElement('img');
+  logo.className = 'news-card__logo-image';
+  logo.src = LOGO_PATH;
+  logo.alt = 'HYPROTEC';
+  logo.loading = 'lazy';
+  logoWrap.append(logo);
+  aside.append(logoWrap);
+
+  if (hasMedia) {
+    const tag = document.createElement('span');
+    tag.className = 'news-card__tag';
+    tag.textContent = hasVideo ? 'Фото и видео' : 'Фотогалерея';
+    aside.append(tag);
+  }
+
+  card.append(body, aside);
   return card;
 }
 
-function createMediaGallery(media) {
-  if (!Array.isArray(media) || !media.length) {
-    return createEmptyMediaNode();
-  }
+function openNewsMediaModal({ media, title }) {
+  const safeMedia = (Array.isArray(media) ? media : []).filter(
+    (entry) => hasImageMedia(entry) || hasVideoPath(entry),
+  );
+  if (!safeMedia.length) return;
 
-  const carousel = document.createElement('div');
-  carousel.className = 'news-card__carousel';
+  const overlay = document.createElement('div');
+  overlay.className = 'news-modal';
 
-  const slides = document.createElement('div');
-  slides.className = 'news-card__slides';
+  const dialog = document.createElement('div');
+  dialog.className = 'news-modal__dialog';
+  dialog.setAttribute('role', 'dialog');
+  dialog.setAttribute('aria-modal', 'true');
+  dialog.setAttribute('aria-label', 'Медиа публикации');
 
-  const cover = pickCoverMedia(media);
-  const initialIndex = Math.max(
+  const header = document.createElement('header');
+  header.className = 'news-modal__header';
+
+  const titleNode = document.createElement('h3');
+  titleNode.className = 'news-modal__title';
+  titleNode.textContent = title || 'Медиа публикации';
+  header.append(titleNode);
+
+  const close = document.createElement('button');
+  close.type = 'button';
+  close.className = 'news-modal__close';
+  close.setAttribute('aria-label', 'Закрыть окно');
+  close.textContent = '✕';
+  header.append(close);
+
+  const viewport = document.createElement('div');
+  viewport.className = 'news-modal__viewport';
+
+  const stage = document.createElement('div');
+  stage.className = 'news-modal__stage';
+  viewport.append(stage);
+
+  const footer = document.createElement('div');
+  footer.className = 'news-modal__footer';
+
+  const counter = document.createElement('span');
+  counter.className = 'news-modal__counter';
+  footer.append(counter);
+
+  dialog.append(header, viewport, footer);
+  overlay.append(dialog);
+  document.body.append(overlay);
+
+  const startMedia = pickCoverMedia(safeMedia);
+  let activeIndex = Math.max(
     0,
-    media.findIndex((entry) => entry.key === cover?.key),
+    safeMedia.findIndex((entry) => entry.key === startMedia?.key),
   );
 
-  const slideNodes = media.map((entry, index) => {
-    const slide = document.createElement('div');
-    slide.className = 'news-card__slide';
-    if (index === initialIndex) {
-      slide.classList.add('is-active');
-    }
-
-    slide.append(createMediaNode(entry));
-    slides.append(slide);
-    return slide;
-  });
-
-  carousel.append(slides);
-
-  if (slideNodes.length > 1) {
-    let activeIndex = initialIndex;
-    const counter = document.createElement('div');
-    counter.className = 'news-card__counter';
-
-    const prev = createCarouselButton('prev');
-    const next = createCarouselButton('next');
-
-    function setActive(nextIndex) {
-      const normalizedIndex =
-        (nextIndex + slideNodes.length) % slideNodes.length;
-      activeIndex = normalizedIndex;
-
-      slideNodes.forEach((slide, index) => {
-        const isActive = index === normalizedIndex;
-        slide.classList.toggle('is-active', isActive);
-        if (!isActive) {
-          slide.querySelectorAll('video').forEach((video) => {
-            video.pause();
-          });
-        }
-      });
-
-      counter.textContent = `${normalizedIndex + 1} / ${slideNodes.length}`;
-    }
+  let prev = null;
+  let next = null;
+  if (safeMedia.length > 1) {
+    prev = createModalNavButton('prev');
+    next = createModalNavButton('next');
+    viewport.append(prev, next);
 
     prev.addEventListener('click', () => {
       setActive(activeIndex - 1);
@@ -155,18 +197,53 @@ function createMediaGallery(media) {
     next.addEventListener('click', () => {
       setActive(activeIndex + 1);
     });
-
-    setActive(initialIndex);
-    carousel.append(prev, next, counter);
   }
 
-  return carousel;
+  function setActive(nextIndex) {
+    const max = safeMedia.length;
+    activeIndex = (nextIndex + max) % max;
+
+    stage.replaceChildren(createModalMediaNode(safeMedia[activeIndex]));
+    counter.textContent = `${activeIndex + 1} / ${max}`;
+  }
+
+  function closeModal() {
+    dialog.querySelectorAll('video').forEach((video) => {
+      video.pause();
+    });
+    document.body.classList.remove('is-news-modal-open');
+    document.removeEventListener('keydown', onKeyDown);
+    overlay.remove();
+  }
+
+  function onKeyDown(event) {
+    if (event.key === 'Escape') {
+      closeModal();
+      return;
+    }
+    if (safeMedia.length < 2) return;
+    if (event.key === 'ArrowLeft') {
+      setActive(activeIndex - 1);
+    } else if (event.key === 'ArrowRight') {
+      setActive(activeIndex + 1);
+    }
+  }
+
+  close.addEventListener('click', closeModal);
+  overlay.addEventListener('click', (event) => {
+    if (event.target === overlay) closeModal();
+  });
+  document.addEventListener('keydown', onKeyDown);
+
+  document.body.classList.add('is-news-modal-open');
+  requestAnimationFrame(() => overlay.classList.add('is-open'));
+  setActive(activeIndex);
 }
 
-function createCarouselButton(direction) {
+function createModalNavButton(direction) {
   const button = document.createElement('button');
   button.type = 'button';
-  button.className = `news-card__nav news-card__nav--${direction}`;
+  button.className = `news-modal__nav news-modal__nav--${direction}`;
   button.setAttribute(
     'aria-label',
     direction === 'next' ? 'Следующее медиа' : 'Предыдущее медиа',
@@ -175,90 +252,38 @@ function createCarouselButton(direction) {
   return button;
 }
 
-function createMediaNode(media) {
+function createModalMediaNode(media) {
   if (isPlayableVideoMedia(media)) {
-    return createVideoNode(media);
+    const video = document.createElement('video');
+    video.className = 'news-modal__video';
+    video.controls = true;
+    video.preload = 'metadata';
+    video.playsInline = true;
+
+    if (hasImageMedia(media)) {
+      video.poster = normalizeMediaPath(media.image);
+    }
+
+    const source = document.createElement('source');
+    source.src = normalizeMediaPath(media.video);
+    source.type = guessVideoMime(source.src);
+    video.append(source);
+    return video;
   }
 
   if (hasImageMedia(media)) {
-    return createImageNode(normalizeMediaPath(media.image));
+    const image = document.createElement('img');
+    image.className = 'news-modal__image';
+    image.src = normalizeMediaPath(media.image);
+    image.alt = '';
+    image.loading = 'lazy';
+    return image;
   }
 
-  return createEmptyMediaNode();
-}
-
-function createVideoNode(media) {
-  const video = document.createElement('video');
-  video.className = 'news-card__video';
-  video.controls = true;
-  video.preload = 'metadata';
-  video.playsInline = true;
-  video.setAttribute('aria-label', 'Видео публикации');
-
-  const normalizedVideoPath = normalizeMediaPath(media.video);
-  const normalizedPosterPath = media.image ? normalizeMediaPath(media.image) : '';
-  if (normalizedPosterPath) {
-    video.poster = normalizedPosterPath;
-  }
-
-  video.addEventListener(
-    'error',
-    () => {
-      const fallbackNode = normalizedPosterPath
-        ? createImageNode(normalizedPosterPath)
-        : createEmptyMediaNode();
-      video.replaceWith(fallbackNode);
-    },
-    { once: true },
-  );
-
-  const source = document.createElement('source');
-  source.src = normalizedVideoPath;
-  source.type = guessVideoMime(source.src);
-  video.append(source);
-
-  return video;
-}
-
-function createImageNode(src) {
-  const image = document.createElement('img');
-  image.className = 'news-card__image';
-  image.src = src;
-  image.alt = '';
-  image.loading = 'lazy';
-  return image;
-}
-
-function createEmptyMediaNode() {
   const empty = document.createElement('div');
-  empty.className = 'news-card__image news-card__image--empty';
-  empty.textContent = 'HYPROTEC';
+  empty.className = 'news-modal__empty';
+  empty.textContent = 'MEDIA';
   return empty;
-}
-
-function createBadges(media) {
-  const mediaCount = Array.isArray(media) ? media.length : 0;
-  const hasVideo = Array.isArray(media) && media.some(isPlayableVideoMedia);
-  if (!hasVideo && mediaCount <= 1) return null;
-
-  const wrap = document.createElement('div');
-  wrap.className = 'news-card__badges';
-
-  if (hasVideo) {
-    const video = document.createElement('span');
-    video.className = 'news-card__badge news-card__badge--video';
-    video.textContent = 'Видео';
-    wrap.append(video);
-  }
-
-  if (mediaCount > 1) {
-    const count = document.createElement('span');
-    count.className = 'news-card__badge news-card__badge--count';
-    count.textContent = `${mediaCount} медиа`;
-    wrap.append(count);
-  }
-
-  return wrap;
 }
 
 function pickCoverMedia(media) {
