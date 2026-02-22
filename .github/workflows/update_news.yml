@@ -4,6 +4,12 @@ on:
   schedule:
     - cron: '0 * * * *' # Запуск каждый час
   workflow_dispatch: # Ручной запуск
+    inputs:
+      force_reset:
+        description: 'Сбросить state и пересобрать ленту с чистого листа'
+        required: false
+        default: false
+        type: boolean
 
 concurrency:
   group: telegram-news-sync
@@ -38,6 +44,9 @@ jobs:
         env:
           TG_TOKEN: ${{ secrets.TG_TOKEN }}
           CHANNEL_ID: ${{ secrets.CHANNEL_ID }}
+          FORCE_RESET: ${{ github.event.inputs.force_reset || 'false' }}
+          MAX_NEWS_ITEMS: '10'
+          MAX_NEWS_AGE_DAYS: '0'
           OPTIMIZE_VIDEOS: 'true'
           OPTIMIZE_MIN_BYTES: '4000000'
           MAX_VIDEO_WIDTH: '1280'

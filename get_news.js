@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const crypto = require('crypto');
 const { spawnSync } = require('child_process');
 
 const TOKEN = process.env.TG_TOKEN;
@@ -13,7 +14,14 @@ const MAX_NEWS_ITEMS =
   Number(process.env.MAX_NEWS_ITEMS) > 0
     ? Number(process.env.MAX_NEWS_ITEMS)
     : 10;
+const MAX_NEWS_AGE_DAYS =
+  Number(process.env.MAX_NEWS_AGE_DAYS) > 0
+    ? Number(process.env.MAX_NEWS_AGE_DAYS)
+    : 0;
 const OPTIMIZE_VIDEOS = String(process.env.OPTIMIZE_VIDEOS || 'true') !== 'false';
+const FORCE_RESET = ['1', 'true', 'yes'].includes(
+  String(process.env.FORCE_RESET || '').trim().toLowerCase(),
+);
 const OPTIMIZE_MIN_BYTES =
   Number(process.env.OPTIMIZE_MIN_BYTES) > 0
     ? Number(process.env.OPTIMIZE_MIN_BYTES)
@@ -84,21 +92,149 @@ function toUnix(value) {
   return 0;
 }
 
-function readState() {
-  const state = safeReadJson(STATE_PATH, { lastUpdateId: null });
-  const parsedLastUpdateId = Number(state.lastUpdateId);
+function normalizeSourceMessageIds(values) {
+  if (!Array.isArray(values)) return [];
+  return Array.from(new Set(values.map(Number).filter(Number.isFinite))).sort(
+    (a, b) => a - b,
+  );
+}
+
+function parseSourceMessageIdFromKey(key) {
+  if (!hasNonEmptyString(key)) return null;
+  const match = /^([a-z_]+):(\d+):/i.exec(key.trim());
+  if (!match) return null;
+  const parsed = Number(match[2]);
+  return Number.isFinite(parsed) ? parsed : null;
+}
+
+function toMediaKey(entry) {
+  if (hasNonEmptyString(entry?.key)) return entry.key.trim();
+  const parsedSourceId = Number(entry?.source_message_id);
+  const sourceId = Number.isFinite(parsedSourceId) ? parsedSourceId : 'legacy';
+  if (hasVideoPath(entry)) return `video:${sourceId}:${entry.video}`;
+  if (hasImagePath(entry)) return `photo:${sourceId}:${entry.image}`;
+  return null;
+}
+
+function normalizeMediaEntry(entry) {
+  if (!entry || typeof entry !== 'object') return null;
+  if (!hasImagePath(entry) && !hasVideoPath(entry)) return null;
+
+  const key = toMediaKey(entry);
+  if (!hasNonEmptyString(key)) return null;
+
+  const parsedSourceId = Number(entry.source_message_id);
+  const sourceMessageId = Number.isFinite(parsedSourceId)
+    ? parsedSourceId
+    : parseSourceMessageIdFromKey(key);
+  const video = hasVideoPath(entry) ? entry.video : '';
+  const image = hasImagePath(entry) ? entry.image : '';
 
   return {
-    lastUpdateId: Number.isFinite(parsedLastUpdateId)
-      ? parsedLastUpdateId
-      : null,
+    type: video ? 'video' : 'photo',
+    image,
+    video,
+    key,
+    source_message_id: Number.isFinite(sourceMessageId) ? sourceMessageId : null,
   };
 }
 
-function writeState(lastUpdateId) {
+function dedupeMediaEntries(entries) {
+  const byKey = new Map();
+  (Array.isArray(entries) ? entries : []).forEach((entry) => {
+    const normalized = normalizeMediaEntry(entry);
+    if (!normalized) return;
+    byKey.set(normalized.key, normalized);
+  });
+  return Array.from(byKey.values());
+}
+
+function isGroupNewsId(id) {
+  return typeof id === 'string' && id.startsWith('group_');
+}
+
+function getBotFingerprint(token) {
+  if (!hasNonEmptyString(token)) return null;
+  return crypto.createHash('sha1').update(token).digest('hex').slice(0, 16);
+}
+
+function nowUnix() {
+  return Math.floor(Date.now() / 1000);
+}
+
+function applyAgeLimit(newsItems) {
+  if (!(MAX_NEWS_AGE_DAYS > 0)) return newsItems;
+  const minTimestamp = nowUnix() - MAX_NEWS_AGE_DAYS * 24 * 60 * 60;
+  return newsItems.filter((item) => toUnix(item.date) >= minTimestamp);
+}
+
+function finalizeNewsItem(item, fallback = {}) {
+  const media = dedupeMediaEntries(item.media);
+  const cover = pickCoverMedia(media);
+  const sourceMessageIds = normalizeSourceMessageIds([
+    ...(fallback.source_message_ids || []),
+    ...(item.source_message_ids || []),
+    ...media
+      .map((entry) => Number(entry.source_message_id))
+      .filter(Number.isFinite),
+  ]);
+
+  return {
+    id: item.id,
+    text: sanitizeText(item.text || fallback.text),
+    date: Math.max(toUnix(fallback.date), toUnix(item.date)),
+    media,
+    image: cover?.image || null,
+    video: cover?.video || null,
+    media_count: media.length,
+    has_video: media.some(isPlayableVideoEntry),
+    source_message_ids: sourceMessageIds,
+  };
+}
+
+function readState() {
+  const state = safeReadJson(STATE_PATH, {
+    lastUpdateId: null,
+    channelId: null,
+    botFingerprint: null,
+  });
+  const parsedLastUpdateId = Number(state.lastUpdateId);
+  const persistedChannelId = hasNonEmptyString(state.channelId)
+    ? String(state.channelId)
+    : null;
+  const persistedBotFingerprint = hasNonEmptyString(state.botFingerprint)
+    ? String(state.botFingerprint)
+    : null;
+  const currentChannelId = String(CHANNEL_ID);
+  const currentBotFingerprint = getBotFingerprint(TOKEN);
+  const isSourceChanged =
+    (persistedChannelId &&
+      persistedChannelId !== currentChannelId) ||
+    (persistedBotFingerprint &&
+      currentBotFingerprint &&
+      persistedBotFingerprint !== currentBotFingerprint);
+  if (isSourceChanged) {
+    console.log('[info] Telegram source changed, resetting state cursor');
+  }
+
+  return {
+    lastUpdateId: !FORCE_RESET &&
+      !isSourceChanged &&
+      Number.isFinite(parsedLastUpdateId)
+      ? parsedLastUpdateId
+      : null,
+    channelId: currentChannelId,
+    botFingerprint: currentBotFingerprint,
+  };
+}
+
+function writeState(lastUpdateId, stateMeta) {
   ensureDir(DATA_DIR);
   writeJson(STATE_PATH, {
     lastUpdateId: Number.isFinite(lastUpdateId) ? lastUpdateId : null,
+    channelId: stateMeta?.channelId || String(CHANNEL_ID),
+    botFingerprint: stateMeta?.botFingerprint || getBotFingerprint(TOKEN),
+    updatedAt: new Date().toISOString(),
   });
 }
 
@@ -151,28 +287,7 @@ function pickCoverMedia(mediaList) {
 function normalizeStoredItem(item) {
   if (!item || typeof item !== 'object' || item.id == null) return null;
 
-  const media = Array.isArray(item.media)
-    ? item.media
-        .filter((entry) => {
-          if (!entry || typeof entry !== 'object') return false;
-          return hasImagePath(entry) || hasVideoPath(entry);
-        })
-        .map((entry) => {
-          const video = hasVideoPath(entry) ? entry.video : '';
-          const image = hasImagePath(entry) ? entry.image : '';
-
-          return {
-            type: video ? 'video' : 'photo',
-            image,
-            video,
-            key:
-              entry.key ||
-              `${entry.type || 'photo'}:${
-                entry.image || entry.video || 'legacy'
-              }`,
-          };
-        })
-    : [];
+  const media = dedupeMediaEntries(item.media);
 
   if (!media.length) {
     const hasLegacyImage = hasNonEmptyString(item.image);
@@ -183,28 +298,18 @@ function normalizeStoredItem(item) {
         image: hasLegacyImage ? item.image : '',
         video: hasLegacyVideo ? item.video : '',
         key: `legacy:${item.id}`,
+        source_message_id: null,
       });
     }
   }
 
-  const cover = pickCoverMedia(media);
-  const sourceMessageIds = Array.isArray(item.source_message_ids)
-    ? Array.from(
-        new Set(item.source_message_ids.map(Number).filter(Number.isFinite)),
-      )
-    : [];
-
-  return {
+  return finalizeNewsItem({
     id: item.id,
-    text: sanitizeText(item.text),
-    date: toUnix(item.date),
+    text: item.text,
+    date: item.date,
     media,
-    image: cover?.image || null,
-    video: cover?.video || null,
-    media_count: media.length,
-    has_video: media.some(isPlayableVideoEntry),
-    source_message_ids: sourceMessageIds,
-  };
+    source_message_ids: item.source_message_ids,
+  });
 }
 
 function readExistingNews() {
@@ -423,6 +528,7 @@ async function buildIncomingNews(channelPosts) {
             image: imagePath,
             video: '',
             key: descriptor.key,
+            source_message_id: Number(post.message_id),
           });
           continue;
         }
@@ -458,6 +564,7 @@ async function buildIncomingNews(channelPosts) {
             image: posterPath,
             video: videoPath,
             key: descriptor.key,
+            source_message_id: Number(post.message_id),
           });
         }
       }
@@ -467,78 +574,95 @@ async function buildIncomingNews(channelPosts) {
       sortedGroup
         .map((post) => sanitizeText(post.text || post.caption, ''))
         .find(Boolean) || 'Без текста';
-    const date = Math.max(...sortedGroup.map((post) => toUnix(post.date)));
-    const sourceMessageIds = sortedGroup
-      .map((post) => Number(post.message_id))
-      .filter(Number.isFinite);
-    const cover = pickCoverMedia(media);
+    const date = Math.max(
+      ...sortedGroup.map((post) =>
+        Math.max(toUnix(post.date), toUnix(post.edit_date)),
+      ),
+    );
+    const sourceMessageIds = normalizeSourceMessageIds(
+      sortedGroup.map((post) => Number(post.message_id)),
+    );
 
-    incoming.push({
+    incoming.push(
+      finalizeNewsItem({
       id,
       text,
       date,
       media,
-      image: cover?.image || null,
-      video: cover?.video || null,
-      media_count: media.length,
-      has_video: media.some(isPlayableVideoEntry),
       source_message_ids: sourceMessageIds,
-    });
+      }),
+    );
   }
 
   return incoming;
 }
 
 function mergeNews(existingNews, incomingNews) {
-  const mergedById = new Map();
+  const existingById = new Map(
+    existingNews.map((item) => [String(item.id), normalizeStoredItem(item)]),
+  );
+  const incomingById = new Map();
 
-  function upsert(item) {
-    const prev = mergedById.get(item.id) || {
-      id: item.id,
-      text: 'Без текста',
-      date: 0,
-      media: [],
-      image: null,
-      video: null,
-      media_count: 0,
-      has_video: false,
-      source_message_ids: [],
-    };
+  incomingNews.forEach((rawIncoming) => {
+    const incoming = normalizeStoredItem(rawIncoming);
+    if (!incoming) return;
 
-    const mediaByKey = new Map();
-    [...(prev.media || []), ...(item.media || [])].forEach((entry) => {
-      if (!entry || !entry.key) return;
-      if (!hasImagePath(entry) && !hasVideoPath(entry)) return;
-      mediaByKey.set(entry.key, entry);
+    const idKey = String(incoming.id);
+    const prev = existingById.get(idKey);
+    if (!prev) {
+      incomingById.set(idKey, incoming);
+      return;
+    }
+
+    if (!isGroupNewsId(incoming.id)) {
+      incomingById.set(idKey, finalizeNewsItem(incoming));
+      return;
+    }
+
+    // For media groups, keep untouched messages but replace media for
+    // source_message_ids that arrived in this batch.
+    const touchedSourceIds = new Set(
+      normalizeSourceMessageIds(incoming.source_message_ids),
+    );
+    const incomingMediaSourceIds = new Set(
+      (incoming.media || [])
+        .map((entry) => Number(entry.source_message_id))
+        .filter(Number.isFinite),
+    );
+    const preservedPrevMedia = (prev.media || []).filter((entry) => {
+      const sourceMessageId = Number(entry.source_message_id);
+      if (!Number.isFinite(sourceMessageId)) return true;
+      if (!touchedSourceIds.has(sourceMessageId)) return true;
+      return !incomingMediaSourceIds.has(sourceMessageId);
     });
 
-    const media = Array.from(mediaByKey.values());
-    const cover = pickCoverMedia(media);
-    const sourceMessageIds = Array.from(
-      new Set(
-        [...(prev.source_message_ids || []), ...(item.source_message_ids || [])]
-          .map(Number)
-          .filter(Number.isFinite),
+    incomingById.set(
+      idKey,
+      finalizeNewsItem(
+        {
+          ...incoming,
+          text: sanitizeText(incoming.text || prev.text),
+          date: Math.max(toUnix(prev.date), toUnix(incoming.date)),
+          media: [...preservedPrevMedia, ...(incoming.media || [])],
+          source_message_ids: [
+            ...(prev.source_message_ids || []),
+            ...(incoming.source_message_ids || []),
+          ],
+        },
+        prev,
       ),
     );
+  });
 
-    mergedById.set(item.id, {
-      ...prev,
-      ...item,
-      text: sanitizeText(item.text || prev.text),
-      date: Math.max(toUnix(prev.date), toUnix(item.date)),
-      media,
-      image: cover?.image || null,
-      video: cover?.video || null,
-      media_count: media.length,
-      has_video: media.some(isPlayableVideoEntry),
-      source_message_ids: sourceMessageIds,
-    });
-  }
+  const merged = [
+    ...incomingById.values(),
+    ...existingNews
+      .filter((item) => !incomingById.has(String(item.id)))
+      .map(normalizeStoredItem)
+      .filter(Boolean),
+  ];
 
-  [...existingNews, ...incomingNews].forEach(upsert);
-
-  return Array.from(mergedById.values())
+  return applyAgeLimit(merged)
     .sort((a, b) => toUnix(b.date) - toUnix(a.date))
     .slice(0, MAX_NEWS_ITEMS);
 }
@@ -582,31 +706,18 @@ async function fetchTelegramNews() {
   }
 
   const state = readState();
-  const params = new URLSearchParams({
-    limit: '100',
-    allowed_updates: JSON.stringify(['channel_post', 'edited_channel_post']),
-  });
-
-  if (Number.isFinite(state.lastUpdateId)) {
-    params.set('offset', String(state.lastUpdateId + 1));
-  }
-
-  const url = `https://api.telegram.org/bot${TOKEN}/getUpdates?${params.toString()}`;
 
   try {
-    const response = await fetch(url);
-    if (!response.ok) throw new Error(`HTTP ${response.status}`);
-
-    const data = await response.json();
-    if (!data.ok) throw new Error(data.description);
-
-    const updates = Array.isArray(data.result) ? data.result : [];
-
+    const updates = await fetchTelegramUpdates(state.lastUpdateId);
     const maxUpdateId = updates.reduce(
       (max, item) =>
         Number.isFinite(item.update_id) ? Math.max(max, item.update_id) : max,
       Number.isFinite(state.lastUpdateId) ? state.lastUpdateId : 0,
     );
+
+    if (FORCE_RESET) {
+      console.log('[info] FORCE_RESET is enabled');
+    }
 
     const channelPostsRaw = updates
       .flatMap((item) => [item.channel_post, item.edited_channel_post])
@@ -614,13 +725,13 @@ async function fetchTelegramNews() {
     const channelPosts = dedupeChannelPosts(channelPostsRaw);
 
     ensureDir(DATA_DIR);
-    const existingNews = readExistingNews();
+    const existingNews = FORCE_RESET ? [] : readExistingNews();
     const incomingNews = await buildIncomingNews(channelPosts);
     const mergedNews = mergeNews(existingNews, incomingNews);
 
     cleanupUnusedTelegramFiles(mergedNews);
     writeJson(NEWS_PATH, mergedNews);
-    writeState(maxUpdateId);
+    writeState(maxUpdateId, state);
 
     const withMediaCount = mergedNews.filter(
       (item) => item.media_count > 0,
@@ -630,6 +741,49 @@ async function fetchTelegramNews() {
     console.error(`[error] Sync failed: ${error.message}`);
     process.exit(1);
   }
+}
+
+async function fetchTelegramUpdates(lastUpdateId) {
+  const updates = [];
+  let offset = Number.isFinite(lastUpdateId) ? lastUpdateId + 1 : null;
+  let iterationCount = 0;
+  const maxIterations = 50;
+
+  while (iterationCount < maxIterations) {
+    iterationCount += 1;
+    const params = new URLSearchParams({
+      limit: '100',
+      allowed_updates: JSON.stringify(['channel_post', 'edited_channel_post']),
+    });
+
+    if (Number.isFinite(offset)) {
+      params.set('offset', String(offset));
+    }
+
+    const url = `https://api.telegram.org/bot${TOKEN}/getUpdates?${params.toString()}`;
+    const response = await fetch(url);
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+    const data = await response.json();
+    if (!data.ok) throw new Error(data.description);
+
+    const chunk = Array.isArray(data.result) ? data.result : [];
+    if (!chunk.length) break;
+
+    updates.push(...chunk);
+    const lastChunkItem = chunk[chunk.length - 1];
+    offset = Number.isFinite(lastChunkItem?.update_id)
+      ? lastChunkItem.update_id + 1
+      : null;
+
+    if (chunk.length < 100 || !Number.isFinite(offset)) break;
+  }
+
+  if (iterationCount >= maxIterations) {
+    console.warn('[warn] getUpdates pagination hit iteration cap');
+  }
+
+  return updates;
 }
 
 fetchTelegramNews();
