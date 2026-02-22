@@ -90,10 +90,7 @@ function createNewsCard(item) {
     button.type = 'button';
     button.textContent = 'Посмотреть медиа';
     button.addEventListener('click', () => {
-      openNewsMediaModal({
-        media,
-        title: item.text || 'Публикация HYPROTEC',
-      });
+      openNewsMediaModal({ media });
     });
 
     const meta = document.createElement('span');
@@ -129,11 +126,14 @@ function createNewsCard(item) {
   return card;
 }
 
-function openNewsMediaModal({ media, title }) {
+function openNewsMediaModal({ media }) {
   const safeMedia = (Array.isArray(media) ? media : []).filter(
     (entry) => hasImageMedia(entry) || hasVideoPath(entry),
   );
   if (!safeMedia.length) return;
+
+  const previouslyFocused =
+    document.activeElement instanceof HTMLElement ? document.activeElement : null;
 
   const overlay = document.createElement('div');
   overlay.className = 'news-modal';
@@ -144,20 +144,11 @@ function openNewsMediaModal({ media, title }) {
   dialog.setAttribute('aria-modal', 'true');
   dialog.setAttribute('aria-label', 'Медиа публикации');
 
-  const header = document.createElement('header');
-  header.className = 'news-modal__header';
-
-  const titleNode = document.createElement('h3');
-  titleNode.className = 'news-modal__title';
-  titleNode.textContent = title || 'Медиа публикации';
-  header.append(titleNode);
-
   const close = document.createElement('button');
   close.type = 'button';
   close.className = 'news-modal__close';
   close.setAttribute('aria-label', 'Закрыть окно');
-  close.textContent = '✕';
-  header.append(close);
+  close.textContent = '×';
 
   const viewport = document.createElement('div');
   viewport.className = 'news-modal__viewport';
@@ -169,11 +160,13 @@ function openNewsMediaModal({ media, title }) {
   const footer = document.createElement('div');
   footer.className = 'news-modal__footer';
 
+  const prev = createModalPagerButton('prev');
   const counter = document.createElement('span');
   counter.className = 'news-modal__counter';
-  footer.append(counter);
+  const next = createModalPagerButton('next');
+  footer.append(prev, counter, next);
 
-  dialog.append(header, viewport, footer);
+  dialog.append(close, viewport, footer);
   overlay.append(dialog);
   document.body.append(overlay);
 
@@ -183,13 +176,12 @@ function openNewsMediaModal({ media, title }) {
     safeMedia.findIndex((entry) => entry.key === startMedia?.key),
   );
 
-  let prev = null;
-  let next = null;
-  if (safeMedia.length > 1) {
-    prev = createModalNavButton('prev');
-    next = createModalNavButton('next');
-    viewport.append(prev, next);
+  const hasPagination = safeMedia.length > 1;
+  prev.hidden = !hasPagination;
+  next.hidden = !hasPagination;
+  counter.hidden = !hasPagination;
 
+  if (hasPagination) {
     prev.addEventListener('click', () => {
       setActive(activeIndex - 1);
     });
@@ -197,6 +189,42 @@ function openNewsMediaModal({ media, title }) {
     next.addEventListener('click', () => {
       setActive(activeIndex + 1);
     });
+
+    let touchStartX = 0;
+    let touchStartY = 0;
+
+    stage.addEventListener(
+      'touchstart',
+      (event) => {
+        const touch = event.changedTouches?.[0];
+        if (!touch) return;
+        touchStartX = touch.clientX;
+        touchStartY = touch.clientY;
+      },
+      { passive: true },
+    );
+
+    stage.addEventListener(
+      'touchend',
+      (event) => {
+        const touch = event.changedTouches?.[0];
+        if (!touch) return;
+
+        const deltaX = touch.clientX - touchStartX;
+        const deltaY = touch.clientY - touchStartY;
+        const absX = Math.abs(deltaX);
+        const absY = Math.abs(deltaY);
+        if (absX < 44 || absX < absY) return;
+
+        if (deltaX < 0) {
+          setActive(activeIndex + 1);
+          return;
+        }
+
+        setActive(activeIndex - 1);
+      },
+      { passive: true },
+    );
   }
 
   function setActive(nextIndex) {
@@ -212,8 +240,38 @@ function openNewsMediaModal({ media, title }) {
       video.pause();
     });
     document.body.classList.remove('is-news-modal-open');
+    document.documentElement.classList.remove('is-news-modal-open');
     document.removeEventListener('keydown', onKeyDown);
     overlay.remove();
+    if (previouslyFocused?.isConnected) {
+      previouslyFocused.focus({ preventScroll: true });
+    }
+  }
+
+  function trapFocus(event) {
+    if (event.key !== 'Tab') return;
+
+    const focusable = Array.from(
+      dialog.querySelectorAll(
+        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
+      ),
+    ).filter((node) => !node.hasAttribute('disabled'));
+
+    if (!focusable.length) return;
+
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus({ preventScroll: true });
+      return;
+    }
+
+    if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus({ preventScroll: true });
+    }
   }
 
   function onKeyDown(event) {
@@ -221,7 +279,8 @@ function openNewsMediaModal({ media, title }) {
       closeModal();
       return;
     }
-    if (safeMedia.length < 2) return;
+    trapFocus(event);
+    if (!hasPagination) return;
     if (event.key === 'ArrowLeft') {
       setActive(activeIndex - 1);
     } else if (event.key === 'ArrowRight') {
@@ -236,14 +295,18 @@ function openNewsMediaModal({ media, title }) {
   document.addEventListener('keydown', onKeyDown);
 
   document.body.classList.add('is-news-modal-open');
-  requestAnimationFrame(() => overlay.classList.add('is-open'));
+  document.documentElement.classList.add('is-news-modal-open');
+  requestAnimationFrame(() => {
+    overlay.classList.add('is-open');
+    close.focus({ preventScroll: true });
+  });
   setActive(activeIndex);
 }
 
-function createModalNavButton(direction) {
+function createModalPagerButton(direction) {
   const button = document.createElement('button');
   button.type = 'button';
-  button.className = `news-modal__nav news-modal__nav--${direction}`;
+  button.className = `news-modal__pager-button news-modal__pager-button--${direction}`;
   button.setAttribute(
     'aria-label',
     direction === 'next' ? 'Следующее медиа' : 'Предыдущее медиа',
