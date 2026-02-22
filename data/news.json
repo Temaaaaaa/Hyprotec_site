@@ -7,30 +7,36 @@
       {
         "type": "photo",
         "image": "images/news/tg_10_photo.jpg",
+        "video": "",
         "key": "photo:10:AgACAgIAAyEFAATmC0LBAAMKaZp4eEf4Rky2njq6dEkgVYIZlNwAAroRaxsEN3hLlxJeIQJGvNgBAAMCAAN3AAM6BA"
       },
       {
         "type": "photo",
         "image": "images/news/tg_11_photo.jpg",
+        "video": "",
         "key": "photo:11:AgACAgIAAyEFAATmC0LBAAMLaZp4eFJQgzouLQVgd0rxhZ78OPMAArsRaxsEN3hLhjA7BbMoSzABAAMCAAN3AAM6BA"
       },
       {
         "type": "photo",
         "image": "images/news/tg_12_photo.jpg",
+        "video": "",
         "key": "photo:12:AgACAgIAAyEFAATmC0LBAAMMaZp4eOywcAe_pOE3WS2yhsPl2agAArwRaxsEN3hLpKHQQvkhtw0BAAMCAAN3AAM6BA"
       },
       {
         "type": "photo",
         "image": "images/news/tg_13_photo.jpg",
+        "video": "",
         "key": "photo:13:AgACAgIAAyEFAATmC0LBAAMNaZp4eLM41szzQEELXc7y4mD9CooAAr0RaxsEN3hLUXsf0bqhBAUBAAMCAAN3AAM6BA"
       },
       {
         "type": "photo",
         "image": "images/news/tg_14_photo.jpg",
+        "video": "",
         "key": "photo:14:AgACAgIAAyEFAATmC0LBAAMOaZp4eFA-ZblgnMvNPULDPjxSQGEAAr4RaxsEN3hLdifuBGGdROEBAAMCAAN3AAM6BA"
       }
     ],
     "image": "images/news/tg_10_photo.jpg",
+    "video": null,
     "media_count": 5,
     "has_video": false,
     "source_message_ids": [
@@ -49,15 +55,18 @@
       {
         "type": "photo",
         "image": "images/news/tg_8_photo.jpg",
+        "video": "",
         "key": "photo:8:AgACAgIAAyEFAATmC0LBAAMIaZp35LQ2ieLGUGQRsyYYO6yjAqYAAsMRaxsEN3hLNYikrZkyM3cBAAMCAAN5AAM6BA"
       },
       {
         "type": "photo",
         "image": "images/news/tg_9_photo.jpg",
+        "video": "",
         "key": "photo:9:AgACAgIAAyEFAATmC0LBAAMJaZp35BazdA-P1CM1HPUxvEGcOE8AAsERaxsEN3hLUF_zWzpoa8kBAAMCAAN5AAM6BA"
       }
     ],
     "image": "images/news/tg_8_photo.jpg",
+    "video": null,
     "media_count": 2,
     "has_video": false,
     "source_message_ids": [
@@ -73,15 +82,18 @@
       {
         "type": "photo",
         "image": "images/news/tg_6_photo.jpg",
+        "video": "",
         "key": "photo:6:AgACAgIAAyEFAATmC0LBAAMGaZp3DmAj4Xo5S8gxBnolc0JfJXIAAmUVaxs9o9FIEqdi_cQc4kYBAAMCAAN4AAM6BA"
       },
       {
         "type": "video",
         "image": "images/news/tg_7_video.jpg",
+        "video": "",
         "key": "video:7:AAMCAgADIQUABOYLQsEAAwdpmncOnI5ZRmzSvPyYASYPJDSSDAAC1JUAAj2j0UjuDHPR2BsAAUoBAAdtAAM6BA"
       }
     ],
     "image": "images/news/tg_6_photo.jpg",
+    "video": null,
     "media_count": 2,
     "has_video": true,
     "source_message_ids": [
@@ -97,10 +109,12 @@
       {
         "type": "photo",
         "image": "images/news/news_5.jpg",
+        "video": "",
         "key": "legacy:images/news/news_5.jpg"
       }
     ],
     "image": "images/news/news_5.jpg",
+    "video": null,
     "media_count": 1,
     "has_video": false,
     "source_message_ids": []
@@ -113,10 +127,12 @@
       {
         "type": "photo",
         "image": "images/news/news_4.jpg",
+        "video": "",
         "key": "legacy:images/news/news_4.jpg"
       }
     ],
     "image": "images/news/news_4.jpg",
+    "video": null,
     "media_count": 1,
     "has_video": false,
     "source_message_ids": []
@@ -127,6 +143,7 @@
     "date": 1771515370,
     "media": [],
     "image": null,
+    "video": null,
     "media_count": 0,
     "has_video": false,
     "source_message_ids": []
@@ -139,10 +156,12 @@
       {
         "type": "photo",
         "image": "images/news/news_2.jpg",
+        "video": "",
         "key": "legacy:images/news/news_2.jpg"
       }
     ],
     "image": "images/news/news_2.jpg",
+    "video": null,
     "media_count": 1,
     "has_video": false,
     "source_message_ids": []
