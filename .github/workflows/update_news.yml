@@ -3,7 +3,7 @@ name: Telegram News Sync
 on:
   schedule:
     - cron: '0 * * * *' # Запуск каждый час
-  workflow_dispatch: # Ручной запуск кнопкой
+  workflow_dispatch: # Ручной запуск
 
 concurrency:
   group: telegram-news-sync
@@ -13,13 +13,14 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    # Даем права на запись в репозиторий (нужно для пуша изменений)
     permissions:
       contents: write
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -37,11 +38,17 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
-          # Добавляем JSON + состояние offset + картинки (если есть)
           git add data/news.json
           [ -f data/tg_state.json ] && git add data/tg_state.json || true
           [ -d images/news ] && git add images/news/ || true
 
-          # Если изменений нет, скрипт не упадет благодаря || exit 0
-          git commit -m "chore: auto-update news and images from Telegram" || exit 0
-          git push
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+            exit 0
+          fi
+
+          git commit -m "chore: auto-update news and images from Telegram"
+
+          BRANCH="${GITHUB_REF_NAME:-main}"
+          git pull --rebase origin "$BRANCH"
+          git push origin "HEAD:$BRANCH"

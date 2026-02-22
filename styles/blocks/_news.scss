@@ -94,6 +94,7 @@
     display: inline-flex;
     align-items: center;
     gap: rem(10);
+    flex-wrap: wrap;
   }
 
   &__status::before {
@@ -104,6 +105,58 @@
     background: var(--color-accent);
     box-shadow: 0 0 0 rem(6) rgba(231, 52, 57, 0.14);
     flex-shrink: 0;
+  }
+
+  &__status--error {
+    border-color: rgba(169, 35, 40, 0.26);
+    background-color: rgba(255, 246, 246, 0.95);
+  }
+
+  &__status--error::before {
+    background: #a92328;
+    box-shadow: 0 0 0 rem(6) rgba(169, 35, 40, 0.12);
+  }
+
+  &__status--empty {
+    border-color: rgba(42, 83, 127, 0.2);
+    background-color: rgba(245, 250, 255, 0.95);
+  }
+
+  &__status--empty::before {
+    background: #2a537f;
+    box-shadow: 0 0 0 rem(6) rgba(42, 83, 127, 0.12);
+  }
+
+  &__status-text {
+    flex: 1 1 auto;
+  }
+
+  &__retry {
+    padding: rem(7) rem(12);
+    border-radius: rem(999);
+    border: 1px solid rgba(16, 20, 25, 0.2);
+    background-color: #fff;
+    color: var(--color-dark);
+    font-size: rem(13);
+    font-weight: 600;
+    line-height: 1;
+    cursor: pointer;
+    transition: background-color var(--transition-duration),
+      border-color var(--transition-duration),
+      color var(--transition-duration);
+  }
+
+  @include hover(false) {
+    .news-feed__retry:not(:disabled) {
+      border-color: rgba(231, 52, 57, 0.7);
+      color: rgba(231, 52, 57, 1);
+      background-color: rgba(231, 52, 57, 0.06);
+    }
+  }
+
+  &__retry:disabled {
+    cursor: default;
+    opacity: 0.6;
   }
 
   &__list {
@@ -156,6 +209,27 @@
 
   @include tablet-above {
     grid-template-columns: minmax(rem(320), rem(460)) 1fr;
+  }
+
+  &--no-media {
+    @include tablet-above {
+      grid-template-columns: 1fr;
+    }
+
+    .news-card__media {
+      min-height: rem(150);
+      background:
+        radial-gradient(
+          circle at 18% 22%,
+          rgba(231, 52, 57, 0.18),
+          transparent 45%
+        ),
+        linear-gradient(125deg, #e7ebf1 0%, #f1f4f8 46%, #e7ecf2 100%);
+    }
+
+    .news-card__image--empty {
+      min-height: rem(150);
+    }
   }
 
   &__media {

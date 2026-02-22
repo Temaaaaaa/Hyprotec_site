@@ -4,6 +4,12 @@ const DATE_FORMATTER = new Intl.DateTimeFormat('ru-RU', {
   year: 'numeric',
 });
 
+const STATUS_CLASS_BY_TYPE = {
+  info: 'news-feed__status--info',
+  empty: 'news-feed__status--empty',
+  error: 'news-feed__status--error',
+};
+
 document.addEventListener('DOMContentLoaded', () => {
   const root = document.querySelector('[data-news-feed]');
   if (!root) return;
@@ -12,14 +18,17 @@ document.addEventListener('DOMContentLoaded', () => {
   const status = root.querySelector('[data-news-status]');
   if (!list || !status) return;
 
-  loadTelegramNews(list, status);
+  loadTelegramNews({ list, status });
 });
 
-async function loadTelegramNews(list, status) {
+async function loadTelegramNews({ list, status }) {
+  setStatus(status, 'Загрузка публикаций...', 'info');
+
   try {
-    const items = await fetchNews();
+    const items = (await fetchNews()).filter(shouldRenderNewsItem);
     if (!items.length) {
-      status.textContent = 'Публикаций пока нет.';
+      list.replaceChildren();
+      setStatus(status, 'Публикаций пока нет.', 'empty');
       return;
     }
 
@@ -31,10 +40,21 @@ async function loadTelegramNews(list, status) {
     list.replaceChildren(fragment);
     status.remove();
   } catch (error) {
-    status.textContent =
-      'Не удалось загрузить публикации. Проверьте data/news.json.';
+    setStatus(
+      status,
+      'Не удалось загрузить публикации. Проверьте data/news.json.',
+      'error',
+      () => loadTelegramNews({ list, status }),
+    );
     console.error(error);
   }
+}
+
+function shouldRenderNewsItem(item) {
+  if (!item || typeof item !== 'object') return false;
+  const hasText = typeof item.text === 'string' && item.text.trim().length > 0;
+  const hasMedia = Array.isArray(item.media) && item.media.length > 0;
+  return hasText || hasMedia;
 }
 
 function createNewsCard(item) {
@@ -52,6 +72,10 @@ function createNewsCard(item) {
 
   const thumbs = createThumbs(item, coverMedia);
   if (thumbs) mediaRoot.append(thumbs);
+
+  if (!coverMedia) {
+    card.classList.add('news-card--no-media');
+  }
 
   const body = document.createElement('div');
   body.className = 'news-card__body';
@@ -71,33 +95,56 @@ function createNewsCard(item) {
 }
 
 function createCoverNode(media) {
-  if (media && media.type === 'video' && media.video) {
+  if (isPlayableVideoMedia(media)) {
     const video = document.createElement('video');
     video.className = 'news-card__video';
     video.controls = true;
     video.preload = 'metadata';
     video.playsInline = true;
-    if (media.image) {
-      video.poster = normalizeMediaPath(media.image);
+    video.setAttribute('aria-label', 'Видео публикации');
+
+    const normalizedVideoPath = normalizeMediaPath(media.video);
+    const normalizedPosterPath = media.image ? normalizeMediaPath(media.image) : '';
+    if (normalizedPosterPath) {
+      video.poster = normalizedPosterPath;
     }
 
+    video.addEventListener(
+      'error',
+      () => {
+        const fallbackNode = normalizedPosterPath
+          ? createImageNode(normalizedPosterPath)
+          : createEmptyMediaNode();
+        video.replaceWith(fallbackNode);
+      },
+      { once: true },
+    );
+
     const source = document.createElement('source');
-    source.src = normalizeMediaPath(media.video);
+    source.src = normalizedVideoPath;
     source.type = guessVideoMime(source.src);
     video.append(source);
 
     return video;
   }
 
-  if (media && media.image) {
-    const image = document.createElement('img');
-    image.className = 'news-card__image';
-    image.src = normalizeMediaPath(media.image);
-    image.alt = '';
-    image.loading = 'lazy';
-    return image;
+  if (hasImageMedia(media)) {
+    return createImageNode(normalizeMediaPath(media.image));
   }
 
+  return createEmptyMediaNode();
+}
+
+function createImageNode(src) {
+  const image = document.createElement('img');
+  image.className = 'news-card__image';
+  image.src = src;
+  image.alt = '';
+  image.loading = 'lazy';
+  return image;
+}
+
+function createEmptyMediaNode() {
   const empty = document.createElement('div');
   empty.className = 'news-card__image news-card__image--empty';
   empty.textContent = 'HYPROTEC';
@@ -105,8 +152,9 @@ function createCoverNode(media) {
 }
 
 function createBadges(item) {
-  const hasVideo = Boolean(item.has_video);
-  const mediaCount = Number(item.media_count) || item.media.length;
+  const media = Array.isArray(item.media) ? item.media : [];
+  const hasVideo = media.some(isPlayableVideoMedia);
+  const mediaCount = media.length || Number(item.media_count) || 0;
   if (!hasVideo && mediaCount <= 1) return null;
 
   const wrap = document.createElement('div');
@@ -143,7 +191,7 @@ function createThumbs(item, coverMedia) {
     const thumbWrap = document.createElement('div');
     thumbWrap.className = 'news-card__thumb-wrap';
 
-    if (entry.image) {
+    if (hasImageMedia(entry)) {
       const thumb = document.createElement('img');
       thumb.className = 'news-card__thumb';
       thumb.src = normalizeMediaPath(entry.image);
@@ -157,7 +205,7 @@ function createThumbs(item, coverMedia) {
       thumbWrap.append(empty);
     }
 
-    if (entry.type === 'video') {
+    if (isPlayableVideoMedia(entry)) {
       const play = document.createElement('span');
       play.className = 'news-card__thumb-play';
       play.textContent = '▶';
@@ -173,12 +221,10 @@ function createThumbs(item, coverMedia) {
 function pickCoverMedia(media) {
   if (!Array.isArray(media) || !media.length) return null;
 
-  const playableVideo = media.find(
-    (entry) => entry && entry.type === 'video' && entry.video,
-  );
+  const playableVideo = media.find(isPlayableVideoMedia);
   if (playableVideo) return playableVideo;
 
-  const firstWithImage = media.find((entry) => entry && entry.image);
+  const firstWithImage = media.find(hasImageMedia);
   if (firstWithImage) return firstWithImage;
 
   return media[0];
@@ -209,31 +255,34 @@ async function fetchNews() {
 
 function normalizeNewsItem(item) {
   const normalized = { ...item };
+  normalized.text =
+    typeof item.text === 'string' && item.text.trim()
+      ? item.text.trim()
+      : 'Без текста';
+
   normalized.media = Array.isArray(item.media)
     ? item.media
         .filter((entry) => {
           if (!entry || typeof entry !== 'object') return false;
-          const hasImage =
-            typeof entry.image === 'string' && entry.image.trim();
-          const hasVideo =
-            typeof entry.video === 'string' && entry.video.trim();
-          return hasImage || hasVideo;
+          return hasImageMedia(entry) || hasVideoPath(entry);
         })
-        .map((entry) => ({
-          type: entry.type === 'video' ? 'video' : 'photo',
-          image: entry.image || '',
-          video: entry.video || '',
-          key:
-            entry.key ||
-            `${entry.type || 'photo'}:${entry.image || entry.video || 'legacy'}`,
-        }))
+        .map((entry) => {
+          const video = hasVideoPath(entry) ? entry.video : '';
+          const image = hasImageMedia(entry) ? entry.image : '';
+          return {
+            type: video ? 'video' : 'photo',
+            image,
+            video,
+            key:
+              entry.key ||
+              `${entry.type || 'photo'}:${entry.image || entry.video || 'legacy'}`,
+          };
+        })
     : [];
 
   if (!normalized.media.length) {
-    const hasImage =
-      typeof normalized.image === 'string' && normalized.image.trim();
-    const hasVideo =
-      typeof normalized.video === 'string' && normalized.video.trim();
+    const hasImage = hasNonEmptyString(normalized.image);
+    const hasVideo = hasNonEmptyString(normalized.video);
 
     if (hasImage || hasVideo) {
       normalized.media.push({
@@ -245,11 +294,8 @@ function normalizeNewsItem(item) {
     }
   }
 
-  normalized.media_count =
-    Number(normalized.media_count) || normalized.media.length;
-  normalized.has_video =
-    Boolean(normalized.has_video) ||
-    normalized.media.some((entry) => entry.type === 'video');
+  normalized.media_count = normalized.media.length;
+  normalized.has_video = normalized.media.some(isPlayableVideoMedia);
 
   return normalized;
 }
@@ -277,6 +323,44 @@ function formatDate(value) {
   const timestamp = toTimestamp(value);
   if (!timestamp) return 'Дата не указана';
   return DATE_FORMATTER.format(new Date(timestamp));
+}
+
+function hasNonEmptyString(value) {
+  return typeof value === 'string' && value.trim().length > 0;
+}
+
+function hasImageMedia(media) {
+  return Boolean(media && hasNonEmptyString(media.image));
+}
+
+function hasVideoPath(media) {
+  return Boolean(media && hasNonEmptyString(media.video));
+}
+
+function isPlayableVideoMedia(media) {
+  return Boolean(media && media.type === 'video' && hasVideoPath(media));
+}
+
+function setStatus(status, message, type = 'info', onRetry) {
+  status.classList.remove(...Object.values(STATUS_CLASS_BY_TYPE));
+  status.classList.add(STATUS_CLASS_BY_TYPE[type] || STATUS_CLASS_BY_TYPE.info);
+
+  const messageText = document.createElement('span');
+  messageText.className = 'news-feed__status-text';
+  messageText.textContent = message;
+  status.replaceChildren(messageText);
+
+  if (typeof onRetry === 'function') {
+    const retryButton = document.createElement('button');
+    retryButton.type = 'button';
+    retryButton.className = 'news-feed__retry';
+    retryButton.textContent = 'Повторить';
+    retryButton.addEventListener('click', () => {
+      retryButton.disabled = true;
+      onRetry();
+    });
+    status.append(retryButton);
+  }
 }
 
 function toTimestamp(value) {

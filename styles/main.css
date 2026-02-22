@@ -6219,6 +6219,7 @@ html.is-intro-active .hero .hero__subtitle--type {
   display: inline-flex;
   align-items: center;
   gap: 0.625rem;
+  flex-wrap: wrap;
 }
 .news-feed__status::before {
   content: "";
@@ -6228,6 +6229,48 @@ html.is-intro-active .hero .hero__subtitle--type {
   background: var(--color-accent);
   box-shadow: 0 0 0 0.375rem rgba(231, 52, 57, 0.14);
   flex-shrink: 0;
+}
+.news-feed__status--error {
+  border-color: rgba(169, 35, 40, 0.26);
+  background-color: rgba(255, 246, 246, 0.95);
+}
+.news-feed__status--error::before {
+  background: #a92328;
+  box-shadow: 0 0 0 0.375rem rgba(169, 35, 40, 0.12);
+}
+.news-feed__status--empty {
+  border-color: rgba(42, 83, 127, 0.2);
+  background-color: rgba(245, 250, 255, 0.95);
+}
+.news-feed__status--empty::before {
+  background: #2a537f;
+  box-shadow: 0 0 0 0.375rem rgba(42, 83, 127, 0.12);
+}
+.news-feed__status-text {
+  flex: 1 1 auto;
+}
+.news-feed__retry {
+  padding: 0.4375rem 0.75rem;
+  border-radius: 62.4375rem;
+  border: 1px solid rgba(16, 20, 25, 0.2);
+  background-color: #fff;
+  color: var(--color-dark);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  line-height: 1;
+  cursor: pointer;
+  transition: background-color var(--transition-duration), border-color var(--transition-duration), color var(--transition-duration);
+}
+@media (any-hover: hover) {
+  .news-feed:hover .news-feed__retry:not(:disabled) {
+    border-color: rgba(231, 52, 57, 0.7);
+    color: rgb(231, 52, 57);
+    background-color: rgba(231, 52, 57, 0.06);
+  }
+}
+.news-feed__retry:disabled {
+  cursor: default;
+  opacity: 0.6;
 }
 .news-feed__list {
   display: grid;
@@ -6268,6 +6311,18 @@ html.is-intro-active .hero .hero__subtitle--type {
   .news-card {
     grid-template-columns: minmax(20rem, 28.75rem) 1fr;
   }
+}
+@media (width > 63.99875rem) {
+  .news-card--no-media {
+    grid-template-columns: 1fr;
+  }
+}
+.news-card--no-media .news-card__media {
+  min-height: 9.375rem;
+  background: radial-gradient(circle at 18% 22%, rgba(231, 52, 57, 0.18), transparent 45%), linear-gradient(125deg, #e7ebf1 0%, #f1f4f8 46%, #e7ecf2 100%);
+}
+.news-card--no-media .news-card__image--empty {
+  min-height: 9.375rem;
 }
 .news-card__media {
   position: relative;
