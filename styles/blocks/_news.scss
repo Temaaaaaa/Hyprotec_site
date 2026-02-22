@@ -162,7 +162,26 @@
     gap: fluid(28, 16);
   }
 
+  &__inner--embed {
+    display: flex;
+    justify-content: center;
+  }
+
+  &__embed {
+    width: min(100%, rem(980));
+    height: clamp(rem(560), 82vh, rem(900));
+    border: 0;
+    border-radius: rem(16);
+    background: #fff;
+    box-shadow: 0 rem(10) rem(26) rgba(20, 20, 20, 0.1);
+  }
+
   @include mobile {
+    &__embed {
+      height: min(rem(700), 84vh);
+      border-radius: rem(12);
+    }
+
     &__status {
       width: 100%;
       align-items: flex-start;

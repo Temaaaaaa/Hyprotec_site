@@ -10,7 +10,6 @@
     />
     <link rel="stylesheet" href="../styles/main.css" />
     <script type="module" src="../scripts/main.js" defer></script>
-    <script type="module" src="../scripts/news.js" defer></script>
   </head>
   <body>
     <header class="header" data-js-header>
@@ -43,7 +42,9 @@
                   >
                 </li>
                 <li class="header__menu-item">
-                  <a class="header__menu-link" href="../#contacts">Контакты</a>
+                  <a class="header__menu-link" href="../#contacts"
+                    >Контакты</a
+                  >
                 </li>
                 <li class="header__menu-item">
                   <a
@@ -80,27 +81,34 @@
         <div class="hero__inner container hero__inner--left">
           <h1 class="hero__title">Новости</h1>
           <p class="hero__subtitle">
-            Актуальные публикации из Telegram-канала HYPROTEC.
+            Актуальные публикации из Telegram-канала
+            HYPROTEC.
           </p>
         </div>
       </section>
 
-      <section class="news-feed section" data-news-feed>
+      <section class="news-feed section">
         <header class="section__header">
           <div class="section__header-inner container">
             <div class="section__header-info">
-              <h2 class="section__title section-title">Лента публикаций</h2>
+              <h2 class="section__title section-title">
+                Лента публикаций
+              </h2>
             </div>
             <div class="section__rule" aria-hidden="true"></div>
           </div>
         </header>
-
         <div class="news-feed__body">
-          <div class="news-feed__inner container">
-            <p class="news-feed__status news-feed__status--info" data-news-status role="status" aria-live="polite">
-              Загрузка публикаций...
-            </p>
-            <div class="news-feed__list" data-news-list></div>
+          <div class="news-feed__inner container news-feed__inner--embed">
+            <iframe
+              class="news-feed__embed"
+              width="600"
+              height="auto"
+              src="https://rss.app/embed/v1/feed/h8oFx6M3wXozDCT0"
+              frameborder="0"
+              loading="lazy"
+              title="HYPROTEC Telegram feed"
+            ></iframe>
           </div>
         </div>
       </section>
@@ -114,7 +122,8 @@
               <img src="../images/logo-main.svg" alt="HYPROTEC" />
             </a>
             <p class="footer__copyright">
-              <span aria-hidden="true">©</span> Все права защищены. HYPROTEC.
+              <span aria-hidden="true">&copy;</span> Все права защищены.
+              HYPROTEC.
             </p>
           </div>
           <nav class="footer__menu" aria-label="Меню в подвале">

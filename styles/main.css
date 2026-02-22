@@ -6276,7 +6276,23 @@ html.is-intro-active .hero .hero__subtitle--type {
   display: grid;
   gap: clamp(1rem, 0.7582644628rem + 0.9917355372vw, 1.75rem);
 }
+.news-feed__inner--embed {
+  display: flex;
+  justify-content: center;
+}
+.news-feed__embed {
+  width: min(100%, 61.25rem);
+  height: clamp(35rem, 82vh, 56.25rem);
+  border: 0;
+  border-radius: 1rem;
+  background: #fff;
+  box-shadow: 0 0.625rem 1.625rem rgba(20, 20, 20, 0.1);
+}
 @media (width <= 48.18625rem) {
+  .news-feed__embed {
+    height: min(43.75rem, 84vh);
+    border-radius: 0.75rem;
+  }
   .news-feed__status {
     width: 100%;
     align-items: flex-start;
