@@ -6288,10 +6288,18 @@ html.is-intro-active .hero .hero__subtitle--type {
   background: #fff;
   box-shadow: 0 0.625rem 1.625rem rgba(20, 20, 20, 0.1);
 }
+.news-feed__embed--carousel {
+  width: 100%;
+  max-width: none;
+  height: clamp(20rem, 40vw, 28.75rem);
+}
 @media (width <= 48.18625rem) {
   .news-feed__embed {
     height: min(43.75rem, 84vh);
     border-radius: 0.75rem;
+  }
+  .news-feed__embed--carousel {
+    height: clamp(16.25rem, 72vw, 21.25rem);
   }
   .news-feed__status {
     width: 100%;

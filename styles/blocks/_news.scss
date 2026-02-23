@@ -176,10 +176,20 @@
     box-shadow: 0 rem(10) rem(26) rgba(20, 20, 20, 0.1);
   }
 
+  &__embed--carousel {
+    width: 100%;
+    max-width: none;
+    height: clamp(rem(320), 40vw, rem(460));
+  }
+
   @include mobile {
     &__embed {
       height: min(rem(700), 84vh);
       border-radius: rem(12);
+    }
+
+    &__embed--carousel {
+      height: clamp(rem(260), 72vw, rem(340));
     }
 
     &__status {
