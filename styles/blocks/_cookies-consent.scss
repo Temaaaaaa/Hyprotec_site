@@ -56,13 +56,3 @@
   }
 }
 
-/* (опционально) кнопка «Настройки cookie» */
-.cookie-manage {
-  position: fixed; right: rem(16); bottom: rem(16);
-  border: var(--border, 1px solid rgba(0,0,0,.12));
-  background: var(--color-white, #fff);
-  color: var(--color-dark, #111);
-  padding: rem(10) rem(12); border-radius: rem(10);
-  box-shadow: 0 6px 20px rgba(0,0,0,.1);
-  @include hover() { transform: translateY(-1px); }
-}

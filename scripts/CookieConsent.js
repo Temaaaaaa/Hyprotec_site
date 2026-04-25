@@ -1,93 +1,128 @@
-// CookieConsent.js
-const KEY = 'cookie:consent';          // 'accepted' | 'declined'
-const DAYS = 180;                      // срок хранения выбора, дней
+const KEY = "cookie:consent";
+const DAYS = 180;
 
 function setConsent(value) {
-    try {
-        const exp = Date.now() + DAYS * 24 * 60 * 60 * 1000;
-        localStorage.setItem(KEY, JSON.stringify({ value, exp }));
-    } catch {}
-}
-function getConsent() {
-    try {
-        const raw = localStorage.getItem(KEY);
-        if (!raw) return null;
-        const { value, exp } = JSON.parse(raw);
-        if (!value || Date.now() > Number(exp)) {
-            localStorage.removeItem(KEY);
-            return null;
-        }
-        return value; // accepted | declined
-    } catch { return null; }
-}
-function clearConsent() {
-    try { localStorage.removeItem(KEY); } catch {}
+  try {
+    const exp = Date.now() + DAYS * 24 * 60 * 60 * 1000;
+    localStorage.setItem(KEY, JSON.stringify({ value, exp }));
+  } catch {}
 }
 
-/** Включает отложенные скрипты: <script type="text/plain" data-consent="analytics"> ... */
-function enableDeferredScripts(type = 'analytics') {
-    document.querySelectorAll(`script[type="text/plain"][data-consent="${type}"]`).forEach((tpl) => {
-        const s = document.createElement('script');
-        for (const attr of tpl.attributes) {
-            if (attr.name === 'type' || attr.name === 'data-consent') continue;
-            s.setAttribute(attr.name, attr.value);
-        }
-        if (tpl.textContent?.trim()) s.text = tpl.textContent;
-        tpl.replaceWith(s);
+function getConsent() {
+  try {
+    const raw = localStorage.getItem(KEY);
+    if (!raw) return null;
+
+    const { value, exp } = JSON.parse(raw);
+    if (!value || Date.now() > Number(exp)) {
+      localStorage.removeItem(KEY);
+      return null;
+    }
+
+    return value;
+  } catch {
+    return null;
+  }
+}
+
+function enableDeferredScripts(type = "analytics") {
+  document
+    .querySelectorAll(`script[type="text/plain"][data-consent="${type}"]`)
+    .forEach((tpl) => {
+      const script = document.createElement("script");
+
+      for (const attr of tpl.attributes) {
+        if (attr.name === "type" || attr.name === "data-consent") continue;
+        script.setAttribute(attr.name, attr.value);
+      }
+
+      if (tpl.textContent?.trim()) {
+        script.text = tpl.textContent;
+      }
+
+      tpl.replaceWith(script);
     });
+}
+
+function loadAnalytics() {
+  enableDeferredScripts("analytics");
+  import("./yandex-metrika.js");
+}
+
+function createBanner() {
+  let banner = document.getElementById("cookie-banner");
+
+  if (!banner) {
+    banner = document.createElement("div");
+    banner.className = "cookie";
+    banner.id = "cookie-banner";
+    banner.hidden = true;
+    banner.setAttribute("role", "dialog");
+    banner.setAttribute("aria-modal", "true");
+    banner.setAttribute("aria-labelledby", "cookie-title");
+    banner.innerHTML = `
+      <div class="cookie__inner container">
+        <div class="cookie__text">
+          <strong id="cookie-title" class="cookie__title">Мы используем cookie</strong>
+          <p class="cookie__desc">
+            Аналитические cookie Яндекс.Метрики включаются только с вашего согласия.
+            <a href="/cookies/" class="cookie__link">Подробнее</a>
+          </p>
+        </div>
+        <div class="cookie__actions">
+          <button type="button" class="cookie__btn" data-js-cookie-decline>Только необходимые</button>
+          <button type="button" class="cookie__btn cookie__btn--primary" data-js-cookie-accept>Согласен</button>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(banner);
+  }
+
+  return banner;
 }
 
 export default function initCookieConsent() {
-    const banner = document.getElementById('cookie-banner');
-    const manageBtn = document.querySelector('[data-js-cookie-manage]');
-    if (!banner) return;
+  const banner = createBanner();
+  const prev = getConsent();
 
-    const prev = getConsent();
-    if (prev === 'accepted') {
-        enableDeferredScripts('analytics');
-        manageBtn && (manageBtn.hidden = false);
-        return;
-    }
-    if (prev === 'declined') {
-        manageBtn && (manageBtn.hidden = false);
-        return;
-    }
+  if (prev === "accepted") {
+    loadAnalytics();
+    return;
+  }
 
-    // показать баннер (нет выбора)
+  if (prev === "declined") {
+    return;
+  }
+
+  const show = () => {
     banner.hidden = false;
-    requestAnimationFrame(() => banner.classList.add('is-visible'));
+    requestAnimationFrame(() => banner.classList.add("is-visible"));
+  };
 
-    const acceptBtn = banner.querySelector('[data-js-cookie-accept]');
-    const declineBtn = banner.querySelector('[data-js-cookie-decline]');
+  const close = () => {
+    banner.classList.remove("is-visible");
+    setTimeout(() => {
+      banner.hidden = true;
+    }, 220);
+  };
 
-    const close = () => {
-        banner.classList.remove('is-visible');
-        setTimeout(() => (banner.hidden = true), 220);
-        manageBtn && (manageBtn.hidden = false);
-    };
+  banner.querySelector("[data-js-cookie-accept]")?.addEventListener("click", () => {
+    setConsent("accepted");
+    loadAnalytics();
+    close();
+  });
 
-    acceptBtn?.addEventListener('click', () => {
-        setConsent('accepted');
-        enableDeferredScripts('analytics');
-        close();
-    });
-    declineBtn?.addEventListener('click', () => {
-        setConsent('declined');
-        close();
-    });
+  banner.querySelector("[data-js-cookie-decline]")?.addEventListener("click", () => {
+    setConsent("declined");
+    close();
+  });
 
-    // Esc = «Только необходимые»
-    banner.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') {
-            setConsent('declined');
-            close();
-        }
-    });
+  banner.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      setConsent("declined");
+      close();
+    }
+  });
 
-    // Кнопка «Настройки cookie»: сбрасываем выбор и показываем баннер
-    manageBtn?.addEventListener('click', () => {
-        clearConsent();
-        banner.hidden = false;
-        requestAnimationFrame(() => banner.classList.add('is-visible'));
-    });
+  show();
 }

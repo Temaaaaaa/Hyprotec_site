@@ -1,12 +1,11 @@
-import './yandex-metrika.js';
 import Intro from './Preloader.js';
 import Header from "./Header.js";
 import Carousel from "./Carousel.js";
 import Stats from "./Stats.js";
+import initCookieConsent from './CookieConsent.js';
 new Intro();
 import { initHeroType } from './HeroType.js';
-// import initCookieConsent from './CookieConsent.js';
-// initCookieConsent();
+initCookieConsent();
 
 document.addEventListener('DOMContentLoaded', () => {
     initHeroType('.hero__subtitle--type', {

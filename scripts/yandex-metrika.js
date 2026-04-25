@@ -1,3 +1,8 @@
+const PRODUCTION_HOSTS = new Set(["hyprotec.ru", "www.hyprotec.ru"]);
+
+if (!PRODUCTION_HOSTS.has(window.location.hostname)) {
+  console.info("Yandex Metrika is disabled outside production.");
+} else {
 (function (m, e, t, r, i, k, a) {
   m[i] =
     m[i] ||
@@ -29,3 +34,4 @@ window.ym(108705100, "init", {
   accurateTrackBounce: true,
   trackLinks: true,
 });
+}
