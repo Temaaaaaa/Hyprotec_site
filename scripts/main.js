@@ -1,3 +1,4 @@
+import './yandex-metrika.js';
 import Intro from './Preloader.js';
 import Header from "./Header.js";
 import Carousel from "./Carousel.js";
