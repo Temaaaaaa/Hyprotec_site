@@ -70,7 +70,7 @@ function createBanner() {
           </p>
         </div>
         <div class="cookie__actions">
-          <button type="button" class="cookie__btn" data-js-cookie-decline>Только необходимые</button>
+          <button type="button" class="cookie__btn" data-js-cookie-decline>Без аналитики</button>
           <button type="button" class="cookie__btn cookie__btn--primary" data-js-cookie-accept>Согласен</button>
         </div>
       </div>
