@@ -66,7 +66,7 @@ function createBanner() {
           <strong id="cookie-title" class="cookie__title">Мы используем cookie</strong>
           <p class="cookie__desc">
             Аналитические cookie Яндекс.Метрики включаются только с вашего согласия.
-            <a href="/cookies/" class="cookie__link">Подробнее</a>
+            <a href="/policy/" class="cookie__link">Подробнее</a>
           </p>
         </div>
         <div class="cookie__actions">
