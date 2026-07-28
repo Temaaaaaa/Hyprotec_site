@@ -1,12 +1,18 @@
 <!doctype html>
-<html lang="en">
+<html lang="ru">
 <head>
     <link rel="icon" type="image/png" href="/favicon.png" />
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Hyprotec | MudVisionRT</title>
+    <title>MudVisionRT — мониторинг бурового раствора | HYPROTEC</title>
+    <meta name="description" content="MudVisionRT — система непрерывного мониторинга параметров бурового раствора в реальном времени от HYPROTEC.">
+    <meta name="robots" content="index,follow">
+    <link rel="canonical" href="https://hyprotec.ru/mudvisionrt/">
+    <link rel="alternate" href="https://hyprotec.ru/mudvisionrt/" hreflang="ru">
+    <link rel="alternate" href="https://hyprotec.ru/en/mudvisionrt/" hreflang="en">
+    <link rel="alternate" href="https://hyprotec.ru/mudvisionrt/" hreflang="x-default">
     <link rel="stylesheet" href="../styles/main.css">
     <script type="module" src="../scripts/main.js" defer></script>
 </head>
@@ -24,7 +30,7 @@
                         <li class="header__menu-item"><a class="header__menu-link" href="#overview" aria-current="page">Описание</a></li>
                         <li class="header__menu-item header__menu-item--has-submenu">
                             <a class="header__menu-link"
-                               href="../#services-sction"
+                               href="../#services-section"
                                aria-haspopup="true"
                                aria-expanded="false">
                                 Услуги <span class="header__submenu-caret" aria-hidden="true">▾</span>
@@ -124,8 +130,7 @@
                            muted
                            playsinline
                            preload="metadata"
-                           poster="./images/tour-poster.jpg">
-                        <source src="video/tour.webm" type="video/webm">
+                           poster="../images/monitpring-hero.png">
                         <source src="../video/Hyprotec-Master-fixed.mp4" type="video/mp4">
                         Ваш браузер не поддерживает воспроизведение видео.
                     </video>
@@ -367,8 +372,8 @@
         <div class="showcase__body">
             <div class="showcase__inner container">
                 <div class="carousel" data-js-carousel data-autoplay="true" data-interval="4500">
-                    <button class="carousel__btn carousel__btn--prev" data-js-carousel-prev aria-label="Назад" disabled>‹</button>
-                    <button class="carousel__btn carousel__btn--next" data-js-carousel-next aria-label="Вперёд">›</button>
+                    <button class="carousel__btn carousel__btn--prev" type="button" data-js-carousel-prev aria-label="Назад" disabled>‹</button>
+                    <button class="carousel__btn carousel__btn--next" type="button" data-js-carousel-next aria-label="Вперёд">›</button>
 
                     <div class="carousel__viewport"
                          tabindex="0"
@@ -458,6 +463,59 @@
             </div>
         </div>
     </section>
+
+    <section class="field-results section full-vw-line full-vw-line--bottom full-vw-line--left"
+             id="field-results"
+             aria-labelledby="field-results-title">
+        <header class="section__header">
+            <div class="section__header-inner container">
+                <div class="section__header-info">
+                    <h2 class="section__title section-title" id="field-results-title">Результаты полевых работ</h2>
+                </div>
+                <div class="section__rule" aria-hidden="true"></div>
+            </div>
+        </header>
+
+        <div class="field-results__body container">
+            <p class="field-results__text">Заполните короткую форму, и после отправки вы получите ссылку на PDF-презентацию с результатами полевых работ.</p>
+            <a class="button"
+               href="https://forms.yandex.ru/cloud/6a4f7ec450569060b2990ef7"
+               target="_blank"
+               rel="noopener noreferrer"
+               data-js-form-modal-open
+               data-form-modal-target="field-results-form">
+                Скачать презентацию с результатами полевых работ
+            </a>
+        </div>
+    </section>
+
+    <dialog class="form-modal" id="field-results-form" aria-labelledby="field-results-form-title">
+        <div class="form-modal__inner">
+            <div class="form-modal__header">
+                <h2 class="form-modal__title" id="field-results-form-title">Скачать презентацию</h2>
+                <button class="form-modal__close"
+                        type="button"
+                        aria-label="Закрыть форму"
+                        data-js-form-modal-close>
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="form-modal__body">
+                <iframe class="form-modal__frame"
+                        title="Форма для получения презентации MudVisionRT"
+                        name="ya-form-6a4f7ec450569060b2990ef7"
+                        data-src="https://forms.yandex.ru/cloud/6a4f7ec450569060b2990ef7?iframe=1"
+                        loading="lazy"></iframe>
+            </div>
+            <p class="form-modal__fallback">
+                Если форма не открылась,
+                <a href="https://forms.yandex.ru/cloud/6a4f7ec450569060b2990ef7"
+                   target="_blank"
+                   rel="noopener noreferrer">откройте ее в новой вкладке</a>.
+            </p>
+        </div>
+    </dialog>
+
     <section class="contacts section full-vw-line full-vw-line--bottom full-vw-line--left" id="contacts" aria-labelledby="contacts-title">
         <header class="section__header">
             <div class="section__header-inner container">
@@ -482,9 +540,9 @@
 
                         <ul class="contacts__list">
                             <li><span class="muted">ООО «</span><b itemprop="name">ХАЙПРОТЕК</b><span class="muted">»</span></li>
-                            <li>ИНН: <a href="#" rel="nofollow noopener">7203456345</a></li>
-                            <li>КПП: <a href="#" rel="nofollow noopener">720301001</a></li>
-                            <li>ОГРН: <a href="#" rel="nofollow noopener">1187232020722</a></li>
+                            <li>ИНН: <span>7203456345</span></li>
+                            <li>КПП: <span>720301001</span></li>
+                            <li>ОГРН: <span>1187232020722</span></li>
                             <li itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
                                 <meta itemprop="postalCode" content="625000">
                                 <span class="muted">625000, Тюменская область, г. Тюмень,</span><br>

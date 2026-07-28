@@ -85,11 +85,14 @@
     @include square(var(--circleSize));
     @include abs-y;
 
-    content: '';
+    content: '↗';
+    display: grid;
+    place-items: center;
     right: 0;
-    background:
-            url('../../icons/arrow-top-right_black.svg') center no-repeat
-            var(--color-accent);
+    color: var(--color-dark);
+    background: var(--color-accent);
     border-radius: 50%;
+    font-size: calc(var(--circleSize) * 0.45);
+    line-height: 1;
   }
 }

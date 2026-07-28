@@ -33,15 +33,36 @@ function initOfferingAccordion(){
     const root=document.querySelector('[data-js-offering]'); if(!root) return;
     const multi=root.getAttribute('data-multiple')==='true';
     const items=[...root.querySelectorAll('.offering__item')];
-    items.forEach(i=>{const p=i.querySelector('.offering__panel'); p.style.height='0px'; p.setAttribute('aria-hidden','true'); i.querySelector('.offering__header').setAttribute('aria-expanded','false');});
+    const setOpen=(item,open)=>{
+        const panel=item.querySelector('.offering__panel');
+        const header=item.querySelector('.offering__header');
+        if(!panel||!header) return;
+        header.setAttribute('aria-expanded',String(open));
+        panel.setAttribute('aria-hidden',String(!open));
+        item.classList.toggle('is-open',open);
+    };
+    items.forEach(item=>{
+        const panel=item.querySelector('.offering__panel');
+        if(!panel) return;
+        panel.style.height='0px';
+        setOpen(item,false);
+    });
     root.addEventListener('click',e=>{
         const h=e.target.closest('.offering__header'); if(!h) return;
         const it=h.closest('.offering__item'), p=it.querySelector('.offering__panel'), c=it.querySelector('.offering__content');
-        const toggle=(open)=>{h.setAttribute('aria-expanded',open); p.setAttribute('aria-hidden',!open); it.classList.toggle('is-open',open);};
-        if(!multi) items.forEach(x=>x!==it&&x.classList.contains('is-open')&&(x.querySelector('.offering__panel').style.height=x.querySelector('.offering__content').scrollHeight+'px',requestAnimationFrame(()=>x.querySelector('.offering__panel').style.height='0px'),toggle.call(null,false),x.classList.remove('is-open')));
+        if(!it||!p||!c) return;
+        if(!multi) items.forEach(x=>{
+            if(x===it||!x.classList.contains('is-open')) return;
+            const otherPanel=x.querySelector('.offering__panel');
+            const otherContent=x.querySelector('.offering__content');
+            if(!otherPanel||!otherContent) return;
+            otherPanel.style.height=otherContent.scrollHeight+'px';
+            requestAnimationFrame(()=>{otherPanel.style.height='0px';});
+            setOpen(x,false);
+        });
         const isOpen=it.classList.contains('is-open');
-        if(isOpen){p.style.height=c.scrollHeight+'px'; requestAnimationFrame(()=>p.style.height='0px'); toggle(false);}
-        else{p.style.height='0px'; requestAnimationFrame(()=>{p.style.height=c.scrollHeight+'px';}); p.addEventListener('transitionend',e=>{if(e.propertyName==='height') p.style.height='auto'},{once:true}); toggle(true);}
+        if(isOpen){p.style.height=c.scrollHeight+'px'; requestAnimationFrame(()=>p.style.height='0px'); setOpen(it,false);}
+        else{p.style.height='0px'; requestAnimationFrame(()=>{p.style.height=c.scrollHeight+'px';}); p.addEventListener('transitionend',e=>{if(e.propertyName==='height') p.style.height='auto'},{once:true}); setOpen(it,true);}
     });
 }
 initOfferingAccordion();
@@ -64,5 +85,52 @@ document.querySelectorAll('.hero__subtitle--type').forEach(el => {
     el.style.setProperty('--type-chars', n.toString());     // ставим в CSS-переменную
 });
 
+function initFormModals() {
+    document.querySelectorAll('[data-js-form-modal-open]').forEach((trigger) => {
+        const modalId = trigger.getAttribute('data-form-modal-target');
+        const modal = modalId ? document.getElementById(modalId) : null;
+        if (!modal) return;
 
+        const frame = modal.querySelector('[data-src]');
+        const closeButtons = modal.querySelectorAll('[data-js-form-modal-close]');
+        let lastFocus = null;
+
+        const closeModal = () => {
+            if (modal.open) modal.close();
+            document.documentElement.classList.remove('is-lock');
+            lastFocus?.focus?.();
+        };
+
+        trigger.addEventListener('click', (event) => {
+            if (typeof modal.showModal !== 'function') return;
+
+            event.preventDefault();
+            lastFocus = document.activeElement;
+
+            if (frame && !frame.getAttribute('src')) {
+                frame.setAttribute('src', frame.dataset.src);
+            }
+
+            modal.showModal();
+            document.documentElement.classList.add('is-lock');
+        });
+
+        closeButtons.forEach((button) => button.addEventListener('click', closeModal));
+
+        modal.addEventListener('click', (event) => {
+            if (event.target === modal) closeModal();
+        });
+
+        modal.addEventListener('cancel', (event) => {
+            event.preventDefault();
+            closeModal();
+        });
+
+        modal.addEventListener('close', () => {
+            document.documentElement.classList.remove('is-lock');
+        });
+    });
+}
+
+initFormModals();
 

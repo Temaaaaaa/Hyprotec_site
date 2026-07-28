@@ -1,0 +1,133 @@
+@use '../helpers' as *;
+
+.field-results__body {
+  display: grid;
+  gap: rem(20);
+  justify-items: start;
+}
+
+.field-results__text {
+  max-width: rem(760);
+  margin: 0;
+  color: var(--color-dark-900);
+  line-height: 1.7;
+  @include fluid-text(20, 16);
+}
+
+.form-modal {
+  width: min(calc(100% - rem(32)), rem(760));
+  max-height: min(90vh, rem(860));
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+  border-radius: rem(18);
+  background: var(--color-white);
+  color: var(--color-dark);
+  box-shadow: 0 rem(24) rem(80) rgba(0, 0, 0, .24);
+
+  &::backdrop {
+    background: rgba(0, 0, 0, .58);
+  }
+
+  @include mobile {
+    width: calc(100% - rem(20));
+    max-height: 92vh;
+    border-radius: rem(14);
+  }
+}
+
+.form-modal__inner {
+  display: grid;
+  max-height: inherit;
+  grid-template-rows: auto minmax(rem(420), 1fr) auto;
+}
+
+.form-modal__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: rem(16);
+  padding: rem(18) rem(20);
+  border-bottom: rem(1) solid rgba(0, 0, 0, .1);
+}
+
+.form-modal__title {
+  margin: 0;
+  font-family: var(--font-family-accent), sans-serif;
+  font-weight: 500;
+  line-height: 1.2;
+  @include fluid-text(28, 20);
+}
+
+.form-modal__close {
+  appearance: none;
+  display: inline-grid;
+  place-items: center;
+  flex: 0 0 rem(40);
+  width: rem(40);
+  height: rem(40);
+  border: rem(1) solid rgba(0, 0, 0, .12);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--color-dark-900);
+  cursor: pointer;
+  font: inherit;
+  line-height: 1;
+  transition: background-color var(--transition-duration), border-color var(--transition-duration);
+
+  &::before,
+  &::after {
+    content: none;
+  }
+
+  span {
+    display: block;
+    margin-top: rem(-2);
+    font-size: rem(30);
+    font-weight: 300;
+    line-height: 1;
+  }
+
+  @include hover {
+    border-color: var(--color-accent);
+    background: color-mix(in oklab, var(--color-accent) 10%, white);
+    color: var(--color-accent);
+  }
+
+  &:focus-visible {
+    outline: rem(3) solid color-mix(in oklab, var(--color-accent) 30%, transparent);
+    outline-offset: rem(2);
+  }
+}
+
+.form-modal__body {
+  min-height: rem(420);
+  overflow: hidden;
+}
+
+.form-modal__frame {
+  display: block;
+  width: 100%;
+  height: min(70vh, rem(680));
+  min-height: rem(420);
+  border: 0;
+
+  @include mobile {
+    height: 68vh;
+    min-height: rem(440);
+  }
+}
+
+.form-modal__fallback {
+  margin: 0;
+  padding: rem(14) rem(20) rem(18);
+  color: var(--color-gray);
+  line-height: 1.5;
+  @include fluid-text(14, 13);
+
+  a {
+    color: var(--color-accent);
+    text-decoration-thickness: rem(1);
+    text-underline-offset: rem(3);
+  }
+}

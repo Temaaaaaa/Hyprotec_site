@@ -30,8 +30,8 @@
 
     // --- Стилизация вложенных элементов (так как это "простыня" текста) ---
 
-    // Заголовки разделов (1. Введение, 2. Сбор данных...)
-    h3 {
+    // Заголовки разделов
+    h2 {
       @include fluid-text(24, 20);
       font-weight: 600;
       color: var(--color-dark);
@@ -40,7 +40,9 @@
       margin-top: rem(48);
       margin-bottom: rem(16);
 
-      &:first-child { margin-top: 0; }
+      &:first-child {
+        margin-top: 0;
+      }
     }
 
     // Абзацы

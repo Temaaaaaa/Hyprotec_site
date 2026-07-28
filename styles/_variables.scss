@@ -3,9 +3,13 @@
 
 :root {
   --color-white: #FFFF;
+  --color-light: #FFFF;
   --color-dark: #141414;
+  --color-dark-15: rgba(20, 20, 20, 0.15);
+  --color-dark-700: #495155;
   --color-white-secondary: #F5FAF6;
   --color-gray: #9D9B99;
+  --color-gray-400: #a9b0ba;
   --color-accent: #E73439;
   --color-gray-300: #c7cbd1;
   --color-dark-900: #22292b;
@@ -17,11 +21,13 @@
   --container-padding-x: #{rem(16)};
 
   --transition-duration: 0.2s;
+  --transition-fast: 0.25s;
+  --100vw: 100vw;
 
   --border: #{rem(1)} solid var(--color-accent);
 
   @include laptop {
-    --container-width: #{rem(1280)}
+    --container-width: #{rem(1280)};
   }
 
 }

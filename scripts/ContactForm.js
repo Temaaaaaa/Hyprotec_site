@@ -92,7 +92,7 @@ export default class ContactForm {
         return len > 0 && len < 11;
     }
 
-    formatPhone(digits) {
+    formatPhone(digitsRaw) {
         // Оставляем только цифры
         let d = String(digitsRaw || '').replace(/\D+/g, '');
 

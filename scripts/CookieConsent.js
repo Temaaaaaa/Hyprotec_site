@@ -53,6 +53,23 @@ function createBanner() {
   let banner = document.getElementById("cookie-banner");
 
   if (!banner) {
+    const isEnglish = document.documentElement.lang.toLowerCase().startsWith("en");
+    const copy = isEnglish
+      ? {
+          title: "We use cookies",
+          description: "Yandex Metrica analytics cookies are enabled only with your consent.",
+          details: "Learn more",
+          decline: "No analytics",
+          accept: "Accept",
+        }
+      : {
+          title: "Мы используем cookie",
+          description: "Аналитические cookie Яндекс.Метрики включаются только с вашего согласия.",
+          details: "Подробнее",
+          decline: "Без аналитики",
+          accept: "Согласен",
+        };
+
     banner = document.createElement("div");
     banner.className = "cookie";
     banner.id = "cookie-banner";
@@ -63,15 +80,15 @@ function createBanner() {
     banner.innerHTML = `
       <div class="cookie__inner container">
         <div class="cookie__text">
-          <strong id="cookie-title" class="cookie__title">Мы используем cookie</strong>
+          <strong id="cookie-title" class="cookie__title">${copy.title}</strong>
           <p class="cookie__desc">
-            Аналитические cookie Яндекс.Метрики включаются только с вашего согласия.
-            <a href="/policy/" class="cookie__link">Подробнее</a>
+            ${copy.description}
+            <a href="/policy/" class="cookie__link">${copy.details}</a>
           </p>
         </div>
         <div class="cookie__actions">
-          <button type="button" class="cookie__btn" data-js-cookie-decline>Без аналитики</button>
-          <button type="button" class="cookie__btn cookie__btn--primary" data-js-cookie-accept>Согласен</button>
+          <button type="button" class="cookie__btn" data-js-cookie-decline>${copy.decline}</button>
+          <button type="button" class="cookie__btn cookie__btn--primary" data-js-cookie-accept>${copy.accept}</button>
         </div>
       </div>
     `;
